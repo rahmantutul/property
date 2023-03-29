@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        // $schedule->command('sparkapi:cron')->timezone('America/Chicago')->twiceDaily(1, 13);
-        $schedule->command('sparkapi:cron')->everyTwoMinutes();
+        $schedule->command('sparkapi:cron')->timezone('America/Chicago')->twiceDaily(1, 13);
+        // $schedule->command('sparkapi:cron')->everyTwoMinutes();
     }
 
     /**
