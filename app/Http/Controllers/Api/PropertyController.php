@@ -43,9 +43,9 @@ class PropertyController extends Controller
             ]);
             // return response()->json($dataList['value'][0]);
 
-            DB::beginTransaction();
             //try catch block for property add from api
             try {
+                DB::beginTransaction();
                 //property table trunacate
                 Schema::disableForeignKeyConstraints();
                 DB::table('properties')->truncate();
@@ -74,9 +74,9 @@ class PropertyController extends Controller
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);
+                    DB::commit();
                 }
 
-                    DB::commit();
             } catch (ClientErrorResponseException $e) {
                 DB::rollback();
                 \log($e->getMessage());
