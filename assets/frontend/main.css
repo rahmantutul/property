@@ -1,0 +1,1088 @@
+.main_menu ul {margin-top: 1rem !important;}
+.main_menu ul li{float: left; margin-left: 11px; list-style: none;}
+.main_menu ul li a{    
+    text-decoration: none;
+    color: navy;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.main_menu ul li a:hover{color: red;}
+.mobile-ico{display:none !important;}
+.login-signup-menu ul {margin-top: 1rem !important;}
+.login-signup-menu ul li{float: left; margin-left: 12px; list-style: none;}
+.login-signup-menu ul li a{    
+    text-decoration: none;
+    color: navy;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.login-signup-menu ul li a:hover{color: red;}
+
+/************* Search Box ******************/
+.search-bar {
+    max-width: 720px;
+    margin: 0 auto;
+}
+.f-left{float: left;}
+.from-exp{border-radius: 0px !important; border: 1px solid #ffffff !important; }
+
+/************ Search Form *******************/
+
+.search_heading h2{
+    margin-top: 200px;
+    margin-bottom: 25px;
+    text-align: center;}
+
+.search-form {
+    width: 720px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgba(180,180,180,.66);
+    padding: 8px;
+    position: relative;
+}
+
+.search-form form {
+    margin: 0;
+}
+
+.search-form input[type="text"]{
+    padding: 8px 10px;
+    border: none;
+    margin-right: 1px;
+    width: 300px;
+}
+.search-form select {
+    margin-left: 8px;
+    padding: 8px 10px;
+    border: none;
+    margin-right: 1px;
+    width: 140px;
+    margin-left: 10px
+}
+
+.search-form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.search-form button[type="submit"] {
+    padding: 8px 10px;
+    background-color: #e04242;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-form button[type="submit"]:hover {
+    background-color: #e04242;
+}
+
+.search-form-section-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0px 0px 0px 8px;
+}
+
+
+.expand-btn {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.search-form-section-2 {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 
+        .5s ease-out;
+}
+
+.search-form-section-2.show {
+    max-height: 200px;
+}
+
+.search-form-options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-form-options select {
+    width: 100%;
+    height: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.search-form-price-range label {
+    display: block;
+    margin-bottom: 1px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.search-form-price-range input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.search-form::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: .4;
+    z-index: -1;
+}
+
+
+/****************Search Form section 02********************/
+.search-form-price-range{width:300px;}
+.property_types{width:140px; margin-right: 50px;}
+.for_sale{width:140px; margin-right: 15px;}
+
+.property_types select {
+    padding: 8px 14px;
+    border: none;
+    margin-right: 1px;
+    width: 140px;
+}
+
+.for_sale select {
+    padding: 8px 14px;
+    border: none;
+    margin-right: 1px;
+    width: 140px;
+}
+
+/******************* Featured Properties ********************/
+.featured_properties_heading{
+    text-align: center;
+    margin-top: 59px;
+    margin-bottom: 25px;
+    color: #ffffff;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width:95%;
+    margin: 0 auto;
+}
+
+.carousel-slider {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-card {
+    /**flex: 0 0 23%;**/
+    flex: 0 0 400px;
+    margin: 0px;
+    text-align: center;
+    height: 340px; 
+    border: solid 1px #e5e5e5; 
+    overflow: hidden; 
+    background: #f1f1f1;
+}
+
+.carousel-card img {
+    width: 100%;
+    height: auto;
+}
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+.see_all_featured_list{width:180px; margin: 0px auto; margin-top: 20px;}
+.seealll{background: red;}
+/******************* carousel-card **********************/
+
+/*** .card_image{width: 100%; height: 265px; position: relative;}
+.for_sale_tag{position: absolute; top: 10px; left: 10px; background-color: red; color: white; padding: 5px;}
+.card2_div{width: 100%; padding: 10px; box-sizing: border-box; align-items: center;}
+.card2_div h5{width: 100%;}
+.card2_3icon{display: flex; align-items: flex-start; justify-content: space-between; margin: 7px 15px 5px 15px;}
+.icon1_div{display: flex; align-items: center;}
+
+.cardfixedwidth button{margin-top:-25px;} ***/
+
+.image-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.image-box:hover .hover-content {
+    visibility: visible;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100% !important;
+}
+
+.hover-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(238, 64, 74, 0.8);
+    transition: visibility 0s, opacity 0.5s ease-in-out;
+}
+
+.hover-content h5 {
+    margin-top: 0;
+    font-family:inherit;
+    font-weight: 600;
+    font-size: 15px;
+    color:#ffffff;
+    text-transform: uppercase;
+}
+
+.hover-content h2 {
+    margin-top: 0;
+    font-family: oswald;
+    font-weight: 100;
+    font-size: 25px;
+    color: #ffffff;
+    padding: 0px 20px;
+    text-transform: uppercase;
+}
+
+.hover-content button {
+    background-color: #fff;
+    color: red;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.learn_more_btn{text-transform: uppercase;color:#ffffff;margin-top:20px;cursor: pointer;text-decoration:none;font-size:13px;}
+
+.learn_more_btn:hover{text-decoration:none;color:#ffffff;}
+
+
+.left_btn{padding: 10px 8px 10px 10px; color: #ffffff; border: #ffffff 2px solid;}
+.right_btn{padding: 10px 10px 10px 8px; color: #ffffff; border: #ffffff 2px solid; margin-left: -2px;}
+
+a:hover .right_btn{background: #c30000;}
+
+
+
+
+/********** Featured List Page **************/
+.featured_list{width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding: 80px 20px;
+}
+.overlay {
+    position: relative;
+}
+
+.overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.overlay h1, .overlay ul, .overlay p {
+    position: relative;
+    z-index: 1;
+}
+
+.featured_list h1{
+    color: #ffffff;
+    text-align: center;
+    padding: 80px 5px 10px 5px;
+    letter-spacing: 2px;
+    font-family: oswald;
+    font-size: 35px;
+    text-transform: uppercase;
+}
+.featured_list ul{align-items: center; text-align: center;}
+.featured_list ul li{list-style: none; display: inline-block;}
+.featured_list ul li a{text-decoration: none; color: #ffffff; padding: 5px 8px; border: #c30000 1px solid;text-transform: uppercase; font-weight:400;font-family: oswald; font-size:12px;}
+
+.featured_list p{padding: 10px 10%; color: #ffffff; text-align:center;font-size:16px;font-family: oswald;}
+
+
+.featured_list{width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding: 80px 20px;
+}
+
+
+.featured_list_box{
+    width:100%;
+    padding: 35px 20px;
+}
+
+
+/************* Neighbourhood Profiles *******/
+.save_properties{padding: 4px 8px; background: #ffffff; color: #c30000; margin-top: 15px;}
+a.save_properties:hover{text-decoration: none !important; background: #f5f5f5;}
+
+.featured_list ul{padding-left: 0px !important;}
+
+/************* Neighbourhood Single Profiles *******/
+.fancy-wrap {
+    display: -webkit-flex;
+    display: flex;
+    border-left: 2px solid #ee404a;
+    border-top: 2px solid #ee404a;
+    border-bottom: 2px solid #ee404a;
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+.fancy-icon {
+    padding: 10px 10px;
+    min-width: 60px;
+}
+.fancy-title {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    border-left: 2px solid #ee404a;
+    padding: 8px 15px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.hood-section p{text-align: justify;font-family: 'Roboto', sans-serif;
+    color: #000;
+    line-height: 1.5;}
+
+
+/******** Form ***************/
+.neighbour_form{
+    padding:35px;  
+    background-color: #d3d6d7;
+    border-radius: 4px;
+    margin-top: 25px;
+}
+.neighbour_form h2{color:#ee404a;font-size:19px;font-weight:700; text-align:center;}
+
+.neighbour_form h6{color:#686868;font-size:14px;text-align:center;margin:15px 0px;}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%;
+}
+
+.neighbour_form button[type="submit"] {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #ee404a;
+    border: none;
+    border-radius: 0.25rem;
+    color: #fff;
+    width:100%;
+}
+
+
+/*************** Property Search Results Page ********/
+
+.search_box_filter {
+    width: 93%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 90px;
+    display: block;
+}
+.listing-search-form{width: 100%;display: block;}
+.adv_search-form {
+    display: inline-flex;
+    flex-wrap: wrap;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.adv_search-form select,.adv_search-form input[type="text"] {
+    border: 2px solid #888;
+    padding: 8px;
+    font-size: 16px;
+    flex-basis: calc((100% / 7) - 10px);
+}
+
+.adv_search-form select {
+    width: 100px;
+}
+
+.adv_search-form input[type="text"] {
+    width: 200px;
+}
+
+
+
+
+.filter_adv_search{width:100%;}
+
+
+.filter_adv_search .button-group {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    margin: 0px auto;
+}
+
+.filter_adv_search .toggle-button {
+    display: flex;
+    align-items: center;
+    margin: 12px 50px;
+}
+
+.filter_adv_search .toggle-button span {
+    margin-right: 0px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0px 20px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #e3202f;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+/* Style the search button */
+
+.search-button {
+    background-color: black;
+    margin-right: 20px;
+}
+
+.search-button button {
+    color: #fcfbfb;
+    padding: 8px 65px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #2c2a79;
+}
+
+
+.search_listing{
+    width: 93%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 30px;
+    display: block;}
+
+.srl_card{width:100%; height: 350px; background: #f5f5f5; border: #d6d6d6 2px solid;}
+
+.srl_card h6{font-size:13px;}
+.srl_card h6 i{color: red;}
+.lmb2{border-color: red !important; color:red!important;margin-top:5px;}
+
+
+
+
+/********** Agent List Page **************/
+
+.agent_list{width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding: 60px 10px;
+}
+.agent_list h1{
+    color: #ffffff;
+    text-align: center;
+    padding: 60px 5px 5px 5px;
+    letter-spacing: 2px;
+    font-family: oswald;
+    font-size: 35px;
+    text-transform: uppercase;
+}
+.agent_list p{padding: 5px 10%; color: #ffffff; text-align:center;font-size:16px;font-family: oswald;}
+
+.agent_card{height:430px; border-radius:5px;box-shadow: 2px 2px 6px #888888;}
+
+.agent_card_banner{height:120px;background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;}
+
+.agent_image{width:25%;float: left;}
+
+.agent_list_profile {
+    height: 100px;
+    width: 60px;
+    border-radius: 5px;
+    position: relative;
+    margin-left: 15px;
+}
+
+.agent_list_profile img {
+    width: 100%;
+    height: 80px;
+    border-radius: 5px;
+    border: 2px solid #ff000f;
+    margin-top: 22px;
+}
+
+.agent_name_title{
+    height: 80px;
+    width: 73%;
+    margin-left: 2%;
+    float: left;
+    position: relative;
+}
+.agent_name_title h4{
+    color: #ffffff;margin-top:25px;margin-bottom:0px !important; font-size: 20px;
+}
+.agent_name_title h6{
+    color: #ff000f;margin-top:0px !important;font-size: 14px;
+}
+.agent_name_title ul{ 
+    float: right;
+    margin-right: 6px;
+    background: #2c2a79;
+    bottom: -10px !important;
+    border-radius: 10px 10px 0px 0px;
+}
+.agent_name_title ul li{float:left;list-style:none; margin-right: 10px; }
+.agent_name_title ul li a{color: #ffffff !important; font-size: 17px;text-decoration:none;}
+.agent_name_title ul li a:hover{color: #ff000f !important;}
+
+.account_details{width:100%; padding: 14px 20px;}
+.account_details h5{text-align: center; border-bottom: #cbcbcb 2px solid;padding-bottom:5px; }
+.account_details h6{border-bottom: #e0e0e0 1px solid; font-size:14px; color: #555555;}
+.account_details h6 b{margin-right: 10px;}
+
+
+.view_agent_profile a{padding: 5px 25px; color: #ffffff; background: #2c2a79; text-align:center; border-radius:5px;text-decoration:none;}
+.view_agent_profile a:hover{background: #ff000f;text-decoration:none;}
+.view_agent_profile {text-align:center;}
+
+
+/******* Agent Single Page **************/
+
+.agent_single{width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding: 150px 30px 20px 30px;
+}
+
+.agent_single p{padding: 5px 10%; color: #ffffff; text-align:center;font-size:16px;font-family: oswald;}
+
+
+.agent_single_bnr_image{width:120px; float: left;}
+.agent_single_bnr_image img{width:100px; border: 2px solid #bfbfbf;}
+.agent_single_bnr_title{width:100%-120px; float: left;}
+.agent_single_bnr_title h4{color: #ffffff;
+    padding: 60px 5px 5px 5px;
+    letter-spacing: 2px;
+    font-family: oswald;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+.agent_single_bnr_title h6{color: #ffffff;
+    padding: 2px 5px 5px 5px;
+    letter-spacing: 2px;
+    font-family: oswald;
+    font-size: 14px;
+    text-transform: uppercase;}
+.agent_single_bnr_icon{}
+
+.agent_all_title{border-bottom:2px solid red;padding-bottom: 5px;}
+.agent_all_title_box{background:red;padding: 5px 15px; color:#ffffff;border-radius: 7px 7px 0px 0px;}
+
+.agent_single_details{
+    width:96%;margin: 0px auto;
+}
+
+.agent_details_text p{color: #444444; text-align:justify;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************** Log In******************/
+.login_section{margin-top: 100px; width:100%; margin-bottom: 50px}
+.container_login {
+    width: 380px;
+    height: auto;
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #888888;
+}
+
+.login_section .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff5a60;
+    border-bottom: 1px solid #f5f5f5;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login_section .signup_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff5a60;
+    border-bottom: 1px solid #f5f5f5;
+    text-align: center;
+}
+
+.login_section .label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.login_section input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.login_section .forgot {
+    color: #ff5a60;
+    margin-bottom: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login_section .signup {
+    color: #ff5a60;
+    font-weight: bold;
+
+}
+
+.signup_link{text-align: center;}
+
+.login_section .button {
+    background-color: #ff5a60;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus{
+    border-color: red;
+    outline: #ffffff;
+}
+select option:hover {
+    background-color: #ff5a60;
+}
+
+
+/**************** Mobile Menu **********/
+.sidepanel  {
+    width: 0;
+    position: fixed;
+    z-index: 100;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #f2f2f2;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidepanel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.sidepanel a:hover {
+    color: #e04242;
+}
+
+.sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    margin-top: 60px;
+    right: 25px;
+    font-size: 36px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #e04242;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    margin-right: 10px;
+}
+
+.openbtn:hover {
+    background-color:#444;
+}
+
+
+.mobile_menu{display:none;}
+
+.sl_btn{padding: 5px; background:#e04242; color: #ffffff !important;margin:10px 25px; border-radius:3px; text-align: center; }
+
+/******** Menu Responsive css ******/
+
+@media (max-width: 576px) {
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .mobile_menu{display:block;}
+
+    #desktop{
+        display: none !important;
+    }
+    .search_heading h2 {
+        margin-top: 60px;
+        margin-bottom: 18px;
+        text-align: center;
+        font-size: 22px;
+    }
+    .search-form{width:95%;}
+    .search-form input[type="text"] {
+        width: 97%;
+    }
+    .search-form-section-1 {
+        display: block;
+        align-items: center;
+        background-color: transparent;
+    }
+    .search-form select {
+        padding: 8px 10px;
+        border: none;
+        margin-right: 4px;
+        width: 47%;
+        margin-left: 0px;
+        margin-top: 8px;
+    }
+    .search-form button[type="submit"] {
+        padding: 8px 10px;
+        background-color: #e04242;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-left: 0px;
+        width: 97%;
+        margin-top: 8px;
+        border-radius: 5px;
+    }
+    .expand-btn {
+        font-size: 18px;
+        cursor: pointer;
+        float: right;
+        margin-top: -80px;
+        margin-right: 20px;
+        background: #ffffff;
+    }
+    .for_sale {
+        width: 49%;
+        margin-right: 5px;
+    }
+    .search-form-section-2.show {
+        padding: 0px 8px;
+    }
+    .property_types {
+        width: 49%;
+        margin-right: 0px;
+    }
+    #spe_sel1{
+        width:100% !important;
+    }
+    #spe_sel2{
+        width:100% !important;
+    }
+    .search-form-price-range {
+        width: 100%;
+    }
+    #ic_3{margin-bottom: -33px;
+        margin-left: 10px;}
+    .search-form input[type="text"] {
+        padding: 8px 36px;
+    }
+
+    .featured_properties_heading {
+        text-align: center;
+        margin-top: 24px;
+        margin-bottom: 16px;
+        color: #ffffff;
+        font-size: 22px;
+    }
+    .carousel-card {
+        height: 275px;
+    }
+    .see_all_featured_list {
+        width: 158px;}
+
+    .hover-content {
+        width: 83%;
+    }
+    .agent_name_title ul{ 
+        float: right;
+        margin-right: 10px;
+        background: #2c2a79;
+        bottom: -11px !important;
+        border-radius: 10px 10px 0px 0px;
+    }
+}
+
+
+
+
+@media @media (min-width: 576px) and (max-width: 830px) {
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .mobile_menu{display:block;}
+    #desktop{
+        display: none !important;
+    }
+    .search_heading h2 {
+        margin-top: 250px;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 45px;
+    }
+    .search-form{width:90%;
+        padding: 36px 28px;
+    }
+    .search-form input[type="text"] {
+        width: 97%;
+    }
+    .search-form-section-1 {
+        display: block;
+        align-items: center;
+        background-color: transparent;
+    }
+    .search-form select {
+        padding: 8px 10px;
+        border: none;
+        margin-right: 0px;
+        width: 48%;
+        margin-left: 0px;
+        margin-top: 8px;
+    }
+    .search-form button[type="submit"] {
+        padding: 8px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-left: 0px;
+        width: 97%;
+        margin-top: 8px;
+        border-radius: 5px;
+    }
+    .expand-btn {
+        font-size: 18px;
+        cursor: pointer;
+        float: right;
+        margin-top: -80px;
+        margin-right: 20px;
+        background: #ffffff;
+    }
+    .for_sale {
+        width: 49%;
+        margin-right: 5px;
+    }
+    .search-form-section-2.show {
+        padding: 0px 8px;
+    }
+    .property_types {
+        width: 49%;
+        margin-right: 0px;
+    }
+    #spe_sel1{
+        width:100% !important;
+    }
+    #spe_sel2{
+        width:100% !important;
+    }
+    .search-form-price-range {
+        width: 100%;
+    }
+    #ic_3{margin-bottom: -33px;
+        margin-left: 10px;}
+    .search-form input[type="text"] {
+        padding: 8px 36px;
+    }
+    .agent_name_title ul{ 
+        float: right;
+        margin-right: -48px;
+        background: #2c2a79;
+        bottom: -11px !important;
+        border-radius: 10px 10px 0px 0px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

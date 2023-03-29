@@ -1,0 +1,1 @@
+property_type_list.blade.php

@@ -1,0 +1,1 @@
+property_type_create.blade.php
