@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as LoginController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -29,7 +30,7 @@ Route::get('/clear-cache', function() {
     return "Cache is cleared";
 });
 
-Route::get('/',[FrontendController::class,'home'])->name('home');
+Route::get('/',[FrontendController::class,'home'])->name('front.home');
 
 Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/user-login',[FrontendController::class,'login'])->name('login');
@@ -53,4 +54,8 @@ Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix'=>'agent/message','as'=>'agent.message.'],function(){
+    Route::post('/',[AgentContactController::class,'store'])->name('store');
+});
 

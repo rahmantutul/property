@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         Agent::factory(100)->create();
         Buyer::factory(100)->create();
         Seller::factory(100)->create();
-        Banner::factory(50)->create();
+        // Banner::factory(50)->create();
         AmenityType::factory(50)->create();
         Category::factory(50)->create();
         City::factory(50)->create();

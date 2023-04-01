@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\DashboardController;
 use App\Http\Controllers\Agent\HelpDeskController;
@@ -77,5 +78,9 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 		Route::get('edit',[AgentController::class,'editProfile'])->name('editProfile');
 		Route::post('update',[AgentController::class,'updateProfile'])->name('updateProfile');
 	});
-
+	Route::group(['prefix'=>'message','as'=>'message.'],function(){
+		Route::get('index',[AgentContactController::class,'index'])->name('index');
+		Route::get('/{dataId}/view',[AgentContactController::class,'view'])->name('view');
+		Route::delete('{dataId}/delete',[AgentContactController::class,'destroy'])->name('destroy');	
+	});
 });	

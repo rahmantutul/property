@@ -1,1 +1,0 @@
-banner_list.blade.php

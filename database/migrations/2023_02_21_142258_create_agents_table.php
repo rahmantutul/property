@@ -28,7 +28,7 @@ class CreateAgentsTable extends Migration
             $table->string('about')->nullable();
             $table->string('address',2000)->nullable();
             $table->datetime('verified_at')->nullable();
-            $table->tinyInteger('is_appoved')->default(0);
+            $table->tinyInteger('is_approved')->default(0);
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->rememberToken();
             $table->timestamps();

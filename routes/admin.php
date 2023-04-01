@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\NeighbourController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AmenityTypeController;
-use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
@@ -22,17 +21,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\Admin\WebsiteSettingController;
 
 // Auth::routes();
 
@@ -186,19 +175,14 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	// for banners
 	Route::group(['prefix'=>'banner','as'=>'banner.'],function(){
 
-		Route::get('/',[BannerController::class,'index'])->name('index');
+		Route::get('/',[WebsiteSettingController::class,'banner'])->name('edit');
+		Route::post('/update',[WebsiteSettingController::class,'bannerupdate'])->name('update');
+	});
 
-		Route::get('{dataId}/status/{status}/change',[BannerController::class,'changeStatus'])->name('status.change');
-
-		Route::get('/{dataId}/edit',[BannerController::class,'edit'])->name('edit');
-
-		Route::post('/update',[BannerController::class,'update'])->name('update');
-
-		Route::post('/',[BannerController::class,'store'])->name('store');
-
-		Route::get('/create',[BannerController::class,'create'])->name('create');
-
-		Route::delete('/{id}',[BannerController::class,'destroy'])->name('delete');
+	// for banners
+	Route::group(['prefix'=>'info','as'=>'info.'],function(){
+		Route::get('/',[WebsiteSettingController::class,'info'])->name('edit');
+		Route::post('/update',[WebsiteSettingController::class,'infoupdate'])->name('update');
 	});
 
 	// for category

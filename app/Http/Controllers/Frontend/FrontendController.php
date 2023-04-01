@@ -85,5 +85,7 @@ class FrontendController extends Controller
 
         return view('frontend.propery_search_result',compact('dataList'));
     }
+
+    
     
 }

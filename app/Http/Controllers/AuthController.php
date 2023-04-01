@@ -104,7 +104,7 @@ class AuthController extends Controller
                     return redirect()->back();
                 }
 
-                if($agentInfo->is_approved!=1){
+                if($agentInfo->is_approved != 1){
                     Session::flash('errMsg',"Account is waiting to be approved.");
                     return redirect()->back();
                 }

@@ -2,7 +2,7 @@
     <div class="containerx">
         <div class="top-nav">
             <div class="logo">
-                <a href="{{ route('home') }}" target="_self">
+                <a href="{{ route('front.home') }}" target="_self">
                     <img src="{{asset('')}}/assets/frontend/images/logo.png" alt="US Metro Reilty">
                 </a>
             </div>

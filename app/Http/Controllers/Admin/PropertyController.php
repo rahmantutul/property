@@ -16,10 +16,10 @@ use App\Models\PropertyAddress;
 use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class PropertyController extends Controller
 {
@@ -508,5 +508,38 @@ class PropertyController extends Controller
             }
        }
        return ($count>0);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        DB::beginTransaction();
+        $dataInfo=Property::find($request->dataId);
+
+        if(!empty($dataInfo)) {
+
+          $dataInfo->status=$request->status;
+          
+          $dataInfo->updated_at=Carbon::now();
+
+          if($dataInfo->save()){
+
+                $note=$dataInfo->id."=> ".$dataInfo->name." Property status changed by ".Auth::guard('admin')->user()->name;
+
+                $this->storeSystemLog($dataInfo->id, 'admins',$note);
+
+                DB::commit();
+
+                return response()->json(['status'=>true ,'msg'=>' Property Status Changed Successfully.!','url'=>url()->previous()]);
+            }
+            else{
+
+                 DB::rollBack();
+
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Change Status!']);
+            }
+        }
+        else{
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+        }
     }
 }
