@@ -39,7 +39,7 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/property',[FrontendController::class,'property'])->name('property');
     Route::get('/signup',[FrontendController::class,'signup'])->name('signup');
     Route::get('/property/search',[FrontendController::class,'searchProperty'])->name('propertySearch');
-    Route::get('/property/page/search',[SearchController::class,'searchProperty'])->name('propertySearch');
+    Route::post('/property/page/search',[SearchController::class,'searchProperty'])->name('propertyPageSearch');
     Route::get('/agents',[FrontendController::class,'agents'])->name('agents');
     Route::get('/{dataId}/agents-details',[FrontendController::class,'agentDetails'])->name('agentDetails');
 });

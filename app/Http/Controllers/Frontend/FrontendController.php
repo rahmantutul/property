@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Agent;
 use App\Models\Banner;
-use Illuminate\Http\Request;
-use App\Models\Property;
 use App\Models\Slider;
 use App\Models\WebsiteInfo;
+use App\Models\Category;
+use App\Models\Property;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
@@ -87,7 +88,10 @@ class FrontendController extends Controller
 
         $dataList=$query->orderBy('price','asc')->get();
 
-        return view('frontend.propery_search_result',compact('dataList'));
+        //categories data
+        $categories=Category::whereNull('deleted_at')->where('status',1)->get();
+
+        return view('frontend.propery_search_result',compact(['dataList', 'categories']));
     }
 
     
