@@ -33,7 +33,7 @@ class RoleController extends Controller
         if(request()->status)
             $query->where('status',request()->status);
 
-        $dataList=$query->orderBy('orderBy','asc')->paginate(100)->withQueryString();
+        $dataList=$query->paginate(100)->withQueryString();
     
         return view('admin.role_list',compact('dataList'));
     }

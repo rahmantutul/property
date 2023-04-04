@@ -31,6 +31,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Property</span>
                     </a>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('agent.property.index')}}?is_featured=1">
+                    <a class="d-flex align-items-center" href="{{route('agent.property.index')}}?is_featured=1">
+                        <i data-feather='bookmark'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
+                    </a>
+                </li>
                 <li class="nav-item {{getActiveMenuClass('agent.transection.index')}}">
                     <a class="d-flex align-items-center" href="{{route('agent.transection.index')}}">
                         <i data-feather='dollar-sign'></i>

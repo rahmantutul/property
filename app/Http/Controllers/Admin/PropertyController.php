@@ -32,8 +32,10 @@ class PropertyController extends Controller
     public function index()
     {
         $query=Property::whereNull('deleted_at')
-                    ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
-
+                ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
+        if(isset(request()->is_featured) && request()->is_featured==1)
+            $query->where('is_featured',1);
+       
         $dataList=$query->paginate(100);
 
         return view('admin.property_list',compact('dataList'));
@@ -536,6 +538,40 @@ class PropertyController extends Controller
                  DB::rollBack();
 
                  return response()->json(['status'=>false ,'msg'=>'Failed To Change Status!']);
+            }
+        }
+        else{
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+        }
+    }
+
+    public function changeFeature(Request $request)
+    {
+        // dd($request->is_featured);
+        DB::beginTransaction();
+        $dataInfo=Property::find($request->dataId);
+
+        if(!empty($dataInfo)) {
+
+          $dataInfo->is_featured=$request->is_featured;
+          
+          $dataInfo->updated_at=Carbon::now();
+
+          if($dataInfo->save()){
+
+                $note=$dataInfo->id."=> ".$dataInfo->name." Property Featured changed by ".Auth::guard('admin')->user()->name;
+
+                $this->storeSystemLog($dataInfo->id, 'admins',$note);
+
+                DB::commit();
+
+                return response()->json(['status'=>true ,'msg'=>' Property featured requested Successfully.!','url'=>url()->previous()]);
+            }
+            else{
+
+                 DB::rollBack();
+
+                 return response()->json(['status'=>false ,'msg'=>'Failed To featured!']);
             }
         }
         else{

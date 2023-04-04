@@ -43,6 +43,8 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');
 
+		Route::get('{dataId}/feature/{is_featured}/change',[PropertyController::class,'changeFeature'])->name('feature.change');
+
 		Route::get('/{dataId}/edit',[PropertyController::class,'edit'])->name('edit');
 
 		Route::post('/update',[PropertyController::class,'update'])->name('update');

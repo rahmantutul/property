@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
+use App\Http\Controllers\Admin\ResoPropertyController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 
 // Auth::routes();
@@ -270,6 +271,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/',[PropertyController::class,'index'])->name('index');
 
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');
+		
+		Route::get('{dataId}/feature/{is_featured}/change',[PropertyController::class,'changeFeature'])->name('feature.change');
 
 		Route::get('/{dataId}/edit',[PropertyController::class,'edit'])->name('edit');
 
@@ -280,6 +283,25 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/create',[PropertyController::class,'create'])->name('create');
 
 		Route::delete('{dataId}/delete',[PropertyController::class,'destroy'])->name('delete');	
+
+	});
+	Route::group(['prefix'=>'resoproperty','as'=>'resoproperty.'],function(){
+
+		Route::get('/',[ResoPropertyController::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[ResoPropertyController::class,'changeStatus'])->name('status.change');
+		
+		Route::get('{dataId}/feature/{is_featured}/change',[ResoPropertyController::class,'changeFeature'])->name('feature.change');
+
+		Route::get('/{dataId}/edit',[ResoPropertyController::class,'edit'])->name('edit');
+
+		Route::post('/update',[ResoPropertyController::class,'update'])->name('update');
+
+		Route::post('/',[ResoPropertyController::class,'store'])->name('store');
+
+		Route::get('/create',[ResoPropertyController::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[ResoPropertyController::class,'destroy'])->name('delete');	
 
 	});
 

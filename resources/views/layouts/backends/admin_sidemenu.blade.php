@@ -171,6 +171,12 @@
                                 <span class="menu-item text-truncate" data-i18n="Admin">Property List</span>
                             </a>
                         </li>
+                        <li class="{{getActiveMenuClass('admin.resoproperty.index')}}">
+                            <a class="d-flex align-items-center" href="{{route('admin.resoproperty.index')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Admin">Api Property List</span>
+                            </a>
+                        </li>
                         <li class="{{getActiveMenuClass('admin.aminetyType.index')}}">
                             <a class="d-flex align-items-center" href="{{route('admin.aminetyType.index')}}">
                                 <i data-feather="circle"></i>
@@ -207,6 +213,12 @@
                     <a class="d-flex align-items-center" href="{{route('admin.marketActivity.index')}}">
                         <i data-feather='bar-chart'></i>
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Market Activity</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('admin.property.index')}}?is_featured=1">
+                    <a class="d-flex align-items-center" href="{{route('admin.property.index')}}?is_featured=1">
+                        <i data-feather='bookmark'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
                     </a>
                 </li>
 

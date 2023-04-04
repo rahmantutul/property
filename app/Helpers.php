@@ -16,6 +16,10 @@ function getUserImage($url)
 {
     return (!is_null($url)) ? $url : asset('images/defaultUser.png');
 }
+function getBannerImage($url)
+{
+    return (!is_null($url)) ? $url : asset('frontend/images/SearchBanner.jpg');
+}
 function getDefaultUserImage()
 {
     return asset('images/defaultUser.png');
@@ -31,6 +35,16 @@ function getActiveMenuClass($routeName)
 function getActiveInActiveStatus($status)
 {
     return ($status == 1) ? 'Active' : 'Inactive';
+}
+
+function getActiveInFeatureStatus($feature)
+{
+    if($feature==0)
+     return "Not featured";
+    if($feature==1)
+     return "Requested";
+    if($feature==2)
+     return "Featured";
 }
 
 function getShowStatus($status)
@@ -54,6 +68,23 @@ function getShareStatusBadge($status)
     if ($status == 2)
         return 'badge-warning';
     if ($status == 0)
+        return 'badge-danger';
+}
+
+function getFeatureBadge($feature){
+    if ($feature == 2)
+        return 'badge-success';
+    if ($feature == 1)
+        return 'badge-warning';
+    if ($feature == 0)
+        return 'badge-danger';
+}
+function getFeatureClass($feature){
+    if ($feature == 2)
+        return 'badge-success';
+    if ($feature == 1)
+        return 'badge-warning';
+    if ($feature == 0)
         return 'badge-danger';
 }
 function getStatusChangeBtn($status)

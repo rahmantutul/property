@@ -16,7 +16,7 @@
         </ul>
     </div> 
     <div class="slider" style="height: 3552px;">
-        <div class="slide-pic active" style="background-image: url({{asset('')}}/assets/frontend/images/SearchBanner.jpg); background-size: cover !important; height: 592px; z-index: 6;" data-index="1">
+        <div class="slide-pic active" style="background-image: url({{getBannerImage( $bannerInfo->play_film_banner)}}); background-size: cover !important; height: 592px; z-index: 6;" data-index="1">
             <div class="slatelink pageslate playbtn">
                 <span class="homedown"></span>
 
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="slide-pic" style="background-image: url({{asset('')}}/assets/frontend/images/SearchBanner.jpg); height: 592px; z-index: 5;" data-index="2">
+        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->search_banner)}}); height: 592px; z-index: 5;" data-index="2">
             <div target="_self" class="search_heading">
                 <h2 style="color:#ffffff; font-weight:700;">Discover Your Place to Live</h2>
             </div>
@@ -95,7 +95,7 @@
         </form>
         </div>
 
-        <div class="featured_properties slide-pic" style="background-image: url({{asset('')}}/assets/frontend/images/SearchBanner.jpg); height: 592px; z-index: 4;" data-index="3">
+        <div class="featured_properties slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->map_banner)}}); height: 592px; z-index: 4;" data-index="3">
             <h2 class="featured_properties_heading">Featured Properties</h2>
             <div class="carousel-container">
                 <div class="carousel-slider">
@@ -283,7 +283,7 @@
             </div>
         </div>
 
-        <div class="slide-pic" style="background-image: url(&quot;https://corerealestate.s3.amazonaws.com/wp-content/uploads/2022/09/Harrison_Grandelli_Team_at_CORE-scaled.jpg&quot;); height: 592px; z-index: 3;" data-index="4">
+        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->map_banner)}}); height: 592px; z-index: 3;" data-index="4">
             <div class="slatelink pageslate">
                 <a href="http://corenyc.com/agents/" target="_self">
                     <span class="link-cont">Agents</span>
@@ -291,7 +291,7 @@
             </div>
         </div> 
 
-        <div class="slide-pic" style="background-image: url(&quot;https://corerealestate.s3.amazonaws.com/wp-content/uploads/2017/06/052A2613.jpg&quot;); height: 592px; z-index: 2;" data-index="5">
+        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->neighbour_banner)}}); height: 592px; z-index: 2;" data-index="5">
             <div class="slatelink pageslate">
                 <a href="http://corenyc.com/neighborhoods/" target="_self">
                     <span class="link-cont">Neighborhoods</span>

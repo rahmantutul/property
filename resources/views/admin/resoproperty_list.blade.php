@@ -4,7 +4,7 @@
 
 <div class="row mb-1">
     <div class="col-8">
-    <h2 class="content-header-title float-left mb-0">Property List</h2>
+    <h2 class="content-header-title float-left mb-0">Property List From Reso</h2>
     </div>
     <div class="col-4 d-flex flex-row-reverse">
     <a class="btn btn-primary btn-round btn-sm " href="{{route('admin.property.create')}}">Add New Property</a>
@@ -15,27 +15,26 @@
     <div class="row" id="basic-table">
         <div class="col-12">
             <div class="card">
-                
                 <div class="card-body">
                    <form action=""  method="get" class="row">
-                    @csrf
-                    <div class="col-md-2 col-sm-6 form-group">
-                        <strong>Title:</strong>
-                        <input class="form-control" name="titile" placeholder="titile" value="{{request()->titile}}">
-                    </div>
-                    
-                    <div class="col-md-1  form-group">
-                        <strong></strong><br>
-                         <button type="submit" class="btn-icon btn btn-primary btn-round btn-sm " title="Search">
-                            <i data-feather='search'></i> 
-                        </button>
-                    </div>
-                    <div class="col-md-1 form-group">
-                        <strong></strong><br>
-                         <button type="submit" class="btn-icon btn btn-warning btn-round btn-sm " title="Reset">
-                            <i data-feather='refresh-ccw'></i>
-                        </button>
-                    </div>
+                        @csrf
+                        <div class="col-md-2 col-sm-6 form-group">
+                            <strong>Title:</strong>
+                            <input class="form-control" name="titile" placeholder="titile" value="{{request()->titile}}">
+                        </div>
+                        
+                        <div class="col-md-1  form-group">
+                            <strong></strong><br>
+                            <button type="submit" class="btn-icon btn btn-primary btn-round btn-sm " title="Search">
+                                <i data-feather='search'></i> 
+                            </button>
+                        </div>
+                        <div class="col-md-1 form-group">
+                            <strong></strong><br>
+                            <button type="submit" class="btn-icon btn btn-warning btn-round btn-sm " title="Reset">
+                                <i data-feather='refresh-ccw'></i>
+                            </button>
+                        </div>
                    </form>
                 </div>
                 <div class="table-responsive">
@@ -44,13 +43,13 @@
                             <tr>
                                 <th class="text-center">Sl/No</th>
                                 <th class="text-center">Photo</th>
-                                <th class="text-center">Title</th>
-                                <th class="text-center">MLS ID</th>
-                                <th class="text-center">Available<br>Date</th>
+                                <th class="text-center">Country</th>
+                                <th class="text-center">City</th>
+                                <th class="text-center">Close<br>Date</th>
                                 <th class="text-center">Price</th>
-                                <th class="text-center">Agent/<br>Seller</th>
-                                <th class="text-center">Featured</th>
-                                <th class="text-center">Status</th>
+                                <th class="text-center">Buyer Office</th>
+                                <th class="text-center">Direction</th>
+                                <th class="text-center">PropertyType</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -59,47 +58,23 @@
                             <tr>
                                 <th class="text-center">{{++$key}}</th>
                                 <td>
-                                    <img src="{{getImage($dataInfo->thumbail	)}}" alt="{{$dataInfo->title}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
+                                    <img src="{{$dataInfo->Photo1URL}}" alt="Image" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
-                                <td>{{$dataInfo->title}}</td>
-                                <td>{{$dataInfo->mlsId}}</td>
-                                <td>{{(!is_null($dataInfo->expireDate)) ?formatDate($dataInfo->expireDate):''}}</td>
+                                <td>{{$dataInfo->Country}}</td>
+                                <td>{{$dataInfo->City}}</td>
+                                <td>{{(!is_null($dataInfo->CloseDate))?formatDate($dataInfo->CloseDate):''}}</td>
                                 <td>
-                                	Price: <strong>{{$dataInfo->price}}</strong><br>
-                                	Orginal Price: <strong>{{$dataInfo->orginalPrice}}</strong>
-                                </td>
-                                <td>
-                                @php 
-                                	if(!is_null($dataInfo->agentInfo))
-                                		echo $dataInfo->agentInfo->full_name;
-
-                                	if(!is_null($dataInfo->sellerInfo))
-                                		echo $dataInfo->sellerInfo->full_name;
-
-                                	if(!is_null($dataInfo->buyerInfo))
-                                		echo $dataInfo->buyerInfo->full_name;
-
-                                @endphp
+                                	Price: <strong>{{$dataInfo->CurrentPriceForStatus}}</strong><br>
+                                	Orginal Price: <strong>{{$dataInfo->ClosePrice}}</strong>
                                 </td>
                                 <td>
-                                    @if (isset(request()->is_featured))
-                                    <span class="badge badge-pill badge-warning">Pending</span><br>
-                                    @else
-                                        @if ($dataInfo->is_featured==0 || $dataInfo->is_featured==1)
-
-                                        <a href="{{route('admin.property.feature.change',['dataId'=>$dataInfo->id,'is_featured'=>($dataInfo->is_featured==0)?1:0])}}" class="btn {{getFeatureClass($dataInfo->is_featured)}} btn-sm btn-icon btn_status_change" title="Change Feature Status">
-                                                @if ($dataInfo->is_featured==0)
-                                                <i data-feather='check'></i>
-                                                @else
-                                                <i data-feather='x'></i>
-                                                @endif
-                                        </a>
-                                        @endif
-                                    @endif
-                                    <span class="badge badge-pill {{getFeatureBadge($dataInfo->is_featured)}}">{{getActiveInFeatureStatus($dataInfo->is_featured)}}</span><br>
+                                    {{ $dataInfo->BuyerOfficeName }}
                                 </td>
                                 <td>
-                                    <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
+                                    {{ $dataInfo->Directions }}
+                                </td>
+                                <td>
+                                    {{ $dataInfo->PropertyType }}
                                 </td>
                                 <td>
                                     @if (isset(request()->is_featured))
