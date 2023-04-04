@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\Slider;
@@ -11,7 +12,8 @@ use App\Models\Slider;
 class FrontendController extends Controller
 {
     public function home(){
-        return view('frontend.home');
+        $bannerInfo= Banner::first();
+        return view('frontend.home',compact('bannerInfo'));
     }
 
     public function login(){
@@ -85,5 +87,7 @@ class FrontendController extends Controller
 
         return view('frontend.propery_search_result',compact('dataList'));
     }
+
+    
     
 }

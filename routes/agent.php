@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\DashboardController;
 use App\Http\Controllers\Agent\HelpDeskController;
@@ -42,6 +43,8 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');
 
+		Route::get('{dataId}/feature/{is_featured}/change',[PropertyController::class,'changeFeature'])->name('feature.change');
+
 		Route::get('/{dataId}/edit',[PropertyController::class,'edit'])->name('edit');
 
 		Route::post('/update',[PropertyController::class,'update'])->name('update');
@@ -77,5 +80,9 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 		Route::get('edit',[AgentController::class,'editProfile'])->name('editProfile');
 		Route::post('update',[AgentController::class,'updateProfile'])->name('updateProfile');
 	});
-
+	Route::group(['prefix'=>'message','as'=>'message.'],function(){
+		Route::get('index',[AgentContactController::class,'index'])->name('index');
+		Route::get('/{dataId}/view',[AgentContactController::class,'view'])->name('view');
+		Route::delete('{dataId}/delete',[AgentContactController::class,'destroy'])->name('destroy');	
+	});
 });	

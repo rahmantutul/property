@@ -15,9 +15,11 @@ class CreateBannersTable extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('videoUrl')->nullable();
-            $table->string('referUrl')->nullable();
+            $table->string('play_film_banner')->nullable();
+            $table->string('search_banner')->nullable();
+            $table->string('map_banner')->nullable();
+            $table->string('featured_banner')->nullable();
+            $table->string('neighbour_banner')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->timestamps();
             $table->softDeletes();         

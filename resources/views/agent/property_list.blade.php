@@ -50,7 +50,6 @@
                                 <th class="text-center">Price</th>
                                 <th class="text-center">Agent/<br>Seller</th>
                                 <th class="text-center">Featured</th>
-                                <th class="text-center">Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -59,7 +58,7 @@
                             <tr>
                                 <th class="text-center">{{++$key}}</th>
                                 <td>
-                                    <img src="{{getImage($dataInfo->thumbail	)}}" alt="{{$dataInfo->title}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
+                                    <img src="{{getImage($dataInfo->thumbail)}}" alt="{{$dataInfo->title}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->title}}</td>
                                 <td>{{$dataInfo->mlsId}}</td>
@@ -78,23 +77,32 @@
 
                                 	if(!is_null($dataInfo->buyerInfo))
                                 		echo $dataInfo->buyerInfo->full_name;
-
                                 @endphp
                                 </td>
                                 <td>
-                                		<div class="custom-control custom-switch custom-switch-success">
-                                            <p class="mb-50">Success</p>
-                                            <input type="checkbox" class="custom-control-input" id="customSwitch111" checked />
-                                            <label class="custom-control-label" for="customSwitch111">
-                                                <span class="switch-icon-left"><i data-feather="check"></i></span>
-                                                <span class="switch-icon-right"><i data-feather="x"></i></span>
-                                            </label>
-                                        </div>
+                                    @if ($dataInfo->is_featured==0 || $dataInfo->is_featured==1)
+                                    <a href="{{route('agent.property.feature.change',['dataId'=>$dataInfo->id,'is_featured'=>($dataInfo->is_featured==0)?1:0])}}" class="btn {{getFeatureClass($dataInfo->is_featured)}} btn-sm btn-icon btn_status_change" title="Change Feature Status">
+                                            @if ($dataInfo->is_featured==0)
+                                            <i data-feather='check'></i>
+                                            @else
+                                            <i data-feather='x'></i>
+                                            @endif
+                                    </a>
+                                    @endif
+                                    <span class="badge badge-pill {{getFeatureBadge($dataInfo->is_featured)}}">{{getActiveInFeatureStatus($dataInfo->is_featured)}}</span><br>
+                                    
                                 </td>
                                 <td>
-                                    <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
-                                </td>
-                                <td>
+                                    
+                                    @if (isset(request()->is_featured))
+                                        <a href="{{route('agent.property.feature.change',['dataId'=>$dataInfo->id,'is_featured'=>($dataInfo->is_featured==0)?1:0])}}" class="btn btn-danger btn-sm btn-icon btn_status_change" title="Remove">
+                                            @if ($dataInfo->is_featured==0)
+                                             <i data-feather='check'></i>
+                                            @else
+                                             <i data-feather='x'></i>
+                                            @endif
+                                        </a>
+                                    @else
                                     <a href="{{route('agent.property.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
                                         {!!getStatusChangeIcon($dataInfo->status)!!}
                                     </a>
@@ -104,6 +112,8 @@
                                     <a href="{{route('agent.property.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                             @endforeach
@@ -120,6 +130,5 @@
             </div>
         </div>
     </div>
-    <!-- Basic Tables end -->
 </div>
 @endsection

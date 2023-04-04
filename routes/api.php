@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PropertyController;
-
+use App\Http\Controllers\Api\ResoApiPropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +16,6 @@ use App\Http\Controllers\Api\PropertyController;
 |
 */
 Route::get( '/index', [PropertyController::class,'index'])->name('property.index');
-Route::get( '/store', [PropertyController::class,'store'])->name('api.property.store');
+Route::get( '/store', [ResoApiPropertyController::class,'store'])->name('api.property.store');
 // Route::get('/get-data',[PropertyController::class,'index'])->name('property.index');
 

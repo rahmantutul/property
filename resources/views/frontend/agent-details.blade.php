@@ -51,9 +51,15 @@
             <div class="col-md-4">
                 <h5 class="agent_all_title"><b class="agent_all_title_box">Contact</b></h5>
                 <div class="neighbour_form">
-                    <form method="post" action="#">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ route('agent.message.store') }}"> @csrf
                         <div class="form-group">
-                            <input type="text" id="Name" name="Name" required="" placeholder="Name">
+                            <input type="text" id="Name" name="name" required="" placeholder="Name">
+                            <input type="hidden" id="agentId" name="agentId" value="{{ $dataInfo->id }}">
                         </div>
 
                         <div class="form-group">
@@ -63,7 +69,7 @@
                             <input type="tel" id="phone" name="phone" required="" placeholder="Phone Number">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="text" required="" placeholder="Your Queries">
+                            <input type="text" name="message" required="" placeholder="Your Queries">
                         </div>
                         <div class="form-group">
                             <button type="submit">Send Now</button>
