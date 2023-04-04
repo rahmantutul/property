@@ -7,11 +7,11 @@
 <section class="search_box_filter">
     <form id="listing-search-form" action="">
         <div class="adv_search-form">
-            <select name="neighbourhood-type">
-                <option value="neighbourhood">Neighbourhood</option>
+            <select name="neighborhood-type">
+                <option value="neighborhood">Neighborhood</option>
                 <option value="address">Address</option>
             </select>
-            <input type="text" name="neighbourhood" placeholder="Enter Neighbourhood">
+            <input type="text" name="neighborhood" placeholder="Enter Neighborhood or Address">
             <select name="property-type">
                 <option value="commercial">Commercial</option>
                 <option value="residential">Residential</option>
