@@ -4,6 +4,7 @@ use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as LoginController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\RahmanController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/property',[FrontendController::class,'property'])->name('property');
     Route::get('/signup',[FrontendController::class,'signup'])->name('signup');
     Route::get('/property/search',[FrontendController::class,'searchProperty'])->name('propertySearch');
+    Route::get('/property/page/search',[SearchController::class,'searchProperty'])->name('propertySearch');
     Route::get('/agents',[FrontendController::class,'agents'])->name('agents');
     Route::get('/{dataId}/agents-details',[FrontendController::class,'agentDetails'])->name('agentDetails');
 });
