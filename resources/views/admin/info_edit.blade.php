@@ -13,8 +13,8 @@
         <div class="col-12">
             <div class="card">           
                 <div class="card-body">
-                    <div class="col-4 m-auto">
-                        <img src="{{getUserImage($dataInfo->logo)}}" alt="{{$dataInfo->websitename}}" style="width: 100%; margin:30px auto;">
+                    <div class="col-12 m-auto">
+                        <img style="height:200px; width:auto; display:block; margin: auto; padding: 20px;" src="{{getUserImage($dataInfo->logo)}}" alt="{{$dataInfo->websitename}}" style="width: 100%; margin:30px auto;">
                     </div>
                     <form class="row" id="ajax_form" action="{{route('admin.info.update')}}" method="POST" enctype="multipart/form-data">
                         @csrf

@@ -8,12 +8,14 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\Slider;
+use App\Models\WebsiteInfo;
 
 class FrontendController extends Controller
 {
     public function home(){
         $bannerInfo= Banner::first();
-        return view('frontend.home',compact('bannerInfo'));
+        $websiteInfo= WebsiteInfo::first();
+        return view('frontend.home',compact('bannerInfo','websiteInfo'));
     }
 
     public function login(){

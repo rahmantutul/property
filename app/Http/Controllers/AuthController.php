@@ -249,7 +249,13 @@ class AuthController extends Controller
              else
                  $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
              
-             $dataInfo->status=2;
+                if($request->userType=='seller'){
+                    $dataInfo=new Seller();
+                 }elseif($request->userType=='buyer'){
+                    $dataInfo=new Buyer();
+                 }else{
+                    $dataInfo=new Agent();
+                 }
  
              $dataInfo->created_at=Carbon::now();
  
