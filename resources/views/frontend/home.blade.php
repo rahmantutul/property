@@ -102,7 +102,7 @@
                     @foreach ($sliderProperties as $item)
                         <div class="carousel-card">
                             <div class="image-box">
-                                <img src="{{asset('')}}assets/frontend/images/productimage01.jpg" alt="Your Image">
+                                <img src="{{$item->thumbnail}}" alt="Your Image">
                                 <div class="hover-content">
                                     <h5>FOR SALE | ${{ $item->price }}</h5>
                                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | {{Str::limit($item?->address?->streetAddressOne, 10)}}</h2>
