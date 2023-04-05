@@ -18,10 +18,11 @@
                             <h4 style="text-align: center">Account Details</h4>
                             <div class="form-group">
                                 <label for="userType">User Type *</label>
-                                <select class="form-control" id="user-type" name="user-type">
-                                    <option value="seller">Seller</option>
-                                    <option value="buyer">Buyer</option>
-                                    <option value="agent">Agent</option>
+                                <select class="form-control" id="user-type" name="userType">
+                                    <option value="">Select Role</option>
+                                    <option value="1">Seller</option>
+                                    <option value="2">Buyer</option>
+                                    <option value="3">Agent</option>
                                 </select>
                             </div>
                             <div class="row">

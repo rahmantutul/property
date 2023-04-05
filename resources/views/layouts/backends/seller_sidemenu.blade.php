@@ -21,7 +21,7 @@
                     <a class="nav-link nav-link-style" id="theme_btn"><i class="ficon" data-feather="moon" ></i></a>
                 </li>
                 <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex "><span class="user-name font-weight-bolder">{{Auth::guard('seller')->user()->name}}</span><span class="user-status">{{Auth::guard('seller')->user()->role}}</span></div><span class="avatar"><img class="round" src="{{getUserImage(Auth::guard('seller')->user()->avatar)}}" alt="{{Auth::guard('seller')->user()->name}}" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex "><span class="user-name font-weight-bolder">{{Auth::guard('seller')->user()->firstNmae}}</span><span class="user-status">{{Auth::guard('seller')->user()->role}}</span></div><span class="avatar"><img class="round" src="{{getUserImage(Auth::guard('seller')->user()->avatar)}}" alt="{{Auth::guard('seller')->user()->firstName}}" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right extra-width" aria-labelledby="dropdown-user">
                     @if(auth()->guard('seller')->user()->can('change-password'))

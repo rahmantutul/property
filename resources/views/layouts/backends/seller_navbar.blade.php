@@ -24,11 +24,11 @@
                 
                 
                 <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex "><span class="user-name font-weight-bolder">{{Auth::guard('seller')->user()->full_name}}</span><span class="user-status">Seller</span></div><span class="avatar"><img class="round" src="{{getUserImage(Auth::guard('seller')->user()->avatar)}}" alt="{{Auth::guard('seller')->user()->full_name}}" height="40" width="40"><span class="avatar-status-online"></span></span>
+                        <div class="user-nav d-sm-flex "><span class="user-name font-weight-bolder">{{Auth::guard('seller')->user()->full_name}}</span><span class="user-status">{{Auth::guard('seller')->user()->role}}</span></div><span class="avatar"><img class="round" src="{{getUserImage(Auth::guard('seller')->user()->avatar)}}" alt="{{Auth::guard('seller')->user()->full_name}}" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right extra-width" aria-labelledby="dropdown-user">
                     @if(auth()->guard('seller')->user()->can('change-password'))
-                        <a class="dropdown-item btn_modal" href="{{route('seller.password.change')}}">
+                        <a class="dropdown-item btn_modal" href="{{route('admin.password.change')}}">
                             <i class="mr-50" data-feather='lock'></i>Change Password
                         </a>
                     @endif

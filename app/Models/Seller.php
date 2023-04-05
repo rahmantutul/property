@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,14 +41,7 @@ class Seller extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roleInfo()
-    {
-        return $this->hasOne('App\Models\Role','id','roleId')->whereNull('deleted_at');
-    }
-    public function getRoleAttribute()
-    {
-        return $this->hasOne('App\Models\Role','id','roleId')->whereNull('deleted_at')->first()->name;
-    }
+
     public function getFullNameAttribute()
     {
         return ucwords($this->firstName. ' '.$this->lastName);

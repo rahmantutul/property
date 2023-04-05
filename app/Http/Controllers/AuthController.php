@@ -205,6 +205,7 @@ class AuthController extends Controller
 
     public function registerUser(Request $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try{
              $request->validate([
@@ -221,12 +222,12 @@ class AuthController extends Controller
                  'phone.required' => "Please Enter User Phone No.",
                  'photo.image' => "uploaded file must be a valid image format."
              ]);
-             if($request->userType=='seller'){
-                $dataInfo=new Seller();
-             }elseif($request->userType=='buyer'){
+             if($request->userType==3){
+                $dataInfo=new Agent();
+             }elseif($request->userType==2){
                 $dataInfo=new Buyer();
              }else{
-                $dataInfo=new Agent();
+                $dataInfo=new Seller();
              }
              
              $dataInfo->firstName=$request->firstName;
@@ -235,6 +236,14 @@ class AuthController extends Controller
  
             
             $dataInfo->email=strtolower(trim($request->email));
+
+            if($request->userType==3){
+                $dataInfo->is_approved=0;
+             }elseif($request->userType==2){
+                $dataInfo->is_approved=1;
+             }else{
+                $dataInfo->is_approved=1;
+             }
 
               if($request->password == $request->confirmPassword){
                     $dataInfo->password=Hash::make($request->confirmPassword);
@@ -249,13 +258,6 @@ class AuthController extends Controller
              else
                  $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
              
-                if($request->userType=='seller'){
-                    $dataInfo=new Seller();
-                 }elseif($request->userType=='buyer'){
-                    $dataInfo=new Buyer();
-                 }else{
-                    $dataInfo=new Agent();
-                 }
  
              $dataInfo->created_at=Carbon::now();
  

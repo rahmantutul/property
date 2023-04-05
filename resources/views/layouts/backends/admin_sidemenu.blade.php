@@ -132,31 +132,11 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item">
-                    <a class="d-flex align-items-center" href="#">
-                        <i data-feather='alert-octagon'></i>
-                        <span class="menu-title text-truncate" data-i18n="System Info">Pending Users</span>
+                <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                    <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
+                        <i data-feather="user"></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
                     </a>
-                    <ul class="menu-content">
-                        <li class="{{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
-                            <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Agent">Agent</span>
-                            </a>
-                        </li>
-                        <li class="{{getActiveMenuClass('admin.buyer.index')}}?pending_status=0">
-                            <a class="d-flex align-items-center" href="{{route('admin.buyer.index')}}?pending_status=0">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Buyer">Buyer</span>
-                            </a>
-                        </li>
-                        <li class="{{getActiveMenuClass('admin.seller.index')}}?pending_status=0">
-                            <a class="d-flex align-items-center" href="{{route('admin.seller.index')}}?pending_status=0">
-                                <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Sellers">Sellers</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class=" nav-item">

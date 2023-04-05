@@ -64,6 +64,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[AgentController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[AgentController::class,'changeStatus'])->name('status.change');
+
+		Route::get('{dataId}/approve/{status}/change',[AgentController::class,'changeApprove'])->name('approve.change');
 	});
 
 	Route::group(['prefix'=>'buyer','as'=>'buyer.'],function(){
@@ -117,23 +119,15 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	    Route::delete('{dataId}/delete',[NeighbourController::class,'destroy'])->name('delete');
 	});
 
-	// for designation/role
-	Route::group(['prefix'=>'designation','as'=>'role.'],function(){
-
-		Route::get('/',[RoleController::class,'index'])->name('index');
-
-		Route::get('/status/change',[RoleController::class,'changeStatus'])->name('status.change');
-
-		Route::get('/{dataId}/edit',[RoleController::class,'edit'])->name('edit');
-
-		Route::post('/update',[RoleController::class,'update'])->name('update');
-
-		Route::post('/',[RoleController::class,'store'])->name('store');
-
-		Route::get('/create',[RoleController::class,'create'])->name('create');
-
-		Route::delete('/{id}',[RoleController::class,'destroy'])->name('delete');
-	});
+    Route::group(['prefix'=>'designation','as'=>'role.'],function(){
+        Route::get('/',[RoleController::class,'index'])->name('index');
+        Route::get('/status/change',[RoleController::class,'changeStatus'])->name('status.change');
+        Route::get('/{dataId}/edit',[RoleController::class,'edit'])->name('edit');
+        Route::post('/update',[RoleController::class,'update'])->name('update');
+        Route::post('/',[RoleController::class,'store'])->name('store');
+        Route::get('/create',[RoleController::class,'create'])->name('create');
+        Route::delete('/{id}',[RoleController::class,'destroy'])->name('delete');
+    });
 
 	// for permission entry
 	Route::group(['prefix'=>'permission','as'=>'permission.'],function(){
