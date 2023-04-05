@@ -15,8 +15,8 @@ class FrontendController extends Controller
 {
     public function home(){
         $bannerInfo= Banner::first();
-        $websiteInfo= WebsiteInfo::first();
-        return view('frontend.home',compact('bannerInfo','websiteInfo'));
+        // $websiteInfo= WebsiteInfo::first();
+        return view('frontend.home',compact('bannerInfo'));
     }
 
     public function login(){
