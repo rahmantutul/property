@@ -20,7 +20,8 @@ class FrontendController extends Controller
     }
 
     public function login(){
-        return view('frontend.login');
+        $websiteInfo= WebsiteInfo::first();
+        return view('frontend.login', compact(['websiteInfo']));
     }
 
     public function neighbourHood(){
