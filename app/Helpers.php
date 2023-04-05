@@ -1,5 +1,11 @@
 <?php
 
+use App\Models\WebsiteInfo;
+
+function getWebsiteInfo(){
+     $websiteInfo= WebsiteInfo::first();
+     return $websiteInfo;
+}
 function formatDate($date)
 {
     return date('d-m-Y', strtotime($date));

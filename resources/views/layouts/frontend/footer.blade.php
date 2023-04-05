@@ -14,8 +14,8 @@
                 <div class="locmap">
                     <img src="/assets/frontend/CORE Real Estate_files/flatiron_map.png" alt="">
                     <p></p><p><strong>HEADQUARTERS</strong><br>
-                     {{ $websiteInfo?->location }}<br>
-                    <a href="tel:212-419-8580" target="_blank" rel="noopener noreferrer">{{ $websiteInfo?->phone }}</a></p>
+                     {{ getWebsiteInfo()->location }}<br>
+                    <a href="tel:212-419-8580" target="_blank" rel="noopener noreferrer">{{ getWebsiteInfo()->phone }}</a></p>
                     <p></p>
                 </div>
 
@@ -41,7 +41,7 @@
                 <!-- Disclaimer -->
                 <div class="disclaimer">
                     <p class="text-center w-75 m-auto"><a href="https://corenyc.com/1228857-2/" target="_self">STANDARDIZED OPERATING PROCEDURE FOR PURCHASERS OF REAL ESTATE </a><br>
-                        Disclaimer: {{ $websiteInfo?->disclaimer }}
+                        Disclaimer: {{  getWebsiteInfo()->disclaimer  }}
                     </p>
                 </div>
 
@@ -57,10 +57,10 @@
                 <!-- Footer Icon Links -->
                 <div class="footicons">
                     <a  href="http://www.leveragere.com/" target="_blank">
-                        <img style="height:34px; width:34px;" src="{{ $websiteInfo?->logo }}">
+                        <img style="height:34px; width:34px;" src="{{ getWebsiteInfo()->logo }}">
                     </a>
                     <a href="http://pledge1percent.org/" target="_blank">
-                        <img style="height:34px; width:34px;" src="{{ $websiteInfo?->logo }}">
+                        <img style="height:34px; width:34px;" src="{{ getWebsiteInfo()->logo }}">
                     </a>
                 </div>
 
@@ -71,16 +71,16 @@
                     </span>
                     <ul id="menu-footer-links" class="footer-links"><li id="menu-item-29317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29317"><a href="" target="_self">Disclaimer</a></li>
                         <li id="menu-item-27192" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27192"><a href="https://corenyc.com/sitemap.xml" target="_self">Sitemap</a></li>
-                    </ul>                <span class="copy">© {{ $websiteInfo?->copyright }}</span>
+                    </ul>                <span class="copy">© {{ getWebsiteInfo()->copyright }}</span>
                 </nav>
 
                 <!-- Social Links -->
                 <div class="social">
                     <ul>
-                        <li><a href="{{ $websiteInfo?->linkedin }}" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                        <li><a href="{{ $websiteInfo?->instagram }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="{{ $websiteInfo?->copyright }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="{{ $websiteInfo?->twitter }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="{{ getWebsiteInfo()->linkedin }}" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a href="{{ getWebsiteInfo()->instagram }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="{{ getWebsiteInfo()->copyright }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="{{ getWebsiteInfo()->twitter }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div><!-- ./footer-bar-wrapper -->
