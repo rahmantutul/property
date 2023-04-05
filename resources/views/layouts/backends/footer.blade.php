@@ -18,7 +18,7 @@
 @endif
 @if(Auth::guard('buyer')->check())
     <a href="{{route('buyer.helpDesk.index')}}" class="btn btn-info bnt-sm btn-icon" type="button" style="position: fixed; right: 2%; bottom: 11%;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8a8.5 8.5 0 0 1-7.6 4.7a8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8a8.5 8.5 0 0 1 4.7-7.6a8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <span class="text-danger"><b>4</b></span> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8a8.5 8.5 0 0 1-7.6 4.7a8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8a8.5 8.5 0 0 1 4.7-7.6a8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <span class="text-danger"><b>4</b></span>
     </a>
 @endif
 @if(Auth::guard('seller')->check())
@@ -30,18 +30,18 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="{{asset('')}}/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="{{asset('')}}app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <!-- <script src="{{asset('')}}/app-assets/vendors/js/charts/apexcharts.min.js"></script> -->
-    <script src="{{asset('')}}/app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <!-- <script src="{{asset('')}}app-assets/vendors/js/charts/apexcharts.min.js"></script> -->
+    <script src="{{asset('')}}app-assets/vendors/js/extensions/toastr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="{{asset('')}}/app-assets/js/core/app-menu.js"></script>
-    <script src="{{asset('')}}/app-assets/js/core/app.js"></script>
-     <script src="{{asset('')}}/app-assets/js/scripts/customizer.min.js"></script>
+    <script src="{{asset('')}}app-assets/js/core/app-menu.js"></script>
+    <script src="{{asset('')}}app-assets/js/core/app.js"></script>
+     <script src="{{asset('')}}app-assets/js/scripts/customizer.min.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
@@ -49,11 +49,11 @@
     <!-- END: Page JS-->
 
     <!--BEGIN: Sweet Alert-->
-     <script src="{{asset('')}}/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+     <script src="{{asset('')}}app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
      <!--END: Sweet Alert-->
 
-    <script src="{{asset('')}}/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
-    <script src="{{asset('')}}/app-assets/js/scripts/forms/form-select2.js"></script>
+    <script src="{{asset('')}}app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="{{asset('')}}app-assets/js/scripts/forms/form-select2.js"></script>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
@@ -71,7 +71,7 @@
     //     dropdownParent: $('#common_modal')
     // });
     </script>
- 
+
 <script type="text/javascript">
 @if(Session::has('msg'))
 toastr['success']("{{Session::get('msg')}}", {
@@ -181,7 +181,7 @@ $(document).on('submit','form#ajax_form', function(e) {
         },
         error:function (response){
             $.each(response.responseJSON.errors,function(field_name,error){
-    
+
                 $(document).find('[name='+field_name+']').after('<span class="alert-danger textdanger">' +error+ '</span>');
                 // toastr.error(error);
                 errorMessage(response.msg);
@@ -192,7 +192,7 @@ $(document).on('submit','form#ajax_form', function(e) {
 // ajax request for delete data
 $(document).on('click','a.delete', function(e) {
 var form=$(this);
-e.preventDefault(); 
+e.preventDefault();
 var url=$(form).attr('href');
 Swal.fire({
     title: "Are you sure?",
@@ -206,7 +206,7 @@ Swal.fire({
     cancelButtonClass: "btn btn-danger ml-1",
     buttonsStyling: !1,
   }).then(function (t) {
-    t.value? 
+    t.value?
         $.ajax({
             type: 'DELETE',
             url: url,
@@ -239,7 +239,7 @@ Swal.fire({
 
 $(document).on('click','a.btn_status_change', function(e) {
 var form=$(this);
-e.preventDefault(); 
+e.preventDefault();
 var url=$(form).attr('href');
 Swal.fire({
     title: "Are you sure?",
@@ -253,7 +253,7 @@ Swal.fire({
     cancelButtonClass: "btn btn-danger ml-1",
     buttonsStyling: !1,
   }).then(function (t) {
-    t.value? 
+    t.value?
         $.ajax({
             type: 'get',
             url: url,
@@ -287,7 +287,7 @@ Swal.fire({
 
 $(document).on('click','a.btn_confirm_data', function(e) {
 var form=$(this);
-e.preventDefault(); 
+e.preventDefault();
 var url=$(form).attr('href');
 Swal.fire({
     title: "Are you sure?",
@@ -301,7 +301,7 @@ Swal.fire({
     cancelButtonClass: "btn btn-danger ml-1",
     buttonsStyling: !1,
   }).then(function (t) {
-    t.value? 
+    t.value?
         $.ajax({
             type: 'get',
             url: url,

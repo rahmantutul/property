@@ -231,10 +231,10 @@
 </div>
 @endsection
 @push('css')
-<link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
 @endpush
 @push('js')
-<script src="{{asset('')}}/app-assets/js/scripts/charts/chart-chartjs.js"></script>
-<script src="{{asset('')}}/app-assets/vendors/js/charts/chart.min.js"></script>
- <script src="{{asset('')}}/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+<script src="{{asset('')}}app-assets/js/scripts/charts/chart-chartjs.js"></script>
+<script src="{{asset('')}}app-assets/vendors/js/charts/chart.min.js"></script>
+ <script src="{{asset('')}}app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
 @endpush

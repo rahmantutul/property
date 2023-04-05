@@ -10,30 +10,30 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
     <title>{{env('APP_NAME')}} | @yield('title')</title>
-    <link rel="apple-touch-icon" href="{{asset('')}}/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('')}}/app-assets/images/ico/favicon.ico">
-    
+    <link rel="apple-touch-icon" href="{{asset('')}}app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('')}}app-assets/images/ico/favicon.ico">
+
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/vendors/css/vendors.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/themes/bordered-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/themes/semi-dark-layout.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/pages/app-chat.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/app-assets/css/pages/app-chat-list.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/pages/app-chat.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/css/pages/app-chat-list.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('')}}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('')}}assets/css/style.css">
     <!-- END: Custom CSS-->
 
 </head>
@@ -47,10 +47,10 @@
 @if(auth()->guard('admin')->check())
     @include('layouts.backends.admin_navbar')
     @include('layouts.backends.admin_sidemenu')
-@elseif(auth()->guard('agent')->check()) 
+@elseif(auth()->guard('agent')->check())
     @include('layouts.backends.agent_navbar')
     @include('layouts.backends.agent_sidemenu')
-@elseif(auth()->guard('buyer')->check()) 
+@elseif(auth()->guard('buyer')->check())
     @include('layouts.backends.buyer_navbar')
     @include('layouts.backends.buyer_sidemenu')
 @elseif(auth()->guard('seller')->check())
@@ -83,7 +83,7 @@ if(auth()->guard('seller')->check()){
         <div class="content-area-wrapper container-xxl p-0">
             <div class="sidebar-left">
                 <div class="sidebar">
-                   
+
 
                     <!-- Chat Sidebar area -->
                     <div class="sidebar-content">
@@ -145,7 +145,7 @@ if(auth()->guard('seller')->check()){
                                     $userName="Guest User";
                                     $userColor="#dd4511";
                                 }
-                                
+
                             @endphp
                                 <li onclick="loadCoversation('{{$helpQuery->id}}','{{$userType}}','{{$userImage}}','{{$userName}}','{{$userColor}}')">
                                     <span class="avatar">
@@ -165,7 +165,7 @@ if(auth()->guard('seller')->check()){
                                 </li>
                             @endforeach
                             </ul>
-                            
+
                         </div>
                         <!-- Sidebar Users end -->
                     </div>
@@ -205,7 +205,7 @@ if(auth()->guard('seller')->check()){
                                             </div>
                                             <h6 class="mb-0" id="activeUserName">Guest User</h6>
                                         </div>
-                                       
+
                                     </header>
                                 </div>
                                 <!--/ Chat Header -->
@@ -213,7 +213,7 @@ if(auth()->guard('seller')->check()){
                                 <!-- User Chat messages -->
                                 <div class="user-chats">
                                     <div class="chats" id="chats">
-                                        
+
                                     </div>
                                 </div>
                                 <!-- User Chat messages -->
@@ -225,7 +225,7 @@ if(auth()->guard('seller')->check()){
                                             <span class="speech-to-text input-group-text"><i data-feather="mic" class="cursor-pointer"></i></span>
                                         </div> -->
                                         <input type="text" class="form-control message" placeholder="Type your message or use speech to text" id="message" />
-                                        
+
                                     </div>
                                     <button type="button" class="btn btn-primary send" onclick="sendMessage()">
                                         <i data-feather="send" class="d-lg-none"></i>
@@ -239,7 +239,7 @@ if(auth()->guard('seller')->check()){
                         <!--/ Main chat area -->
 
                         <!-- User Chat profile right area -->
-                        
+
                         <!--/ User Chat profile right area -->
 
                     </div>
@@ -261,19 +261,19 @@ if(auth()->guard('seller')->check()){
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="{{asset('')}}/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="{{asset('')}}app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="{{asset('')}}/app-assets/js/core/app-menu.js"></script>
-    <script src="{{asset('')}}/app-assets/js/core/app.js"></script>
+    <script src="{{asset('')}}app-assets/js/core/app-menu.js"></script>
+    <script src="{{asset('')}}app-assets/js/core/app.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="{{asset('')}}/app-assets/js/scripts/pages/app-chat.js"></script>
+    <script src="{{asset('')}}app-assets/js/scripts/pages/app-chat.js"></script>
     <!-- END: Page JS-->
 
     <script>
@@ -295,7 +295,7 @@ if(queryId!=null){
   searchQueryList($("#query").val());
 }, 20000);
 function searchQueryList(name) {
-    
+
         @if(auth::guard('admin')->check())
             var url="{{route('admin.helpDesk.index')}}?search=aa&name="+name;
         @elseif(auth::guard('agent')->check())
@@ -317,10 +317,10 @@ function searchQueryList(name) {
                  $("#query-list").html(response);
             }
         })
-    
+
 }
 function loadCoversation(helpQueryId,userType,userImage,userName,userColor) {
- 
+
     queryId=helpQueryId;
     $("#chats").html("");
     $("#activeUserImage").attr("src", userImage);

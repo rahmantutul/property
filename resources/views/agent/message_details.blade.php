@@ -14,7 +14,7 @@
             <div class="card invoice-preview-card">
                 <div class="card-body invoice-padding pb-0">
                     <div class="text-center">
-                        <img src="{{asset('')}}/assets/frontend/images/logo.png" alt="US Metro Reilty" style="height:120px;">
+                        <img src="{{asset('')}}assets/frontend/images/logo.png" alt="US Metro Reilty" style="height:120px;">
                         <h3 class=" bg-light-info text-uppercase text-dark mt-1" style="padding:8px">Message Details</h3>
                     </div>
                     <!-- Header starts -->

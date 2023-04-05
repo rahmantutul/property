@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 @push('css')
-    
+
 @endpush
 
 @section('content')
@@ -14,26 +14,26 @@
             <li class="dots"><a href="#" data-dotindex="5" target="_self"></a></li>
             <li class="dots"><a href="#" data-dotindex="6" target="_self"></a></li>
         </ul>
-    </div> 
-    <div class="slider" style="height: 3552px;">
-        <div class="slide-pic active" style="background-image: url({{getBannerImage( $bannerInfo->play_film_banner)}}); background-size: cover !important; height: 592px; z-index: 6;" data-index="1">
+    </div>
+   <div class="slider" style="height: 3552px;">
+        <div class="slide-pic active" style="background-image: url({{getBannerImage( $bannerInfo?->play_film_banner)}}); background-size: cover !important; height: 592px; z-index: 6;" data-index="1">
             <div class="slatelink pageslate playbtn">
                 <span class="homedown"></span>
 
                 <a href="#" data-video="" target="_self">
-                    <span class="link-cont">Play Film</span> 
+                    <span class="link-cont">Play Film</span>
                 </a>
             </div>
         </div>
 
-        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->search_banner)}}); height: 592px; z-index: 5;" data-index="2">
+        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo?->search_banner)}}); height: 592px; z-index: 5;" data-index="2">
             <div target="_self" class="search_heading">
                 <h2 style="color:#ffffff; font-weight:700;">Discover Your Place to Live</h2>
             </div>
             <!-------- Start Search -------------------------->
         <form action="{{route('front.propertySearch')}}" method="get">
             <div class="search-form">
-                
+
                     @csrf
                     <div class="search-form-section-1">
                         <i class="fa fa-search" id="ic_3"></i>
@@ -83,7 +83,7 @@
                             <input type="range" min="0" max="3000000" value="" name="price">
                         </div>
                     </div>
-                
+
             </div>
             <!-- --------/End Search-------------------------->
 
@@ -95,13 +95,13 @@
         </form>
         </div>
 
-        <div class="featured_properties slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->map_banner)}}); height: 592px; z-index: 4;" data-index="3">
+        <div class="featured_properties slide-pic" style="background-image: url({{getBannerImage( $bannerInfo?->map_banner)}}); height: 592px; z-index: 4;" data-index="3">
             <h2 class="featured_properties_heading">Featured Properties</h2>
             <div class="carousel-container">
                 <div class="carousel-slider">
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage01.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage01.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -119,7 +119,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage03.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage03.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -137,7 +137,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage04.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage04.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -155,7 +155,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage05.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage05.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -173,7 +173,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage01.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage01.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -191,7 +191,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage03.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage03.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -209,7 +209,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage02.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage02.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -227,7 +227,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage04.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage04.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -245,7 +245,7 @@
                     </div>
                     <div class="carousel-card">
                         <div class="image-box">
-                            <img src="{{asset('')}}/assets/frontend/images/productimage05.jpg" alt="Your Image">
+                            <img src="{{asset('')}}assets/frontend/images/productimage05.jpg" alt="Your Image">
                             <div class="hover-content">
                                 <h5>FOR SALE | $290,000.00</h5>
                                 <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -283,15 +283,15 @@
             </div>
         </div>
 
-        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->map_banner)}}); height: 592px; z-index: 3;" data-index="4">
+        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo?->map_banner)}}); height: 592px; z-index: 3;" data-index="4">
             <div class="slatelink pageslate">
                 <a href="http://corenyc.com/agents/" target="_self">
                     <span class="link-cont">Agents</span>
                 </a>
             </div>
-        </div> 
+        </div>
 
-        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo->neighbour_banner)}}); height: 592px; z-index: 2;" data-index="5">
+        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo?->neighbour_banner)}}); height: 592px; z-index: 2;" data-index="5">
             <div class="slatelink pageslate">
                 <a href="http://corenyc.com/neighborhoods/" target="_self">
                     <span class="link-cont">Neighborhoods</span>
@@ -300,11 +300,11 @@
         </div>
 
         @include('layouts.frontend.footer')
-        
+
     </div>
 </div>
 @endsection
 
 @push('js')
-    
+
 @endpush

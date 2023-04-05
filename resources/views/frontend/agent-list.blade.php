@@ -1,11 +1,11 @@
 
 @extends('layouts.frontend.app')
 @push('css')
-    
+
 @endpush
 
 @section('content')
-<section class="agent_list overlay" style="background-image: url('{{asset('')}}/assets/frontend/images/neighbourhood-header.jpg');">
+<section class="agent_list overlay" style="background-image: url('{{asset('')}}assets/frontend/images/neighbourhood-header.jpg');">
     <h1>Our Agent List</h1>
     <p>
         Some details about Agent's services or benifits
@@ -17,7 +17,7 @@
         @foreach ($dataList as $dataInfo)
             <div class="col-md-4 col-sm-12 col-lg-3 mb-5">
                 <div class="agent_card">
-                    <div class="agent_card_banner overlay" style="background-image: url('{{asset('')}}/assets/frontend/images/neighbourhood-header.jpg');">
+                    <div class="agent_card_banner overlay" style="background-image: url('{{asset('')}}assets/frontend/images/neighbourhood-header.jpg');">
 
                         <div class="agent_image">
                             <div class="agent_list_profile">
@@ -50,12 +50,12 @@
                 </div>
             </div>
         @endforeach
-        
+
     </div>
 </section>
 @include('layouts.frontend.footer')
 @endsection
 
 @push('js')
-    
+
 @endpush

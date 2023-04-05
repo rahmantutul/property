@@ -5,17 +5,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>US Metro Reality</title>
 
-        <link rel="stylesheet" href="{{asset('')}}/assets/frontend/main.css" type="text/css" media="all">
-        <link rel="stylesheet" href="{{asset('')}}/assets/frontend/style.min.css" type="text/css" media="all">
-        <link rel="stylesheet" href="{{asset('')}}/assets/frontend/style-min.css" type="text/css" media="all">
-        <link href="{{asset('')}}/assets/frontend/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{asset('')}}/assets/frontend/bootstrap/css/bootstrap.min.css" type="text/css" media="all">
+        <link rel="stylesheet" href="{{asset('')}}assets/frontend/main.css" type="text/css" media="all">
+        <link rel="stylesheet" href="{{asset('')}}assets/frontend/style.min.css" type="text/css" media="all">
+        <link rel="stylesheet" href="{{asset('')}}assets/frontend/style-min.css" type="text/css" media="all">
+        <link href="{{asset('')}}assets/frontend/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('')}}assets/frontend/bootstrap/css/bootstrap.min.css" type="text/css" media="all">
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
-        <script type="text/javascript" src="{{asset('')}}/assets/frontend/jquery.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}/assets/frontend/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}/assets/frontend/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" src="{{asset('')}}/assets/frontend/production-min.js"></script>
+        <script type="text/javascript" src="{{asset('')}}assets/frontend/jquery.min.js"></script>
+        <script type="text/javascript" src="{{asset('')}}assets/frontend/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{asset('')}}assets/frontend/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="{{asset('')}}assets/frontend/production-min.js"></script>
 
         @stack('css')
 

@@ -1,10 +1,10 @@
 @extends('layouts.frontend.app')
 @push('css')
-    
+
 @endpush
 
 @section('content')
-<section class="agent_single overlay" style="background-image: url('{{asset('')}}/assets/frontend/images/neighbourhood-header.jpg');">
+<section class="agent_single overlay" style="background-image: url('{{asset('')}}assets/frontend/images/neighbourhood-header.jpg');">
     <div class="row">
         <div class="col-md-8">
             <div class="agent_single_bnr_image">
@@ -90,7 +90,7 @@
                         <h5>FOR SALE | ${{$dataInfo->price}}</h5>
                         <h2>FOR SALE: {{(!is_null($dataInfo->details)) ? $dataInfo->details->totalUnit.','.$dataInfo->details->squareFeet:''}}</h2>
                         <h5><span><i class="fa fa-bed"></i>{{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBedroom:''}} BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBathroom:''}} Baths</span></h5>
-    
+
                         <a href="" class="learn_more_btn">
                             <div class="button_lm">
                                 <div class="f-left left_btn">Learn More</div>
@@ -102,7 +102,7 @@
                 </div>
             </div>
             @endforeach
-            
+
         </div>
     </div>
 </section>
@@ -111,5 +111,5 @@
 @endsection
 
 @push('js')
-    
+
 @endpush

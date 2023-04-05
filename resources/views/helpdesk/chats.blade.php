@@ -71,7 +71,7 @@ if($chat->userType==5){
 <div class="chat chat-left">
     <div class="chat-avatar">
         <span class="avatar box-shadow-1 cursor-pointer">
-            <img src="{{asset('')}}/app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
+            <img src="{{asset('')}}app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
         </span>
     </div>
     <div class="chat-body">
