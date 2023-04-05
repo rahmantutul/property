@@ -26,9 +26,7 @@ class PropertyController extends Controller
 
       $data = json_decode($response->getBody(), true);
 
-      return $data['value'][0];
-
-    }
+    }    
 
 
     public function store(){
