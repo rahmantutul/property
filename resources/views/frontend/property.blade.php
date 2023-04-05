@@ -1,10 +1,10 @@
 @extends('layouts.frontend.app')
 @push('css')
-    
+
 @endpush
 
 @section('content')
-<section class="featured_list br_common" style="background-image: url('{{asset('')}}/assets/frontend/images/Featured-Properties-list-bg.jpg');">
+<section class="featured_list br_common" style="background-image: url('{{asset('')}}assets/frontend/images/Featured-Properties-list-bg.jpg');">
     <div class="overla"></div>
     <h1>Our Featured Properties</h1>
     <ul>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage01.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage01.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -43,7 +43,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage03.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage03.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -62,7 +62,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage02.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage02.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -81,7 +81,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage04.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage04.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -99,7 +99,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage05.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage05.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -117,7 +117,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage01.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage01.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -135,7 +135,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage02.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage02.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -153,7 +153,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage03.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage03.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -171,7 +171,7 @@
         </div>
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}/assets/frontend/images/productimage04.jpg" alt="Your Image">
+                <img src="{{asset('')}}assets/frontend/images/productimage04.jpg" alt="Your Image">
                 <div class="hover-content">
                     <h5>FOR SALE | $290,000.00</h5>
                     <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | 20 ADWARD STREET</h2>
@@ -193,5 +193,5 @@
 @endsection
 
 @push('js')
-    
+
 @endpush

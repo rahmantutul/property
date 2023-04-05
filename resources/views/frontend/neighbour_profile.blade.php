@@ -1,10 +1,10 @@
 @extends('layouts.frontend.app')
 @push('css')
-    
+
 @endpush
 
 @section('content')
-<section class="featured_list br_common overlay" style="background-image: url('{{asset('')}}/assets/frontend/images/neighbourhood-single_bg.jpg');">
+<section class="featured_list br_common overlay" style="background-image: url('{{asset('')}}assets/frontend/images/neighbourhood-single_bg.jpg');">
     <h1>King West</h1>
     <ul>
         <li><a href="">Share This</a></li>
@@ -25,7 +25,7 @@
                 <div class="hood-section">
                     <div class="fancy-wrap ">
                         <div class="fancy-icon">
-                            <img src="{{asset('')}}/assets/frontend/images/neighborhood_icon/love-it-icon.svg" width="40">
+                            <img src="{{asset('')}}assets/frontend/images/neighborhood_icon/love-it-icon.svg" width="40">
                         </div>
                         <div class="fancy-title">
                             <h3 class="title caps">Why We Love It</h3>
@@ -38,7 +38,7 @@
                 <div class="hood-section">
                     <div class="fancy-wrap ">
                         <div class="fancy-icon">
-                            <img src="{{asset('')}}/assets/frontend/images/neighborhood_icon/cant-miss-icon.svg" width="40">
+                            <img src="{{asset('')}}assets/frontend/images/neighborhood_icon/cant-miss-icon.svg" width="40">
                         </div>
                         <div class="fancy-title">
                             <h3 class="title caps">Can't Miss</h3>
@@ -53,7 +53,7 @@
                 <div class="hood-section">
                     <div class="fancy-wrap ">
                         <div class="fancy-icon">
-                            <img src="{{asset('')}}/assets/frontend/images/neighborhood_icon/who-lives-here-icon.svg" width="40">
+                            <img src="{{asset('')}}assets/frontend/images/neighborhood_icon/who-lives-here-icon.svg" width="40">
                         </div>
                         <div class="fancy-title">
                             <h3 class="title caps">Who Lives Here</h3>
@@ -91,7 +91,7 @@
         <div class="row">
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{asset('')}}/assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
+                    <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
                     <div class="hover-content">
                         <h2>KING WEST</h2>
                         <a href="" class="learn_more_btn">
@@ -108,7 +108,7 @@
             </div>
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{asset('')}}/assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
+                    <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
                     <div class="hover-content">
                         <h2>KING WEST</h2>
                         <a href="" class="learn_more_btn">
@@ -125,7 +125,7 @@
             </div>
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{asset('')}}/assets/frontend/images/neighbourhood04.jpg" alt="Your Image">
+                    <img src="{{asset('')}}assets/frontend/images/neighbourhood04.jpg" alt="Your Image">
                     <div class="hover-content">
                         <h2>KING WEST</h2>
                         <a href="" class="learn_more_btn">
@@ -142,7 +142,7 @@
             </div>
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{asset('')}}/assets/frontend/images/neighbourhood01.jpg" alt="Your Image">
+                    <img src="{{asset('')}}assets/frontend/images/neighbourhood01.jpg" alt="Your Image">
                     <div class="hover-content">
                         <h2>KING WEST</h2>
                         <a href="" class="learn_more_btn">
@@ -159,7 +159,7 @@
             </div>
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{asset('')}}/assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
+                    <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
                     <div class="hover-content">
                         <h2>KING WEST</h2>
                         <a href="" class="learn_more_btn">
@@ -176,7 +176,7 @@
             </div>
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{asset('')}}/assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
+                    <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
                     <div class="hover-content">
                         <h2>KING WEST</h2>
                         <a href="" class="learn_more_btn">
@@ -246,5 +246,5 @@
 @endsection
 
 @push('js')
-    
+
 @endpush

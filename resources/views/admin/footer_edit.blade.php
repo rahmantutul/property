@@ -16,7 +16,7 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <img class="img-fluid my-2" src="{{asset('')}}/assets/frontend/images/logo.png" alt="Card image cap">
+                    <img class="img-fluid my-2" src="{{asset('')}}assets/frontend/images/logo.png" alt="Card image cap">
                     <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
                     <a href="javascript:void(0);" class="card-link">Card link</a>
                     <a href="javascript:void(0);" class="card-link">Another link</a>
@@ -26,4 +26,3 @@
     </div>
 </div>
 @endsection
-       
