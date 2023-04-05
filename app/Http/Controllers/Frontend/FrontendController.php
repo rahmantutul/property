@@ -15,8 +15,9 @@ class FrontendController extends Controller
 {
     public function home(){
         $bannerInfo= Banner::first();
-        // $websiteInfo= WebsiteInfo::first();
-        return view('frontend.home',compact('bannerInfo'));
+        $websiteInfo= WebsiteInfo::first();
+        $sliderProperties = Property::with('details', 'address')->whereNull('deleted_at')->where('status', 1)->where('is_featured', 2)->latest('mlsId')->limit(10  )->get();
+        return view('frontend.home',compact('bannerInfo','websiteInfo', 'sliderProperties'));
     }
 
     public function login(){
