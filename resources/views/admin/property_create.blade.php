@@ -256,7 +256,7 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Embeded Video:</strong>
+                            <strong>Embedded Video:</strong>
                             <input type="text" name="videoUrl" placeholder="Past URL" class="form-control"  >
                              <span style="color:red" ></span>
                         </div>
