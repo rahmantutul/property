@@ -26,7 +26,7 @@
             </div>
             <button type="submit" class="button">LOGIN</button>
         </form>
-        <div class="mt-2 signup_link">Don't have an account? <a class="signup" href="signup.html">SIGN UP</a></div>
+        <div class="mt-2 signup_link">Don't have an account? <a class="signup" href="{{route('front.signup')}}">SIGN UP</a></div>
     </div>
 </section>
 

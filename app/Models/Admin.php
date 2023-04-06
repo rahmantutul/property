@@ -15,33 +15,6 @@ class Admin extends Authenticatable
 
      Protected $guard_name ='admin';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     public function roleInfo()
     {
         return $this->hasOne('App\Models\Role','id','roleId')->whereNull('deleted_at');
