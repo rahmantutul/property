@@ -16,7 +16,7 @@ class SellerAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->guard('seller')->check() && auth()->guard('seller')->user()->status==1)
+        if(auth()->guard('seller')->check() && auth()->user()->status==1)
            return $next($request);
         else
             return redirect()->route('login'); 

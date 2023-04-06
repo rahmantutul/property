@@ -16,7 +16,7 @@ class AgentAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->guard('agent')->check() && auth()->guard('agent')->user()->status==1)
+        if(auth()->guard('agent')->check() && auth()->user()->status==1)
            return $next($request);
         else
             return redirect()->route('login'); 

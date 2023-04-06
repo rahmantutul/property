@@ -71,18 +71,21 @@ class AuthController extends Controller
     }
     public function loginPage()
     {
-        if(auth()->guard('admin')->check())
+        if(auth()->guard('admin')->check()){
             return redirect()->route('admin.dashboard');
-        elseif(auth()->guard('agent')->check())
+        }
+        elseif(auth()->guard('agent')->check()){
             return redirect()->route('agent.dashboard');
-        elseif(auth()->guard('buyer')->check())
+        }
+        elseif(auth()->guard('buyer')->check()){
             return redirect()->route('buyer.dashboard');
-        elseif(auth()->guard('seller')->check())
+        }
+        elseif(auth()->guard('seller')->check()){
             return redirect()->route('seller.dashboard');
-        else
+        }
+        else{
             return view('frontend.login');
-        
-        // return view('login');
+        }
     }
 
     public function logout()

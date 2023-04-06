@@ -16,7 +16,7 @@ class BuyerAuth
      */
     public function handle(Request $request, Closure $next)
     {
-       if(auth()->guard('buyer')->check() && auth()->guard('buyer')->user()->status==1)
+       if(auth()->guard('buyer')->check() && auth()->user()->status==1)
            return $next($request);
         else
             return redirect()->route('login'); 
