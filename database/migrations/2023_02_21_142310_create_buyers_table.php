@@ -15,24 +15,17 @@ class CreateBuyersTable extends Migration
     {
         Schema::create('buyers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
-            $table->string('email',228);
-            $table->string('phone')->nullable();
-            $table->string('password');
-            $table->string('facebook')->nullable();
-            $table->string('fax')->nullable();
-            $table->string('linkedin')->nullable();
-            $table->string('skype')->nullable();
-            $table->string('license')->nullable();
-            $table->string('avatar')->nullable();
-            $table->string('about')->nullable();
             $table->string('address',2000)->nullable();
             $table->datetime('verified_at')->nullable();
+            $table->tinyInteger('is_appoved')->default(0);
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

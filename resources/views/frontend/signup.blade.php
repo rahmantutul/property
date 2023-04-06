@@ -12,17 +12,16 @@
                     <div class="card-header">
                         <div class="signup_title">REGISTRATION FORM</div>
                     </div>
-                    <form action="{{ route('user.register') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('user.register') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <h4 style="text-align: center">Account Details</h4>
                             <div class="form-group">
                                 <label for="userType">User Type *</label>
-                                <select class="form-control" id="user-type" name="userType">
-                                    <option value="">Select Role</option>
-                                    <option value="1">Seller</option>
-                                    <option value="2">Buyer</option>
-                                    <option value="3">Agent</option>
+                                <select class="form-control" id="user_type" name="user_type">
+                                    <option value="seller">Seller</option>
+                                    <option value="buyer">Buyer</option>
+                                    <option value="agent">Agent</option>
                                 </select>
                             </div>
                             <div class="row">
@@ -49,7 +48,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="confirm-password">Confirm Password *</label>
-                                <input type="password" class="form-control" id="confirm-password" name="confirmPassword" required>
+                                <input type="password" class="form-control" id="confirm-password" name="password_confirmation" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone *</label>

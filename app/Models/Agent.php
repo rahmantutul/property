@@ -21,26 +21,18 @@ class Agent extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'user_id',
+        'firstName',
+        'lastName',
+        'facebook',
+        'fax',
+        'linkedin',
+        'license',
+        'about',
+        'address',
+        'is_approved',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
     public function roleInfo()
     {
