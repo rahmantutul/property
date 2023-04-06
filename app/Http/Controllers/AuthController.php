@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Traits\SystemLogTrait;
+use Exception;
+use Carbon\Carbon;
 use App\Models\Admin;
 use App\Models\Agent;
 use App\Models\Buyer;
 use App\Models\Seller;
-use Carbon\Carbon;
-use Auth;
-use Hash;
-use Session;
-use DB;
+use Illuminate\Http\Request;
+use App\Traits\SystemLogTrait;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {

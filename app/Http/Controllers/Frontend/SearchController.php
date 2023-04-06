@@ -25,7 +25,7 @@ class SearchController extends Controller
             'keyword' => 'nullable|string',
         ]);
 
-        $query = Property::with('propertyCategory')
+        $properties = Property::with('propertyCategory', 'details', 'address')
             ->whereHas('propertyCategory', function ($q) {
                 if (request()->filled('category')) {
                     $q->where('categoryId', request()->category);
@@ -57,8 +57,6 @@ class SearchController extends Controller
             ->where('status', 1)
             ->paginate(10);
 
-            dd($query);
-            $properties = $query->paginate(10);
         return view('frontend.search', compact('properties'));
 
     }
