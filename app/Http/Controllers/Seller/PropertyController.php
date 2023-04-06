@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Agent;
+namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,10 +16,10 @@ use App\Models\PropertyAddress;
 use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
 use Illuminate\Support\Str;
-
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class PropertyController extends Controller
 {
@@ -31,15 +31,14 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $query=Property::whereNull('deleted_at')->where('agentId',Auth::guard('agent')->user()->id)
-            ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
-
+        $query=Property::whereNull('deleted_at')
+                ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
         if(isset(request()->is_featured) && request()->is_featured==1)
-            $query->where('is_featured',2)->where('status',2);
-
+            $query->where('is_featured',1);
+       
         $dataList=$query->paginate(100);
 
-        return view('agent.property_list',compact('dataList'));
+        return view('seller.property_list',compact('dataList'));
     }
 
     /**
@@ -61,7 +60,7 @@ class PropertyController extends Controller
         
         $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
 
-        return  view('agent.property_create',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList'));
+        return  view('seller.property_create',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList'));
     }
 
     /**
@@ -79,7 +78,7 @@ class PropertyController extends Controller
             
             $dataInfo=new Property();
 
-            $dataInfo->agentId=Auth::guard('agent')->user()->id;
+            $dataInfo->agentId=$request->agentId;
 
             $dataInfo->buyerId=$request->buyerId;
 
@@ -118,7 +117,7 @@ class PropertyController extends Controller
             else
                 $dataInfo->thumbnail=env('APP_URL').'/images/no_found.png';
             
-            $dataInfo->status=2;
+            $dataInfo->status=1;
 
             $dataInfo->created_at=Carbon::now();
 
@@ -140,7 +139,7 @@ class PropertyController extends Controller
 
                 if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
 
-                    $note=$dataInfo->id."=>  Property created by ".Auth::guard('agent')->user()->name;
+                    $note=$dataInfo->id."=>  Property created by ".Auth::guard('seller')->user()->name;
 
                     $this->storeSystemLog($dataInfo->id, 'properties',$note);
 
@@ -216,7 +215,7 @@ class PropertyController extends Controller
             return redirect()->back();
         }
 
-        return  view('agent.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo'));
+        return  view('admin.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo'));
     }
 
     /**
@@ -314,7 +313,7 @@ class PropertyController extends Controller
 
                 if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
 
-                    $note=$dataInfo->id."=>  Property updated by ".Auth::guard('agent')->user()->name;
+                    $note=$dataInfo->id."=>  Property updated by ".Auth::guard('seller')->user()->name;
 
                     $this->storeSystemLog($dataInfo->id, 'properties',$note);
 
@@ -374,7 +373,7 @@ class PropertyController extends Controller
 
              $propertyDetailsDelete=PropertyDetails::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
 
-                $note=$dataInfo->id."=> Property  info deleted  by ".Auth::guard('agent')->user()->name;
+                $note=$dataInfo->id."=> Property  info deleted  by ".Auth::guard('seller')->user()->name;
 
                 $this->storeSystemLog($dataInfo->id, 'properties',$note);
 
@@ -438,6 +437,12 @@ class PropertyController extends Controller
         $dataInfo->streetAddressTwo=$request->streetAddressTwo;
 
         $dataInfo->shuitAppertment=$request->shuitAppertment;
+
+        $dataInfo->subDivision=$request->subDivision;
+
+        $dataInfo->longitude=$request->longitude;
+
+        $dataInfo->latitude=$request->latitude;
 
         $dataInfo->subDivision=$request->subDivision;
 
@@ -520,7 +525,7 @@ class PropertyController extends Controller
 
           if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> ".$dataInfo->name." Property status changed by ".Auth::guard('agent')->user()->name;
+                $note=$dataInfo->id."=> ".$dataInfo->name." Property status changed by ".Auth::guard('seller')->user()->name;
 
                 $this->storeSystemLog($dataInfo->id, 'admins',$note);
 
@@ -540,9 +545,9 @@ class PropertyController extends Controller
         }
     }
 
-
     public function changeFeature(Request $request)
     {
+        // dd($request->is_featured);
         DB::beginTransaction();
         $dataInfo=Property::find($request->dataId);
 
@@ -554,9 +559,9 @@ class PropertyController extends Controller
 
           if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> ".$dataInfo->name." Property Featured changed by ".Auth::guard('agent')->user()->name;
+                $note=$dataInfo->id."=> ".$dataInfo->name." Property Featured changed by ".Auth::guard('seller')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'propertiess',$note);
+                $this->storeSystemLog($dataInfo->id, 'admins',$note);
 
                 DB::commit();
 
@@ -573,5 +578,4 @@ class PropertyController extends Controller
            return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
         }
     }
-    
 }

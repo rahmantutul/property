@@ -25,6 +25,7 @@ use App\Models\Role;
 use App\Models\State;
 use App\Models\PropertyCategory;
 use App\Models\PropertyAddress;
+use App\Models\WebsiteInfo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -61,5 +62,7 @@ class DatabaseSeeder extends Seeder
         HelpDesk::factory(1000)->create();
         HelpDeskDetails::factory(5000)->create();
         Neighbor::factory(50)->create();
+        WebsiteInfo::factory(1)->create();
+        Banner::factory(1)->create();
     }
 }

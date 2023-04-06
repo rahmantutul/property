@@ -21,6 +21,7 @@ class AgentFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' =>  $this->faker->phoneNumber,
             'address' =>  $this->faker->address,
+            'is_approved' =>  1,
             'password' => Hash::make('Abc123@'), // password
             'avatar' => 'https://loremflickr.com/240/240/user?random='.$this->faker->numberBetween(1,600),
             'status' => 1,

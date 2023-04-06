@@ -40,7 +40,6 @@
      </div>
    @include('layouts.backends.footer')
    <div class="modal fade" id="common_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
-    </div>
 </body>
 <!-- END: Body-->
 

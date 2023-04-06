@@ -1,38 +1,43 @@
-<style>
-    .extra-width {
-        min-width:220px !important;
-    }
-</style>
-<nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
-        <div class="navbar-container d-flex content">
-            <div class="bookmark-wrapper d-flex align-items-center">
-                <ul class="nav navbar-nav d-xl-none">
-                    <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
-                </ul>
-                <ul class="nav navbar-nav">
-                    <li class="nav-item d-none d-lg-block">
-                        <h4 class="badge badge-pill badge-primary p-1">{{env('APP_NAME')}}</h4>
-                    </li>
-                </ul>
-            </div>
-            <ul class="nav navbar-nav align-items-center ml-auto">
-               
-                <li class="nav-item d-none d-lg-block">
-                    <a class="nav-link nav-link-style" id="theme_btn"><i class="ficon" data-feather="moon" ></i></a>
-                </li>
-                <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="user-nav d-sm-flex "><span class="user-name font-weight-bolder">{{Auth::guard('seller')->user()->firstNmae}}</span><span class="user-status">{{Auth::guard('seller')->user()->role}}</span></div><span class="avatar"><img class="round" src="{{getUserImage(Auth::guard('seller')->user()->avatar)}}" alt="{{Auth::guard('seller')->user()->firstName}}" height="40" width="40"><span class="avatar-status-online"></span></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right extra-width" aria-labelledby="dropdown-user">
-                    @if(auth()->guard('seller')->user()->can('change-password'))
-                        <a class="dropdown-item btn_modal" href="{{route('seller.password.change')}}">
-                            <i class="mr-50" data-feather='lock'></i>Change Password
-                        </a>
-                    @endif
-                        <a class="dropdown-item" href="{{route('logout')}}"><i class="mr-50" data-feather="power"></i> Logout</a> 
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="{{route('seller.dashboard')}}">
+                    <img src="{{asset('')}}app-assets/images/minilogo.png" alt="" srcset="" style="height:40px; width:40px;">
+                    <h2 class="brand-text">{{env("APP_NAME")}}</h2>
+                </a></li>
+            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
+        </ul>
+    </div>
+    <div class="shadow-bottom"></div>
+    <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+
+            <li class="nav-item {{getActiveMenuClass('seller.dashboard')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.dashboard')}}">
+                    <i data-feather="grid"></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item {{getActiveMenuClass('seller.seller.editProfile')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.seller.editProfile')}}">
+                    <i data-feather="user"></i>
+                    <span class="menu-title text-truncate" data-i18n="Profile">Update Profile</span>
+                </a>
+            </li>
+            <li class="nav-item {{getActiveMenuClass('seller.property.index')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.property.index')}}">
+                    <i data-feather='home'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Property</span>
+                </a>
+            </li>
+            <li class="nav-item {{getActiveMenuClass('seller.property.index')}}?is_featured=1">
+                <a class="d-flex align-items-center" href="{{route('seller.property.index')}}?is_featured=1">
+                    <i data-feather='bookmark'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
+                </a>
+            </li>
+        </ul>
+</div>
+</div>
+

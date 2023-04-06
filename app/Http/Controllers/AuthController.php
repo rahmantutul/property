@@ -58,10 +58,6 @@ class AuthController extends Controller
                     Session::flash('errMsg',"Your Id Temporary Blocked.Please Try Again.");
                     return redirect()->back();
                 }
-                if($sellerInfo->is_approved!=1){
-                    Session::flash('errMsg',"Account is waiting to be approved.");
-                    return redirect()->back();
-                }
                 if (Hash::check(request()->password, $sellerInfo->password)) {
 
                         Auth::guard('seller')->login($sellerInfo);

@@ -14,9 +14,11 @@ class BannerFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word(2),
-            'videoUrl' => "default.mp4",
-            'referUrl' => 'https://www.youtube.com/watch?v=yFylquu64B8',
+            'play_film_banner' => 'asd',
+            'search_banner' => 'asd',
+            'map_banner' => 'asd',
+            'featured_banner' => 'asd',
+            'neighbour_banner' => "asd",
             'status' =>  1,
         ];
     }

@@ -156,11 +156,11 @@ class AgentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($dataId)
-    {
-        $dataInfo=Agent::find($dataId);
-        return view('admin.agent_edit',compact('dataInfo'));
-    }
+    // public function edit($dataId)
+    // {
+    //     $dataInfo=Agent::find($dataId);
+    //     return view('admin.agent_edit',compact('dataInfo'));
+    // }
 
     public function editProfile()
     {
@@ -220,11 +220,13 @@ class AgentController extends Controller
             $dataInfo->license=$request->license;
             $dataInfo->address=$request->address;
                 
-            if (Hash::check($request->old_password, $dataInfo->password)) { 
-                $dataInfo->password=Hash::make($request->confirm_password);
-             } else {
-                 Session::flash('errMsg','Password not matched!');
-             }
+            if(isset($request->old_password) && isset($dataInfo->password)){
+                if (Hash::check($request->old_password, $dataInfo->password)) { 
+                    $dataInfo->password=Hash::make($request->confirm_password);
+                 } else {
+                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                 }
+            }
           if($request->hasFile('photo'))
             $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'agents');
 

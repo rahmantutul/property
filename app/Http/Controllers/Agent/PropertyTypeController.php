@@ -27,7 +27,7 @@ class PropertyTypeController extends Controller
 
         $dataList=$query->paginate(100)->withQueryString();
         
-        return view('admin.property_type_list',compact('dataList'))
+        return view('admin.property_type_list',compact('dataList'));
     }
 
     /**

@@ -23,9 +23,10 @@ class CreateAgentsTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('fax')->nullable();
             $table->string('linkedin')->nullable();
-            $table->string('licence')->nullable();
+            $table->string('license')->nullable();
             $table->string('avatar')->nullable();
             $table->string('about')->nullable();
+            $table->string('skype')->nullable();
             $table->string('address',2000)->nullable();
             $table->datetime('verified_at')->nullable();
             $table->tinyInteger('is_approved')->default(0);

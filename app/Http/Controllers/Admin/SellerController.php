@@ -10,155 +10,21 @@ use Carbon\Carbon;
 use Hash;
 use Auth;
 use DB;
-
+use Session;
 class SellerController extends Controller
 {
-     use SystemLogTrait;
+    use SystemLogTrait;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
-        $query=Seller::whereNull('deleted_at')->with('roleInfo');
 
-        if(request()->filled('name')){
-            $query->where(function($q){
-                $q->where('firstName','like',request()->name.'%')
-                ->orWhere('lastName','like',request()->name.'%');
-            });
-        }
-
-        if(request()->filled('email'))
-            $query->where('email','like',strtolower(trim(request()->email)).'%');
-
-        if(request()->filled('phone'))
-            $query->where('phone','like',strtolower(trim(request()->phone)).'%');
-        
-        if(request()->status)
-            $query->where('status',request()->status);
-
-        if(request()->filled('pending_status')){
-            $dataList=$query->where('is_approved',0)->paginate(100)->withQueryString();
-        }else{
-            $dataList=$query->where('is_approved',1)->paginate(100)->withQueryString();
-        }
-        
-        return view('admin.seller_list',compact('dataList'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function editProfile()
     {
-        return view('admin.seller_create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-      DB::beginTransaction();
-       try{
-            $request->validate([
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
-            ],
-            [
-                'firstName.required' => "Please Enter First Name.",
-                'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter Staff Bengali Name.",
-                'photo.image' => "uploaded file must be a valid image format.",
-                'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
-                'photo.max' => "Image file can't be more than 2 MB.",
-            ]);
-
-            $dataInfo=new Admin();
-
-            $dataInfo->firstName=$request->firstName;
-
-            $dataInfo->lastName=$request->lastName;
-
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
-
-            $dataInfo->password=($request->filled('password'))?Hash::make($request->password):Hash::make('123Abc@');
-            
-            if($request->hasFile('photo'))
-                $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
-            else
-                $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
-            
-            $dataInfo->status=1;
-
-            $dataInfo->created_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Seller created by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'Sellers',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>'A New Seller Added Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Admin.!']);
-            }
-       }
-        catch(Exception $err){
-
-            DB::rollBack();
-
-            $this->storeSystemError('SellerController','store',$err);
-
-            DB::commit();
-
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($dataId)
-    {
+        $dataId= Auth::guard('seller')->user()->id;
         $dataInfo=Seller::find($dataId);
-
-        return view('admin.seller_edit',compact('dataInfo'));
+        return view('seller.seller_edit',compact('dataInfo'));
     }
 
     /**
@@ -168,8 +34,9 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function updateProfile(Request $request)
     {
+        // dd($request->all());
        DB::beginTransaction();
        try{
             $request->validate([
@@ -178,14 +45,13 @@ class SellerController extends Controller
                 'email' => 'required',
                 'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
+                'confirm_password' => 'confirmed|max:8|different:old_password',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
                 'lastName.required' => "Please Enter Last Name.",
                 'email.required' => "Please Enter User Email Address.",
                 'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter Staff Bengali Name.",
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
@@ -201,31 +67,40 @@ class SellerController extends Controller
             $dataInfo->email=strtolower(trim($request->email));
 
             $dataInfo->phone=$request->phone;
-                
-            if($request->password)
-                $dataInfo->password=Hash::make($request->password);
-
+            $dataInfo->fax=$request->fax;
+            $dataInfo->facebook=$request->facebook;
+            $dataInfo->linkedin=$request->linkedin;
+            $dataInfo->skype=$request->skype;
+            $dataInfo->about=$request->linkedin;
+            $dataInfo->phone=$request->phone;
+            $dataInfo->license=$request->license;
+            $dataInfo->address=$request->address;
+            if(isset($request->old_password) && isset($dataInfo->password)){
+                if (Hash::check($request->old_password, $dataInfo->password)) { 
+                    $dataInfo->password=Hash::make($request->confirm_password);
+                 } else {
+                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                 }
+            }
+            
           if($request->hasFile('photo'))
-            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Sellers');
+            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'sellers');
 
             $dataInfo->updated_at=Carbon::now();
 
             if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Seller updated by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> ".$dataInfo->firstName." Seller updated by ".Auth::guard('seller')->user()->firstName;
 
-                $this->storeSystemLog($dataInfo->id, 'Sellers',$note);
+                $this->storeSystemLog($dataInfo->id, 'sellers',$note);
 
                 DB::commit();
-
-                // return view('welcome');
-
-                return response()->json(['status'=>true ,'msg'=>' Seller Info Updated Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>'Seller Info Updated Successfully.!']);
+                return redirect()->back();
             }
             else{
 
                  DB::rollBack();
-
                  return response()->json(['status'=>false ,'msg'=>'Failed To Update Seller.!']);
             }
        }
@@ -241,112 +116,19 @@ class SellerController extends Controller
        }
     }
 
+
+
+
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        DB::beginTransaction();
-        
-        $dataInfo=Seller::find($id);
+    
 
-        if(!empty($dataInfo)) {
-
-          $dataInfo->status=0;
-          
-          $dataInfo->deleted_at=Carbon::now();
-
-          if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> Seller  info deleted  by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'Sellers',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>' Seller Info deleted Successfully.!']);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To delete Seller Info!']);
-            }
-        }
-        else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
-        }
-    }
-
-    public function changeStatus(Request $request)
-    {
-        DB::beginTransaction();
-        $dataInfo=Seller::find($request->dataId);
-
-        if(!empty($dataInfo)) {
-
-          $dataInfo->status=$request->status;
-          
-          $dataInfo->updated_at=Carbon::now();
-
-          if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->name." Seller status changed by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'Sellers',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>' Seller Status Changed Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Change Status!']);
-            }
-        }
-        else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
-        }
-    }
-
-
-    public function changeApprove(Request $request)
-    {
-        DB::beginTransaction();
-        $dataInfo=Seller::find($request->dataId);
-
-        if(!empty($dataInfo)) {
-
-          $dataInfo->is_approved=1;
-          
-          $dataInfo->updated_at=Carbon::now();
-
-          if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->name." Seller approved changed by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'agents',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>' Seller approved Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To approved!']);
-            }
-        }
-        else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
-        }
-    }
+    
     
     public function changePassword(Request $request){
         if($request->isMethod('post')){
@@ -363,7 +145,7 @@ class SellerController extends Controller
      
                  ]);
 
-                 $id= Auth::guard('admin')->user()->id;
+                 $id= Auth::guard('seller')->user()->id;
 
                  $dataInfo=Seller::find($id);
 
@@ -387,9 +169,9 @@ class SellerController extends Controller
 
                  if($dataInfo->save()){
      
-                     $note=$dataInfo->id."=> Password changed by ".Auth::guard('admin')->user()->name;
+                     $note=$dataInfo->id."=> Password changed by ".Auth::guard('seller')->user()->name;
      
-                     $this->storeSystemLog($dataInfo->id, 'staff',$note);
+                     $this->storeSystemLog($dataInfo->id, 'seller',$note);
      
                      DB::commit();
      
@@ -414,7 +196,7 @@ class SellerController extends Controller
             }
         }
 
-       return view('admin.seller_password_change');
+       return view('seller.seller_password_change');
 
     }
 }
