@@ -100,7 +100,7 @@ class WebsiteSettingController extends Controller
         if($request->hasFile('logo'))
             $dataInfo->logo=$this->uploadPhoto($request->file('logo'),'logo');
         else
-            $dataInfo->avatar=env('APP_URL').'/images/logo.png';
+            $dataInfo->avatar=config('app.url').'/images/logo.png';
 
         $dataInfo->created_at=Carbon::now();
 

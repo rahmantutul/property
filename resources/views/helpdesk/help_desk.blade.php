@@ -117,25 +117,25 @@ if(auth()->guard('seller')->check()){
                             @php
                                 if($helpQuery->userType==1){
                                     $userType='admin';
-                                    $userImage=(!is_null($helpQuery->adminInfo))?$helpQuery->adminInfo->avatar:'';
+                                    $userImage=(!is_null($helpQuery->adminInfo))?$helpQuery->adminInfo?->user?->avatar:'';
                                     $userName=(!is_null($helpQuery->adminInfo))?$helpQuery->adminInfo->full_name:'';
                                     $userColor="#28c76f";
                                 }
                                 if($helpQuery->userType==2){
                                     $userType='agent';
-                                     $userImage=(!is_null($helpQuery->agentInfo))?$helpQuery->agentInfo->avatar:'';
+                                     $userImage=(!is_null($helpQuery->agentInfo))?$helpQuery->agentInfo?->user?->avatar:'';
                                      $userName=(!is_null($helpQuery->agentInfo))?$helpQuery->agentInfo->full_name:'';
                                      $userColor="#3518ef";
                                 }
                                 if($helpQuery->userType==3){
                                     $userType='buyer';
-                                     $userImage=(!is_null($helpQuery->buyerInfo))?$helpQuery->buyerInfo->avatar:'';
+                                     $userImage=(!is_null($helpQuery->buyerInfo))?$helpQuery->buyerInfo?->user?->avatar:'';
                                      $userName=(!is_null($helpQuery->buyerInfo))?$helpQuery->buyerInfo->full_name:'';
                                      $userColor="#c41bd3";
                                 }
                                 if($helpQuery->userType==4){
                                     $userType='seller';
-                                     $userImage=(!is_null($helpQuery->sellerInfo))? $helpQuery->sellerInfo->avatar:'';
+                                     $userImage=(!is_null($helpQuery->sellerInfo))? $helpQuery->sellerInfo?->user?->avatar:'';
                                      $userName=(!is_null($helpQuery->sellerInfo))?$helpQuery->sellerInfo->full_name:'';
                                      $userColor="#1bbfd3";
                                 }
@@ -182,12 +182,21 @@ if(auth()->guard('seller')->check()){
                         <!-- Main chat area -->
                         <section class="chat-app-window">
                             <!-- To load Conversation -->
-                            <div class="start-chat-area">
-                                <div class="mb-1 start-chat-icon">
-                                    <i data-feather="message-square"></i>
+                            @if (Auth::user()->user_type !== 1)
+                                <div class="start-chat-area">
+                                    <div class="mb-1 start-chat-icon">
+                                        <i data-feather="message-square"></i>
+                                    </div>
+                                    <h4 class="sidebar-toggle start-chat-text">Start Conversation with Admin</h4>
                                 </div>
-                                <h4 class="sidebar-toggle start-chat-text">Start Conversation</h4>
-                            </div>
+                            @else
+                                <div class="start-chat-area">
+                                    <div class="mb-1 start-chat-icon">
+                                        <i data-feather="message-square"></i>
+                                    </div>
+                                    <h4 class="sidebar-toggle start-chat-text">Start Conversation</h4>
+                                </div>
+                            @endif
                             <!--/ To load Conversation -->
 
                             <!-- Active Chat -->

@@ -74,7 +74,7 @@
                             <tr>
                                 <th class="text-center">{{++$key}}</th>
                                 <td>
-                                    <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
+                                    <img src="{{getUserImage($dataInfo->user->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->full_name}}</td>
 

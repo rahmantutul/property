@@ -96,7 +96,7 @@ class AuthController extends Controller
         Auth::guard('buyer')->logout();
         Auth::guard('seller')->logout();
         Session::flash('infoMsg',"Logged Out Successfully.");
-        return redirect()->route('login');
+        return redirect()->route('front.login');
     }
 
 

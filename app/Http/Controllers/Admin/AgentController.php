@@ -104,7 +104,7 @@ class AgentController extends Controller
             if($request->hasFile('photo'))
                 $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
             else
-                $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
+                $dataInfo->avatar=config('app.url').'/images/defaultUser.png';
             
             $dataInfo->status=1;
 

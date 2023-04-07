@@ -67,7 +67,7 @@ trait SystemLogTrait {
 
         $path = '/storage/app/public/'.$folder.'/'.$imageName;
 
-        return env('APP_URL').$path;
+        return config('app.url').$path;
     }
 
     public function seedBookingRequestValidation($request)

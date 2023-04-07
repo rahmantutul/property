@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use Carbon\Carbon;
+use App\Models\HelpDesk;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\HelpDesk;
 use App\Models\HelpDeskDetails;
-use Carbon\Carbon;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HelpDeskController extends Controller
 {
@@ -47,8 +48,9 @@ class HelpDeskController extends Controller
 
         $helpQueries=$query->orderBy('updated_at','DESC')->get();
 
-        if(request()->filled('search'))
+        if(request()->filled('search')){
             return view('helpdesk.help_queries',compact('helpQueries'));
+        }
 
         return view('helpdesk.help_desk',compact('helpQueries'));
     }

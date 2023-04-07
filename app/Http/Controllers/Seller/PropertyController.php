@@ -116,7 +116,7 @@ class PropertyController extends Controller
             if($request->hasFile('thumbnail'))
                 $dataInfo->thumbnail=$this->uploadPhoto($request->file('thumbnail'),'properties');
             else
-                $dataInfo->thumbnail=env('APP_URL').'/images/no_found.png';
+                $dataInfo->thumbnail=config('app.url').'/images/no_found.png';
             
             $dataInfo->status=1;
 
