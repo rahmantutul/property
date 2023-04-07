@@ -23,11 +23,12 @@ class AuthController extends Controller
         // dd($request->all());
         $request->validate([
             'userName' => 'required',
-            'password' => 'required'
+            'password' => 'required|min:6'
         ],
         [
             'userName.required' => "Username can't be empty.Please Enter Your Username.",
-            'password.required' => "Password can't be empty.Please Enter Your Password."
+            'password.required' => "Password can't be empty.Please Enter Your Password.",
+            'password.min' => "Password must be at least 6 characters.",
         ]);
         // userName is email or phone & password is user password now check auth attempt
         $fieldType = filter_var($request->userName, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';

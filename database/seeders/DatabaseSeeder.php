@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
     {
         
         Role::factory(1)->create();
+        $this->call(AdminSeeder::class);
         // Admin::factory(1)->create();
         // Agent::factory(100)->create();
         // Buyer::factory(100)->create();
