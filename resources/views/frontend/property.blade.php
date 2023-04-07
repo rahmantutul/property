@@ -37,7 +37,11 @@
                                 <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
                             </div>
                         </a>
-                        <a href="{{route('front.saveProperty', [$id=$item->id])}}" class="save_properties"><i class="fa fa-star-o"></i> Save</a>
+                        @if ($item->saveProperty)
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$item->id])}}" class="save_properties"><i class="fa fa-star"> Save</i></a>
+                        @else
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$item->id])}}" class="save_properties"><i class="fa fa-star-o"> Save</i></a>
+                        @endif
 
                     </div>
                 </div>
@@ -50,5 +54,28 @@
 @endsection
 
 @push('js')
-
+<script>
+    $(document).ready(function(){
+        $('.save_properties').click(function(obj) {
+            var obj = $(this);
+            var url = obj.data('savelist-url');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    if (data.delete == false) {
+                        //empty heart
+                        obj[0].innerHTML = '';
+                        obj[0].innerHTML = '<i class="fa fa-star"> Save</i>';
+                    }
+                    if (data.delete == true) {
+                        //empty heart
+                        obj[0].innerHTML = '';
+                        obj[0].innerHTML = '<i class="fa fa-star-o"> Save</i>';
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endpush

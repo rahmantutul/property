@@ -55,4 +55,9 @@ class Property extends Model
     {
         return $this->hasOne('App\Models\PropertyCategory', 'propertyId', 'id')->whereNull('deleted_at');
     }
+
+    public function saveProperty()
+    {
+        return $this->hasOne('App\Models\SaveProperty', 'property_id', 'id');
+    }
 }

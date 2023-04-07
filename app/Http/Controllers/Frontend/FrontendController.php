@@ -31,7 +31,12 @@ class FrontendController extends Controller
 
     public function property(){
         //featured property list
-        $featuredProperties = Property::with('details', 'address')->whereNull('deleted_at')->where('status', 1)->where('is_featured', 2)->latest('mlsId')->paginate(12);
+        $featuredProperties = Property::with(['details', 'address',
+            'saveProperty' => function($query)
+            {
+                $query->where('user_id', auth()->id());
+            },
+        ])->whereNull('deleted_at')->where('status', 1)->where('is_featured', 2)->latest('mlsId')->paginate(12);
         return view('frontend.property', compact(['featuredProperties']));
     }
     

@@ -29,7 +29,7 @@ class SavePropertyController extends Controller
             return response()->json(['success' => 'Property removed from save list','delete'=> true]);
         } else {
 
-            if (Auth::user()->user_type == 1 || Auth::user()->user_type == 3 || Auth::user()->user_type == 4) {
+            if (Auth::user()->user_type == 1 || Auth::user()->user_type == 2 || Auth::user()->user_type == 3 || Auth::user()->user_type == 4) {
                 $savelist              = new SaveProperty();
                 $savelist->user_id     = auth()->id();
                 $savelist->property_id = $id;
@@ -39,6 +39,5 @@ class SavePropertyController extends Controller
                 return response()->json(['error' => 'You are not eligible for save property']);
             }
         }
-        dd('123');
     }
 }
