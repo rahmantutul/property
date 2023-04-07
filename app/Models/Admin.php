@@ -28,7 +28,8 @@ class Admin extends Authenticatable
         return ucwords($this->firstName. ' '.$this->lastName);
     }
 
-    public function user(){
-        return $this->belongsTo('App\Models\User','user_id','id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
-use App\Models\Admin;
-use Carbon\Carbon;
-use Hash;
-use Auth;
-use DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -25,11 +27,7 @@ class AdminController extends Controller
         $roles=Role::whereNull('deleted_at')->where('status',1)->get();
         
         $query=Admin::with('user')->whereNull('deleted_at')
-        // dd($query);
-        ->with('roleInfo')
-        ->with('user',function($q){
-            $q->where('status','==',0);
-        });
+        ->with('roleInfo');
 
         if(request()->filled('name')){
             $query->where(function($q){
@@ -96,60 +94,93 @@ class AdminController extends Controller
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
             ]);
+            //Admin create with user table
+            $user = User::create([
+                'email' => strtolower(trim($request->email)),
+                'password' => ($request->filled('password'))?Hash::make($request->password):Hash::make('123Abc@'),
+                'phone' => $request->phone,
+                'user_type' => 1,
+                'status' => 1,
+                'avatar' => ($request->hasFile('photo'))?$this->uploadPhoto($request->file('photo'), 'User'):config('app.url').'/images/defaultUser.png',
+                'is_approved' => 1
+            ]);
 
-            $dataInfo=new Admin();
-
-            $dataInfo->firstName=$request->firstName;
-
-            $dataInfo->lastName=$request->lastName;
-
-            $dataInfo->roleId=$request->roleId;
-
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
-
-            $dataInfo->password=($request->filled('password'))?Hash::make($request->password):Hash::make('123Abc@');
-            
-            if($request->hasFile('photo'))
-                $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
-            else
-                $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
-            
-            $dataInfo->status=1;
-
-            $dataInfo->created_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-                if($request->filled('roleId'))
-                    $dataInfo->assignRole($request->roleId);
-
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Admin created by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'admins',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>'A New Admin Added Successfully.!','url'=>url()->previous()]);
+            $admin = Admin::create([
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'roleId' => $request->roleId,
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'user_id' => $user->id
+            ]);
+            if ($request->filled('roleId')) {
+                $admin->assignRole($request->roleId);
             }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Admin.!']);
-            }
-       }
-        catch(Exception $err){
-
-            DB::rollBack();
-
-            $this->storeSystemError('AdminController','store',$err);
+            //store system log
+            $note = $admin->id . "=> " . $admin->full_name . " Admin created by " . Auth::guard('admin')->user()->name;
+            $this->storeSystemLog($admin->id, 'admins', $note);
 
             DB::commit();
+            return response()->json(['status' => true, 'msg' => 'A New Admin Added Successfully.!','url'=>url()->previous()]);
+        } catch (Exception $err) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'msg' => 'Failed To Add Admin.!'.$err]);
+        }
 
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
+
+
+
+            // $dataInfo=new Admin();
+
+            // $dataInfo->firstName=$request->firstName;
+
+            // $dataInfo->lastName=$request->lastName;
+
+            // $dataInfo->roleId=$request->roleId;
+
+
+            // $dataInfo->phone=$request->phone;
+
+            
+            // if($request->hasFile('photo'))
+            //     $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
+            // else
+            //     $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
+            
+            // $dataInfo->status=1;
+
+            // $dataInfo->created_at=Carbon::now();
+
+            // if($dataInfo->save()){
+
+            //     if($request->filled('roleId'))
+            //         $dataInfo->assignRole($request->roleId);
+
+            //     $note=$dataInfo->id."=> ".$dataInfo->full_name." Admin created by ".Auth::guard('admin')->user()->name;
+
+            //     $this->storeSystemLog($dataInfo->id, 'admins',$note);
+
+            //     DB::commit();
+
+            //     return response()->json(['status'=>true ,'msg'=>'A New Admin Added Successfully.!','url'=>url()->previous()]);
+            // }
+            // else{
+
+            //      DB::rollBack();
+
+            //      return response()->json(['status'=>false ,'msg'=>'Failed To Add Admin.!']);
+            // }
+    //    }
+    //     catch(Exception $err){
+
+    //         DB::rollBack();
+
+    //         $this->storeSystemError('AdminController','store',$err);
+
+    //         DB::commit();
+
+    //         return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
+    //    }
     }
 
     /**
