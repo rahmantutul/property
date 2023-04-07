@@ -37,7 +37,7 @@
                                 <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
                             </div>
                         </a>
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
+                        <a href="{{route('front.saveProperty', [$id=$item->id])}}" class="save_properties"><i class="fa fa-star-o"></i> Save</a>
 
                     </div>
                 </div>

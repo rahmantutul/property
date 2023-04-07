@@ -4,6 +4,7 @@ use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as LoginController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\SavePropertyController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\RahmanController;
 use Illuminate\Support\Facades\Artisan;
@@ -42,6 +43,7 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::post('/property/page/search',[SearchController::class,'searchProperty'])->name('propertyPageSearch');
     Route::get('/agents',[FrontendController::class,'agents'])->name('agents');
     Route::get('/{dataId}/agents-details',[FrontendController::class,'agentDetails'])->name('agentDetails');
+    Route::get('/save-property/{id}', [SavePropertyController::class, 'saveProperty'])->name('saveProperty');
 });
 
 // Auth::routes();
