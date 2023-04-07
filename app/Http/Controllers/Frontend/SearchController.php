@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PropertyAddress;
-use App\Models\PropertyCategory;
 use App\Models\PropertyDetails;
+use App\Models\PropertyCategory;
+use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
@@ -25,7 +26,7 @@ class SearchController extends Controller
             'keyword' => 'nullable|string',
         ]);
 
-        $properties = Property::with('propertyCategory', 'details', 'address')
+        $dataList = Property::with('propertyCategory', 'details', 'address')
             ->whereHas('propertyCategory', function ($q) {
                 if (request()->filled('category')) {
                     $q->where('categoryId', request()->category);
@@ -57,7 +58,10 @@ class SearchController extends Controller
             ->where('status', 1)
             ->paginate(10);
 
-        return view('frontend.search', compact('properties'));
+        //categories data
+        $categories=Category::whereNull('deleted_at')->where('status',1)->get();
+
+        return view('frontend.propery_search_result', compact(['dataList', 'categories']));
 
     }
 
