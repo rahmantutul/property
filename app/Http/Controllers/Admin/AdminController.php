@@ -81,6 +81,7 @@ class AdminController extends Controller
                 'email' => 'required',
                 'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'password' => 'required',
                 // 'bnName' => 'required',
             ],
             [
@@ -93,11 +94,12 @@ class AdminController extends Controller
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
+                'password.required' => "Please Enter Password.",
             ]);
             //Admin create with user table
             $user = User::create([
                 'email' => strtolower(trim($request->email)),
-                'password' => ($request->filled('password'))?Hash::make($request->password):Hash::make('123Abc@'),
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'user_type' => 1,
                 'status' => 1,
@@ -109,8 +111,6 @@ class AdminController extends Controller
                 'firstName' => $request->firstName,
                 'lastName' => $request->lastName,
                 'roleId' => $request->roleId,
-                'status' => 1,
-                'created_at' => Carbon::now(),
                 'user_id' => $user->id
             ]);
             if ($request->filled('roleId')) {
@@ -127,60 +127,6 @@ class AdminController extends Controller
             return response()->json(['status' => false, 'msg' => 'Failed To Add Admin.!'.$err]);
         }
 
-
-
-
-            // $dataInfo=new Admin();
-
-            // $dataInfo->firstName=$request->firstName;
-
-            // $dataInfo->lastName=$request->lastName;
-
-            // $dataInfo->roleId=$request->roleId;
-
-
-            // $dataInfo->phone=$request->phone;
-
-            
-            // if($request->hasFile('photo'))
-            //     $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
-            // else
-            //     $dataInfo->avatar=env('APP_URL').'/images/defaultUser.png';
-            
-            // $dataInfo->status=1;
-
-            // $dataInfo->created_at=Carbon::now();
-
-            // if($dataInfo->save()){
-
-            //     if($request->filled('roleId'))
-            //         $dataInfo->assignRole($request->roleId);
-
-            //     $note=$dataInfo->id."=> ".$dataInfo->full_name." Admin created by ".Auth::guard('admin')->user()->name;
-
-            //     $this->storeSystemLog($dataInfo->id, 'admins',$note);
-
-            //     DB::commit();
-
-            //     return response()->json(['status'=>true ,'msg'=>'A New Admin Added Successfully.!','url'=>url()->previous()]);
-            // }
-            // else{
-
-            //      DB::rollBack();
-
-            //      return response()->json(['status'=>false ,'msg'=>'Failed To Add Admin.!']);
-            // }
-    //    }
-    //     catch(Exception $err){
-
-    //         DB::rollBack();
-
-    //         $this->storeSystemError('AdminController','store',$err);
-
-    //         DB::commit();
-
-    //         return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-    //    }
     }
 
     /**
@@ -241,59 +187,38 @@ class AdminController extends Controller
                 'photo.max' => "Image file can't be more than 2 MB.",
             ]);
 
+            $admin = Admin::find($request->dataId);
+            $admin->update([
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'roleId' => $request->roleId,
+            ]);
 
-            $dataInfo=Admin::find($request->dataId);
+            $user = User::find($admin->user_id);
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            if ($request->hasFile('photo')) {
+                $user->avatar = $this->uploadPhoto($request->file('photo'), 'User');
+            }
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
 
-            $dataInfo->firstName=$request->firstName;
-
-            $dataInfo->lastName=$request->lastName;
-
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
             
-            $dataInfo->roleId=$request->roleId;
-                
-            if($request->password)
-                $dataInfo->password=Hash::make($request->password);
-
-          if($request->hasFile('photo'))
-            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'admins');
-
-            $dataInfo->updated_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-            if($request->filled('roleId'))
-                $dataInfo->syncRoles($request->roleId);
-
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Admin updated by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'admins',$note);
-
-                DB::commit();
-
-                // return view('welcome');
-
-                return response()->json(['status'=>true ,'msg'=>' Admin Info Updated Successfully.!','url'=>url()->previous()]);
+            if ($request->filled('roleId')) {
+                $admin->assignRole($request->roleId);
             }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Staff.!']);
-            }
-       }
-        catch(Exception $err){
-
-            DB::rollBack();
-
-            $this->storeSystemError('AdminController','update',$err);
+            //store system log
+            $note = $admin->id . "=> " . $admin->full_name . " Admin updated by " . Auth::guard('admin')->user()->name;
+            $this->storeSystemLog($admin->id, 'admins', $note);
 
             DB::commit();
-
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
+            return response()->json(['status' => true, 'msg' => 'Admin Updated Successfully.!','url'=>url()->previous()]);
+        } catch (Exception $err) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'msg' => 'Failed To Update Admin.!'.$err]);
+        }
     }
 
     /**
