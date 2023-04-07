@@ -18,11 +18,6 @@
                      <span style="color:red" ></span>
                 </div>
                 <div class="col-4 form-group">
-                    <strong>Bengali Name:</strong>
-                    <input type="text" name="bnName" placeholder="Bengali Name" class="form-control" >
-                     <span style="color:red" ></span>
-                </div>
-                <div class="col-4 form-group">
                     <strong>Level:</strong>
                     <input type="number" name="orderBy" placeholder="Level" class="form-control" >
                      <span style="color:red" ></span>

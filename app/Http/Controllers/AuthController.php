@@ -101,15 +101,13 @@ class AuthController extends Controller
 
     public function registerUser(Request $request)
     {
-        // dd($request->all());
-        DB::beginTransaction();
-        try{
+        
             $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed',
             ],
             [
             'firstName.required' => "Please Enter First Name.",
@@ -119,7 +117,6 @@ class AuthController extends Controller
             'photo.image' => "uploaded file must be a valid image format.",
             'password.required' => "Please Enter User Password.",
             'password.confirmed' => "Password and Confirm Password does not match.",
-            'password.min' => "Password must be at least 6 characters.",
             ]);
 
             $user = new User();
@@ -152,15 +149,5 @@ class AuthController extends Controller
             DB::commit();
             Session::flash('msg',"Registration success!");
             return redirect()->route('front.login');
-            
-        }
-        catch(Exception $err){
- 
-            DB::rollBack();
-
-            Session::flash('errMsg',"Something went wrong! ");
-
-            return redirect()->back();
-        }
     }
 }

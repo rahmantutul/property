@@ -18,6 +18,12 @@ class CreateSellersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('license')->nullable();
+            $table->string('about')->nullable();
+            $table->string('skype')->nullable();
             $table->string('address',2000)->nullable();
             $table->timestamps();
             $table->softDeletes();

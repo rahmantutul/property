@@ -32,7 +32,8 @@ class PropertyController extends Controller
     public function index()
     {
         $query=Property::whereNull('deleted_at')
-                ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
+        ->where('sellerId',Auth::guard('seller')->user()->id)
+        ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
         if(isset(request()->is_featured) && request()->is_featured==1)
             $query->where('is_featured',1);
        
@@ -71,7 +72,7 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // dd($request->all());
         DB::beginTransaction();
 
        try{
@@ -82,7 +83,7 @@ class PropertyController extends Controller
 
             $dataInfo->buyerId=$request->buyerId;
 
-            $dataInfo->sellerId=$request->sellerId ;
+            $dataInfo->sellerId=$request->sellerId;
 
             $dataInfo->typeId=$request->typeId;
 

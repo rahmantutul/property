@@ -22,8 +22,8 @@ class AgentController extends Controller
      */
     public function index()
     {   
-        $query=Agent::whereNull('deleted_at')->where('status',1);
-
+        $query=Agent::with('user')->whereNull('deleted_at');
+        // dd($query);
         if(request()->filled('name')){
             $query->where(function($q){
                 $q->where('firstName','like',request()->name.'%')

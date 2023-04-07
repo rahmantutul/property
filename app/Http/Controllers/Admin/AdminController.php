@@ -24,7 +24,12 @@ class AdminController extends Controller
     {   
         $roles=Role::whereNull('deleted_at')->where('status',1)->get();
         
-        $query=Admin::whereNull('deleted_at')->where('status','!=',0)->with('roleInfo');
+        $query=Admin::with('user')->whereNull('deleted_at')
+        // dd($query);
+        ->with('roleInfo')
+        ->with('user',function($q){
+            $q->where('status','==',0);
+        });
 
         if(request()->filled('name')){
             $query->where(function($q){

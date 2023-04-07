@@ -33,4 +33,8 @@ class Seller extends Authenticatable
     {
         return ucwords($this->firstName. ' '.$this->lastName);
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\Seller','user_id','id');
+    }
 }

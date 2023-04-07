@@ -16,6 +16,11 @@
                         @csrf
                         <div class="card-body">
                             <h4 style="text-align: center">Account Details</h4>
+                            @if(Session::has('errMsg')|| Session::has('msg'))
+                                <div class="alert {{(Session::has('msg'))?'alert-success':'alert-danger'}}">
+                                {{ (Session::has('msg'))?Session::get('msg'):Session::get('errMsg') }}
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="userType">User Type *</label>
                                 <select class="form-control" id="user_type" name="user_type">

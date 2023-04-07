@@ -25,9 +25,10 @@
         <div class="col-12">
             <div class="card">           
                 <div class="card-body">
-                    <form class="row" id="ajax_form" action="{{route('agent.property.store')}}" method="POST" enctype="multipart/form-data">
+                    <form class="row" id="ajax_form" action="{{route('seller.property.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        
+                        <input type="hidden" name="sellerId" value="{{ Auth::guard('seller')->user()->id }}">
+
                         <div class="col-4 form-group">
                             <strong>Title:</strong>
                             <input type="text" name="title" placeholder="Property Titile" class="form-control" required >

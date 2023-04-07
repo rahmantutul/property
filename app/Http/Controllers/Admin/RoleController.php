@@ -139,7 +139,7 @@ class RoleController extends Controller
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$dataId)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
-            
+        // dd($rolePermissions);
           return view('admin.role_edit',compact('dataInfo','permission','rolePermissions'));
     }
 
@@ -158,14 +158,12 @@ class RoleController extends Controller
                 'name' => 'required',
             ],
             [
-                'name.required' => "Please Enter Division Name.",
+                'name.required' => "Please Enter Role Name.",
             ]);
 
             $dataInfo=Role::find($request->id);
 
             $dataInfo->name=$request->name;
-
-            $dataInfo->bnName=$request->bnName;
             
             $dataInfo->updated_at=Carbon::now();
 

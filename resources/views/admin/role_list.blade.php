@@ -52,9 +52,7 @@
                         <thead>
                             <tr>
                                 <th>Sl/No</th>
-                                <th>Name (English)</th>
-                                <th>Name (Bangla)</th>
-                                
+                                <th>Name</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -64,8 +62,6 @@
                             <tr>
                                 <th class="text-center">{{++$key}}</th>
                                 <td>{{$dataInfo->name}}</td>
-                                <td>{{$dataInfo->bnName}}</td>
-                                
                                 <td>
                                     <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
                                 </td>

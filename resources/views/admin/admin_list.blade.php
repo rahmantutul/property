@@ -78,8 +78,9 @@
                                 </td>
                                 <td>{{$dataInfo->full_name}}</td>
 
-                                <td>{{$dataInfo->email}}</td>
-                                <td>{{$dataInfo->phone}}</td>
+                                <td>{{$dataInfo->user->email}}</td>
+                                
+                                <td>{{$dataInfo->user->phone}}</td>
                                 <td>
                                      <span class="badge badge-pill badge-info text-dark">
                                         {{$dataInfo->roleInfo->name}}

@@ -23,6 +23,8 @@ class CreatePropertyAddressesTable extends Migration
             $table->string('streetAddressOne')->nullable();
             $table->string('streetAddressTwo')->nullable();
             $table->string('shuitAppertment')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
             $table->string('subDivision')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
