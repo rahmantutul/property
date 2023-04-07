@@ -11,9 +11,27 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-     use  Notifiable,HasFactory,HasRoles;
+    use  Notifiable,HasFactory,HasRoles;
 
-     Protected $guard_name ='admin';
+    Protected $guard_name ='admin';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'firstName',
+        'lastName',
+        'facebook',
+        'fax',
+        'linkedin',
+        'license',
+        'about',
+        'address',
+        'is_approved',
+    ];
 
     public function roleInfo()
     {

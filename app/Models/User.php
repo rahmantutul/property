@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -46,20 +47,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function admin(){
-        return $this->hasOne('App\Models\Admin', 'user_id','id');
-    }
-
-    public function agent(){
-        return $this->hasOne('App\Models\Agent', 'user_id','id');
-    }
-
-    public function biyer(){
-        return $this->hasOne('App\Models\Buyer', 'user_id','id');
-    }
-
-    public function seller(){
-        return $this->hasOne('App\Models\Seller', 'user_id','id');
+    /**
+     * Wish List
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function saveProperty() {
+        return $this->hasOne(SaveProperty::class, 'user_id');
     }
 }
