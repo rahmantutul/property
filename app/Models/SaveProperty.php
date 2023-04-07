@@ -11,6 +11,8 @@ class SaveProperty extends Model
 
     protected $table = 'save_property';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'property_id',
@@ -26,5 +28,5 @@ class SaveProperty extends Model
         return $this->belongsTo(Property::class, 'property_id');
     }
 
-    
+
 }
