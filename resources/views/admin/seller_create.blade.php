@@ -46,15 +46,6 @@
                         </div>
   
                         <div class="col-6 form-group">
-                            <strong>Role:</strong>
-                            <select class="form-control" name="roleId" required>
-                                <option value="">Choose A Role</option>
-                            @foreach($roles as $key=>$roleInfo)
-                                <option value="{{$roleInfo->id}}" >{{$roleInfo->name}}</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="col-6 form-group">
                             <strong>Password:</strong>
                             <input type="password" name="password" placeholder="Password" class="form-control" autocomplete="off" >
                              <span style="color:red" ></span>

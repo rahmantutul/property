@@ -23,6 +23,13 @@ class Seller extends Authenticatable
         'user_id',
         'firstName',
         'lastName',
+        'facebook',
+        'facebook',
+        'fax',
+        'linkedin',
+        'license',
+        'about',
+        'skype',
         'address',
         'is_approved',
     ];
@@ -35,6 +42,6 @@ class Seller extends Authenticatable
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\Seller','user_id','id');
+        return $this->belongsTo('App\Models\User','user_id','id');
     }
 }
