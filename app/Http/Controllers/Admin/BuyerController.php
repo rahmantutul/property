@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Buyer;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
@@ -90,18 +91,18 @@ class BuyerController extends Controller
                  'is_approved' => 1
              ]);
  
-             $agent = Buyer::create([
+             $buyer = Buyer::create([
                  'firstName' => $request->firstName,
                  'lastName' => $request->lastName,
-                 'roleId' => $request->roleId,
                  'user_id' => $user->id
              ]);
 
-             $note = $agent->id . "=> " . $agent->full_name . "Admin created by " . Auth::guard('admin')->user()->name;
-             $this->storeSystemLog($agent->id, 'admins', $note);
+             //store system log
+             $note = $buyer->id . "=> " . $buyer->full_name . " Admin created by " . Auth::guard('admin')->user()->name;
+             $this->storeSystemLog($buyer->id, 'admins', $note);
  
              DB::commit();
-             return response()->json(['status' => true, 'msg' => 'A New Admin Added Successfully.!','url'=>url()->previous()]);
+             return response()->json(['status' => true, 'msg' => 'A New Buyer Added Successfully.!','url'=>url()->previous()]);
          } 
         catch(Exception $err){
 

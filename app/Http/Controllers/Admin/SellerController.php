@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use Carbon\Carbon;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\Seller;
-use Carbon\Carbon;
-use Hash;
-use Auth;
-use DB;
-use Session;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class SellerController extends Controller
 {
     use SystemLogTrait;
@@ -19,12 +22,103 @@ class SellerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index()
+    {
+        $dataList=Seller::with('user')->whereNull('deleted_at')->paginate(10);
+        // dd($query->get());
+        return view('admin.seller_list',compact('dataList'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.seller_create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        DB::beginTransaction();
+        try{
+            $request->validate([
+                'firstName' => 'required',
+                'lastName' => 'required',
+                'email' => 'required|unique:users',
+                'phone' => 'required|unique:users',
+                'password' => 'required|min:6',
+                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],
+            [
+                'firstName.required' => "Please Enter First Name.",
+                'lastName.required' => "Please Enter Last Name.",
+                'email.required' => "Please Enter User Email Address.",
+                'email.unique' => "This Email Address is already taken.",
+                'phone.required' => "Please Enter User Phone No.",
+                'phone.unique' => "This Phone No is already taken.",
+                'password.required' => "Please Enter User Password.",
+                'password.min' => "Password must be at least 6 characters.",
+                'photo.image' => "uploaded file must be a valid image format.",
+                'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
+                'photo.max' => "Image file can't be more than 2 MB.",
+            ]);
+
+            $user = new User();
+            $user->email = strtolower(trim($request->email));
+            $user->phone = $request->phone;
+            $user->password = Hash::make($request->password);
+            $user->avatar = ($request->hasFile('photo'))?$this->uploadPhoto($request->file('photo'), 'User'):config('app.url').'/images/defaultUser.png';
+            $user->user_type = 3;
+            $user->status = 1;
+            $user->is_approved = 1;
+            $user->save();
+
+            $seller = new Seller();
+            $seller->user_id = $user->id;
+            $seller->firstName = $request->firstName;
+            $seller->lastName = $request->lastName;
+            $seller->save();
+            
+           //store system log
+           $note = $seller->id . "=> " . $seller->full_name . " Admin created by " . Auth::guard('admin')->user()->name;
+           $this->storeSystemLog($seller->id, 'admins', $note);
+            DB::commit();
+            return response()->json(['status' => true, 'msg' => 'A New Seller Added Successfully.!','url'=>url()->previous()]);
+        }catch(\Exception $err){
+            DB::rollback();
+
+            $this->storeSystemError('AgentController','store',$err);
+
+            DB::commit();
+
+            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!'.$err]);
+        }
+    }
 
     public function editProfile()
     {
         $dataId= Auth::guard('seller')->user()->id;
         $dataInfo=Seller::find($dataId);
         return view('seller.seller_edit',compact('dataInfo'));
+    }
+
+    /**
+     * 
+     * edit page for admin seller edit
+     */
+    public function edit($id)
+    {
+        $dataInfo=Seller::find($id);
+        return view('admin.seller_edit',compact('dataInfo'));
     }
 
     /**
@@ -45,7 +139,6 @@ class SellerController extends Controller
                 'email' => 'required',
                 'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'confirm_password' => 'confirmed|max:8|different:old_password',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
@@ -115,6 +208,66 @@ class SellerController extends Controller
             return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
        }
     }
+
+    //update seller
+    public function update(Request $request)
+    {
+       DB::beginTransaction();
+       try{
+            $request->validate([
+                'firstName' => 'required',
+                'lastName' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],
+            [
+                'firstName.required' => "Please Enter First Name.",
+                'lastName.required' => "Please Enter Last Name.",
+                'email.required' => "Please Enter User Email Address.",
+                'phone.required' => "Please Enter User Phone No.",
+                'photo.image' => "uploaded file must be a valid image format.",
+                'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
+                'photo.max' => "Image file can't be more than 2 MB.",
+            ]);
+
+            $dataInfo=Seller::find($request->dataId);
+
+            $dataInfo->firstName=$request->firstName;
+
+            $dataInfo->lastName=$request->lastName;
+
+            $dataInfo->save();
+
+            $user = User::find($dataInfo->id);
+            $user->email = strtolower(trim($request->email));
+            if ($request->password) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+            
+            //store system log
+            $note = $dataInfo->id . "=> " . $dataInfo->full_name . " Admin created by " . Auth::guard('admin')->user()->name;
+            $this->storeSystemLog($dataInfo->id, 'admins', $note);
+            DB::commit();
+            
+            return response()->json(['status'=>true ,'msg'=>'Seller Info Updated Successfully.!']);
+            return redirect()->back();
+
+
+
+        }catch(Exception $err){
+            DB::rollBack();
+
+            $this->storeSystemError('SellerController','update',$err);
+
+            DB::commit();
+
+            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!'.$err]);
+        }
+    }
+
+            
 
 
 
@@ -198,5 +351,28 @@ class SellerController extends Controller
 
        return view('seller.seller_password_change');
 
+    }
+
+    //destroy seller
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try{
+            $dataInfo=Seller::find($id);
+            //delete also user table data
+            $user=User::where('id',$dataInfo->user_id)->first();
+            $user->delete();
+            $dataInfo->delete();
+            $note=$dataInfo->id."=> ".$dataInfo->firstName." Seller deleted by ".Auth::guard('admin')->user()->firstName;
+            $this->storeSystemLog($dataInfo->id, 'sellers',$note);
+            DB::commit();
+            return response()->json(['status'=>true ,'msg'=>'Seller Deleted Successfully.!']);
+        }
+        catch(Exception $err){
+            DB::rollBack();
+            $this->storeSystemError('SellerController','destroy',$err);
+            DB::commit();
+            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
+        }
     }
 }

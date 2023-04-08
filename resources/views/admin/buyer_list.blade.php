@@ -85,7 +85,6 @@
                                     <a href="{{route('admin.buyer.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
-                                    @endif
                                 </td>
                             </tr>
                             @endforeach

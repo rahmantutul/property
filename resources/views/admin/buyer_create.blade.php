@@ -18,6 +18,15 @@
                 <div class="card-body">
                     <form class="row" id="ajax_form" action="{{route('admin.buyer.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </div>
+                        @endif
+
                         
                         <div class="col-6 form-group">
                             <strong>Photo:</strong>
