@@ -1,5 +1,12 @@
 @extends('layouts.backends.master')
 @section('title','Buyer List')
+@push('css')
+    <style>
+        .table th, .table td{
+            padding: 0px !important;
+        }
+    </style>
+@endpush
 @section('content')
 
 <div class="row mb-1">
@@ -85,7 +92,6 @@
                                     <a href="{{route('admin.buyer.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
-                                    @endif
                                 </td>
                             </tr>
                             @endforeach

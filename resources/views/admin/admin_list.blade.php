@@ -1,5 +1,12 @@
 @extends('layouts.backends.master')
 @section('title','Admin List')
+@push('css')
+    <style>
+        .table th, .table td{
+            padding: 0px !important;
+        }
+    </style>
+@endpush
 @section('content')
 
 <div class="row mb-1">
@@ -65,7 +72,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Role</th>
-                                {{-- <th>Status</th> --}}
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -86,13 +93,13 @@
                                         {{$dataInfo->roleInfo->name}}
                                     </span>
                                 </td>
-                                {{-- <td>
-                                    <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
-                                </td> --}}
                                 <td>
-                                    {{-- <a href="{{route('admin.admin.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
-                                        {!!getStatusChangeIcon($dataInfo->status)!!}
-                                    </a> --}}
+                                    <span class="badge badge-pill {{getStatusBadge($dataInfo?->user?->status)}}">{{getActiveInActiveStatus($dataInfo?->user?->status)}}</span>
+                                </td>
+                                <td>
+                                    <a href="{{route('admin.admin.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo?->user?->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo?->user?->status)}} btn_status_change" title="Change Status">
+                                        {!!getStatusChangeIcon($dataInfo?->user?->status)!!}
+                                    </a>
                                     <a href="{{route('admin.admin.edit',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
                                         <i data-feather='edit'></i>
                                     </a>

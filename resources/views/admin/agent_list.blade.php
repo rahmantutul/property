@@ -1,5 +1,12 @@
 @extends('layouts.backends.master')
 @section('title','Agent List')
+@push('css')
+    <style>
+        .table th, .table td{
+            padding: 0px !important;
+        }
+    </style>
+@endpush
 @section('content')
 
 <div class="row mb-1">

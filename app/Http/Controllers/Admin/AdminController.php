@@ -265,9 +265,7 @@ class AdminController extends Controller
 
         if(!empty($dataInfo)) {
 
-          $dataInfo->status=$request->status;
-          
-          $dataInfo->updated_at=Carbon::now();
+        User::find($dataInfo->user_id)->update(['status'=>$request->status,'updated_at'=>Carbon::now()]);
 
           if($dataInfo->save()){
 
@@ -334,7 +332,6 @@ class AdminController extends Controller
      
                      $this->storeSystemLog($dataInfo->id, 'staff',$note);
      
-                     // $dataInfo->syncPermissions($request->input('permission'));
      
                      DB::commit();
      

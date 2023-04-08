@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
 use App\Models\Seller;
+use App\Models\User;
 use Carbon\Carbon;
-use Hash;
-use Auth;
-use DB;
-use Session;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 class SellerController extends Controller
 {
     use SystemLogTrait;
@@ -58,8 +60,7 @@ class SellerController extends Controller
             ]);
 
 
-            $dataInfo=Seller::find($request->dataId);
-
+            $dataInfo = Seller::find($request->dataId);
             $dataInfo->firstName=$request->firstName;
 
             $dataInfo->lastName=$request->lastName;
@@ -75,6 +76,15 @@ class SellerController extends Controller
             $dataInfo->phone=$request->phone;
             $dataInfo->license=$request->license;
             $dataInfo->address=$request->address;
+
+            $user = User::find($dataInfo->user_id);
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            if ($request->hasFile('photo')) {
+                $user->avatar = $this->uploadPhoto($request->file('photo'), 'User');
+            }
+
+           
             if(isset($request->old_password) && isset($dataInfo->password)){
                 if (Hash::check($request->old_password, $dataInfo->password)) { 
                     $dataInfo->password=Hash::make($request->confirm_password);
