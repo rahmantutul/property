@@ -22,8 +22,8 @@ class BuyerController extends Controller
      */
     public function index()
     {   
-        $query=Buyer::whereNull('deleted_at');
 
+        $query=Buyer::with('user')->whereNull('deleted_at');
         if(request()->filled('name')){
             $query->where(function($q){
                 $q->where('firstName','like',request()->name.'%')
@@ -37,15 +37,8 @@ class BuyerController extends Controller
         if(request()->filled('phone'))
             $query->where('phone','like',strtolower(trim(request()->phone)).'%');
         
-        if(request()->status)
-            $query->where('status',request()->status);
-
-            if(request()->filled('pending_status')){
-                $dataList=$query->where('is_approved',0)->paginate(100)->withQueryString();
-            }else{
-                $dataList=$query->where('is_approved',1)->paginate(100)->withQueryString();
-            }
         
+        $dataList=$query->with('user')->paginate(100)->withQueryString();
         return view('admin.buyer_list',compact('dataList'));
     }
 
@@ -67,83 +60,62 @@ class BuyerController extends Controller
      */
     public function store(Request $request)
     {
-      DB::beginTransaction();
-       try{
-            $request->validate([
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
-            ],
-            [
-                'firstName.required' => "Please Enter First Name.",
-                'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter buyer Bengali Name.",
-                'photo.image' => "uploaded file must be a valid image format.",
-                'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
-                'photo.max' => "Image file can't be more than 2 MB.",
-            ]);
+        DB::beginTransaction();
+        try{
+             $request->validate([
+                 'firstName' => 'required',
+                 'lastName' => 'required',
+                 'email' => 'required',
+                 'phone' => 'required',
+                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                 'password' => 'required',
+             ],
+             [
+                 'firstName.required' => "Please Enter First Name.",
+                 'lastName.required' => "Please Enter Last Name.",
+                 'email.required' => "Please Enter User Email Address.",
+                 'phone.required' => "Please Enter User Phone No.",
+                 'photo.image' => "uploaded file must be a valid image format.",
+                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
+                 'photo.max' => "Image file can't be more than 2 MB.",
+                 'password.required' => "Please Enter Password.",
+             ]);
+             $user = User::create([
+                 'email' => strtolower(trim($request->email)),
+                 'password' => Hash::make($request->password),
+                 'phone' => $request->phone,
+                 'user_type' => 4,
+                 'status' => 1,
+                 'avatar' => ($request->hasFile('photo'))?$this->uploadPhoto($request->file('photo'), 'User'):config('app.url').'/images/defaultUser.png',
+                 'is_approved' => 1
+             ]);
+ 
+             $agent = Buyer::create([
+                 'firstName' => $request->firstName,
+                 'lastName' => $request->lastName,
+                 'roleId' => $request->roleId,
+                 'user_id' => $user->id
+             ]);
 
-            $dataInfo=new Buyer();
-
-            $dataInfo->firstName=$request->firstName;
-
-            $dataInfo->lastName=$request->lastName;
-
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
-
-            $dataInfo->password=($request->filled('password'))?Hash::make($request->password):Hash::make('123Abc@');
-            
-            if($request->hasFile('photo'))
-                $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
-            else
-                $dataInfo->avatar=config('app.url').'/images/defaultUser.png';
-            
-            $dataInfo->status=1;
-
-            $dataInfo->created_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Buyer created by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'Buyers',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>'A New Buyer Added Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Buyer.!']);
-            }
-       }
+             $note = $agent->id . "=> " . $agent->full_name . "Admin created by " . Auth::guard('admin')->user()->name;
+             $this->storeSystemLog($agent->id, 'admins', $note);
+ 
+             DB::commit();
+             return response()->json(['status' => true, 'msg' => 'A New Admin Added Successfully.!','url'=>url()->previous()]);
+         } 
         catch(Exception $err){
 
             DB::rollBack();
 
-            $this->storeSystemError('BuyerController','store',$err);
+            $this->storeSystemError('AgentController','store',$err);
 
             DB::commit();
 
             return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
        }
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
@@ -178,14 +150,12 @@ class BuyerController extends Controller
                 'email' => 'required',
                 'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
                 'lastName.required' => "Please Enter Last Name.",
                 'email.required' => "Please Enter User Email Address.",
                 'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter buyer Bengali Name.",
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",

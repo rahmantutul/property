@@ -65,7 +65,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Role</th>
-                                <th>Status</th>
+                                {{-- <th>Status</th> --}}
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -86,17 +86,17 @@
                                         {{$dataInfo->roleInfo->name}}
                                     </span>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
-                                </td>
+                                </td> --}}
                                 <td>
-                                    <a href="{{route('admin.admin.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
+                                    {{-- <a href="{{route('admin.admin.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
                                         {!!getStatusChangeIcon($dataInfo->status)!!}
-                                    </a>
+                                    </a> --}}
                                     <a href="{{route('admin.admin.edit',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
                                         <i data-feather='edit'></i>
                                     </a>
-                                    <a href="{{route('admin.admin.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
+                                    <a href="{{route('admin.admin.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo?->user?->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
                                 </td>

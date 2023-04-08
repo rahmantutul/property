@@ -66,28 +66,23 @@
                                     <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->full_name}}</td>
-                                <td>{{$dataInfo->email}}</td>
-                                <td>{{$dataInfo->phone}}</td>
+                                <td>{{$dataInfo->user?->email}}</td>
+                                <td>{{$dataInfo->user?->phone}}</td>
                                 <td>
                                     @if (!is_null(request()->pending_status))
-                                      <span class="badge badge-pill {{getStatusBadge($dataInfo->is_approved)}}">{{getActiveInActiveStatus($dataInfo->is_approved)}}</span>
+                                      <span class="badge badge-pill {{getStatusBadge($dataInfo->user?->is_approved)}}">{{getActiveInActiveStatus($dataInfo->user?->is_approved)}}</span>
                                     @else
-                                      <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
+                                      <span class="badge badge-pill {{getStatusBadge($dataInfo->user?->status)}}">{{getActiveInActiveStatus($dataInfo->user?->status)}}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if (!is_null(request()->pending_status))
-                                        <a href="{{route('admin.buyer.approve.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
-                                            Make Approve
-                                        </a>
-                                    @else
-                                    <a href="{{route('admin.buyer.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
-                                        {!!getStatusChangeIcon($dataInfo->status)!!}
+                                    <a href="{{route('admin.buyer.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->user?->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} btn_status_change" title="Change Status">
+                                        {!!getStatusChangeIcon($dataInfo->user?->status)!!}
                                     </a>
                                     <a href="{{route('admin.buyer.edit',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
                                         <i data-feather='edit'></i>
                                     </a>
-                                    <a href="{{route('admin.buyer.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
+                                    <a href="{{route('admin.buyer.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
                                     @endif
