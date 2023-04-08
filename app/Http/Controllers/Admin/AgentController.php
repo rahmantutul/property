@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
 use App\Models\Agent;
+use App\Models\User;
 use Carbon\Carbon;
-use Hash;
-use Auth;
-use DB;
-use Session;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AgentController extends Controller
 {
@@ -22,7 +24,7 @@ class AgentController extends Controller
      */
     public function index()
     {   
-        $query=Agent::with('user')->whereNull('deleted_at');
+        $query=Agent::whereNull('deleted_at');
         // dd($query);
         if(request()->filled('name')){
             $query->where(function($q){
@@ -41,9 +43,15 @@ class AgentController extends Controller
             $query->where('status',request()->status);
 
         if(request()->filled('pending_status')){
-            $dataList=$query->where('is_approved',0)->paginate(100)->withQueryString();
+            $dataList=$query->with('user',function($q){
+                $q->where('is_approved',0);
+            })
+            ->paginate(100)->withQueryString();
         }else{
-            $dataList=$query->where('is_approved',1)->paginate(100)->withQueryString();
+            $dataList=$query->with('user',function($q){
+                $q->where('is_approved',1);
+            })
+            ->paginate(100)->withQueryString();
         }
         
         
@@ -68,65 +76,55 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-      DB::beginTransaction();
-       try{
-            $request->validate([
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
-            ],
-            [
-                'firstName.required' => "Please Enter First Name.",
-                'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter agent Bengali Name.",
-                'photo.image' => "uploaded file must be a valid image format.",
-                'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
-                'photo.max' => "Image file can't be more than 2 MB.",
-            ]);
-
-            $dataInfo=new Agent();
-
-            $dataInfo->firstName=$request->firstName;
-
-            $dataInfo->lastName=$request->lastName;
-
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
-
-            $dataInfo->password=($request->filled('password'))?Hash::make($request->password):Hash::make('123Abc@');
-            
-            if($request->hasFile('photo'))
-                $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Users');
-            else
-                $dataInfo->avatar=config('app.url').'/images/defaultUser.png';
-            
-            $dataInfo->status=1;
-
-            $dataInfo->created_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Agent created by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'agents',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>'A New Agent Added Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Agent.!']);
-            }
-       }
+        DB::beginTransaction();
+        try{
+             $request->validate([
+                 'firstName' => 'required',
+                 'lastName' => 'required',
+                 'email' => 'required',
+                 'phone' => 'required',
+                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                 'password' => 'required',
+                 // 'bnName' => 'required',
+             ],
+             [
+                 'firstName.required' => "Please Enter First Name.",
+                 'lastName.required' => "Please Enter Last Name.",
+                 'email.required' => "Please Enter User Email Address.",
+                 'phone.required' => "Please Enter User Phone No.",
+                 // 'bnName.required' => "Please Enter Staff Bengali Name.",
+                 'photo.image' => "uploaded file must be a valid image format.",
+                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
+                 'photo.max' => "Image file can't be more than 2 MB.",
+                 'password.required' => "Please Enter Password.",
+             ]);
+             //Admin create with user table
+             $user = User::create([
+                 'email' => strtolower(trim($request->email)),
+                 'password' => Hash::make($request->password),
+                 'phone' => $request->phone,
+                 'user_type' => 2,
+                 'status' => 1,
+                 'avatar' => ($request->hasFile('photo'))?$this->uploadPhoto($request->file('photo'), 'User'):config('app.url').'/images/defaultUser.png',
+                 'is_approved' => 1
+             ]);
+ 
+             $agent = Agent::create([
+                 'firstName' => $request->firstName,
+                 'lastName' => $request->lastName,
+                 'roleId' => $request->roleId,
+                 'user_id' => $user->id
+             ]);
+             //store system log
+             $note = $agent->id . "=> " . $agent->full_name . " Admin created by " . Auth::guard('admin')->user()->name;
+             $this->storeSystemLog($agent->id, 'admins', $note);
+ 
+             DB::commit();
+             return response()->json(['status' => true, 'msg' => 'A New Admin Added Successfully.!','url'=>url()->previous()]);
+         } catch (Exception $err) {
+             DB::rollBack();
+             return response()->json(['status' => false, 'msg' => 'Failed To Add Admin.!'.$err]);
+         }
         catch(Exception $err){
 
             DB::rollBack();
@@ -162,11 +160,10 @@ class AgentController extends Controller
     //     return view('admin.agent_edit',compact('dataInfo'));
     // }
 
-    public function editProfile()
+    public function edit($dataId)
     {
-        $dataId= Auth::guard('agent')->user()->id;
-        $dataInfo=Agent::find($dataId);
-        return view('agent.agent_edit',compact('dataInfo'));
+        $dataInfo=Agent::with('user')->find($dataId);
+        return view('admin.agent_edit',compact('dataInfo'));
     }
 
     /**
@@ -269,75 +266,47 @@ class AgentController extends Controller
 
     public function update(Request $request)
     {
-       DB::beginTransaction();
-       try{
-            $request->validate([
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
-            ],
-            [
-                'firstName.required' => "Please Enter First Name.",
-                'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter agent Bengali Name.",
-                'photo.image' => "uploaded file must be a valid image format.",
-                'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
-                'photo.max' => "Image file can't be more than 2 MB.",
-            ]);
+   
+             $request->validate([
+                 'firstName' => 'required',
+                 'lastName' => 'required',
+                 'email' => 'required',
+                 'phone' => 'required',
+                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                 // 'bnName' => 'required',
+             ],
+             [
+                 'firstName.required' => "Please Enter First Name.",
+                 'lastName.required' => "Please Enter Last Name.",
+                 'email.required' => "Please Enter User Email Address.",
+                 'phone.required' => "Please Enter User Phone No.",
+                 'photo.image' => "uploaded file must be a valid image format.",
+                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
+                 'photo.max' => "Image file can't be more than 2 MB.",
+             ]);
+ 
+             $agent = Agent::find($request->dataId);
+             $agent->update([
+                 'firstName' => $request->firstName,
+                 'lastName' => $request->lastName,
+             ]);
+ 
+             $user = User::find($agent->user_id);
+             $user->email = $request->email;
+             $user->phone = $request->phone;
+             if ($request->hasFile('photo')) {
+                 $user->avatar = $this->uploadPhoto($request->file('photo'), 'User');
+             }
+             if ($request->filled('password')) {
+                 $user->password = Hash::make($request->password);
+             }
+             $user->save();
 
-
-            $dataInfo=Agent::find($request->dataId);
-
-            $dataInfo->firstName=$request->firstName;
-
-            $dataInfo->lastName=$request->lastName;
-
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
-                
-            if($request->password)
-                $dataInfo->password=Hash::make($request->password);
-
-          if($request->hasFile('photo'))
-            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'agents');
-
-            $dataInfo->updated_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->full_name." Agent updated by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'agents',$note);
-
-                DB::commit();
-
-                // return view('welcome');
-
-                return response()->json(['status'=>true ,'msg'=>' Agent Info Updated Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Agent.!']);
-            }
-       }
-        catch(Exception $err){
-
-            DB::rollBack();
-
-            $this->storeSystemError('AgentController','update',$err);
-
-            DB::commit();
-
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
+             //store system log
+             $note = $agent->id . "=> " . $agent->full_name . " Agent updated by " . Auth::guard('admin')->user()->name;
+             $this->storeSystemLog($agent->id, 'admins', $note);
+ 
+             return response()->json(['status' => true, 'msg' => 'Agent Updated Successfully.!','url'=>url()->previous()]);
     }
 
     /**
@@ -353,8 +322,8 @@ class AgentController extends Controller
         $dataInfo=Agent::find($id);
 
         if(!empty($dataInfo)) {
-
-          $dataInfo->status=0;
+            $user=User::find($dataInfo->user_id);
+            $user->status=0;
           
           $dataInfo->deleted_at=Carbon::now();
 
@@ -382,14 +351,12 @@ class AgentController extends Controller
 
     public function changeStatus(Request $request)
     {
+ 
         DB::beginTransaction();
         $dataInfo=Agent::find($request->dataId);
 
         if(!empty($dataInfo)) {
-
-          $dataInfo->status=$request->status;
-          
-          $dataInfo->updated_at=Carbon::now();
+            $user=User::find($dataInfo->user_id)->update(['status'=>$request->status,'updated_at'=>Carbon::now()]);
 
           if($dataInfo->save()){
 
