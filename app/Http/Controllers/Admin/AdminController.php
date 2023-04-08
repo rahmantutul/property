@@ -173,7 +173,6 @@ class AdminController extends Controller
                 'email' => 'required',
                 'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
@@ -234,8 +233,6 @@ class AdminController extends Controller
         $dataInfo=Admin::find($id);
 
         if(!empty($dataInfo)) {
-
-          $dataInfo->status=0;
           
           $dataInfo->deleted_at=Carbon::now();
 

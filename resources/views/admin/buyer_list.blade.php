@@ -76,11 +76,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if (!is_null(request()->pending_status))
-                                        <a href="{{route('admin.buyer.approve.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->user?->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
-                                            Make Approve
-                                        </a>
-                                    @else
                                     <a href="{{route('admin.buyer.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->user?->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} btn_status_change" title="Change Status">
                                         {!!getStatusChangeIcon($dataInfo->user?->status)!!}
                                     </a>

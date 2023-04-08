@@ -121,10 +121,7 @@ class AgentController extends Controller
  
              DB::commit();
              return response()->json(['status' => true, 'msg' => 'A New Admin Added Successfully.!','url'=>url()->previous()]);
-         } catch (Exception $err) {
-             DB::rollBack();
-             return response()->json(['status' => false, 'msg' => 'Failed To Add Admin.!'.$err]);
-         }
+         } 
         catch(Exception $err){
 
             DB::rollBack();

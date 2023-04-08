@@ -8,10 +8,10 @@ use App\Traits\SystemLogTrait;
 use App\Models\Buyer;
 use App\Models\User;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class BuyerController extends Controller
 {
@@ -39,17 +39,8 @@ class BuyerController extends Controller
         if(request()->filled('phone'))
             $query->where('phone','like',strtolower(trim(request()->phone)).'%');
         
-        if(request()->filled('pending_status')){
-            $dataList=$query->with('user',function($q){
-                $q->where('is_approved',0);
-            })
-            ->paginate(100)->withQueryString();
-        }else{
-            $dataList=$query->with('user',function($q){
-                $q->where('is_approved',1);
-            })
-            ->paginate(100)->withQueryString();
-        }
+        
+        $dataList=$query->with('user')->paginate(100)->withQueryString();
         return view('admin.buyer_list',compact('dataList'));
     }
 
@@ -71,6 +62,8 @@ class BuyerController extends Controller
      */
     public function store(Request $request)
     {
+        DB::beginTransaction();
+        try{
              $request->validate([
                  'firstName' => 'required',
                  'lastName' => 'required',
@@ -89,7 +82,6 @@ class BuyerController extends Controller
                  'photo.max' => "Image file can't be more than 2 MB.",
                  'password.required' => "Please Enter Password.",
              ]);
-             //Admin create with user table
              $user = User::create([
                  'email' => strtolower(trim($request->email)),
                  'password' => Hash::make($request->password),
@@ -97,19 +89,32 @@ class BuyerController extends Controller
                  'user_type' => 4,
                  'status' => 1,
                  'avatar' => ($request->hasFile('photo'))?$this->uploadPhoto($request->file('photo'), 'User'):config('app.url').'/images/defaultUser.png',
-                 'is_approved' => 1,
+                 'is_approved' => 1
              ]);
  
-             $buyer = Buyer::create([
+             $agent = Buyer::create([
                  'firstName' => $request->firstName,
                  'lastName' => $request->lastName,
+                 'roleId' => $request->roleId,
                  'user_id' => $user->id
              ]);
-             //store system log
-             $note = $buyer->id . "=> " . $buyer->full_name . " Buyer created by " . Auth::guard('admin')->user()->name;
-             $this->storeSystemLog($buyer->id, 'admins', $note);
 
-             return response()->json(['status' => true, 'msg' => 'A New Buyer Added Successfully.!','url'=>url()->previous()]);
+             $note = $agent->id . "=> " . $agent->full_name . "Admin created by " . Auth::guard('admin')->user()->name;
+             $this->storeSystemLog($agent->id, 'admins', $note);
+ 
+             DB::commit();
+             return response()->json(['status' => true, 'msg' => 'A New Admin Added Successfully.!','url'=>url()->previous()]);
+         } 
+        catch(Exception $err){
+
+            DB::rollBack();
+
+            $this->storeSystemError('AgentController','store',$err);
+
+            DB::commit();
+
+            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
+       }
         
     }
 

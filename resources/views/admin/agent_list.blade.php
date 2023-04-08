@@ -68,8 +68,9 @@
                                     <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->full_name}}</td>
-                                <td>{{$dataInfo->user?->email}}</td>
-                                <td>{{$dataInfo->user?->phone}}</td>
+                                <td>{{$dataInfo?->user?->email}}</td>
+                                <td>{{$dataInfo?->user?->phone}}</td>
+                                
                                 <td>
                                     @if (!is_null(request()->pending_status))
                                     <span class="badge badge-pill {{getStatusBadge($dataInfo->user?->is_approved)}}">{{getActiveInActiveStatus($dataInfo->user?->is_approved)}}</span>
@@ -80,7 +81,7 @@
 
                                 <td>
                                     @if (!is_null(request()->pending_status))
-                                        <a href="{{route('admin.agent.approve.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->user?->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
+                                        <a href="{{route('admin.agent.approve.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
                                             Make Approve
                                         </a>
                                     @else
@@ -90,7 +91,7 @@
                                     <a href="{{route('admin.agent.edit',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
                                         <i data-feather='edit'></i>
                                     </a>
-                                    <a href="{{route('admin.agent.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
+                                    <a href="{{route('admin.agent.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
                                     @endif
