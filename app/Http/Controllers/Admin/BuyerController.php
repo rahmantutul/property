@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use Carbon\Carbon;
+use App\Models\Buyer;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\Buyer;
-use Carbon\Carbon;
-use Hash;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class BuyerController extends Controller
 {
