@@ -24,8 +24,7 @@ class BuyerController extends Controller
     public function index()
     {   
 
-        $query=Buyer::whereNull('deleted_at');
-        // dd($query);
+        $query=Buyer::with('user')->whereNull('deleted_at');
         if(request()->filled('name')){
             $query->where(function($q){
                 $q->where('firstName','like',request()->name.'%')
