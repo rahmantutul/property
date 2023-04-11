@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use Carbon\Carbon;
+use App\Models\GarageType;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\PropertyType;
-use Carbon\Carbon;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PropertyTypeController extends Controller
 {
@@ -27,7 +29,7 @@ class PropertyTypeController extends Controller
 
         $dataList=$query->paginate(100)->withQueryString();
         
-        return view('admin.property_type_list',compact('dataList'))
+        return view('admin.property_type_list', compact('dataList'));
     }
 
     /**

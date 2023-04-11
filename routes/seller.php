@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Admin\SellerController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Seller\HelpDeskController;
 use App\Http\Controllers\Seller\PropertyController;
+use App\Http\Controllers\Seller\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,9 @@ Route::group(['prefix'=>'seller','middleware'=>'SellerAuth','as'=>'seller.'],fun
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
-		Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		Route::get('/',[InboxController::class,'index'])->name('index');
+		Route::get('/{id}',[InboxController::class,'show'])->name('show');
 		
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 

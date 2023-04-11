@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\MarketActivityController;
-use App\Http\Controllers\Agent\AgentContactController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Agent\DashboardController;
 use App\Http\Controllers\Agent\HelpDeskController;
 use App\Http\Controllers\Agent\PropertyController;
+use App\Http\Controllers\Agent\DashboardController;
 use App\Http\Controllers\Agent\TransectionController;
+use App\Http\Controllers\Agent\AgentContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,9 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
-		Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		Route::get('/',[InboxController::class,'index'])->name('index');
+		Route::get('/{id}',[InboxController::class,'show'])->name('show');
 		
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 

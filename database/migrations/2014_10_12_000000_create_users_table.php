@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('user_type')->comment('1=Admin,2=Agent,3=Seller,4=Buyer');
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->tinyInteger('is_approved')->default(0);
+            $table->boolean('is_admin')->default(0);
+            $table->boolean('is_online')->default(0);
+            $table->timestamp('last_activity')->default(now());
             $table->rememberToken();
             $table->timestamps();
         });
