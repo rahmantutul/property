@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function saveProperty() {
         return $this->hasOne(SaveProperty::class, 'user_id');
     }
+
+    public function message() {
+        return $this->hasMany("App\Models\Message");
+    }
 }

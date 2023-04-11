@@ -23,6 +23,7 @@ class AdminSeeder extends Seeder
             'user_type' => 1,
             'status' => 1,
             'is_approved' => 1,
+            'is_admin' => 1,
         ]);
         //create admin with admin table data
         Admin::create([

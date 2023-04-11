@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
 use App\Http\Controllers\Admin\ResoPropertyController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
+use App\Http\Controllers\InboxController;
 
 // Auth::routes();
 
@@ -395,7 +396,9 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
-		Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		Route::get('/',[InboxController::class,'index'])->name('index');
+		Route::get('/{id}',[InboxController::class,'show'])->name('show');
 		
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 

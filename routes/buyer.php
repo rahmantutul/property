@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Buyer\DashboardController;
+use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Buyer\HelpDeskController;
+use App\Http\Controllers\Buyer\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,9 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
-		Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
+		Route::get('/',[InboxController::class,'index'])->name('index');
+		Route::get('/{id}',[InboxController::class,'show'])->name('show');
 		
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 
