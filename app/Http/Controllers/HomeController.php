@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MarketActivity;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,5 +26,13 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function blogDetails($dataId){
+        $dataInfo= MarketActivity::where('id',$dataId)->first();
+        $dataList= MarketActivity::where('shareStatus',1)->inRandomOrder()
+        ->limit(4)
+        ->get();
+        return view('admin.blog-details',compact('dataInfo','dataList'));
+    }
+
 
 }

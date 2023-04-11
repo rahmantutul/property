@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController as LoginController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\SavePropertyController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RahmanController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,6 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/save-property/{id}', [SavePropertyController::class, 'saveProperty'])->name('saveProperty');
 });
 
-// Auth::routes();
 
 Route::get('/login',[LoginController::class,'loginPage'])->name('login')->middleware('AuthCheck');
 Route::post('/login',[LoginController::class,'login'])->name('login');
@@ -59,7 +59,10 @@ Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+
+// Auth::routes();
 Route::group(['prefix'=>'agent/message','as'=>'agent.message.'],function(){
     Route::post('/',[AgentContactController::class,'store'])->name('store');
 });
-
+Route::get('/{dataId}/blog-details',[HomeController::class,'blogDetails'])->name('marketActivity.details');

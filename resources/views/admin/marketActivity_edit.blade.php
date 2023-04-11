@@ -3,11 +3,11 @@
 @section('content')
 <div class="row mb-1">
     <div class="col-8">
-    <h2 class="content-header-title float-left mb-0">Transection Edit</h2>
+        <h2 class="content-header-title float-left mb-0">Transection Edit</h2>
     </div>
     <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
         <div class="form-group breadcrumb-right">
-            <a class="btn-icon btn btn-primary btn-round btn-sm" href="{{ route('admin.marketActivity.index') }}">View List</a>
+            <a class="btn-icon btn btn-primary btn-round btn-sm" href="{{route('admin.marketActivity.index')}}">View List</a>
         </div>
     </div>
 </div>
@@ -34,30 +34,22 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Share with All:</strong>
-                            <select class="form-control" name="shareStatus" required>
-                                <option value="">Select an option</option>
-                                <option {{ $dataInfo->shareStatus==1 ? 'selected' : '' }} value="1" >Share now</option>
-                                <option {{ $dataInfo->shareStatus==0 ? 'selected' : '' }} value="0" >Not shared</option>
-                            </select>
-                        </div>
-                        <div class="col-6 form-group">
-                            <strong>Attatchment One:</strong>
-                            <input type="file" name="attachmentOne"class="form-control" value="{{ $dataInfo->attachmentOne }}">
+                            <strong>Banner Image:</strong>
+                            <input type="file" name="bannerImage"class="form-control" value="{{ $dataInfo->bannerImage }}">
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Attatchment Two:</strong>
-                            <input type="file" name="attachmentTwo" class="form-control" value="{{ $dataInfo->attachmentTwo }}">
+                            <strong>Image:</strong>
+                            <input type="file" name="image" class="form-control" value="{{ $dataInfo->image }}">
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Attatchment Three:</strong>
+                            <strong>PDF/FILE:</strong>
                             <input type="file" name="attachmentThree" class="form-control" value="{{ $dataInfo->attachmentThree }}">
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Report details:</strong>
+                            <strong>Report Details:</strong>
                                 <textarea name="reportDetails" id="editor">
                                     {{ $dataInfo->reportDetails }}
                                 </textarea>

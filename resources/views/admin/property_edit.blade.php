@@ -34,11 +34,14 @@
                             >
                              <span style="color:red" ></span>
                         </div>
-                        <div class="col-4 form-group">
-                            <strong>MLS ID:</strong>
-                            <input type="text" name="mlsId" placeholder="MLS Id" class="form-control"  value="{{$dataInfo->mlsId}}"  required>
-                             <span style="color:red" ></span>
-                        </div>
+                        @if ($dataInfo->is_featured==2)
+                            <div class="col-4 form-group">
+                                <strong>MLS ID:</strong>
+                                <input type="text" name="mlsId" placeholder="MLS Id" class="form-control"  value="{{$dataInfo->mlsId}}"  required>
+                                <span style="color:red" ></span>
+                            </div>
+                        @endif
+                        
                         <div class="col-4 form-group">
                             <strong>Available Date:</strong>
                             <input type="date" name="availableDate" placeholder="Available Date" class="form-control"  value="{{$dataInfo->availableDate}}"  required>
@@ -256,11 +259,7 @@
                             <h4 class="form-devider">Images/Video</h4>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Images/Docs/Videos:</strong>
-                            @if(!is_null($dataInfo->thumbnail))
-                                <img src="{{getImage($dataInfo->thumbnail)}}" height="70" width="70">
-                                <input type="hidden" name="thumbailUrl" value="{{$dataInfo->thumbnail}}">
-                            @endif
+                            <strong>Property Image:</strong>
                             <input type="file" name="thumbnail" placeholder="Select documnet" class="form-control"   >
                              <span style="color:red" ></span>
                         </div>
@@ -268,6 +267,12 @@
                             <strong>Embeded Video:</strong>
                             <input type="text" name="videoUrl" placeholder="Past URL" class="form-control" value="{{$dataInfo->videoUrl}}" >
                              <span style="color:red" ></span>
+                        </div>
+                        <div class="col-6 form-group">
+                            @if(!is_null($dataInfo->thumbnail))
+                                <img src="{{getImage($dataInfo->thumbnail)}}" height="70" width="170" style="margin-bottom:9px;">
+                                <input type="hidden" name="thumbailUrl" value="{{$dataInfo->thumbnail}}">
+                            @endif
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
                             <button class="btn btn-primary btn-icon" type="submit">

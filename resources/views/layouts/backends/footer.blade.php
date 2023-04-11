@@ -55,7 +55,7 @@
     <script src="{{asset('')}}app-assets/vendors/js/forms/select/select2.full.min.js"></script>
     <script src="{{asset('')}}app-assets/js/scripts/forms/form-select2.js"></script>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
 
 
    <script>

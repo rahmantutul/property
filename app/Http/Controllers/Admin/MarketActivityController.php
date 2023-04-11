@@ -7,8 +7,9 @@ use App\Models\MarketActivity;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
 use Carbon\Carbon;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class MarketActivityController extends Controller
 {
@@ -27,9 +28,11 @@ class MarketActivityController extends Controller
 
         if(request()->filled('status'))
             $query->where('shareStatus',request()->status);
+        if(isset(request()->user) && request()->user==1)
+          $query->where('shareStatus',request()->user);
 
         $dataList=$query->paginate(100)->withQueryString();
-
+        
         return view('admin.marketActivity_list',compact('dataList'));
     }
 
@@ -53,14 +56,13 @@ class MarketActivityController extends Controller
     {
         // dd($request->all());
         DB::beginTransaction();
-       try{
+
         $request->validate([
             'reportName' => 'required',
             'reportSubject' => 'required',
             'reportDetails' => 'required',
-            'shareStatus' => 'required',
-            'attachmentOne' => 'mimes:pdf|max:2048',
-            'attachmentTwo' => 'mimes:pdf|max:2048',
+            'bannerImage' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'attachmentThree' => 'mimes:pdf|max:2048',
         ],
         [
@@ -75,30 +77,26 @@ class MarketActivityController extends Controller
             $dataInfo->reportSubject=$request->reportSubject;
             $dataInfo->reportSubject=$request->reportSubject;
             $dataInfo->reportDetails=$request->reportDetails;
-            $dataInfo->shareStatus=$request->shareStatus;
-            if($request->hasFile('attachmentOne')){
-                $file=$request->file('attachmentOne');
-                $currentDate=Carbon::now()->toDateString();
-                $fileName=$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-                $request->attachmentOne->move(public_path('market_activity_report'), $fileName);
-                $dataInfo->attachmentOne=$fileName;
-            }
-            if($request->hasFile('attachmentTwo')){
-                $file=$request->file('attachmentTwo');
-                $currentDate=Carbon::now()->toDateString();
-                $fileName=$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-                $request->attachmentTwo->move(public_path('market_activity_report'), $fileName);
-                $dataInfo->attachmentTwo=$fileName;
-            }
+
+            if($request->hasFile('bannerImage')){
+                $dataInfo->bannerImage=$this->uploadPhoto($request->file('bannerImage'),'marketactivity');
+            }else{
+                $dataInfo->bannerImage=config('app.url').'/images/no_found.png';
+            } 
+            if($request->hasFile('image')){
+                $dataInfo->image=$this->uploadPhoto($request->file('image'),'marketactivity');
+            }else{
+                $dataInfo->image=config('app.url').'/images/no_found.png';
+            }  
             if($request->hasFile('attachmentThree')){
-                $file=$request->file('attachmentThree');
-                $currentDate=Carbon::now()->toDateString();
-                $fileName=$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-                $request->attachmentThree->move(public_path('market_activity_report'), $fileName);
-                $dataInfo->attachmentThree=$fileName;
+                $dataInfo->attachmentThree=$this->fileUpload($request->file('attachmentThree'),'marketactivity');
+            }else{
+                $dataInfo->attachmentThree=config('app.url').'/images/no_found.png';
             }
-            $dataInfo->shareStatus=$request->shareStatus;
-            $dataInfo->created_at=Carbon::now();
+
+            $dataInfo->shareStatus=1;
+            $dataInfo->created_by=Auth::guard('admin')->user()->name;
+            $dataInfo->created_at= Carbon::now();
 
             if($dataInfo->save()){
 
@@ -116,17 +114,6 @@ class MarketActivityController extends Controller
 
                  return response()->json(['status'=>false ,'msg'=>'Failed To Add Market activity.!']);
             }
-       }
-        catch(Exception $err){
-
-            DB::rollBack();
-
-            $this->storeSystemError('aarketActivity','store',$err);
-
-            DB::commit();
-
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
     }
     /**
      * Display the specified resource.
@@ -168,7 +155,6 @@ class MarketActivityController extends Controller
               'reportName' => 'required',
               'reportSubject' => 'required',
               'reportDetails' => 'required',
-              'shareStatus' => 'required',
               'attachmentOne' => 'mimes:pdf|max:2048',
               'attachmentTwo' => 'mimes:pdf|max:2048',
               'attachmentThree' => 'mimes:pdf|max:2048',
@@ -181,35 +167,25 @@ class MarketActivityController extends Controller
               $dataId= $request->dataId;
               $dataInfo=MarketActivity::find($dataId);
   
-              $dataInfo->reportName=$request->reportName;
-              $dataInfo->reportSubject=$request->reportSubject;
-              $dataInfo->reportSubject=$request->reportSubject;
-              $dataInfo->reportDetails=$request->reportDetails;
-              $dataInfo->shareStatus=$request->shareStatus;
-              if($request->hasFile('attachmentOne')){
-                  $file=$request->file('attachmentOne');
-                  $currentDate=Carbon::now()->toDateString();
-                  $fileName=$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-                  $request->attachmentOne->move(public_path('market_activity_report'), $fileName);
-                  $dataInfo->attachmentOne=$fileName;
-              }
-              if($request->hasFile('attachmentTwo')){
-                  $file=$request->file('attachmentTwo');
-                  $currentDate=Carbon::now()->toDateString();
-                  $fileName=$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-                  $request->attachmentTwo->move(public_path('market_activity_report'), $fileName);
-                  $dataInfo->attachmentTwo=$fileName;
-              }
-              if($request->hasFile('attachmentThree')){
-                  $file=$request->file('attachmentThree');
-                  $currentDate=Carbon::now()->toDateString();
-                  $fileName=$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-                  $request->attachmentThree->move(public_path('market_activity_report'), $fileName);
-                  $dataInfo->attachmentThree=$fileName;
-              }
-              $dataInfo->shareStatus=$request->shareStatus;
-              $dataInfo->updated_at=Carbon::now();
+            $dataInfo->reportName=$request->reportName;
+            $dataInfo->reportSubject=$request->reportSubject;
+            $dataInfo->reportSubject=$request->reportSubject;
+            $dataInfo->reportDetails=$request->reportDetails;
+            if($request->hasFile('bannerImage'))
+                $dataInfo->bannerImage=$this->uploadPhoto($request->file('bannerImage'),'marketactivity');
+                
+            if($request->hasFile('image'))
+                $dataInfo->image=$this->uploadPhoto($request->file('image'),'marketactivity');
+                
+            if($request->hasFile('attachmentThree'))
+                $dataInfo->attachmentThree=$this->fileUpload($request->file('attachmentThree'),'marketactivity');
+
+
+            $dataInfo->shareStatus=1;
+            $dataInfo->created_by=Auth::guard('admin')->user()->name;
+            $dataInfo->created_at= Carbon::now();
               if($dataInfo->save()){
+
   
                   $note=$dataInfo->id."=>Market activity edited by ".Auth::guard('admin')->user()->name;
   

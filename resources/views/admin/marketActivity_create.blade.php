@@ -32,34 +32,24 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Share with All:</strong>
-                            <select class="form-control" name="shareStatus" required>
-                                <option value="">Select an option</option>
-                                <option value="1" >Share now</option>
-                                <option value="0" >Not shared</option>
-                            </select>
-                        </div>
-                        <div class="col-6 form-group">
-                            <strong>Attatchment One:</strong>
-                            <input type="file" name="attachmentOne"class="form-control" >
+                            <strong>Banner Image:</strong>
+                            <input type="file" name="bannerImage"class="form-control" >
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Attatchment Two:</strong>
-                            <input type="file" name="attachmentTwo" class="form-control" >
+                            <strong>Image :</strong>
+                            <input type="file" name="image" class="form-control" >
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Attatchment Three:</strong>
+                            <strong>PDF/FILE:</strong>
                             <input type="file" name="attachmentThree" class="form-control" >
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
                             <strong>Report details:</strong>
-                                <textarea name="reportDetails" id="editor">
-
-                                </textarea>
-                             <span style="color:red" ></span>
+                            <textarea name="reportDetails" id="editor"></textarea>
+                            <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
                             <button class="btn btn-primary btn-icon" type="submit">
@@ -75,14 +65,7 @@
 @endsection
 @push('js')
 <script>
-    ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+    <div id="editor"></div>
 </script>
 @endpush
        

@@ -149,6 +149,12 @@
                                 <span class="menu-item text-truncate" data-i18n="Admin">Property List</span>
                             </a>
                         </li>
+                        <li class="{{getActiveMenuClass('admin.property.index')}}?featured=1">
+                            <a class="d-flex align-items-center" href="{{route('admin.property.index')}}?featured=1">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Admin">Featured Property</span>
+                            </a>
+                        </li>
                         <li class="{{getActiveMenuClass('admin.resoproperty.index')}}">
                             <a class="d-flex align-items-center" href="{{route('admin.resoproperty.index')}}">
                                 <i data-feather="circle"></i>

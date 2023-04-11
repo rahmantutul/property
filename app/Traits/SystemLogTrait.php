@@ -76,5 +76,19 @@ trait SystemLogTrait {
 
         }
     }
+    public function fileUpload($file,$folder)
+    {
+        $fileName = uniqid(). "." . $file->getClientOriginalExtension();
+
+        if (!Storage::disk('public')->exists($folder)) {
+            
+            Storage::disk('public')->makeDirectory($folder);
+        }
+        Storage::disk('public')->put($folder.'/'.$fileName, $file);
+
+        $path = '/storage/app/public/'.$folder.'/'.$fileName;
+
+        return env('APP_URL').$path;
+    }
 
 }

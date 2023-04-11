@@ -35,6 +35,9 @@ class PropertyController extends Controller
                 ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
         if(isset(request()->is_featured) && request()->is_featured==1)
             $query->where('is_featured',1);
+
+        if(isset(request()->featured) && request()->featured==1)
+            $query->where('is_featured',2);
        
         $dataList=$query->paginate(100);
 

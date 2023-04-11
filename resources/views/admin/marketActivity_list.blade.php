@@ -53,10 +53,14 @@
                                 <th>Report Name</th>
                                 <th>Report Subject</th>
                                 <th>reportDetails</th>
+                                @if(!isset(request()->user))
                                 <th>Attachment One</th>
                                 <th>Attachment Two</th>
                                 <th>Attachment Three</th>
+                                @endif
+                                @if(!isset(request()->user))
                                 <th>Available Status</th>
+                                @endif
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -67,17 +71,18 @@
                                 <td>{{ $dataInfo->reportName }}</td>
                                 <td>{{ $dataInfo->reportSubject }}</td>
                                 <td>{!! Str::limit($dataInfo->reportDetails,150) !!}</td>
+                                @if(!isset(request()->user))
                                 <td class="text-center">
-                                    @if (!is_null($dataInfo->attachmentOne))
-                                    <a class="btn btn-sm btn-info" href="{{ asset('public/market_activity_report/'.$dataInfo->attachmentOne) }}" download>Download</a>
+                                    @if (!is_null($dataInfo->bannerImage))
+                                    <img src="{{getUserImage($dataInfo->bannerImage)}}" alt="Image" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                     @else
                                      N/A
                                     @endif
                                 </td>
 
                                 <td class="text-center">
-                                    @if (!is_null($dataInfo->attachmentTwo))
-                                    <a class="btn btn-sm btn-info" href="{{ asset('public/market_activity_report/'.$dataInfo->attachmentTwo) }}" download>Download</a>
+                                    @if (!is_null($dataInfo->image))
+                                    <img src="{{getUserImage($dataInfo->image)}}" alt="Image" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                     @else
                                      N/A
                                     @endif
@@ -85,15 +90,19 @@
 
                                 <td class="text-center">
                                     @if (!is_null($dataInfo->attachmentThree))
-                                    <a class="btn btn-sm btn-info" href="{{ asset('public/market_activity_report/'.$dataInfo->attachmenThree) }}" download>Download</a>
+                                    <a class="btn btn-sm btn-info" href="{{ $dataInfo->attachmentThree }}" download target="__blank">Download</a>
                                     @else
                                      N/A
                                     @endif
                                 </td>
+                                @endif
+                                @if(!isset(request()->user))
                                 <td>
                                     <span class="badge badge-pill {{getShareStatusBadge($dataInfo->shareStatus)}}">{{getShowStatus($dataInfo->shareStatus)}}</span>
                                 </td>
-                                <td>
+                                @endif
+                                <td class="text-center">
+                                    @if(!isset(request()->user))
                                     <a href="{{route('admin.marketActivity.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->shareStatus==0)?1:0])}}" class="btn btn-sm btn-icon {{getShowStatusChangeBtn($dataInfo->shareStatus)}} btn_status_change" title="Change Status">
                                         {!!getShowStatusChangeIcon($dataInfo->shareStatus)!!}
                                     </a>
@@ -105,6 +114,16 @@
                                     <a href="{{route('admin.marketActivity.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
+                                    <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}" class="btn btn-success btn-sm btn-icon" title="Show Details">
+                                        <i data-feather='eye'></i>
+                                    </a> <br>
+                                    <span class="badge" style="background: #140c38;">See Details</span>
+                                    @else
+                                    <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}" class="btn btn-success btn-sm btn-icon" title="Show Details">
+                                        <i data-feather='eye'></i>
+                                    </a> <br>
+                                    <span class="badge" style="background: #140c38;">See Details</span>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

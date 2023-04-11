@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MarketActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Buyer\DashboardController;
 use App\Http\Controllers\Buyer\HelpDeskController;
@@ -32,5 +33,10 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 
 		Route::post('/send/message',[HelpDeskController::class,'sendMessage'])->name('sendMessage');
 	});
+	Route::group(['prefix'=>'marketActivity','as'=>'marketActivity.'],function(){
 
+		Route::get('/',[MarketActivityController::class,'index'])->name('index');
+
+    
+	});
 });	

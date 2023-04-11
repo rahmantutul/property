@@ -10,8 +10,6 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-
-
             <li class="nav-item {{getActiveMenuClass('seller.dashboard')}}">
                 <a class="d-flex align-items-center" href="{{route('seller.dashboard')}}">
                     <i data-feather="grid"></i>
@@ -34,6 +32,12 @@
                 <a class="d-flex align-items-center" href="{{route('seller.property.index')}}?is_featured=1">
                     <i data-feather='bookmark'></i>
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
+                </a>
+            </li>
+            <li class="nav-item {{getActiveMenuClass('seller.marketActivity.index')}}?user=1">
+                <a class="d-flex align-items-center" href="{{route('seller.marketActivity.index')}}?user=1">
+                    <i data-feather='bar-chart'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Market Activity</span>
                 </a>
             </li>
         </ul>

@@ -19,9 +19,10 @@ class CreateMarketActivitiesTable extends Migration
             $table->string('reportSubject');
             $table->string('reportDetails');
             $table->string('shareStatus')->comment('0=Not Shared, 1=Shared');
-            $table->string('attachmentOne')->nullable();
-            $table->string('attachmentTwo')->nullable();
+            $table->string('bannerImage')->nullable();
+            $table->string('image')->nullable();
             $table->string('attachmentThree')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

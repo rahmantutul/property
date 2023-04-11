@@ -34,11 +34,11 @@
                             >
                              <span style="color:red" ></span>
                         </div>
-                        <div class="col-4 form-group">
+                        {{-- <div class="col-4 form-group">
                             <strong>MLS ID:</strong>
                             <input type="text" name="mlsId" placeholder="MLS Id" class="form-control"  value="{{$dataInfo->mlsId}}"  required>
                              <span style="color:red" ></span>
-                        </div>
+                        </div> --}}
                         <div class="col-4 form-group">
                             <strong>Available Date:</strong>
                             <input type="date" name="availableDate" placeholder="Available Date" class="form-control"  value="{{$dataInfo->availableDate}}"  required>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Admin\SellerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Seller\DashboardController;
@@ -73,6 +74,11 @@ Route::group(['prefix'=>'seller','middleware'=>'SellerAuth','as'=>'seller.'],fun
 		Route::delete('{dataId}/delete',[PropertyController::class,'destroy'])->name('delete');	
 
 	});
+	Route::group(['prefix'=>'marketActivity','as'=>'marketActivity.'],function(){
 
+		Route::get('/',[MarketActivityController::class,'index'])->name('index');
+
+    
+	});
 
 });	

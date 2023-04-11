@@ -53,7 +53,7 @@ class FrontendController extends Controller
 
     public function agents()
     {
-        $dataList= Agent::whereNull('deleted_at')->where(['status'=>1])->get();
+        $dataList= Agent::with('user')->whereNull('deleted_at')->get();
         return view('frontend.agent-list',compact('dataList'));
     }
 

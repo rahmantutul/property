@@ -47,7 +47,7 @@ class AdminController extends Controller
 
         if(request()->status)
             $query->where('status',request()->status);
-
+        
         $dataList=$query->paginate(100)->withQueryString();
         
         return view('admin.admin_list',compact('dataList','roles'));

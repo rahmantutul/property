@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\DashboardController;
@@ -84,5 +85,12 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 		Route::get('index',[AgentContactController::class,'index'])->name('index');
 		Route::get('/{dataId}/view',[AgentContactController::class,'view'])->name('view');
 		Route::delete('{dataId}/delete',[AgentContactController::class,'destroy'])->name('destroy');	
+	});
+
+	Route::group(['prefix'=>'marketActivity','as'=>'marketActivity.'],function(){
+
+		Route::get('/',[MarketActivityController::class,'index'])->name('index');
+
+    
 	});
 });	

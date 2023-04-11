@@ -19,6 +19,12 @@
                     </a>
                 </li>
             @endif
+            <li class="nav-item {{getActiveMenuClass('buyer.marketActivity.index')}}?user=1">
+                <a class="d-flex align-items-center" href="{{route('buyer.marketActivity.index')}}?user=1">
+                    <i data-feather='bar-chart'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Market Activity</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
