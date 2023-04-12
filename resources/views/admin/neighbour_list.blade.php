@@ -52,8 +52,9 @@
                                 <th>Sl/No</th>
                                 <th>Photo</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
+                                <th>Title One</th>
+                                <th>Title Two</th>
+                                <th>Title Three</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -65,9 +66,10 @@
                                 <td>
                                     <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
-                                <td>{{$dataInfo->full_name}}</td>
-                                <td>{{$dataInfo->email}}</td>
-                                <td>{{$dataInfo->phone}}</td>
+                                <td>{{$dataInfo->name}}</td>
+                                <td>{{$dataInfo->titleOne}}</td>
+                                <td>{{$dataInfo->titleTwo}}</td>
+                                <td>{{$dataInfo->titleThree}}</td>
                                 <td>
                                     <span class="badge badge-pill {{getStatusBadge($dataInfo->status)}}">{{getActiveInActiveStatus($dataInfo->status)}}</span>
                                 </td>

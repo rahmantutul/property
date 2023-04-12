@@ -22,159 +22,24 @@
 
 <section class="featured_list_box col-md-12">
     <div class="row">
+        @foreach ($dataList as $dataInfo)
         <div class="carousel-card col-md-4 mb-4">
             <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
+                <img src="{{ $dataInfo->photo }}" alt="Your Image">
                 <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
+                    <h2>{{ $dataInfo->name }}"</h2>
+                    <a href="{{ route('front.neighbourDetails',['dataId'=>$dataInfo->id]) }}" class="learn_more_btn">
                         <div class="button_lm">
                             <div class="f-left left_btn">Learn More</div>
                             <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
                         </div>
                     </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
+                    {{-- <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a> --}}
                 </div>
             </div>
         </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood04.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood01.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="carousel-card col-md-4 mb-4">
-            <div class="image-box">
-                <img src="{{asset('')}}assets/frontend/images/neighbourhood04.jpg" alt="Your Image">
-                <div class="hover-content">
-                    <h2>KING WEST</h2>
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                </div>
-            </div>
-        </div>
+        @endforeach
+        
     </div>
 </section>
 @include('layouts.frontend.footer')

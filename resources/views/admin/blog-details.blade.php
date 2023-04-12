@@ -53,17 +53,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 mt-1">
+                            <h6 class="section-label mt-25">Leave a Comment</h6>
+                            @comments(['model' => $dataInfo])
+                        </div>
                     </div>
                 </div>
                 <!--/ Blog -->
-
-
-                <!-- Leave a Blog Comment -->
-                <div class="col-12 mt-1">
-                    <h6 class="section-label mt-25">Leave a Comment</h6>
-                    @comments(['model' => $dataInfo])
-                </div>
-                <!--/ Leave a Blog Comment -->
             </div>
         </div>
         <!--/ Blog Detail -->
@@ -72,18 +68,7 @@
 </div>
 <div class="sidebar-detached sidebar-right">
     <div class="sidebar">
-        <div class="blog-sidebar my-2 my-lg-0">
-            <!-- Search bar -->
-            <div class="blog-search">
-                <div class="input-group input-group-merge">
-                    <input type="text" class="form-control" placeholder="Search here">
-                    <div class="input-group-append">
-                        <span class="input-group-text cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        </span>
-                    </div>
-                </div>
-            </div>
+        <div class="blog-sidebar">
             <!--/ Search bar -->
 
             <!-- Recent Posts -->
@@ -127,7 +112,7 @@
                     <div class="d-flex justify-content-start align-items-center mb-75">
                         <a href="javascript:void(0);" class="mr-75">
                             <div class="bg-light-primary">
-                                <img src="{{ $dataInfo->image }}" alt="No Image" srcset="">
+                                <img width="220px;" src="{{ $dataInfo->image }}" alt="No Image" srcset="">
                             </div>
                         </a>
                         

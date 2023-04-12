@@ -28,11 +28,10 @@
                             <img src="{{asset('')}}assets/frontend/images/neighborhood_icon/love-it-icon.svg" width="40">
                         </div>
                         <div class="fancy-title">
-                            <h3 class="title caps">Why We Love It</h3>
+                            <h3 class="title caps">{{ $dataInfo->titleOne }}</h3>
                         </div>
                     </div>
-                    <p>With strong similarities to NYC’s Soho Village, the King West neighbourhood has a young and stylish community that’s fully immersed in a city lifestyle. Here, you’re far enough away from the downtown hustle and bustle without sacrificing great entertainment options. This neighbourhood is full of Toronto’s best nightlife and is home to some of Canada’s top restaurants.</p>
-                    <p>There are many benefits of living in King West, but our top reason for loving this neighbourhood so much is that everything you could want is within walking distance to your doorstep. All of the services one could need, including doctors, dentists and dry cleaners are all in your area, as are grocery, cafes and even specialty condo-size furniture stores to help decorate your space.</p>
+                    {!! $dataInfo->titleOneDetails !!}
                 </div>
 
                 <div class="hood-section">
@@ -41,13 +40,10 @@
                             <img src="{{asset('')}}assets/frontend/images/neighborhood_icon/cant-miss-icon.svg" width="40">
                         </div>
                         <div class="fancy-title">
-                            <h3 class="title caps">Can't Miss</h3>
+                            <h3 class="title caps">{{ $dataInfo->titleTwo }}</h3>
                         </div>
                     </div>
-                    <p>Book a dinner at Jacob &amp; Co. for a special night out, or head to Parlour for some of the best pizza on the west side.</p>
-                    <p>Anejo has a killer happy hour with incredible tacos and some of the best tequila to be found in Toronto. Pop into Ruby Soho, a new comer to the corner of King and Portland.</p>
-                    <p>Brunch options are endless in this neighbourhood - Green Wood, Cibo, Belfast Love - the list goes on and on.</p>
-                    <p>King West Village now has the added cache of being the host neighbourhood for the Toronto International Film Festival, which takes place annually. Visit the neighbourhood in September and you’re sure to see some famous stars strolling the streets.</p>
+                    {!! $dataInfo->titleTwoDetails !!}
                 </div>
 
                 <div class="hood-section">
@@ -56,12 +52,10 @@
                             <img src="{{asset('')}}assets/frontend/images/neighborhood_icon/who-lives-here-icon.svg" width="40">
                         </div>
                         <div class="fancy-title">
-                            <h3 class="title caps">Who Lives Here</h3>
+                            <h3 class="title caps">{{ $dataInfo->titleThree }}</h3>
                         </div>
                     </div>
-                    <p>You'll find all kinds of people living in King West - from young professionals to newly married couples, to retirees living their best downtown life and families enjoying all the city has to offer.</p>
-                    <p>Condos&nbsp;have been popping up for a number of years in the King West neighbourhood, and there aren’t many signs showing it’s going to slow down. What we love about condos in King West are they aren’t all the same – there is a bit of character to each building, and you’re able to find a nice selection of floor plans, depending on your size and budget.</p>
-                    <p>As for homes, some of the most beautiful streets in Toronto are located just off of King Street West. Walking down Crawford and Massey streets you'll see some incredible semis and detached homes that make city-living with a family seem possible.</p>
+                    {!! $dataInfo->titleThreeDetails !!}
                 </div>
             </div>
             <div class="col-md-4">
@@ -88,107 +82,31 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="carousel-card col-md-4 mb-4">
-                <div class="image-box">
-                    <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
-                    <div class="hover-content">
-                        <h2>KING WEST</h2>
-                        <a href="" class="learn_more_btn">
-                            <div class="button_lm">
-                                <div class="f-left left_btn">Learn More</div>
-                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h5 class="agent_all_title"><b class="agent_all_title_box">Neighbour Properties</b></h5>
+                <div class="row">
+                    @foreach ($dataList as $dataInfo)
+                    <div class="carousel-card col-md-4 mb-4">
+                        <div class="image-box">
+                            <img src="{{getImage($dataInfo->thumbnail)}}" alt="{{$dataInfo->title}}">
+                            <div class="hover-content">
+                                <h5>FOR SALE | ${{$dataInfo->price}}</h5>
+                                <h2>FOR SALE: {{(!is_null($dataInfo->details)) ? $dataInfo->details->totalUnit.','.$dataInfo->details->squareFeet:''}}</h2>
+                                <h5><span><i class="fa fa-bed"></i>{{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBedroom:''}} BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBathroom:''}} Baths</span></h5>
+        
+                                <a href="" class="learn_more_btn">
+                                    <div class="button_lm">
+                                        <div class="f-left left_btn">Learn More</div>
+                                        <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
+                                    </div>
+                                </a>
+                                <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
                             </div>
-                        </a>
-
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="carousel-card col-md-4 mb-4">
-                <div class="image-box">
-                    <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
-                    <div class="hover-content">
-                        <h2>KING WEST</h2>
-                        <a href="" class="learn_more_btn">
-                            <div class="button_lm">
-                                <div class="f-left left_btn">Learn More</div>
-                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                            </div>
-                        </a>
-
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-card col-md-4 mb-4">
-                <div class="image-box">
-                    <img src="{{asset('')}}assets/frontend/images/neighbourhood04.jpg" alt="Your Image">
-                    <div class="hover-content">
-                        <h2>KING WEST</h2>
-                        <a href="" class="learn_more_btn">
-                            <div class="button_lm">
-                                <div class="f-left left_btn">Learn More</div>
-                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                            </div>
-                        </a>
-
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-card col-md-4 mb-4">
-                <div class="image-box">
-                    <img src="{{asset('')}}assets/frontend/images/neighbourhood01.jpg" alt="Your Image">
-                    <div class="hover-content">
-                        <h2>KING WEST</h2>
-                        <a href="" class="learn_more_btn">
-                            <div class="button_lm">
-                                <div class="f-left left_btn">Learn More</div>
-                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                            </div>
-                        </a>
-
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-card col-md-4 mb-4">
-                <div class="image-box">
-                    <img src="{{asset('')}}assets/frontend/images/neighbourhood02.jpg" alt="Your Image">
-                    <div class="hover-content">
-                        <h2>KING WEST</h2>
-                        <a href="" class="learn_more_btn">
-                            <div class="button_lm">
-                                <div class="f-left left_btn">Learn More</div>
-                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                            </div>
-                        </a>
-
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-card col-md-4 mb-4">
-                <div class="image-box">
-                    <img src="{{asset('')}}assets/frontend/images/neighbourhood03.jpg" alt="Your Image">
-                    <div class="hover-content">
-                        <h2>KING WEST</h2>
-                        <a href="" class="learn_more_btn">
-                            <div class="button_lm">
-                                <div class="f-left left_btn">Learn More</div>
-                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                            </div>
-                        </a>
-
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
-
-                    </div>
+                    @endforeach
+        
                 </div>
             </div>
         </div>

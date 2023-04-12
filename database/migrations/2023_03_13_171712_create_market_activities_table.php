@@ -17,7 +17,7 @@ class CreateMarketActivitiesTable extends Migration
             $table->id();
             $table->string('reportName');
             $table->string('reportSubject');
-            $table->string('reportDetails');
+            $table->text('reportDetails');
             $table->string('shareStatus')->comment('0=Not Shared, 1=Shared');
             $table->string('bannerImage')->nullable();
             $table->string('image')->nullable();

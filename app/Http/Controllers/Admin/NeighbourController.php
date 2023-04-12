@@ -22,10 +22,7 @@ class NeighbourController extends Controller
     {
         $query= Neighbor::whereNull('deleted_at')->where('status','!=',0);
         if(request()->filled('name')){
-            $query->where(function($q){
-                $q->where('firstName','like',request()->name.'%')
-                ->orWhere('lastName','like',request()->name.'%');
-            });
+            $query->wherewhere('name','like',request()->name.'%');
         }
 
         if(request()->filled('email'))
@@ -60,19 +57,11 @@ class NeighbourController extends Controller
         DB::beginTransaction();
        try{
             $request->validate([
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
+                'name' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                // 'bnName' => 'required',
             ],
             [
-                'firstName.required' => "Please Enter First Name.",
-                'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter agent Bengali Name.",
+                'name.required' => "Please Enter First Name.",
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
@@ -80,18 +69,24 @@ class NeighbourController extends Controller
 
             $dataInfo=new Neighbor();
 
-            $dataInfo->firstName=$request->firstName;
+            $dataInfo->name=$request->name;
 
-            $dataInfo->lastName=$request->lastName;
+            $dataInfo->titleOne=$request->titleOne;
 
-            $dataInfo->email=strtolower(trim($request->email));
+            $dataInfo->titleOneDetails=$request->titleOneDetails;
 
-            $dataInfo->phone=$request->phone;
+            $dataInfo->titleTwo=$request->titleTwo;
+
+            $dataInfo->titleTwoDetails=$request->titleTwoDetails;
+
+            $dataInfo->titleThree=$request->titleThree;
+
+            $dataInfo->titleThreeDetails=$request->titleThreeDetails;
             
             if($request->hasFile('photo'))
-                $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'Neighbour');
+                $dataInfo->photo=$this->uploadPhoto($request->file('photo'),'Neighbour');
             else
-                $dataInfo->avatar=config('app.url').'/images/defaultUser.png';
+                $dataInfo->photo=config('app.url').'/images/defaultneighbour.png';
             
             $dataInfo->status=1;
 
@@ -147,7 +142,7 @@ class NeighbourController extends Controller
     {
         $dataInfo=Neighbor::find($dataId);
         // dd($dataId);
-        return view('neighbour.neighbour_edit',compact('dataInfo'));
+        return view('admin.neighbour_edit',compact('dataInfo'));
     }
 
     /**
@@ -159,20 +154,15 @@ class NeighbourController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try{
             $request->validate([
-                'firstName' => 'required',
-                'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
+                'name' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             [
-                'firstName.required' => "Please Enter First Name.",
-                'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
+                'name.required' => "Please Enter First Name.",
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
@@ -180,16 +170,25 @@ class NeighbourController extends Controller
 
 
             $dataInfo=Neighbor::find($request->dataId);
+            // dd($dataInfo);
+            $dataInfo->name=$request->name;
 
-            $dataInfo->firstName=$request->firstName;
+            $dataInfo->titleOne=$request->titleOne;
 
-            $dataInfo->lastName=$request->lastName;
+            $dataInfo->titleOneDetails=$request->titleOneDetails;
 
-            $dataInfo->email=strtolower(trim($request->email));
+            $dataInfo->titleTwo=$request->titleTwo;
 
-            $dataInfo->phone=$request->phone;
-           if($request->hasFile('photo'))
-            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'admins');
+            $dataInfo->titleTwoDetails=$request->titleTwoDetails;
+
+            $dataInfo->titleThree=$request->titleThree;
+
+            $dataInfo->titleThreeDetails=$request->titleThreeDetails;
+            
+            if($request->hasFile('photo'))
+                $dataInfo->photo=$this->uploadPhoto($request->file('photo'),'Neighbour');
+            
+            $dataInfo->status=1;
 
             $dataInfo->updated_at=Carbon::now();
 

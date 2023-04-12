@@ -86,11 +86,15 @@
                                     @endif
                                 </td>
 
-                                <td>
+                                <td style="text-align: center">
                                     @if (!is_null(request()->pending_status))
-                                        <a href="{{route('admin.agent.approve.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
-                                            Make Approve
-                                        </a>
+                                    <a href="{{route('admin.agent.approve.change',['dataId'=>$dataInfo->id,'approved'=>($dataInfo->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
+                                        @if($dataInfo->user?->is_approved==0)
+                                        Approve
+                                        @else
+                                        Block
+                                        @endif
+                                    </a>
                                     @else
                                     <a href="{{route('admin.agent.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->user?->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->user?->status)}} btn_status_change" title="Change Status">
                                         {!!getStatusChangeIcon($dataInfo->user?->status)!!}

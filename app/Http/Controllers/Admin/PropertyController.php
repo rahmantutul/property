@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\City;
 use App\Models\AmenityType;
 use App\Models\Category;
+use App\Models\Neighbor;
 use App\Models\PropertyType;
 use App\Models\PropertyCategory;
 use App\Models\PropertyAddress;
@@ -208,7 +209,7 @@ class PropertyController extends Controller
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
         
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
-
+        $neughbours = Neighbor::whereNull('deleted_at')->where('status',1)->get();
         $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
@@ -220,7 +221,7 @@ class PropertyController extends Controller
             return redirect()->back();
         }
 
-        return  view('admin.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo'));
+        return  view('admin.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo','neughbours'));
     }
 
     /**
@@ -252,6 +253,8 @@ class PropertyController extends Controller
             $dataInfo->typeId=$request->typeId;
 
             $dataInfo->garageTypeId=$request->garageTypeId;
+
+            $dataInfo->neighbourhoodId=$request->neighbourhoodId;
 
             $dataInfo->title=$request->title;
 
