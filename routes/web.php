@@ -38,6 +38,7 @@ Route::get('/',[FrontendController::class,'home'])->name('front.home');
 Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/user-login',[FrontendController::class,'login'])->name('login');
     Route::get('/neighbour',[FrontendController::class,'neighbourHood'])->name('neighbourHood');
+    Route::get('/{dataId}/neighbour-details',[FrontendController::class,'neighbourDetails'])->name('neighbourDetails');
     Route::get('/property',[FrontendController::class,'property'])->name('property');
     Route::get('/signup',[FrontendController::class,'signup'])->name('signup');
     Route::get('/property/search',[FrontendController::class,'searchProperty'])->name('propertySearch');

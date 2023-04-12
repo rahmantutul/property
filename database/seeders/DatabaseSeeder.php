@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
         PropertyCategory::factory(500)->create();
         HelpDesk::factory(1000)->create();
         HelpDeskDetails::factory(5000)->create();
-        Neighbor::factory(50)->create();
+        // Neighbor::factory(50)->create();
         WebsiteInfo::factory(1)->create();
         Banner::factory(1)->create();
     }

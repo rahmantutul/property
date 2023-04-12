@@ -20,6 +20,7 @@ class CreatePropertiesTable extends Migration
             $table->unsignedBigInteger('sellerId')->nullable();
             $table->unsignedBigInteger('typeId')->nullable();
             $table->unsignedBigInteger('garageTypeId')->nullable();
+            $table->bigInteger('neighbourhoodId')->nullable();
             $table->string('title',1000)->nullable();
             $table->string('mlsId',1000)->nullable();
             $table->date('availableDate')->nullable();
@@ -41,7 +42,7 @@ class CreatePropertiesTable extends Migration
             $table->foreign('buyerId')->references('id')->on('buyers')->onDelete('cascade'); 
             $table->foreign('sellerId')->references('id')->on('sellers')->onDelete('cascade'); 
             $table->foreign('typeId')->references('id')->on('property_types')->onDelete('cascade'); 
-            $table->foreign('garageTypeId')->references('id')->on('garage_types')->onDelete('cascade'); 
+            $table->foreign('garageTypeId')->references('id')->on('garage_types')->onDelete('cascade');
         });
     }
 

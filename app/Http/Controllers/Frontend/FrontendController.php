@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Neighbor;
 
 class FrontendController extends Controller
 {
@@ -26,9 +27,17 @@ class FrontendController extends Controller
     }
 
     public function neighbourHood(){
-        return view('frontend.neighbourHood');
+        $dataList= Neighbor::whereNull('deleted_at')->where('status',1)->inRandomOrder()->get();
+        return view('frontend.neighbourhood',compact('dataList'));
     }
-
+    public function neighbourDetails($dataId)
+    {
+        $dataInfo= Neighbor::findOrfail($dataId);
+        // dd($dataInfo);
+        $dataList= Property::whereNull('deleted_at')->where('neighbourhoodId',$dataId)->inRandomOrder()->get();
+        // dd($dataList);
+        return view('frontend.neighbour_profile',compact('dataInfo','dataList'));
+    }
     public function property(){
         //featured property list
         $featuredProperties = Property::with(['details', 'address',

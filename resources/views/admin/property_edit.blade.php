@@ -28,6 +28,16 @@
                     <form class="row" id="ajax_form" action="{{route('admin.property.update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="dataId" value="{{$dataInfo->id}}">
+                        <div class="col-9 form-group m-auto p-3 bg-light-success" style="border-radius
+                        :6px;">
+                            <strong>Asign A Neighbour Place:</strong>
+                            <select name="neighbourhoodId" id="" class="form-control">
+                                @foreach ($neughbours as $item)
+                                    <option @if($dataInfo->neighbourhoodId == $item->neighbourhoodId) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                             <span style="color:red" ></span>
+                        </div>
                         <div class="col-4 form-group">
                             <strong>Title:</strong>
                             <input type="text" name="title" placeholder="Property Titile" class="form-control" required value="{{$dataInfo->title}}" 

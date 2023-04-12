@@ -383,8 +383,8 @@ class AgentController extends Controller
         $dataInfo=Agent::find($request->dataId);
 
         if(!empty($dataInfo)) {
-
-          $dataInfo->is_approved=1;
+            dd($request->approved);
+          User::find($dataInfo->user_id)->update(['is_approved'=>$request->status,'updated_at'=>Carbon::now()]);
           
           $dataInfo->updated_at=Carbon::now();
 
