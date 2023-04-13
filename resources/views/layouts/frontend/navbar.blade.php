@@ -22,8 +22,20 @@
 
             <div class="navicon-wrap login-signup-menu" id="desktop">
                 <ul style="float: right">
+                    @guest
                     <li><a href="{{ route('front.signup') }}">Sign Up</a></li>
                     <li><a href="{{ route('front.login') }}">Login</a></li>
+                    @else
+                    @if (Auth::user()->user_type==1)
+                     <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+                    @elseif(Auth::user()->user_type==2)
+                     <li><a href="{{ route('agent.index') }}">Dashboard</a></li>
+                    @elseif(Auth::user()->user_type==3)
+                     <li><a href="{{ route('seller.index') }}">Dashboard</a></li>
+                    @elseif(Auth::user()->user_type==4)
+                     <li><a href="{{ route('buyer.index') }}">Dashboard</a></li>
+                    @endif
+                    @endguest
                 </ul>
             </div>
 

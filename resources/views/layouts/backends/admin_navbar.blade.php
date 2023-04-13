@@ -12,7 +12,7 @@
 
                 <ul class="nav navbar-nav">
                     <li class="nav-item d-none d-lg-block">
-                        <h4 class="badge badge-pill badge-primary p-1">{{env('APP_NAME')}}</h4>
+                        <h4 class="badge badge-pill badge-primary p-1"><a href="{{ route('front.home') }}">Visit Website</a></h4>
                     </li>
                 </ul>
             </div>
