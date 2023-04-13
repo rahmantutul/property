@@ -1,15 +1,14 @@
 @extends('layouts.backends.master')
-@section('title', 'Transection List')
+@section('title', 'Transaction List')
 @section('content')
 
     <div class="row mb-1">
         <div class="col-8">
-            <h2 class="content-header-title float-left mb-0">Market Activity</h2>
+            <h2 class="content-header-title float-left mb-0">Properties Transaction</h2>
         </div>
         <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
             <div class="form-group breadcrumb-right">
-                <a class="btn-icon btn btn-primary btn-round btn-sm" href="" data-toggle="modal" data-target="#exampleModal">Add
-                    New</a>
+                <a class="btn-icon btn btn-primary btn-round btn-sm" href="#" data-toggle="modal" data-target="#exampleModal">Add New</a>
             </div>
         </div>
     </div>
@@ -49,22 +48,44 @@
                                     <th>Date</th>
                                     <th>Agent Name</th>
                                     <th>Approve</th>
-                                    <th>View</th>
+                                    <th>Mail</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th class="text-center">1</th>
-                                    <td>00-1</td>
-                                    <td>03/03/2022</td>
-                                    <td>Rahman Tutul</td>
-                                    <td>
-                                        <span class="badge badge-pill badge-success">Approve</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-pill badge-warning">View</span>
-                                    </td>
-                                </tr>
+                                @foreach ($transactions as $item)
+                                    <tr>
+                                        <th class="text-center">{{ $loop->iteration }}</th>
+                                        <td>{{ $item->transaction_id }}</td>
+                                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
+                                        </td>
+                                        <td>Rahman Tutul</td>
+                                        <td>
+                                            @if ($item->is_approved)
+                                                <span class="badge badge-pill badge-success">Approve</span>
+                                            @else
+                                                <span class="badge badge-pill badge-danger">Unapproved</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-pill badge-success">Send</span>
+                                            <span class="badge badge-pill badge-warning">View</span>
+                                        </td>
+                                        <td>
+                                            <a href="" class="btn btn-sm btn-icon btn_status_change"
+                                                title="Change Status">
+
+                                            </a>
+                                            <a href="" class="btn btn-warning btn-sm btn-icon btn_modal"
+                                                title="Edit">
+                                                <i data-feather='edit'></i>
+                                            </a>
+                                            <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
+                                                <i data-feather='trash-2'></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -78,7 +99,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Transaction Create</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -88,7 +109,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>

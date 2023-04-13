@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transection;
 use Illuminate\Http\Request;
 
 class TransectionController extends Controller
@@ -14,7 +15,8 @@ class TransectionController extends Controller
      */
     public function index()
     {
-        // return view('admin.transection_list');
+        $transactions = Transection::whereNull('deleted_at')->latest()->get();
+        return view('admin.transection_list', compact('transactions'));
     }
 
     /**

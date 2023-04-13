@@ -15,10 +15,13 @@ class CreateTransectionsTable extends Migration
     {
         Schema::create('transections', function (Blueprint $table) {
             $table->id();
-            $table->string('trasectionId');
-            $table->tinyInteger('isApproved')->comment('0=Not approved, 1=Approved');
-            $table->tinyInteger('status');
+            $table->string('transaction_id');
+            $table->unsignedBigInteger('property_id');
+            $table->float('amount')->nullable();
+            $table->boolean('is_approved')->default(0)->comment('0=Not approved, 1=Approved');
+            $table->boolean('is_paid')->default(0)->comment('0=Not paid, 1=Paid');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
