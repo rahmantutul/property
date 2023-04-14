@@ -36,6 +36,7 @@ class CreatePropertiesTable extends Migration
             $table->tinyInteger('isHideAddress')->default(1)->comment('1=Yes,0=No')->nullable();
             $table->tinyInteger('callForPrice')->default(1)->comment('1=Yes,0=No')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
+            $table->boolean('is_sold')->default(0)->comment('0=Not sold,1=Sold');
             $table->tinyInteger('is_featured')->default(0)->comment('1=None,2=requested,2=featured')->nullable();
             $table->timestamps();
             $table->softDeletes(); 
