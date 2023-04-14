@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Property;
 use App\Models\Transection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Validated;
 
 class TransectionController extends Controller
 {
@@ -15,8 +17,11 @@ class TransectionController extends Controller
      */
     public function index()
     {
-        $transactions = Transection::whereNull('deleted_at')->latest()->get();
-        return view('admin.transection_list', compact('transactions'));
+        $transactions = Transection::with(['property'=> function($q){
+            return $q->with('agentInfo:id,user_id,firstName,lastName');
+        }])->whereNull('deleted_at')->latest()->paginate(10);
+        $properties = Property::whereNull('deleted_at')->where('status', 1)->get();
+        return view('admin.transection_list', compact('transactions', 'properties'));
     }
 
     /**
@@ -37,7 +42,12 @@ class TransectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'property_id' => 'required',
+            'amount' => 'required',
+            'transection_type' => 'required',
+            'transection_date' => 'required',
+        ]);
     }
 
     /**

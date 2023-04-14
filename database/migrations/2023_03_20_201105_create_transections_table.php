@@ -17,6 +17,7 @@ class CreateTransectionsTable extends Migration
             $table->id();
             $table->string('transaction_id');
             $table->unsignedBigInteger('property_id');
+            $table->date('date');
             $table->float('amount')->nullable();
             $table->boolean('is_approved')->default(0)->comment('0=Not approved, 1=Approved');
             $table->boolean('is_paid')->default(0)->comment('0=Not paid, 1=Paid');

@@ -60,4 +60,9 @@ class Property extends Model
     {
         return $this->hasOne('App\Models\SaveProperty', 'property_id', 'id');
     }
+
+    public function transections()
+    {
+        return $this->hasMany('App\Models\Transection', 'property_id', 'id');
+    }
 }
