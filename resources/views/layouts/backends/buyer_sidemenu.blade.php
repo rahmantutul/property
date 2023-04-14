@@ -11,21 +11,25 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            @if(auth()->guard('buyer')->user()->can('dashboard-menu'))
-                <li class="nav-item {{getActiveMenuClass('buyer.dashboard')}}">
-                    <a class="d-flex align-items-center" href="{{route('buyer.dashboard')}}">
-                        <i data-feather="grid"></i>
-                        <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
-                    </a>
-                </li>
-            @endif
+            <li class="nav-item {{getActiveMenuClass('buyer.profile.edit')}}">
+                <a class="d-flex align-items-center" href="{{route('buyer.profile.edit')}}">
+                    <i data-feather="user"></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
+                </a>
+            </li>
+            <li class="nav-item {{getActiveMenuClass('buyer.property.saved')}}">
+                <a class="d-flex align-items-center" href="{{ route('buyer.property.saved') }}">
+                    <i data-feather='save'></i>
+                    <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
+                </a>
+            </li>
             <li class="nav-item {{getActiveMenuClass('buyer.marketActivity.index')}}?user=1">
                 <a class="d-flex align-items-center" href="{{route('buyer.marketActivity.index')}}?user=1">
                     <i data-feather='bar-chart'></i>
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Market Activity</span>
                 </a>
             </li>
-            <li class="nav-item {{getActiveMenuClass('admin.helpDesk.index')}}">
+            <li class="nav-item {{getActiveMenuClass('buyer.helpDesk.index')}}">
                 <a class="d-flex align-items-center" href="{{route('buyer.helpDesk.index')}}">
                     <i data-feather='message-square'></i>
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>

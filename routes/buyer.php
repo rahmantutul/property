@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BuyerController;
 use App\Http\Controllers\Admin\MarketActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
@@ -25,6 +26,10 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 
 	Route::get('dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
 
+	Route::group(['prefix'=>'buyer','as'=>'profile.'],function(){
+		Route::get('/edit',[BuyerController::class,'editProfile'])->name('edit');
+		Route::post('/update',[BuyerController::class,'updateProfile'])->name('update');
+	});
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
@@ -41,5 +46,11 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 		Route::get('/',[MarketActivityController::class,'index'])->name('index');
 
     
+	});
+
+	// for properties
+	Route::group(['prefix'=>'property','as'=>'property.'],function(){
+
+		Route::get('/saved-propery',[PropertyController::class,'saved'])->name('saved');
 	});
 });	

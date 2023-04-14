@@ -16,6 +16,12 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item {{getActiveMenuClass('seller.profile.edit')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.profile.edit')}}">
+                    <i data-feather="user"></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
+                </a>
+            </li>
             <li class="nav-item {{getActiveMenuClass('seller.seller.editProfile')}}">
                 <a class="d-flex align-items-center" href="{{route('seller.seller.editProfile')}}">
                     <i data-feather="user"></i>

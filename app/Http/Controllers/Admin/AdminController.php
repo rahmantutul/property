@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -359,4 +360,77 @@ class AdminController extends Controller
        return view('admin.admin_password_change');
 
     }
+
+    public function editProfile(){
+        $id= Auth::user()->id;
+        $dataInfo= Admin::with('user')->where('user_id',$id)->first();
+        // dd($dataInfo);
+        return view('admin.profile_edit',compact('dataInfo'));
+       }
+    
+    
+    
+        public function updateProfile(Request $request)
+        {
+            // dd($request->all());
+                $request->validate([
+                    'firstName' => 'required',
+                    'lastName' => 'required',
+                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'confirm_password' => 'confirmed|max:8|different:old_password',
+                ],
+                [
+                    'firstName.required' => "Please Enter First Name.",
+                    'lastName.required' => "Please Enter Last Name.",
+                    'photo.image' => "uploaded file must be a valid image format.",
+                    'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
+                    'photo.max' => "Image file can't be more than 2 MB.",
+                ]);
+    
+    
+                $dataInfo=Admin::find($request->dataId);
+    
+                $dataInfo->firstName=$request->firstName;
+    
+                $dataInfo->lastName=$request->lastName;
+    
+                $dataInfo->fax=$request->fax;
+    
+                $dataInfo->facebook=$request->facebook;
+    
+                $dataInfo->linkedin=$request->linkedin;
+    
+                $dataInfo->skype=$request->skype;
+    
+                $dataInfo->about=$request->about;
+    
+                $dataInfo->license=$request->license;
+    
+                $dataInfo->address=$request->address;
+    
+                if($dataInfo->save()){
+                $user= User::find(Auth::user()->id);
+    
+                $user->phone = $request->phone;
+    
+                if(isset($request->old_password) && isset($dataInfo->password)){
+                    if (Hash::check($request->old_password, $user->password)) { 
+                        $user->password=Hash::make($request->confirm_password);
+                    } else {
+                        return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                    }
+                }
+                if($request->hasFile('photo')){
+                    $user->avatar=$this->uploadPhoto($request->file('photo'),'buyers');
+                }
+                $dataInfo->updated_at=Carbon::now();
+                $user->save();
+                
+                Session::flash('msg','Profile Updated Successfully.!');
+                return redirect()->back();
+    
+                }
+                
+        }
+    
 }

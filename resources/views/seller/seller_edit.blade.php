@@ -17,7 +17,7 @@
                         <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
-                            <h6 class="text-danger">Premium Agent</h6>
+                            <h6 class="text-danger">Seller</h6>
                             <h5>{{$dataInfo->phone}}</h5>
                             <div class="col-12 d-flex mt-1 px-0">
                             </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-12 form-group">
                             <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">

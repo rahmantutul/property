@@ -1,10 +1,10 @@
 <div>
     <div class="row justify-content-center">
         @if(auth()->user()->is_admin == true)
-            <div class="col-md-4">
-                <div class="card">
+            <div class="col-md-3 ">
+                <div class="card" style="background: #C3F5E9;">
                     <div class="card-header">
-                        Users
+                       Get Start Message
                     </div>
                     <div class="card-body chatbox p-0">
                         <ul class="list-group list-group-flush">
@@ -14,8 +14,16 @@
                                 @endphp
                                 <a href="{{ route('admin.helpDesk.show', $user->id) }}" class="text-dark link">
                                     <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
-                                        <img class="img-fluid avatar" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png">
-                                        @if($user->is_online) <i class="fa fa-circle text-success online-icon"></i> @endif {{ $user->name }}
+                                        <img class="img-fluid avatar" style="height:40px; width:40px;" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png"> 
+                                        @if($user->is_online) <i class="fa fa-circle text-success online-icon"></i> @endif 
+                                        &nbsp; <small>{{ $user->email }}</small>
+                                        @if($user->user_type==2)
+                                        <small class="badge badge-info" style="margin-left: 20px;"> Agent </small>
+                                        @elseif($user->user_type==3)
+                                        <small class="badge badge-info" style="margin-left: 20px;"> Seller </small>
+                                        @else
+                                        <small class="badge badge-info" style="margin-left: 20px;"> Buyer </small>
+                                        @endif
                                         @if(filled($not_seen))
                                             <div class="badge badge-success rounded">{{ $not_seen->count() }}</div>
                                         @endif
@@ -27,8 +35,8 @@
                 </div>
             </div>
         @endif
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-9">
+            <div class="card" style="background: #b69db7">
                 <div class="card-header">
                     {{ $sender->name }}
                 </div>
@@ -90,7 +98,7 @@
                                         </label>
                                     </button>
                                 </div>
-                                @endif
+                            @endif
                             <div class="col-md-4">
                                 <button class="btn btn-primary d-inline-block w-100"><i class="far fa-paper-plane"></i> Send</button>
                             </div>

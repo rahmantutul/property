@@ -106,7 +106,7 @@ class AgentController extends Controller
                  'user_type' => 2,
                  'status' => 1,
                  'avatar' => ($request->hasFile('photo'))?$this->uploadPhoto($request->file('photo'), 'User'):config('app.url').'/images/defaultUser.png',
-                 'is_approved' => 1
+                 'is_approved' => 0
              ]);
  
              $agent = Agent::create([
@@ -163,6 +163,13 @@ class AgentController extends Controller
         return view('admin.agent_edit',compact('dataInfo'));
     }
 
+    public function editProfile(){
+        $id= Auth::user()->id;
+        $dataInfo= Agent::with('user')->where('user_id',$id)->first();
+        // dd($dataInfo);
+        return view('agent.agent_edit',compact('dataInfo'));
+       }
+    
     /**
      * Update the specified resource in storage.
      *
@@ -173,23 +180,15 @@ class AgentController extends Controller
     public function updateProfile(Request $request)
     {
         // dd($request->all());
-       DB::beginTransaction();
-       try{
             $request->validate([
                 'firstName' => 'required',
                 'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'confirm_password' => 'confirmed|max:8|different:old_password',
-                // 'bnName' => 'required',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
                 'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
-                // 'bnName.required' => "Please Enter agent Bengali Name.",
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
@@ -202,60 +201,44 @@ class AgentController extends Controller
 
             $dataInfo->lastName=$request->lastName;
 
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
             $dataInfo->fax=$request->fax;
-            $dataInfo->facebook=$request->facebook;
-            $dataInfo->linkedin=$request->linkedin;
-            $dataInfo->skype=$request->skype;
-            $dataInfo->about=$request->linkedin;
-            $dataInfo->phone=$request->phone;
-            $dataInfo->license=$request->license;
-            $dataInfo->address=$request->address;
-                
-            if(isset($request->old_password) && isset($dataInfo->password)){
-                if (Hash::check($request->old_password, $dataInfo->password)) { 
-                    $dataInfo->password=Hash::make($request->confirm_password);
-                 } else {
-                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
-                 }
-            }
-          if($request->hasFile('photo'))
-            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'agents');
 
-            $dataInfo->updated_at=Carbon::now();
+            $dataInfo->facebook=$request->facebook;
+
+            $dataInfo->linkedin=$request->linkedin;
+
+            $dataInfo->skype=$request->skype;
+
+            $dataInfo->about=$request->linkedin;
+
+            $dataInfo->license=$request->license;
+
+            $dataInfo->address=$request->address;
 
             if($dataInfo->save()){
+                
+            $user= User::find(Auth::user()->id);
 
-                $note=$dataInfo->id."=> ".$dataInfo->firstName." Agent updated by ".Auth::guard('agent')->user()->firstName;
+            $user->phone = $request->phone;
 
-                $this->storeSystemLog($dataInfo->id, 'agents',$note);
-
-                DB::commit();
-
-                // return view('welcome');
-                Session::flash('msg','Agent Info Updated Successfully.!');
-                return redirect()->back();
-                // return response()->json(['status'=>true ,'msg'=>' Agent Info Updated Successfully.!','url'=>url()->previous()]);
+            if(isset($request->old_password) && isset($dataInfo->password)){
+                if (Hash::check($request->old_password, $user->password)) { 
+                    $user->password=Hash::make($request->confirm_password);
+                } else {
+                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                }
             }
-            else{
-
-                 DB::rollBack();
-                 Session::flash('errMsg','Failed To Update Agent.!');
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Agent.!']);
+            if($request->hasFile('photo')){
+                $user->avatar=$this->uploadPhoto($request->file('photo'),'buyers');
             }
-       }
-        catch(Exception $err){
+            $dataInfo->updated_at=Carbon::now();
+            $user->save();
+            
+            Session::flash('msg','Profile Updated Successfully.!');
+            return redirect()->back();
 
-            DB::rollBack();
-
-            $this->storeSystemError('AgentController','update',$err);
-
-            DB::commit();
-
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
+            }
+            
     }
 
 

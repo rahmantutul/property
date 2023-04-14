@@ -33,6 +33,11 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 	Route::get('dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
 
+	Route::group(['prefix'=>'profile','as'=>'profile.'],function(){
+		Route::get('/edit',[AdminController::class,'editProfile'])->name('edit');
+		Route::post('/update',[AdminController::class,'updateProfile'])->name('update');
+	});
+
 	Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
 		Route::get('list',[AdminController::class,'index'])->name('index');

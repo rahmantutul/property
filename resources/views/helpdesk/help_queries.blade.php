@@ -34,7 +34,7 @@
 @endphp
     <li onclick="loadCoversation('{{$helpQuery->id}}','{{$userType}}','{{$userImage}}','{{$userName}}','{{$userColor}}')">
         <span class="avatar">
-            <img src="{{getUserImage($userImage)}}" height="42" width="42" alt="" />
+            <img src="{{getUserImage($userImage)}}" height="50" width="50" alt="" />
             <span class="avatar-status-offline" style="background-color: {{$userColor}}!important;"></span>
         </span>
         <div class="chat-info flex-grow-1">
