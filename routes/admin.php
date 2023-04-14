@@ -265,6 +265,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/',[PropertyController::class,'index'])->name('index');
 
+		Route::get('/saved-propery',[PropertyController::class,'saved'])->name('saved');
+
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');
 		
 		Route::get('{dataId}/feature/{is_featured}/change',[PropertyController::class,'changeFeature'])->name('feature.change');

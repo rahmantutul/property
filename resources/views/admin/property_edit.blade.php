@@ -28,6 +28,7 @@
                     <form class="row" id="ajax_form" action="{{route('admin.property.update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="dataId" value="{{$dataInfo->id}}">
+                        <input type="hidden" name="adminId" value="{{ Auth::user()->id }}">
                         <div class="col-9 form-group m-auto p-3 bg-light-success" style="border-radius
                         :6px;">
                             <strong>Asign A Neighbour Place:</strong>

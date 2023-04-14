@@ -181,6 +181,12 @@
                         </li>
                     </ul>
                  </li>
+                 <li class="nav-item {{getActiveMenuClass('admin.property.saved')}}">
+                    <a class="d-flex align-items-center" href="{{ route('admin.property.saved') }}">
+                        <i data-feather='user-check'></i>
+                        <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
+                    </a>
+                </li>
                  <li class="nav-item {{getActiveMenuClass('admin.neighbour.index')}}">
                     <a class="d-flex align-items-center" href="{{ route('admin.neighbour.index') }}">
                         <i data-feather='user-check'></i>

@@ -27,6 +27,7 @@
                 <div class="card-body">
                     <form class="row" id="ajax_form" action="{{route('admin.property.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="adminId" value="{{ Auth::user()->id }}">
                         <div class="col-4 form-group">
                             <strong>Title:</strong>
                             <input type="text" name="title" placeholder="Property Titile" class="form-control" required >
