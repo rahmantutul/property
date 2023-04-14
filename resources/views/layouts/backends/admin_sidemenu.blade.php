@@ -211,6 +211,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
                     </a>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('admin.helpDesk.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.helpDesk.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
+                    </a>
+                </li>
 
             </ul>
     </div>

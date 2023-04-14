@@ -40,6 +40,12 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Market Activity</span>
                 </a>
             </li>
+            <li class="nav-item {{getActiveMenuClass('seller.helpDesk.index')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.helpDesk.index')}}">
+                    <i data-feather='message-square'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
+                </a>
+            </li>
         </ul>
 </div>
 </div>

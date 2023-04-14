@@ -35,6 +35,12 @@
                         <a class="dropdown-item" href="{{route('logout')}}"><i class="mr-50" data-feather="power"></i> Logout</a> 
                     </div>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('agent.helpDesk.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('agent.helpDesk.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

@@ -15,19 +15,19 @@
 
     
   
-@if(auth()->guard('admin')->check())
-    @include('layouts.backends.admin_navbar')
-    @include('layouts.backends.admin_sidemenu')
-@elseif(auth()->guard('agent')->check()) 
-    @include('layouts.backends.agent_navbar')
-    @include('layouts.backends.agent_sidemenu')
-@elseif(auth()->guard('buyer')->check()) 
-    @include('layouts.backends.buyer_navbar')
-    @include('layouts.backends.buyer_sidemenu')
-@elseif(auth()->guard('seller')->check())
-    @include('layouts.backends.seller_navbar')
-    @include('layouts.backends.seller_sidemenu')
-@endif
+    @if(auth()->guard('admin')->check())
+        @include('layouts.backends.admin_navbar')
+        @include('layouts.backends.admin_sidemenu')
+    @elseif(auth()->guard('agent')->check()) 
+        @include('layouts.backends.agent_navbar')
+        @include('layouts.backends.agent_sidemenu')
+    @elseif(auth()->guard('buyer')->check()) 
+        @include('layouts.backends.buyer_navbar')
+        @include('layouts.backends.buyer_sidemenu')
+    @elseif(auth()->guard('seller')->check())
+        @include('layouts.backends.seller_navbar')
+        @include('layouts.backends.seller_sidemenu')
+    @endif
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
