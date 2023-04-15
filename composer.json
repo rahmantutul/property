@@ -19,8 +19,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.4",
-        "livewire/livewire": "*",
         "laravelista/comments": "^4.5",
+        "livewire/livewire": "^2.12",
         "spatie/laravel-permission": "^5.8",
         "symfony/psr-http-message-bridge": "^2.1",
         "tinymce/tinymce": "^6.4"

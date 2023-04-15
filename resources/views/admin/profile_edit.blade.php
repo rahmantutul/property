@@ -14,10 +14,10 @@
             <div class="card  p-5">
                 <div class="card-header">
                     <div class="media mb-2">
-                        <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
+                        <img src="{{getUserImage($dataInfo->user?->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
-                            <h6 class="text-danger">Agent</h6>
+                            <h6 class="text-danger">Admin</h6>
                             <h5>{{$dataInfo->phone}}</h5>
                             <div class="col-12 d-flex mt-1 px-0">
                             </div>
@@ -25,13 +25,13 @@
                     </div>
                 </div>      
                 <div class="card-body">
-                    <form class="row" action="{{route('agent.agent.updateProfile')}}" method="POST" enctype="multipart/form-data">
+                    <form class="row" action="{{route('admin.profile.update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="dataId" value="{{$dataInfo->id}}">
                         
                         <div class="col-6 form-group">
                             <strong>Email:</strong>
-                            <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->email}}" required>
+                            <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->user?->email}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -51,12 +51,12 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Phone:</strong>
-                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->phone}}" required>
+                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->phone}}">
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
                             <strong>License:</strong>
-                            <input type="text" name="license" placeholder="License" class="form-control" value="{{$dataInfo->license}}" required>
+                            <input type="text" name="license" placeholder="License" class="form-control" value="{{$dataInfo->license}}">
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-12 form-group">
                             <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
+                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{ $dataInfo->about }}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">

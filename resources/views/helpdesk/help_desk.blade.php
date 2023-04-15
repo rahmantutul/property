@@ -95,7 +95,7 @@ if(auth()->guard('seller')->check()){
                                 <div class="d-flex align-items-center w-100">
                                     <div class="sidebar-profile-toggles">
                                         <div class="avatar avatar-border">
-                                            <img src="{{getUserImage($currentUserPhoto)}}" alt="user_avatar" height="42" width="42" />
+                                            <img src="{{getUserImage($currentUserPhoto)}}" alt="user_avatar" height="50" width="50" />
                                             <span class="avatar-status-online"></span>
                                         </div>
                                     </div>

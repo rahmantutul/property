@@ -22,7 +22,7 @@ class CreateBuyersTable extends Migration
             $table->string('fax')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('license')->nullable();
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
             $table->string('skype')->nullable();
             $table->string('address',2000)->nullable();
             $table->timestamps();

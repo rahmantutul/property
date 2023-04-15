@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class SellerController extends Controller
 {
@@ -104,12 +105,13 @@ class SellerController extends Controller
         }
     }
 
-    public function editProfile()
-    {
-        $dataId= Auth::guard('seller')->user()->id;
-        $dataInfo=Seller::find($dataId);
-        return view('seller.seller_edit',compact('dataInfo'));
+    public function editProfile(){
+        $id= Auth::user()->id;
+        $dataInfo= Seller::with('user')->where('user_id',$id)->first();
+        // dd($dataInfo);
+        return view('awller.seller_edit',compact('dataInfo'));
     }
+    
 
     /**
      * 
@@ -131,90 +133,64 @@ class SellerController extends Controller
     public function updateProfile(Request $request)
     {
         // dd($request->all());
-       DB::beginTransaction();
-       try{
             $request->validate([
                 'firstName' => 'required',
                 'lastName' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'confirm_password' => 'confirmed|max:8|different:old_password',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
                 'lastName.required' => "Please Enter Last Name.",
-                'email.required' => "Please Enter User Email Address.",
-                'phone.required' => "Please Enter User Phone No.",
                 'photo.image' => "uploaded file must be a valid image format.",
                 'photo.mimes' => "Supported Image Format are jpeg,png,gif,svg",
                 'photo.max' => "Image file can't be more than 2 MB.",
             ]);
 
 
-            $dataInfo = Seller::find($request->dataId);
+            $dataInfo=Seller::find($request->dataId);
+
             $dataInfo->firstName=$request->firstName;
 
             $dataInfo->lastName=$request->lastName;
 
-            $dataInfo->email=strtolower(trim($request->email));
-
-            $dataInfo->phone=$request->phone;
             $dataInfo->fax=$request->fax;
+
             $dataInfo->facebook=$request->facebook;
+
             $dataInfo->linkedin=$request->linkedin;
+
             $dataInfo->skype=$request->skype;
+
             $dataInfo->about=$request->linkedin;
-            $dataInfo->phone=$request->phone;
+
             $dataInfo->license=$request->license;
+
             $dataInfo->address=$request->address;
 
-            $user = User::find($dataInfo->user_id);
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            if ($request->hasFile('photo')) {
-                $user->avatar = $this->uploadPhoto($request->file('photo'), 'User');
-            }
+            if($dataInfo->save()){
+            $user= User::find(Auth::user()->id);
 
-           
+            $user->phone = $request->phone;
+
             if(isset($request->old_password) && isset($dataInfo->password)){
-                if (Hash::check($request->old_password, $dataInfo->password)) { 
-                    $dataInfo->password=Hash::make($request->confirm_password);
-                 } else {
+                if (Hash::check($request->old_password, $user->password)) { 
+                    $user->password=Hash::make($request->confirm_password);
+                } else {
                     return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
-                 }
+                }
+            }
+            if($request->hasFile('photo')){
+                $user->avatar=$this->uploadPhoto($request->file('photo'),'buyers');
+            }
+            $dataInfo->updated_at=Carbon::now();
+            $user->save();
+            
+            Session::flash('msg','Profile Updated Successfully.!');
+            return redirect()->back();
+
             }
             
-          if($request->hasFile('photo'))
-            $dataInfo->avatar=$this->uploadPhoto($request->file('photo'),'sellers');
-
-            $dataInfo->updated_at=Carbon::now();
-
-            if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->firstName." Seller updated by ".Auth::guard('seller')->user()->firstName;
-
-                $this->storeSystemLog($dataInfo->id, 'sellers',$note);
-
-                DB::commit();
-                return response()->json(['status'=>true ,'msg'=>'Seller Info Updated Successfully.!']);
-                return redirect()->back();
-            }
-            else{
-
-                 DB::rollBack();
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Seller.!']);
-            }
-       }
-        catch(Exception $err){
-
-            DB::rollBack();
-
-            $this->storeSystemError('SellerController','update',$err);
-
-            DB::commit();
-
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
-       }
     }
 
     //update seller

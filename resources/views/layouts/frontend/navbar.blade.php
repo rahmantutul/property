@@ -56,6 +56,19 @@
     <a href="">About Us</a>
     <a href="">Contact Us</a>
     <a href="">Join Us</a>
+    @guest
     <a href="{{ route('front.signup') }}" class="sl_btn">Sign Up</a>
     <a href="{{ route('front.login') }}" class="sl_btn">Login</a>
+    @endguest
+    @auth
+        @if (Auth::user()->user_type==1)
+            <a href="{{ route('admin.index') }}" class="sl_btn">Dashboard</a>
+        @elseif(Auth::user()->user_type==2)
+            <a href="{{ route('agent.index') }}" class="sl_btn">Dashboard</a>
+        @elseif(Auth::user()->user_type==3)
+            <a href="{{ route('seller.index') }}" class="sl_btn">Dashboard</a>
+        @elseif(Auth::user()->user_type==4)
+            <a href="{{ route('buyer.index') }}" class="sl_btn">Dashboard</a></li>
+        @endif
+    @endauth
 </div>

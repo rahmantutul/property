@@ -6,11 +6,13 @@
     <div class="col-8">
     <h2 class="content-header-title float-left mb-0">Market Activity</h2>
     </div>
+    @if(!isset(request()->user))
     <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
         <div class="form-group breadcrumb-right">
             <a class="btn-icon btn btn-primary btn-round btn-sm" href="{{ route('admin.marketActivity.create') }}">Add New</a>
         </div>
     </div>
+    @endif
 </div>
 <div class="content-body">
     <!-- Basic Tables start -->

@@ -90,15 +90,6 @@ class AuthController extends Controller
 
     public function logout()
     {
-        if (Auth::user()->user_type == 1) {
-            Auth::guard('admin')->logout();
-        } elseif (Auth::user()->user_type == 2) {
-            Auth::guard('agent')->logout();
-        } elseif (Auth::user()->user_type == 3) {
-            Auth::guard('buyer')->logout();
-        } elseif (Auth::user()->user_type == 4) {
-            Auth::guard('seller')->logout();
-        }
         Auth::logout();
         Session::flash('infoMsg',"Logged Out Successfully.");
         return redirect()->route('front.login');

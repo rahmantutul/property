@@ -18,6 +18,7 @@ class CreatePropertiesTable extends Migration
             $table->unsignedBigInteger('agentId')->nullable();
             $table->unsignedBigInteger('buyerId')->nullable();
             $table->unsignedBigInteger('sellerId')->nullable();
+            $table->unsignedBigInteger('adminId')->nullable();
             $table->unsignedBigInteger('typeId')->nullable();
             $table->unsignedBigInteger('garageTypeId')->nullable();
             $table->bigInteger('neighbourhoodId')->nullable();
@@ -40,6 +41,7 @@ class CreatePropertiesTable extends Migration
             $table->timestamps();
             $table->softDeletes(); 
             $table->foreign('agentId')->references('id')->on('agents')->onDelete('cascade'); 
+            $table->foreign('adminId')->references('id')->on('admins')->onDelete('cascade'); 
             $table->foreign('buyerId')->references('id')->on('buyers')->onDelete('cascade'); 
             $table->foreign('sellerId')->references('id')->on('sellers')->onDelete('cascade'); 
             $table->foreign('typeId')->references('id')->on('property_types')->onDelete('cascade'); 

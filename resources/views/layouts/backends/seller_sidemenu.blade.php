@@ -16,6 +16,12 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item {{getActiveMenuClass('seller.profile.edit')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.profile.edit')}}">
+                    <i data-feather="user"></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
+                </a>
+            </li>
             <li class="nav-item {{getActiveMenuClass('seller.seller.editProfile')}}">
                 <a class="d-flex align-items-center" href="{{route('seller.seller.editProfile')}}">
                     <i data-feather="user"></i>
@@ -38,6 +44,12 @@
                 <a class="d-flex align-items-center" href="{{route('seller.marketActivity.index')}}?user=1">
                     <i data-feather='bar-chart'></i>
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Market Activity</span>
+                </a>
+            </li>
+            <li class="nav-item {{getActiveMenuClass('seller.helpDesk.index')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.helpDesk.index')}}">
+                    <i data-feather='message-square'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
                 </a>
             </li>
         </ul>

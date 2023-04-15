@@ -17,7 +17,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
                     </a>
                 </li>
-
+                <li class="nav-item {{getActiveMenuClass('admin.profile.edit')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.profile.edit')}}">
+                        <i data-feather="user"></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
+                    </a>
+                </li>
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather="settings"></i>
@@ -103,6 +108,12 @@
                                 <span class="menu-item text-truncate" data-i18n="Agent">Agent</span>
                             </a>
                         </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
+                            </a>
+                        </li>
                         <li class="{{getActiveMenuClass('admin.buyer.index')}}">
                             <a class="d-flex align-items-center" href="{{route('admin.buyer.index')}}">
                                 <i data-feather="circle"></i>
@@ -115,7 +126,7 @@
                                 <span class="menu-item text-truncate" data-i18n="Sellers">Sellers</span>
                             </a>
                         </li>
-                        <li class="{{getActiveMenuClass('admin.role.index')}}">
+                        {{-- <li class="{{getActiveMenuClass('admin.role.index')}}">
                             <a class="d-flex align-items-center" href="{{route('admin.role.index')}}">
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Designation">Designation</span>
@@ -127,16 +138,9 @@
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="permission">Permission</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
-                <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
-                    <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
-                        <i data-feather="user"></i>
-                        <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
-                    </a>
-                </li>
-
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather='home'></i>
@@ -181,6 +185,12 @@
                         </li>
                     </ul>
                  </li>
+                 <li class="nav-item {{getActiveMenuClass('admin.property.saved')}}">
+                    <a class="d-flex align-items-center" href="{{ route('admin.property.saved') }}">
+                        <i data-feather='save'></i>
+                        <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
+                    </a>
+                 </li>
                  <li class="nav-item {{getActiveMenuClass('admin.neighbour.index')}}">
                     <a class="d-flex align-items-center" href="{{ route('admin.neighbour.index') }}">
                         <i data-feather='user-check'></i>
@@ -203,6 +213,18 @@
                     <a class="d-flex align-items-center" href="{{route('admin.property.index')}}?is_featured=1">
                         <i data-feather='bookmark'></i>
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('admin.helpDesk.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.helpDesk.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('clear.cache')}}">
+                    <a class="d-flex align-items-center" href="{{route('clear.cache')}}">
+                        <i data-feather='scissors'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Clear Cache</span>
                     </a>
                 </li>
 

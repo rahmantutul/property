@@ -16,6 +16,7 @@ use App\Models\PropertyCategory;
 use App\Models\PropertyAddress;
 use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
+use App\Models\SaveProperty;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -34,6 +35,24 @@ class PropertyController extends Controller
     {
         $query=Property::whereNull('deleted_at')
                 ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities');
+        if(isset(request()->is_featured) && request()->is_featured==1)
+            $query->where('is_featured',1);
+
+        if(isset(request()->featured) && request()->featured==1)
+            $query->where('is_featured',2);
+       
+        $dataList=$query->paginate(100);
+
+        return view('admin.property_list',compact('dataList'));
+    }
+
+    public function saved()
+    {
+        $savedId= SaveProperty::where('user_id',Auth::user()->id)->get();
+        dd($savedId);
+        $query=Property::whereNull('deleted_at')->where('adminId',$savedId['user_id'])
+                ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities')->get();
+                dd($query);
         if(isset(request()->is_featured) && request()->is_featured==1)
             $query->where('is_featured',1);
 
@@ -89,6 +108,8 @@ class PropertyController extends Controller
             $dataInfo->buyerId=$request->buyerId;
 
             $dataInfo->sellerId=$request->sellerId ;
+
+            $dataInfo->adminId=$request->adminId ;
 
             $dataInfo->typeId=$request->typeId;
 
@@ -248,8 +269,10 @@ class PropertyController extends Controller
 
             $dataInfo->buyerId=$request->buyerId;
 
-            $dataInfo->sellerId=$request->sellerId ;
+            $dataInfo->sellerId=$request->sellerId;
 
+            $dataInfo->adminId=$request->adminId;
+            
             $dataInfo->typeId=$request->typeId;
 
             $dataInfo->garageTypeId=$request->garageTypeId;

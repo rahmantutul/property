@@ -16,9 +16,15 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('roleId')->nullable();
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
-            $table->unsignedBigInteger('roleId')->default(1);
+            $table->string('facebook')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('license')->nullable();
+            $table->text('about')->nullable();
+            $table->string('skype')->nullable();
             $table->string('address',2000)->nullable();
             $table->timestamps();
             $table->softDeletes();

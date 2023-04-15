@@ -10,7 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RahmanController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +30,9 @@ Route::get('/clear-cache', function() {
     Artisan::call('view:clear');
     Artisan::call('clear-compiled');
     Artisan::call('optimize:clear');
-    return "Cache is cleared";
-});
+    Session::flash('msg',"Cache is cleared");
+    return redirect()->back();
+})->name('clear.cache');
 
 Route::get('/',[FrontendController::class,'home'])->name('front.home');
 
