@@ -40,6 +40,12 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
                 </a>
             </li>
+            <li class="nav-item {{getActiveMenuClass('seller.transection.index')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.transection.index')}}">
+                    <i data-feather='dollar-sign'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Transection</span>
+                </a>
+            </li>
             <li class="nav-item {{getActiveMenuClass('seller.marketActivity.index')}}?user=1">
                 <a class="d-flex align-items-center" href="{{route('seller.marketActivity.index')}}?user=1">
                     <i data-feather='bar-chart'></i>
