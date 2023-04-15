@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Admin;
+use App\Models\Agent;
+use App\Models\Buyer;
+use App\Models\Seller;
+use Laravelista\Comments\Commenter;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravelista\Comments\Commenter;
 
 class User extends Authenticatable
 {
@@ -60,4 +64,22 @@ class User extends Authenticatable
     public function message() {
         return $this->hasMany("App\Models\Message");
     }
+
+    public function adminInfo() {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
+
+    public function agentInfo() {
+        return $this->hasOne(Agent::class, 'user_id');
+    }
+
+    public function sellerInfo() {
+        return $this->hasOne(Seller::class, 'user_id');
+    }
+
+    public function buyerInfo() {
+        return $this->hasOne(Buyer::class, 'user_id');
+    }
+
+
 }

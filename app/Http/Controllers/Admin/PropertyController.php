@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Traits\SystemLogTrait;
-use App\Models\Property;
-use App\Models\Country;
+use Exception;
+use Carbon\Carbon;
 use App\Models\City;
-use App\Models\AmenityType;
+use App\Models\Country;
 use App\Models\Category;
 use App\Models\Neighbor;
-use App\Models\PropertyType;
-use App\Models\PropertyCategory;
-use App\Models\PropertyAddress;
-use App\Models\PropertyDetails;
-use App\Models\PropertyAmenity;
-use App\Models\SaveProperty;
+use App\Models\Property;
+use App\Models\AmenityType;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use App\Models\PropertyType;
+use App\Models\SaveProperty;
+use Illuminate\Http\Request;
+use App\Traits\SystemLogTrait;
+use App\Models\PropertyAddress;
+use App\Models\PropertyAmenity;
+use App\Models\PropertyDetails;
+use App\Models\PropertyCategory;
 use Illuminate\Support\Facades\DB;
-use Exception;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
 {
@@ -48,8 +48,8 @@ class PropertyController extends Controller
 
     public function saved()
     {
-        $savedId= SaveProperty::where('user_id',Auth::user()->id)->get();
-        dd($savedId);
+        $test= SaveProperty::with('user', 'property')->where('user_id',Auth::user()->id)->get();
+        dd($test);
         $query=Property::whereNull('deleted_at')->where('adminId',$savedId['user_id'])
                 ->with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities')->get();
                 dd($query);
