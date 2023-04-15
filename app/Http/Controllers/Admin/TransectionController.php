@@ -19,7 +19,7 @@ class TransectionController extends Controller
         $transactions = Transection::with(['property'=> function($q){
             return $q->with('agentInfo:id,user_id,firstName,lastName');
         }])->whereNull('deleted_at')->latest()->paginate(10);
-        $properties = Property::whereNull('deleted_at')->where('status', 1)->get();
+        $properties = Property::whereNull('deleted_at')->where('status', 1)->where('is_sold', 0)->get();
         return view('admin.transection_list', compact('transactions', 'properties'));
     }
 

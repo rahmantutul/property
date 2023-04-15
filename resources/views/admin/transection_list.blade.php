@@ -47,6 +47,7 @@
                                     <th>Transaction ID</th>
                                     <th>Date</th>
                                     <th>Agent Name</th>
+                                    <th>Property Title</th>
                                     <th>Approve</th>
                                     <th>Mail</th>
                                     {{-- <th>Actions</th> --}}
@@ -60,6 +61,7 @@
                                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
                                         </td>
                                         <td>{{$item?->property?->agentInfo?->firstName}}</td>
+                                        <td>{{$item?->property?->title}}</td>
                                         <td>
                                             @if ($item->is_approved)
                                                 <span class="badge badge-pill badge-success">Approve</span>
@@ -115,8 +117,8 @@
                             <div class="form-group">
                                 <label>Property select</label>
                                 <select class="form-control" name="property_id" required>
-                                    @foreach ($properties as $item)
                                     <option value="">Please Select Property</option>
+                                    @foreach ($properties as $item)
                                     <option value="{{$item->id}}">{{$item->title}}</option>
                                     @endforeach
                                 </select>
