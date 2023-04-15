@@ -3,7 +3,7 @@
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="{{route('admin.dashboard')}}">
                     <img src="{{asset('')}}app-assets/images/minilogo.png" style="height:40px; width:40px;">
-                    <h2 class="brand-text text-uppercase">{{env("APP_NAME")}}</h2>
+                    <h2 class="brand-text text-uppercase">{{config('app.name')}}</h2>
                     </a>
                 </li>
             </ul>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
+use App\Models\Property;
 use App\Models\Transection;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TransectionController extends Controller
 {
@@ -15,12 +16,21 @@ class TransectionController extends Controller
      */
     public function index()
     {
-        $transaction = Transection::with(['property'
-                                    => function($q) {
-                                        $q->with(['agentInfo' => function($q){
+        $properties = Property::with(['agentInfo' => function($q){
                                             $q->select('id', 'user_id', 'firstName', 'lastName');
                                         }])
-                                            ->whereNotNull('agentId');
+                                        ->whereNotNull('agentId')
+                                        ->whereHas('agentInfo', function($q) {
+                                            $q->where('user_id', auth()->user()->id);
+                                        })
+                                        ->whereNull('deleted_at')
+                                        ->where('status', 1)
+                                        ->where('is_sold', 0)
+                                        ->get();
+        $transactions = Transection::with(['property' => function($q) {
+                                        $q->with(['agentInfo' => function($q){
+                                            $q->select('id', 'user_id', 'firstName', 'lastName');
+                                        }])->whereNotNull('agentId');
                                     }    
                                 ])
                                 ->whereHas('property', function($q) {
@@ -33,7 +43,7 @@ class TransectionController extends Controller
                                 ->latest()
                                 ->paginate(10);
 
-        return view('agent.transection_list', compact('transaction'));
+        return view('agent.transection_list', compact('transactions', 'properties'));
     }
 
     /**
@@ -54,7 +64,25 @@ class TransectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'property_id' => 'required|numeric',
+            'amount' => 'required',
+            'transaction_date' => 'required|date',
+            'transaction_location' => 'required',
+        ]);
+
+        try {
+            Transection::create([
+                // random transaction id create
+                'transaction_id' => $request->transaction_location."-".uniqid()."-".time(),
+                'property_id' => $request->property_id,
+                'amount' => $request->amount,
+                'date' => $request->transaction_date,
+            ]);
+            return redirect()->route('agent.transection.index')->with('success', 'Transaction created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->route('agent.transection.index')->with('error', 'Transaction create failed.'.$th);
+        }
     }
 
     /**
