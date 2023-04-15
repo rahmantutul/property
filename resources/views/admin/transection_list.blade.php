@@ -49,7 +49,7 @@
                                     <th>Agent Name</th>
                                     <th>Approve</th>
                                     <th>Mail</th>
-                                    <th>Actions</th>
+                                    {{-- <th>Actions</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,7 +73,7 @@
                                             @endif
                                             {{-- <span class="badge badge-pill badge-warning">View</span> --}}
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="" class="btn btn-sm btn-icon btn_status_change"
                                                 title="Change Status">
 
@@ -82,10 +82,10 @@
                                                 title="Edit">
                                                 <i data-feather='edit'></i>
                                             </a>
-                                            {{-- <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
+                                            <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
                                                 <i data-feather='trash-2'></i>
-                                            </a> --}}
-                                        </td>
+                                            </a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

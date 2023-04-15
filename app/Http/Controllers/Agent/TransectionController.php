@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transection;
 use Illuminate\Http\Request;
 
 class TransectionController extends Controller
@@ -14,7 +15,25 @@ class TransectionController extends Controller
      */
     public function index()
     {
-        return view('agent.transection_list');
+        $transaction = Transection::with(['property'
+                                    => function($q) {
+                                        $q->with(['agentInfo' => function($q){
+                                            $q->select('id', 'user_id', 'firstName', 'lastName');
+                                        }])
+                                            ->whereNotNull('agentId');
+                                    }    
+                                ])
+                                ->whereHas('property', function($q) {
+                                    $q->whereNotNull('agentId');
+                                })
+                                ->whereHas('property.agentInfo', function($q) {
+                                    $q->where('user_id', auth()->user()->id);
+                                })
+                                ->whereNull('deleted_at')
+                                ->latest()
+                                ->paginate(10);
+
+        return view('agent.transection_list', compact('transaction'));
     }
 
     /**

@@ -1,16 +1,16 @@
 @extends('layouts.backends.master')
-@section('title', 'Transection List')
+@section('title', 'Transaction List')
 @section('content')
 
     <div class="row mb-1">
         <div class="col-8">
-            <h2 class="content-header-title float-left mb-0">Market Activity</h2>
+            <h2 class="content-header-title float-left mb-0">Transaction List</h2>
         </div>
         <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-            <div class="form-group breadcrumb-right">
+            {{-- <div class="form-group breadcrumb-right">
                 <a class="btn-icon btn btn-primary btn-round btn-sm" href="" data-toggle="modal" data-target="#exampleModal">Add
                     New</a>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="content-body">
