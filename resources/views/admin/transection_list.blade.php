@@ -68,26 +68,31 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <span class="badge badge-pill badge-success">Send</span>
-                                            <span class="badge badge-pill badge-warning">View</span>
+                                            @if ($item->property->agentInfo)
+                                                <span class="badge badge-pill badge-success">Send</span>
+                                            @endif
+                                            {{-- <span class="badge badge-pill badge-warning">View</span> --}}
                                         </td>
                                         <td>
                                             <a href="" class="btn btn-sm btn-icon btn_status_change"
                                                 title="Change Status">
 
                                             </a>
-                                            <a href="" class="btn btn-warning btn-sm btn-icon btn_modal"
+                                            <a href="javascript:void();" class="btn btn-warning btn-sm btn-icon"
                                                 title="Edit">
                                                 <i data-feather='edit'></i>
                                             </a>
-                                            <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
+                                            {{-- <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
                                                 <i data-feather='trash-2'></i>
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="m-3 float-right">
+                            {{$transactions->links()}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,10 +110,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="POST" id="transaction">
+                        <form action="{{route('admin.transection.store')}}" method="POST" id="transaction">
+                            @csrf
                             <div class="form-group">
-                                <label for="exampleFormControlSelect1">Property select</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
+                                <label>Property select</label>
+                                <select class="form-control" name="property_id" required>
                                     @foreach ($properties as $item)
                                     <option value="">Please Select Property</option>
                                     <option value="{{$item->id}}">{{$item->title}}</option>
@@ -117,7 +123,11 @@
                             </div>
                             <div class="form-group">
                               <label>Amount</label>
-                              <input type="number" class="form-control" step="0.01" placeholder="54768435.73">
+                              <input type="number" class="form-control" name="amount" step="0.01" placeholder="54768435.73">
+                            </div>
+                            <div class="form-group">
+                              <label>Transaction Date</label>
+                              <input type="date" class="form-control" name="transaction_date">
                             </div>
                         </form>
                     </div>

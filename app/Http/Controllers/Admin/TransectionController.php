@@ -6,7 +6,6 @@ use App\Models\Property;
 use App\Models\Transection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Validated;
 
 class TransectionController extends Controller
 {
@@ -43,11 +42,25 @@ class TransectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'property_id' => 'required',
+            'property_id' => 'required|numeric',
             'amount' => 'required',
-            'transection_type' => 'required',
-            'transection_date' => 'required',
+            'transaction_date' => 'required|date',
         ]);
+
+        try {
+            Transection::create([
+                // random transaction id create
+                'transaction_id' => "TR-".uniqid()."-".time(),
+                'property_id' => $request->property_id,
+                'amount' => $request->amount,
+                'date' => $request->transaction_date,
+            ]);
+            return redirect()->route('admin.transection.index')->with('success', 'Transaction created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.transection.index')->with('error', 'Transaction create failed.'.$th);
+        }
+        
+
     }
 
     /**
@@ -92,6 +105,6 @@ class TransectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

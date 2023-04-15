@@ -14,6 +14,7 @@ class Transection extends Model
         'transaction_id',
         'property_id',
         'amount',
+        'date',
         'is_approved',
         'is_paid',
     ];
