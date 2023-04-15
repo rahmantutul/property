@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
-use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Admin\SellerController;
 use App\Http\Controllers\Seller\HelpDeskController;
 use App\Http\Controllers\Seller\PropertyController;
 use App\Http\Controllers\Seller\DashboardController;
+use App\Http\Controllers\Seller\TransectionController;
+use App\Http\Controllers\Admin\MarketActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,25 @@ Route::group(['prefix'=>'seller','middleware'=>'SellerAuth','as'=>'seller.'],fun
 		Route::get('/',[MarketActivityController::class,'index'])->name('index');
 
     
+	});
+
+
+	Route::group(['prefix'=>'transection','as'=>'transection.'],function(){
+
+		Route::get('/',[TransectionController::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[TransectionController::class,'changeStatus'])->name('status.change');
+
+		Route::get('/{dataId}/edit',[TransectionController::class,'edit'])->name('edit');
+
+		Route::post('/update',[TransectionController::class,'update'])->name('update');
+
+		Route::post('/',[TransectionController::class,'store'])->name('store');
+
+		Route::get('/create',[TransectionController::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[TransectionController::class,'destroy'])->name('delete');	
+
 	});
 
 });	
