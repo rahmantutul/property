@@ -16,12 +16,6 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item {{getActiveMenuClass('seller.profile.edit')}}">
-                <a class="d-flex align-items-center" href="{{route('seller.profile.edit')}}">
-                    <i data-feather="user"></i>
-                    <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
-                </a>
-            </li>
             <li class="nav-item {{getActiveMenuClass('seller.seller.editProfile')}}">
                 <a class="d-flex align-items-center" href="{{route('seller.seller.editProfile')}}">
                     <i data-feather="user"></i>
@@ -34,12 +28,19 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Property</span>
                 </a>
             </li>
+            
             <li class="nav-item {{getActiveMenuClass('seller.property.index')}}?is_featured=1">
                 <a class="d-flex align-items-center" href="{{route('seller.property.index')}}?is_featured=1">
                     <i data-feather='bookmark'></i>
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Featured Requests</span>
                 </a>
             </li>
+            <li class="nav-item {{getActiveMenuClass('seller.property.saved')}}">
+                <a class="d-flex align-items-center" href="{{ route('seller.property.saved') }}">
+                    <i data-feather='save'></i>
+                    <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
+                </a>
+             </li>
             <li class="nav-item {{getActiveMenuClass('seller.marketActivity.index')}}?user=1">
                 <a class="d-flex align-items-center" href="{{route('seller.marketActivity.index')}}?user=1">
                     <i data-feather='bar-chart'></i>

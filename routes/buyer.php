@@ -33,7 +33,6 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
-		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
 		Route::get('/',[InboxController::class,'index'])->name('index');
 		Route::get('/{id}',[InboxController::class,'show'])->name('show');
 		
@@ -52,5 +51,6 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 	Route::group(['prefix'=>'property','as'=>'property.'],function(){
 
 		Route::get('/saved-propery',[PropertyController::class,'saved'])->name('saved');
+		
 	});
 });	

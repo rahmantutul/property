@@ -109,7 +109,7 @@ class SellerController extends Controller
         $id= Auth::user()->id;
         $dataInfo= Seller::with('user')->where('user_id',$id)->first();
         // dd($dataInfo);
-        return view('awller.seller_edit',compact('dataInfo'));
+        return view('seller.seller_edit',compact('dataInfo'));
     }
     
 

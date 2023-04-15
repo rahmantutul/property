@@ -27,7 +27,7 @@
                         <div class="user-nav d-sm-flex "><span class="user-name font-weight-bolder">{{Auth::guard('agent')->user()->full_name}}</span><span class="user-status  badge badge-success">Agent</span></div><span class="avatar"><img class="round" src="{{getUserImage(Auth::user()->avatar)}}" alt="{{Auth::user()->full_name}}" height="50" width="50"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right extra-width" aria-labelledby="dropdown-user">
-                        <a class="dropdown-item" href="{{route('agent.profile.edit')}}">
+                        <a class="dropdown-item" href="{{route('agent.agent.editProfile')}}">
                             <i class="mr-50" data-feather='lock'></i>Update Profile
                         </a>
                         <a class="dropdown-item" href="{{route('logout')}}"><i class="mr-50" data-feather="power"></i> Logout</a> 

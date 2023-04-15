@@ -22,14 +22,14 @@
 
 <section class="featured_list_box col-md-12">
     <div class="row">
-        @foreach ($featuredProperties as $item)
+        @foreach ($featuredProperties as $dataInfo)
             <div class="carousel-card col-md-4 mb-4">
                 <div class="image-box">
-                    <img src="{{$item->thumbnail}}" alt="Your Image">
+                    <img src="{{$dataInfo->thumbnail}}" alt="Your Image">
                     <div class="hover-content">
-                        <h5>FOR SALE | ${{ $item->price }}</h5>
-                        <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | {{Str::limit($item?->address?->streetAddressOne, 10)}}</h2>
-                        <h5><span><i class="fa fa-bed"></i> {{$item->details->numOfBedroom}}+ BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{$item->details->numOfBathroom}}+ Baths</span></h5>
+                        <h5>FOR SALE | ${{ $dataInfo->price }}</h5>
+                        <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | {{Str::limit($dataInfo?->address?->streetAddressOne, 10)}}</h2>
+                        <h5><span><i class="fa fa-bed"></i> {{$dataInfo->details->numOfBedroom}}+ BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{$dataInfo->details->numOfBathroom}}+ Baths</span></h5>
 
                         <a href="" class="learn_more_btn">
                             <div class="button_lm">
@@ -37,10 +37,10 @@
                                 <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
                             </div>
                         </a>
-                        @if ($item->saveProperty)
-                            <a data-savelist-url="{{route('front.saveProperty', [$id=$item->id])}}" class="save_properties"><i class="fa fa-star"> Save</i></a>
+                        @if ($dataInfo->saveProperty)
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star"> Save</i></a>
                         @else
-                            <a data-savelist-url="{{route('front.saveProperty', [$id=$item->id])}}" class="save_properties"><i class="fa fa-star-o"> Save</i></a>
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star-o"> Save</i></a>
                         @endif
 
                     </div>

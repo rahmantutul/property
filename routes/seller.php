@@ -62,6 +62,8 @@ Route::group(['prefix'=>'seller','middleware'=>'SellerAuth','as'=>'seller.'],fun
 
 		Route::get('/',[PropertyController::class,'index'])->name('index');
 
+		Route::get('/saved-property',[PropertyController::class,'saved'])->name('saved');
+		
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');
 
 		Route::get('{dataId}/feature/{is_featured}/change',[PropertyController::class,'changeFeature'])->name('feature.change');

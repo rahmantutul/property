@@ -18,12 +18,6 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item {{getActiveMenuClass('agent.profile.edit')}}">
-                    <a class="d-flex align-items-center" href="{{route('agent.profile.edit')}}">
-                        <i data-feather="user"></i>
-                        <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
-                    </a>
-                </li>
                 <li class="nav-item {{getActiveMenuClass('agent.agent.editProfile')}}">
                     <a class="d-flex align-items-center" href="{{route('agent.agent.editProfile')}}">
                         <i data-feather="user"></i>
@@ -36,6 +30,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Property</span>
                     </a>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('agent.property.saved')}}">
+                    <a class="d-flex align-items-center" href="{{ route('agent.property.saved') }}">
+                        <i data-feather='save'></i>
+                        <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
+                    </a>
+                 </li>
                 <li class="nav-item {{getActiveMenuClass('agent.property.index')}}?is_featured=1">
                     <a class="d-flex align-items-center" href="{{route('agent.property.index')}}?is_featured=1">
                         <i data-feather='bookmark'></i>
