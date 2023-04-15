@@ -122,6 +122,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Location select</label>
+                                <select class="form-control" name="transaction_location" required>
+                                    <option value="">Please Select Transaction Location</option>
+                                    <option value="AR">Arizona</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="OT">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                               <label>Amount</label>
                               <input type="number" class="form-control" name="amount" step="0.01" placeholder="54768435.73">
                             </div>

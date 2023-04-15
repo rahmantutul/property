@@ -45,12 +45,13 @@ class TransectionController extends Controller
             'property_id' => 'required|numeric',
             'amount' => 'required',
             'transaction_date' => 'required|date',
+            'transaction_location' => 'required',
         ]);
 
         try {
             Transection::create([
                 // random transaction id create
-                'transaction_id' => "TR-".uniqid()."-".time(),
+                'transaction_id' => $request->transaction_location."-".uniqid()."-".time(),
                 'property_id' => $request->property_id,
                 'amount' => $request->amount,
                 'date' => $request->transaction_date,
