@@ -71,7 +71,7 @@
                                         </td>
                                         <td>
                                             @if ($item->property->agentInfo)
-                                                <span class="badge badge-pill badge-success">Send</span>
+                                                <a href="{{route('admin.transection.agent.mail', $item->transaction_id)}}" class="btn_status_change"><span class="badge badge-pill badge-success">Send</span></a>
                                             @endif
                                             {{-- <span class="badge badge-pill badge-warning">View</span> --}}
                                         </td>

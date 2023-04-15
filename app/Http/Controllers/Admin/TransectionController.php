@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Property;
 use App\Models\Transection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\TransactionAgentMailJob;
 
 class TransectionController extends Controller
 {
@@ -107,5 +109,18 @@ class TransectionController extends Controller
     public function destroy($id)
     {
         
+    }
+
+    public function mailSend($id)
+    {
+        $transaction = Transection::with(['property'=> function($q){
+            return $q->with('agentInfo:id,user_id,firstName,lastName');
+        }])->where('transaction_id', $id)->first();
+        $user = User::where('id', $transaction->property->agentInfo->user_id)->select('id', 'email', 'phone')->first();
+        // dd($user);
+
+        dispatch(new TransactionAgentMailJob($user->email, $transaction->transaction_id));
+
+        return response()->json(['status'=>true ,'msg'=> 'Mail send successfully']);
     }
 }
