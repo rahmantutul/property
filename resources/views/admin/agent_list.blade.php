@@ -75,8 +75,8 @@
                                     <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->full_name}}</td>
-                                <td>{{$dataInfo?->user?->email}}</td>
-                                <td>{{$dataInfo?->user?->phone}}</td>
+                                <td>{{$dataInfo->user?->email}}</td>
+                                <td>{{$dataInfo->user?->phone}}</td>
                                 
                                 <td>
                                     @if (!is_null(request()->pending_status))

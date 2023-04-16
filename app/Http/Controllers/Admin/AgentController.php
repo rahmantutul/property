@@ -79,6 +79,7 @@ class AgentController extends Controller
         DB::beginTransaction();
         try{
              $request->validate([
+                 'username' => 'required|unique:agents',
                  'firstName' => 'required',
                  'lastName' => 'required',
                  'email' => 'required',
@@ -88,6 +89,8 @@ class AgentController extends Controller
                  // 'bnName' => 'required',
              ],
              [
+                 'username.required' => "Please Enter Username.",
+                 'username.unique' => "Please Enter Username Unique.",
                  'firstName.required' => "Please Enter First Name.",
                  'lastName.required' => "Please Enter Last Name.",
                  'email.required' => "Please Enter User Email Address.",
@@ -111,6 +114,7 @@ class AgentController extends Controller
  
              $agent = Agent::create([
                  'firstName' => $request->firstName,
+                 'username' => $request->username,
                  'lastName' => $request->lastName,
                  'roleId' => $request->roleId,
                  'user_id' => $user->id

@@ -73,5 +73,21 @@
 @endsection
 
 @push('js')
+<script>
+    $(document).ready(function(){
+        $('#user_type').on('change', function(){
+            if($(this).val() == 'agent'){
+                // add html input field after user_type field
+                $('#user_type').after('<div class="form-group mt-2" id="username_div"><label for="username">Username *</label><input type="text" class="form-control" id="username" name="username" required></div>');
+            } else if($(this).val() == 'seller'){
+                // remove username input field after user_type field if have
+                $('#username_div').remove();
+            } else if($(this).val() == 'buyer'){
+                // remove username input field after user_type field if have
+                $('#username_div').remove();
+            }
+        });
+    });
+</script>
     
 @endpush

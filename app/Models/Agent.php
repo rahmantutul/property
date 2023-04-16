@@ -22,6 +22,7 @@ class Agent extends Authenticatable
      */
     protected $fillable = [
         'user_id',
+        'username',
         'firstName',
         'lastName',
         'facebook',

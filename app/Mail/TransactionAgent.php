@@ -30,6 +30,6 @@ class TransactionAgent extends Mailable
      */
     public function build()
     {
-        return $this->subject('Test Mail using Queue in Laravel 8')->view('emails.transaction')->with(['transaction_id' => $this->transaction_id]);
+        return $this->subject('Test Mail')->view('emails.transaction')->with(['transaction_id' => $this->transaction_id]);
     }
 }

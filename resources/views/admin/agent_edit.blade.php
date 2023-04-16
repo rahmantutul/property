@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Phone:</strong>
-                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo?->user?->email}}" required>
+                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo?->user?->phone}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">

@@ -53,7 +53,7 @@ class TransectionController extends Controller
      */
     public function create()
     {
-        return view('agent.transection_create');
+        // return view('agent.transection_create');
     }
 
     /**

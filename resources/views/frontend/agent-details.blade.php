@@ -37,9 +37,9 @@
                 <h6><b>Fax:</b> {{ ($dataInfo->fax)?$dataInfo->fax:'N/A' }}</h6>
                 <h6><b>License:</b> {{ ($dataInfo->license)?$dataInfo->license:"N/A" }}</h6>
                 <h6><b>Email:</b>{{ $dataInfo->email }}</h6>
-                <h6><b>Facebook:</b> <a href="{{ ($dataInfo->facebook)?$dataInfo->facebook:'N/A' }}"> Visit Now</a></h6>
+                <h6><b>Facebook:</b> @if($dataInfo->facebook != null )<a href="{{ $dataInfo->facebook }}"> Visit Now</a>@endif</h6>
                 <h6><b>Skype: </b>{{ ($dataInfo->stype)?$dataInfo->stype:'N/A' }}</h6>
-                <h6><b>Linkedin:</b> <a href="{{ $dataInfo->linkedin }}"> Visit Now</a></h6>
+                <h6><b>Linkedin:</b> @if($dataInfo->linkedin != null )<a href="{{ $dataInfo->linkedin }}"> Visit Now</a>@endif</h6>
                 <h6><b>Address:</b>{{ $dataInfo->address }}</h6>
             </div>
             <div class="col-md-4 agent_details_text">
