@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{{asset('')}}assets/frontend/style-min.css" type="text/css" media="all">
         <link href="{{asset('')}}assets/frontend/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('')}}assets/frontend/bootstrap/css/bootstrap.min.css" type="text/css" media="all">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
         <script type="text/javascript" src="{{asset('')}}assets/frontend/jquery.min.js"></script>
@@ -78,6 +79,8 @@
                 document.getElementById("mySidepanel").style.width = "0";
             }
         </script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+        {!! Toastr::message() !!}
         @stack('js')
     </body>
 </html>
