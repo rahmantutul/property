@@ -77,11 +77,6 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if (!is_null(request()->pending_status))
-                                        <a href="{{route('admin.seller.approve.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
-                                            Make Approve
-                                        </a>
-                                    @else
                                     <a href="{{route('admin.seller.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
                                         {!!getStatusChangeIcon($dataInfo->status)!!}
                                     </a>
@@ -91,7 +86,6 @@
                                     <a href="{{route('admin.seller.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
-                                    @endif
                                 </td>
                             </tr>
                             @endforeach

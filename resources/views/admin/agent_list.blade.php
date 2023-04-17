@@ -74,21 +74,21 @@
                                 <td>
                                     <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
-                                <td>{{$dataInfo->full_name}}</td>
-                                <td>{{$dataInfo?->user?->email}}</td>
-                                <td>{{$dataInfo?->user?->phone}}</td>
+                                <td>{{ $dataInfo->full_name }}</td>
+                                <td>{{ $dataInfo->user?->email }}</td>
+                                <td>{{ $dataInfo->user?->phone }}</td>
                                 
-                                <td>
-                                    @if (!is_null(request()->pending_status))
-                                    <span class="badge badge-pill {{getStatusBadge($dataInfo->user?->is_approved)}}">{{getActiveInActiveStatus($dataInfo->user?->is_approved)}}</span>
+                                <td class="text-center">
+                                    @if (isset(request()->pending_status))
+                                    <span class="badge badge-pill @if($dataInfo->user?->is_approved==1) badge-success @else badge-danger @endif"> @if($dataInfo->user?->is_approved==1) Active @else Blocked @endif</span>
                                     @else
                                      <span class="badge badge-pill {{getStatusBadge($dataInfo->user?->status)}}">{{getActiveInActiveStatus($dataInfo->user?->status)}}</span>
                                     @endif
                                 </td>
 
                                 <td style="text-align: center">
-                                    @if (!is_null(request()->pending_status))
-                                    <a href="{{route('admin.agent.approve.change',['dataId'=>$dataInfo->id,'approved'=>($dataInfo->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
+                                    @if (isset(request()->pending_status))
+                                    <a href="{{route('admin.agent.approve.change',['dataId'=>$dataInfo->id,'approve'=>($dataInfo->user?->is_approved==1)?0:1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Agent">
                                         @if($dataInfo->user?->is_approved==0)
                                         Approve
                                         @else

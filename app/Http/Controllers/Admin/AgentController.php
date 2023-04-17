@@ -42,7 +42,7 @@ class AgentController extends Controller
         if(request()->status)
             $query->where('status',request()->status);
 
-        if(request()->filled('pending_status')){
+        if(isset(request()->pending_status) && request()->pending_status==0){
             $dataList=$query->with('user',function($q){
                 $q->where('is_approved',0);
             })
@@ -364,10 +364,9 @@ class AgentController extends Controller
     {
         DB::beginTransaction();
         $dataInfo=Agent::find($request->dataId);
-
         if(!empty($dataInfo)) {
-            dd($request->approved);
-          User::find($dataInfo->user_id)->update(['is_approved'=>$request->status,'updated_at'=>Carbon::now()]);
+            // dd
+            User::find($dataInfo->user_id)->update(['is_approved'=>$request->approve,'updated_at'=>Carbon::now()]);
           
           $dataInfo->updated_at=Carbon::now();
 

@@ -4,11 +4,11 @@
 
     <div class="row mb-1">
         <div class="col-8">
-            <h2 class="content-header-title float-left mb-0">Properties Transaction</h2>
+            <h2 class="content-header-title float-left mb-0">Transaction List</h2>
         </div>
         <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
             <div class="form-group breadcrumb-right">
-                <a class="btn-icon btn btn-primary btn-round btn-sm" href="#" data-toggle="modal" data-target="#exampleModal">Add New</a>
+                <a class="btn-icon btn btn-primary btn-round btn-sm" href="{{route('agent.transection.create')}}">Add New</a>
             </div>
         </div>
     </div>
@@ -46,108 +46,57 @@
                                     <th>Sl/No</th>
                                     <th>Transaction ID</th>
                                     <th>Date</th>
-                                    <th>Agent Name</th>
                                     <th>Property Title</th>
-                                    <th>Approve</th>
-                                    <th>Mail</th>
-                                    {{-- <th>Actions</th> --}}
+                                    <th>Status</th>    
+                                    <th>Email</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($transactions as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $loop->iteration }}</th>
-                                        <td>{{ $item->transaction_id }}</td>
-                                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
-                                        </td>
-                                        <td>{{$item?->property?->agentInfo?->firstName}}</td>
-                                        <td>{{$item?->property?->title}}</td>
-                                        <td>
-                                            @if ($item->is_approved)
-                                                <span class="badge badge-pill badge-success">Approve</span>
-                                            @else
-                                                <span class="badge badge-pill badge-danger">Unapproved</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($item->property->agentInfo)
-                                                <span class="badge badge-pill badge-success">Send</span>
-                                            @endif
-                                            {{-- <span class="badge badge-pill badge-warning">View</span> --}}
-                                        </td>
-                                        {{-- <td>
-                                            <a href="" class="btn btn-sm btn-icon btn_status_change"
-                                                title="Change Status">
-
-                                            </a>
-                                            <a href="javascript:void();" class="btn btn-warning btn-sm btn-icon"
-                                                title="Edit">
-                                                <i data-feather='edit'></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
-                                                <i data-feather='trash-2'></i>
-                                            </a>
-                                        </td> --}}
-                                    </tr>
+                                <tr>
+                                    <th class="text-center">{{ $loop->iteration }}</th>
+                                    <td>{{ $item->transaction_id }}</td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
+                                    </td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $item->sold_date)->format('Y-m-d') }}</td>
+                                    <td>
+                                        @if ($item->is_approved==1)
+                                            <span class="badge badge-pill badge-success">Approve</span>
+                                        @else
+                                            <span class="badge badge-pill badge-danger">Unapproved</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->is_approved==1)
+                                            <a href="#" class="badge badge-pill badge-success">Send Email</a>
+                                        @else
+                                            <span class="badge badge-pill badge-warning">Pending</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->is_approved==1)
+                                        <a href="{{route('admin.transection.approve.change',['dataId'=>$item->id,'status'=>0])}}" class="btn btn-sm btn-icon btn-danger btn_status_change" title="Approve Transection">
+                                            Block It
+                                        </a>
+                                        @else
+                                        <a href="{{route('admin.transection.approve.change',['dataId'=>$item->id,'status'=>1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Transection">
+                                            Approve
+                                        </a>
+                                        @endif
+                                        <a href="{{route('admin.transection.edit',['dataId'=>$item->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
+                                            <i data-feather='edit'></i>
+                                        </a>
+                                        <a href="{{route('admin.seller.delete',['dataId'=>$item->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($item->status)}} delete" title="Delete">
+                                            <i data-feather='trash-2'></i>
+                                        </a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="m-3 float-right">
-                            {{$transactions->links()}}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Basic Tables end -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Transaction Create</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{route('admin.transection.store')}}" method="POST" id="transaction">
-                            @csrf
-                            <div class="form-group">
-                                <label>Property select</label>
-                                <select class="form-control" name="property_id" required>
-                                    <option value="">Please Select Property</option>
-                                    @foreach ($properties as $item)
-                                    <option value="{{$item->id}}">{{$item->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Location select</label>
-                                <select class="form-control" name="transaction_location" required>
-                                    <option value="">Please Select Transaction Location</option>
-                                    <option value="AR">Arizona</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="OT">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                              <label>Amount</label>
-                              <input type="number" class="form-control" name="amount" step="0.01" placeholder="54768435.73">
-                            </div>
-                            <div class="form-group">
-                              <label>Transaction Date</label>
-                              <input type="date" class="form-control" name="transaction_date">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" form="transaction" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
