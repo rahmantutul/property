@@ -71,7 +71,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('{dataId}/status/{status}/change',[AgentController::class,'changeStatus'])->name('status.change');
 
-		Route::get('{dataId}/approve/{status}/change',[AgentController::class,'changeApprove'])->name('approve.change');
+		Route::get('{dataId}/approve/{approve}/change',[AgentController::class,'changeApprove'])->name('approve.change');
 	});
 
 	Route::group(['prefix'=>'buyer','as'=>'buyer.'],function(){
@@ -370,6 +370,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/',[TransectionController::class,'index'])->name('index');
 
 		Route::get('{dataId}/status/{status}/change',[TransectionController::class,'changeStatus'])->name('status.change');
+
+		Route::get('{dataId}/approve/{status}/change',[TransectionController::class,'changeApprove'])->name('approve.change');
 
 		Route::get('/{dataId}/edit',[TransectionController::class,'edit'])->name('edit');
 
