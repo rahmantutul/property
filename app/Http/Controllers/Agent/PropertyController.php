@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
+use Exception;
+use Carbon\Carbon;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Category;
+use App\Models\Property;
+use App\Models\AmenityType;
+use Illuminate\Support\Str;
+use App\Models\PropertyType;
+use App\Models\SaveProperty;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\Property;
-use App\Models\Country;
-use App\Models\City;
-use App\Models\AmenityType;
-use App\Models\Category;
-use App\Models\PropertyType;
-use App\Models\PropertyCategory;
 use App\Models\PropertyAddress;
-use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
-use App\Models\SaveProperty;
-use Illuminate\Support\Str;
+use App\Models\PropertyDetails;
 
-use Carbon\Carbon;
+use App\Models\PropertyCategory;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use DB;
 
 class PropertyController extends Controller
 {

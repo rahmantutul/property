@@ -110,7 +110,7 @@ class PropertyController extends Controller
 
             $dataInfo->sellerId=$request->sellerId ;
 
-            $dataInfo->adminId=$request->adminId ;
+            $dataInfo->adminId=$request->adminId;
 
             $dataInfo->typeId=$request->typeId;
 
@@ -375,7 +375,7 @@ class PropertyController extends Controller
 
             DB::commit();
 
-            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
+            return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!'  ]);
        }
     }
 
