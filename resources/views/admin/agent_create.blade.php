@@ -24,30 +24,30 @@
                             <input type="file" name="photo"class="form-control" >
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-6 form-group">
+                            <strong>Username: <span style="color:red" >*</span></strong>
+                            <input type="text" name="username" placeholder="Username" class="form-control" required >
+                        </div>
                          <div class="col-6 form-group">
-                            <strong>First Name:</strong>
+                            <strong>First Name: <span style="color:red" >*</span></strong>
                             <input type="text" name="firstName" placeholder="First Name" class="form-control" required >
-                             <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Last Name:</strong>
+                            <strong>Last Name: <span style="color:red" >*</span></strong>
                             <input type="text" name="lastName" placeholder="Last Name" class="form-control"  required>
-                             <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Email:</strong>
+                            <strong>Email: <span style="color:red" >*</span></strong>
                             <input type="email" name="email" placeholder="Email" class="form-control"  required>
-                             <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Phone:</strong>
+                            <strong>Phone: <span style="color:red" >*</span></strong>
                             <input type="text" name="phone" placeholder="Phone" class="form-control"  required>
-                             <span style="color:red" ></span>
+                             
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Password:</strong>
+                            <strong>Password: </strong>
                             <input type="password" name="password" placeholder="Password" class="form-control" autocomplete="off" >
-                             <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
                             <button class="btn btn-primary btn-icon" type="submit">

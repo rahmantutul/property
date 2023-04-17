@@ -102,7 +102,6 @@ class AuthController extends Controller
 
     public function registerUser(Request $request)
     {
-        
             $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
@@ -139,7 +138,11 @@ class AuthController extends Controller
             }
 
             $user->save();
-             
+            
+            if ($request->username) {
+                $dataInfo->username=$request->username;
+            }
+
             $dataInfo->firstName=$request->firstName;
 
             $dataInfo->lastName=$request->lastName;

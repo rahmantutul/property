@@ -28,9 +28,9 @@
                             <h4>{{ getFullName($dataInfo) }}</h4>
                             <h6>Premium Agent</h6>
                             <ul>
-                                <li><a href="{{route('front.agentDetails',['dataId'=>$dataInfo->id])}}"><i class="fa fa-user"></i></a></li>
+                                <li><a href="{{route('front.agentDetails',['username'=>$dataInfo->username])}}"><i class="fa fa-user"></i></a></li>
                                 <li><a href=""><i class="fa fa-globe"></i></a></li>
-                                <li><a href="{{route('front.agentDetails',['dataId'=>$dataInfo->id])}}"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="{{route('front.agentDetails',['username'=>$dataInfo->username])}}"><i class="fa fa-envelope"></i></a></li>
                                 <li><a href=""><i class="fa fa-search"></i></a></li>
                             </ul>
                         </div>
@@ -46,7 +46,7 @@
                         <h6><b>Linkedin:</b> <a href="{{ $dataInfo->linkedin }}"> Visit Now</a></h6>
                         <h6><b>Address:</b>{{ Str::limit($dataInfo->address,40) }}</h6>
                     </div>
-                    <h6 class="view_agent_profile"><a href="{{route('front.agentDetails',['dataId'=>$dataInfo->id])}}">View Profile</a></h6>
+                    <h6 class="view_agent_profile"><a href="{{route('front.agentDetails',['username'=>$dataInfo->username])}}">View Profile</a></h6>
                 </div>
             </div>
         @endforeach

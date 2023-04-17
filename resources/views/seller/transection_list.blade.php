@@ -86,7 +86,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{route('agent.transection.store')}}" method="POST" id="transaction">
+                        <form action="{{route('seller.transection.store')}}" method="POST" id="transaction">
                             @csrf
                             <div class="form-group">
                                 <label>Property select</label>

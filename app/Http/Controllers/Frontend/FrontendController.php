@@ -66,11 +66,12 @@ class FrontendController extends Controller
         return view('frontend.agent-list',compact('dataList'));
     }
 
-    public function agentDetails($dataId)
+    public function agentDetails(Request $request, $username)
     {
-        $dataInfo= Agent::findOrfail($dataId);
+        // dd($request->all());
+        $dataInfo= Agent::where('username', $username)->first();
         // dd($dataInfo);
-        $dataList= Property::whereNull('deleted_at')->where('agentId',$dataId)->inRandomOrder()->get();
+        $dataList= Property::whereNull('deleted_at')->where('agentId', $dataInfo->id)->inRandomOrder()->get();
         // dd($dataList);
         return view('frontend.agent-details',compact('dataInfo','dataList'));
     }

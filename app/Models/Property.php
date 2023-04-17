@@ -21,7 +21,7 @@ class Property extends Model
     }
     public function sellerInfo()
     {
-        return $this->hasOne('App\Models\Buyer', 'id', 'sellerId')->whereNull('deleted_at');
+        return $this->hasOne('App\Models\Seller', 'id', 'sellerId')->whereNull('deleted_at');
     }
     public function typeInfo()
     {
