@@ -54,40 +54,44 @@
                             </thead>
                             <tbody>
                                 @foreach ($transactions as $item)
-                                    <tr>
-                                        <th class="text-center">{{ $loop->iteration }}</th>
-                                        <td>{{ $item->transaction_id }}</td>
-                                        <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
-                                        </td>
-                                        <td>{{$item?->property?->agentInfo?->firstName}}</td>
-                                        <td>{{$item?->property?->title}}</td>
-                                        <td>
-                                            @if ($item->is_approved)
-                                                <span class="badge badge-pill badge-success">Approve</span>
-                                            @else
-                                                <span class="badge badge-pill badge-danger">Unapproved</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($item->property->agentInfo)
-                                                <a href="{{route('admin.transection.agent.mail', $item->transaction_id)}}" class="btn_status_change"><span class="badge badge-pill badge-success">Send</span></a>
-                                            @endif
-                                            {{-- <span class="badge badge-pill badge-warning">View</span> --}}
-                                        </td>
-                                        {{-- <td>
-                                            <a href="" class="btn btn-sm btn-icon btn_status_change"
-                                                title="Change Status">
-
-                                            </a>
-                                            <a href="javascript:void();" class="btn btn-warning btn-sm btn-icon"
-                                                title="Edit">
-                                                <i data-feather='edit'></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm btn-icon delete" title="Delete">
-                                                <i data-feather='trash-2'></i>
-                                            </a>
-                                        </td> --}}
-                                    </tr>
+                                <tr>
+                                    <th class="text-center">{{ $loop->iteration }}</th>
+                                    <td>{{ $item->transaction_id }}</td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
+                                    </td>
+                                    <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $item->sold_date)->format('Y-m-d') }}</td>
+                                    <td>
+                                        @if ($item->is_approved==1)
+                                            <span class="badge badge-pill badge-success">Approve</span>
+                                        @else
+                                            <span class="badge badge-pill badge-danger">Unapproved</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->is_approved==1)
+                                            <a href="#" class="badge badge-pill badge-success">Send Email</a>
+                                        @else
+                                            <span class="badge badge-pill badge-warning">Pending</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->is_approved==1)
+                                        <a href="{{route('admin.transection.approve.change',['dataId'=>$item->id,'status'=>0])}}" class="btn btn-sm btn-icon btn-danger btn_status_change" title="Approve Transection">
+                                            Block It
+                                        </a>
+                                        @else
+                                        <a href="{{route('admin.transection.approve.change',['dataId'=>$item->id,'status'=>1])}}" class="btn btn-sm btn-icon btn-success btn_status_change" title="Approve Transection">
+                                            Approve
+                                        </a>
+                                        @endif
+                                        <a href="{{route('admin.transection.edit',['dataId'=>$item->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
+                                            <i data-feather='edit'></i>
+                                        </a>
+                                        <a href="{{route('admin.seller.delete',['dataId'=>$item->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($item->status)}} delete" title="Delete">
+                                            <i data-feather='trash-2'></i>
+                                        </a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
