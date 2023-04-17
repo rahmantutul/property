@@ -32,7 +32,8 @@ class NeighbourController extends Controller
         if(request()->filled('phone'))
             $query->where('phone','like',strtolower(trim(request()->phone)).'%');
         
-        $dataList=$query->latest()->paginate(50)->withQueryString();
+        $dataList=$query->latest()->paginate(10)->withQueryString();
+        // dd($dataList);
 
         return view('admin.neighbour_list',compact('dataList'));
     }
