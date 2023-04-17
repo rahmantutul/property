@@ -12,10 +12,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\TransactionAgentMailJob;
-use App\Traits\SystemLogTrait;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class TransectionController extends Controller
 {
@@ -159,39 +155,7 @@ class TransectionController extends Controller
         
     }
 
-    public function changeApprove(Request $request)
-    {
-        DB::beginTransaction();
-
-        $dataInfo=Transection::find($request->dataId);
-
-        if(!empty($dataInfo)) {
-
-            $dataInfo->update(['is_approved'=>$request->status,'updated_at'=>Carbon::now()]);
-          
-          $dataInfo->updated_at=Carbon::now();
-
-          if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->name." Transection approved changed by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'transections',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>' Transection approved Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To approved!']);
-            }
-        }
-        else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
-        }
-    }
+    
 
     public function mailSend($id)
     {
