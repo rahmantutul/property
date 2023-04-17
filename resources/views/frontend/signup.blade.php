@@ -16,9 +16,13 @@
                         @csrf
                         <div class="card-body">
                             <h4 style="text-align: center">Account Details</h4>
-                            @if(Session::has('errMsg')|| Session::has('msg'))
-                                <div class="alert {{(Session::has('msg'))?'alert-success':'alert-danger'}}">
-                                {{ (Session::has('msg'))?Session::get('msg'):Session::get('errMsg') }}
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                             @endif
                             <div class="form-group">

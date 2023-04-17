@@ -234,7 +234,7 @@ class PropertyController extends Controller
             return redirect()->back();
         }
 
-        return  view('admin.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo'));
+        return  view('seller.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo'));
     }
 
     /**
