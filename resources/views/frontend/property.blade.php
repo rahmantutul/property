@@ -59,6 +59,7 @@
         $('.save_properties').click(function(obj) {
             var obj = $(this);
             var url = obj.data('savelist-url');
+            console.log(url);
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -73,10 +74,12 @@
                         obj[0].innerHTML = '';
                         obj[0].innerHTML = '<i class="fa fa-star-o"> Save</i>';
                     }
+                    //toastr message from response
+                    toastr[data.type](data.message);
                 }
             });
             //page reload
-            location.reload();
+            // location.reload();
         });
     });
 </script>

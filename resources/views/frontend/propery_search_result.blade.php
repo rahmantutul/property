@@ -48,7 +48,7 @@
                 <option value="4">4</option>
             </select>
         </div>
-        {{-- <div>
+        <div>
             <div class="button-group">
                 <div class="toggle-button">
                     <span>HK LISTING ONLY</span>
@@ -70,7 +70,7 @@
                     <button type="submit">SEARCH</button>
                 </div>
             </div>
-        </div> --}}
+        </div>
     </form>
 </section>
 
