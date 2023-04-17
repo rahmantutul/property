@@ -6,6 +6,8 @@ use App\Models\Property;
 use App\Models\Transection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Property;
+use App\Models\Transection;
 
 class TransectionController extends Controller
 {
