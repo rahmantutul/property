@@ -66,6 +66,7 @@ class TransectionController extends Controller
                 $dataInfo->transaction_id= 'OT-'.Carbon::now()->toDateString().uniqid();
             }
             $dataInfo->transection_type=$request->transection_type;
+            $dataInfo->send_mail=$request->send_mail;
             $dataInfo->listing_price=$request->listing_price;
             $dataInfo->sold_price=$request->sold_price;
             $dataInfo->listing_date=$request->listing_date;
