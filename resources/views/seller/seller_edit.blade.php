@@ -85,13 +85,13 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Old Password:</strong>
-                            <input type="password" name="old_password" placeholder="Old Password" class="form-control" autocomplete="off" >
+                            <strong>Confirm Password:</strong>
+                            <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" autocomplete="off" >
                              <span style="color:red" ></span>
                         </div>
-                        <div class="col-6 form-group">
-                            <strong>Confirm Password:</strong>
-                            <input type="password" name="confim_password" placeholder="Confirm Password" class="form-control" autocomplete="off" >
+                        <div class="col-12 form-group">
+                            <strong>About:</strong>
+                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 form-group">

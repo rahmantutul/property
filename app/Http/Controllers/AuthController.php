@@ -105,8 +105,9 @@ class AuthController extends Controller
             $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'phone' => 'required',
+            'username' => 'unique:agents,username',
             'password' => 'required|confirmed',
             ],
             [
@@ -135,6 +136,7 @@ class AuthController extends Controller
                 $dataInfo = new Agent();
                 $user->user_type = 2;
                 $user->is_approved = 0;
+                $dataInfo->username = $request->username;
             }
 
             $user->save();

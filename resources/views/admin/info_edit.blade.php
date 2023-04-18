@@ -56,7 +56,7 @@
                         <div class="col-6 form-group">
                             <strong>Disclaimer Text:</strong>
                             <input type="text" name="disclaimer" placeholder="Disclaimer Text" class="form-control" value="{{$dataInfo->disclaimer}}" required>
-                             <span style="color:red" ></span>
+                            <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
                             <strong>Office Location:</strong>

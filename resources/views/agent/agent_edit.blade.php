@@ -31,7 +31,12 @@
                         
                         <div class="col-6 form-group">
                             <strong>Email:</strong>
-                            <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->email}}" required>
+                            <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->user?->email}}" required>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-6 form-group">
+                            <strong>User Name:</strong>
+                            <input type="email" name="username" readonly class="form-control" value="{{$dataInfo->username}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -51,7 +56,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Phone:</strong>
-                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->phone}}" required>
+                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->user?->phone}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -91,7 +96,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Confirm Password:</strong>
-                            <input type="password" name="confim_password" placeholder="Confirm Password" class="form-control" autocomplete="off" >
+                            <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" autocomplete="off" >
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 form-group">

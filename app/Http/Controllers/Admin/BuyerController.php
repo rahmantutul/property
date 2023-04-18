@@ -442,11 +442,12 @@ class BuyerController extends Controller
 
             $user->phone = $request->phone;
 
-            if(isset($request->old_password) && isset($dataInfo->password)){
+            if($request->filled('old_password') && $request->filled('confirm_password') ){
                 if (Hash::check($request->old_password, $user->password)) { 
                     $user->password=Hash::make($request->confirm_password);
                 } else {
-                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                    Session::flash('errMsg','Password not matched!!');
+                    return redirect()->back();
                 }
             }
             if($request->hasFile('photo')){

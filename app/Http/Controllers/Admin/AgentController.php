@@ -43,12 +43,12 @@ class AgentController extends Controller
             $query->where('status',request()->status);
 
         if(isset(request()->pending_status) && request()->pending_status==0){
-            $dataList=$query->with('user',function($q){
+            $dataList=$query->whereHas('user',function($q){
                 $q->where('is_approved',0);
             })
             ->paginate(100)->withQueryString();
         }else{
-            $dataList=$query->with('user',function($q){
+            $dataList=$query->whereHas('user',function($q){
                 $q->where('is_approved',1);
             })
             ->paginate(100)->withQueryString();
@@ -188,7 +188,7 @@ class AgentController extends Controller
                 'firstName' => 'required',
                 'lastName' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'confirm_password' => 'confirmed|max:8|different:old_password',
+                // 'confirm_password' => 'confirmed|max:8|different:old_password',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
@@ -204,6 +204,8 @@ class AgentController extends Controller
             $dataInfo->firstName=$request->firstName;
 
             $dataInfo->lastName=$request->lastName;
+
+            $dataInfo->username=$request->username;
 
             $dataInfo->fax=$request->fax;
 
@@ -225,11 +227,12 @@ class AgentController extends Controller
 
             $user->phone = $request->phone;
 
-            if(isset($request->old_password) && isset($dataInfo->password)){
+            if($request->filled('old_password') && $request->filled('confirm_password') ){
                 if (Hash::check($request->old_password, $user->password)) { 
                     $user->password=Hash::make($request->confirm_password);
                 } else {
-                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                    Session::flash('errMsg','Password not matched!!');
+                    return redirect()->back();
                 }
             }
             if($request->hasFile('photo')){
@@ -244,10 +247,6 @@ class AgentController extends Controller
             }
             
     }
-
-
-
-
     public function update(Request $request)
     {
    
@@ -281,9 +280,13 @@ class AgentController extends Controller
              if ($request->hasFile('photo')) {
                  $user->avatar = $this->uploadPhoto($request->file('photo'), 'User');
              }
-             if ($request->filled('password')) {
-                 $user->password = Hash::make($request->password);
-             }
+             if(isset($request->old_password) && isset($user->password)){
+                if (Hash::check($request->old_password, $user->password)) { 
+                    $user->password=Hash::make($request->confirm_password);
+                } else {
+                    return response()->json(['status'=>false ,'msg'=>'Password not matched!']);
+                }
+            }
              $user->save();
 
              //store system log
@@ -304,12 +307,10 @@ class AgentController extends Controller
         DB::beginTransaction();
         
         $dataInfo=Agent::find($id);
-
         if(!empty($dataInfo)) {
-            $user=User::find($dataInfo->user_id);
-            $user->status=0;
-          
-          $dataInfo->deleted_at=Carbon::now();
+            // $user=User::find($dataInfo->user_id);
+            
+            $dataInfo->user()->delete();
 
           if($dataInfo->save()){
 
