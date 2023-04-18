@@ -304,10 +304,10 @@
 @endsection
 @push('js')
     <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <!-- Initialize Quill editor -->
-       <!-- Initialize Quill editor -->
-       <script>
+    <script>
         var quill = new Quill('#editor', {
             theme: 'snow'
         });

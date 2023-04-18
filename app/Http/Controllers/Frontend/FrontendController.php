@@ -114,9 +114,11 @@ class FrontendController extends Controller
             'address',
             'propertyImages',
             'amenities',
+            'typeInfo',
+            'gargaeInfo',
         ])
             ->findOrFail( $id);
-        dd($dataInfo);
+        // dd($dataInfo);
         return view('frontend.property-details', compact('dataInfo'));
     }
 
