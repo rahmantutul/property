@@ -31,7 +31,7 @@
                         <h2>FOR SALE: PANDA CONDOS LOWER PENTHOUSE 1 | {{Str::limit($dataInfo?->address?->streetAddressOne, 10)}}</h2>
                         <h5><span><i class="fa fa-bed"></i> {{$dataInfo->details->numOfBedroom}}+ BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{$dataInfo->details->numOfBathroom}}+ Baths</span></h5>
 
-                        <a href="" class="learn_more_btn">
+                        <a href="{{ route('front.propertyDetails', $id=$dataInfo->id) }}" class="learn_more_btn">
                             <div class="button_lm">
                                 <div class="f-left left_btn">Learn More</div>
                                 <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>

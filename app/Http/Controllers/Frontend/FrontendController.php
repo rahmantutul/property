@@ -107,6 +107,19 @@ class FrontendController extends Controller
         return view('frontend.agent-details', compact('dataInfo', 'dataList'));
     }
 
+    public function propertyDetails($id)
+    {
+        $dataInfo = Property::with([
+            'details',
+            'address',
+            'propertyImages',
+            'amenities',
+        ])
+            ->findOrFail( $id);
+        dd($dataInfo);
+        return view('frontend.property-details', compact('dataInfo'));
+    }
+
     public function searchProperty()
     {
         $query = Property::whereNull('deleted_at')
