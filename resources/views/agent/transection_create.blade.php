@@ -264,6 +264,14 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12">
+                            <h4 class="form-devider">Send Mail</h4>
+                        </div>
+                        <div class="col-12 form-group">
+                            <strong>Send Mail:</strong>
+                            <input type="email" name="send_mail" class="form-control">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-12">
                             <h4 class="form-devider">Upload</h4>
                         </div>
                         <div class="col-6 form-group">
@@ -273,7 +281,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Video Url:</strong>
-                            <input type="text" name="video_url" placeholder="Past URL" class="form-control"  >
+                            <input type="url" name="video_url" placeholder="Past URL" class="form-control"  >
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">

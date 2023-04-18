@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Transection;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -14,18 +15,15 @@ class TransactionAgentMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $mail;
-    protected $transaction_id;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($mail, $transaction_id)
+    public function __construct(Transection $transaction)
     {
-        $this->mail = $mail;
-        $this->transaction_id = $transaction_id;
+        //
     }
 
     /**

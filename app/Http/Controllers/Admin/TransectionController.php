@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\TransactionAgentMailJob;
+use App\Mail\TransactionAgent;
+use Illuminate\Support\Facades\Mail;
 
 class TransectionController extends Controller
 {
@@ -97,6 +99,7 @@ class TransectionController extends Controller
         //     $dataInfo->transaction_id= 'OT-'.Carbon::now().'-'.uniqid();
         // }
         $dataInfo->transaction_id=$request->transection_id;
+        $dataInfo->send_mail=$request->send_mail;
         $dataInfo->transection_type=$request->transection_type;
         $dataInfo->listing_price=$request->listing_price;
         $dataInfo->sold_price=$request->sold_price;
@@ -159,15 +162,12 @@ class TransectionController extends Controller
 
     public function mailSend($id)
     {
-        $transaction = Transection::with(['property'=> function($q){
-            return $q->with('agentInfo:id,user_id,firstName,lastName');
-        }])->where('transaction_id', $id)->first();
-        $user = User::where('id', $transaction->property->agentInfo->user_id)->select('id', 'email', 'phone')->first();
-        // dd($user);
+        $transaction = Transection::with('property')->find($id);
 
-        dispatch(new TransactionAgentMailJob($user->email, $transaction->transaction_id));
+        // dd($transaction);
 
-        return response()->json(['status'=>true ,'msg'=> 'Mail send successfully']);
+        Mail::to($transaction->send_mail)->send(new TransactionAgent($transaction));
+        return response()->json(['status'=>true ,'msg'=>' Mail Send Successfully.!','url'=>url()->previous()]);
     }
 
     public function changeApprove(Request $request)

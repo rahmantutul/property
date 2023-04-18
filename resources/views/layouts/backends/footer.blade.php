@@ -333,5 +333,53 @@ Swal.fire({
   });
 });
 
+$(document).on('click','a.btn_confirm_mail', function(e) {
+var form=$(this);
+e.preventDefault();
+var url=$(form).attr('href');
+Swal.fire({
+    title: "Are you sure?",
+    text: "You want to Confirm Send Mail!",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Send Mail.",
+    confirmButtonClass: "btn btn-primary",
+    cancelButtonClass: "btn btn-danger ml-1",
+    buttonsStyling: !1,
+  }).then(function (t) {
+    t.value?
+        $.ajax({
+            type: 'get',
+            url: url,
+            // data: {"_token": "{{ csrf_token() }}"},
+            success: function(res) {
+                if(res.status==true){
+                // await delay(5000);
+                    successMessage(res.msg);
+                    if(res.url){
+                        document.location.href = res.url;
+                    }else{
+                        // window.location.reload();
+                    }
+
+                }else if(res.status==false){
+                    errorMessage(res.msg);
+                }
+            },
+            error:function (response){
+            }
+        })
+      : t.dismiss === Swal.DismissReason.cancel &&
+        Swal.fire({
+          title: "Cancelled",
+          text: "No change make send mail.:)",
+          type: "error",
+          confirmButtonClass: "btn btn-success",
+        });
+  });
+});
+
 </script>
 

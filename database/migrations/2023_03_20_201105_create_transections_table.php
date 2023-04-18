@@ -63,6 +63,7 @@ class CreateTransectionsTable extends Migration
             $table->string('office_note')->nullable();
             $table->string('image')->nullable();
             $table->string('video_url')->nullable();
+            $table->string('send_mail')->nullable();
 
             $table->boolean('is_approved')->default(0)->comment('0=Not approved, 1=Approved');
             $table->boolean('is_paid')->default(0)->comment('0=Not paid, 1=Paid');
