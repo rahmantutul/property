@@ -383,7 +383,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::delete('{dataId}/delete',[TransectionController::class,'destroy'])->name('delete');
 
-		Route::get('mail/{id}',[TransectionController::class,'mailSend'])->name('agent.mail');
+		Route::get('mail/{id}',[TransectionController::class,'mailSend'])->name('mail');
     
 	});
 

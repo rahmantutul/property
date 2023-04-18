@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>US METRO</title>
+    <title>{{config('app.name')}}</title>
     <style>
         *{
             margin: 0;
@@ -42,8 +42,8 @@
                     <th width="20%"></th>
                     <td width="70%" style="padding:5px 20px;"> 
                         <b>Dear Tammy LeMaire,</b> <br> <br>
-                        Here are broker instructions for this transaction. US Metro Realty agent (listed below) is working on this
-                        transaction. A voided check is attached to this email to wire-transfer the commission amount into US Metro Realty
+                        Here are broker instructions for this transaction. {{config('app.name')}} agent (listed below) is working on this
+                        transaction. A voided check is attached to this email to wire-transfer the commission amount into {{config('app.name')}}
                         company account. <br> <br>
                         Please let us know if you have any questions. Following is the detail:
                     </td>
@@ -54,7 +54,7 @@
                 <table width="50%">
                     <tr>
                         <th width="20%">Transaction</th>
-                        <td width="30%" style="padding:5px 20px;">{{$transaction_id}}</td>
+                        <td width="30%" style="padding:5px 20px;">{{$transaction->transaction_id}}</td>
                     </tr>
                 </table>
                 <table width="50%">
@@ -68,13 +68,19 @@
                 <table width="50%">
                     <tr>
                         <th width="20%">MLS#</th>
-                        <td width="30%" style="padding:5px 20px;"> 21682127</td>
+                        <td width="30%" style="padding:5px 20px;">{{$transaction->property->mlsId}}</td>
                     </tr>
                 </table>
                 <table width="50%">
                     <tr>
                         <th width="20%">Transaction Type </th>
-                        <td width="30%" style="padding:5px 20px;"> Sale Transaction</td>
+                        @if ($transaction->transection_type == 1)
+                            <td width="30%" style="padding:5px 20px;"> Sale Transaction</td>
+                        @elseif ($transaction->transection_type == 2)
+                            <td width="30%" style="padding:5px 20px;"> Listing Transaction</td>
+                        @elseif ($transaction->transection_type == 3)
+                            <td width="30%" style="padding:5px 20px;"> Others Transaction</td>
+                        @endif
                     </tr>
                 </table>
             </div>
@@ -82,13 +88,13 @@
                 <table width="50%">
                     <tr>
                         <th width="20%">Listing Price</th>
-                        <td width="30%" style="padding:5px 20px;">  $300,000.00</td>
+                        <td width="30%" style="padding:5px 20px;">  ${{ $transaction->listing_price }}</td>
                     </tr>
                 </table>
                 <table width="50%">
                     <tr>
                         <th width="20%">Sold Price</th>
-                        <td width="30%" style="padding:5px 20px;"> $399,900.00</td>
+                        <td width="30%" style="padding:5px 20px;"> ${{ $transaction->sold_price }}</td>
                     </tr>
                 </table>
             </div>
@@ -96,13 +102,13 @@
                 <table width="50%">
                     <tr>
                         <th width="20%">Listing Date</th>
-                        <td width="30%" style="padding:5px 20px;"> 8/27/2021</td>
+                        <td width="30%" style="padding:5px 20px;"> {{ $transaction->listing_date }}</td>
                     </tr>
                 </table>
                 <table width="50%">
                     <tr>
                         <th width="20%">Sold Date</th>
-                        <td width="30%" style="padding:5px 20px;"> 4/22/2022</td>
+                        <td width="30%" style="padding:5px 20px;"> {{ $transaction->sold_date }}</td>
                     </tr>
                 </table>
             </div>
@@ -112,7 +118,7 @@
             <table width="50%">
                 <tr>
                     <th width="20%">Address</th>
-                    <td width="30%" style="padding:5px 20px;">16012 NW HOSMER LN</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->property_address }}</td>
                 </tr>
             </table>
             <table width="50%">
@@ -126,7 +132,7 @@
             <table width="50%">
                 <tr>
                     <th width="20%">City, State Zip</th>
-                    <td width="30%" style="padding:5px 20px;"> Portland OR 97229</td>
+                    <td width="30%" style="padding:5px 20px;"> {{ $transaction->city }}, {{ $transaction->state }} OR {{ $transaction->zip }}</td>
                 </tr>
             </table>
             <table width="50%">
@@ -141,13 +147,13 @@
             <table width="50%">
                 <tr>
                     <th width="20%">Buyer Name</th>
-                    <td width="30%" style="padding:5px 20px;">Salman Vazirali Siddique</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->buyer_one_name }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="20%">Buyer Name</th>
-                    <td width="30%" style="padding:5px 20px;">2585-55852-875</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->buyer_two_name }}</td>
                 </tr>
             </table>
         </div>
@@ -155,13 +161,13 @@
             <table width="50%">
                 <tr>
                     <th width="20%">Buyer Email</th>
-                    <td width="30%" style="padding:5px 20px;">Salman Vazirali Siddique</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->buyer_agent_email }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="20%">Buyer Address</th>
-                    <td width="30%" style="padding:5px 20px;">address irejjw</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->buyer_address }}</td>
                 </tr>
             </table>
         </div>
@@ -170,13 +176,13 @@
             <table width="50%">
                 <tr>
                     <th width="20%">Seller Name</th>
-                    <td width="30%" style="padding:5px 20px;">Taylor Morrison Northwest, LLC</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->seller_one_name }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="20%">Seller Full Address</th>
-                    <td width="30%" style="padding:5px 20px;">Lubna Zaidi</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->seller_address }}</td>
                 </tr>
             </table>
         </div>
@@ -184,28 +190,28 @@
             <table width="50%">
                 <tr>
                     <th width="25%">Seller Email address</th>
-                    <td width="30%" style="padding:5px 10px;"> tepping@taylormorrison.com</td>
+                    <td width="30%" style="padding:5px 10px;"> {{ $transaction->seller_agent_email }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="20%">Seller Phone</th>
-                    <td width="30%" style="padding:5px 20px;">2585-55852-875</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->seller_agent_phone }}</td>
                 </tr>
             </table>
         </div>
-        <!-- <h3>Title Information</h3>
+        <h3>Title Information</h3>
         <div style="display: flex; flex-direction: row;">
             <table width="50%">
                 <tr>
                     <th width="20%">Closing Title</th>
-                    <td width="30%" style="padding:5px 20px;">Escrow Fidelity National Title</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->closing_title }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="25%">Escrow Tran #</th>
-                    <td width="30%" style="padding:5px 10px;"> #45142204144</td>
+                    <td width="30%" style="padding:5px 10px;"> {{ $transaction->escrow_transection }}</td>
                 </tr>
             </table>
         </div>
@@ -213,28 +219,22 @@
             <table width="50%">
                 <tr>
                     <th width="20%">Title Full Address</th>
-                    <td width="30%" style="padding:5px 20px;">8564 SW Apple Way Portland OR 97225</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->title_address }}</td>
                 </tr>
             </table>
-            <table width="50%">
-                <tr>
-                    <th width="25%">Escrow Tran #</th>
-                    <td width="30%" style="padding:5px 10px;"> #45142204144</td>
-                </tr>
-            </table>
-        </div> -->
+        </div>
         <h3>Msc information</h3>
         <div style="display: flex; flex-direction: row;">
             <table width="50%">
                 <tr>
                     <th width="20%">Commission Amount</th>
-                    <td width="30%" style="padding:5px 20px;"> $4000</td>
+                    <td width="30%" style="padding:5px 20px;"> ${{ $transaction->commission_amount }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="20%">Commission Type</th>
-                    <td width="30%" style="padding:5px 20px;">Fixed</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->commission_type }}</td>
                 </tr>
             </table>
         </div>
@@ -242,13 +242,13 @@
             <table width="50%">
                 <tr>
                     <th width="20%">Earnest Money Amount</th>
-                    <td width="30%" style="padding:5px 10px;">$7500</td>
+                    <td width="30%" style="padding:5px 10px;">${{ $transaction->earnest_money }}</td>
                 </tr>
             </table>
             <table width="50%">
                 <tr>
                     <th width="20%">Seller Phone</th>
-                    <td width="30%" style="padding:5px 20px;">2585-55852-875</td>
+                    <td width="30%" style="padding:5px 20px;">{{ $transaction->seller_phone }}</td>
                 </tr>
             </table>
         </div>

@@ -33,6 +33,11 @@
                             <input type="text" name="transection_id" class="form-control" required value="{{ $dataInfo->transaction_id }}">
                              <span style="color:red" ></span><br><br>
                         </div> 
+                        <div class="col-9 form-group m-auto">
+                            <strong>Send Mail:</strong>
+                            <input type="email" name="send_mail" class="form-control" required value="{{ $dataInfo->send_mail }}">
+                            <span style="color:red" ></span><br><br>
+                        </div> 
                         <div class="col-4 form-group">
                             <strong>Transection Types:</strong>
 	                        <select class="form-control select2" name="transection_type" >

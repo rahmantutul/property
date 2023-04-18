@@ -69,7 +69,9 @@
                                     </td>
                                     <td>
                                         @if ($item->is_approved==1)
-                                            <a href="#" class="badge badge-pill badge-success">Send Email</a>
+                                            @if ($item->send_mail)
+                                                <a href="{{route('admin.transection.mail', $id=$item->id)}}" class="badge badge-pill badge-success btn_confirm_mail">Send Email</a>
+                                            @endif
                                         @else
                                             <span class="badge badge-pill badge-warning">Pending</span>
                                         @endif
