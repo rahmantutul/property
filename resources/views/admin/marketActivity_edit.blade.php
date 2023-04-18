@@ -1,4 +1,7 @@
 @extends('layouts.backends.master')
+@push('css')
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+@endpush
 @section('title','Admin Create')
 @section('content')
 <div class="row mb-1">
@@ -50,9 +53,14 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Report Details:</strong>
-                                <textarea name="reportDetails" id="editor">
+                                {{-- <textarea name="reportDetails" id="editor">
                                     {{ $dataInfo->reportDetails }}
-                                </textarea>
+                                </textarea> --}}
+                                <div id="editor" contenteditable="true">
+                                    {{ $dataInfo->reportDetails }}
+                                </div>
+                                <input type="hidden" name="reportDetails" id="reportDetails">
+                                <span style="color:red" ></span>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
@@ -68,15 +76,17 @@
 </div>
 @endsection
 @push('js')
-<script>
-    ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
-</script>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        quill.on('text-change', function(delta, oldDelta, source) {
+            document.getElementById("reportDetails").value = quill.root.innerHTML;
+        });
+    </script>
 @endpush
        

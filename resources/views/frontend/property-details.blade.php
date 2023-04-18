@@ -202,30 +202,30 @@
                             <span class="property_status">For Sale</span>
                         </div>
                         <div class="fancy-title">
-                            <h3 class="title caps">Penthouse 1 at Panda Condos | 20 Edward Street</h3>
+                            <h3 class="title caps">{{ $dataInfo->title }}</h3>
                         </div>
                     </div>
                     <!--- Features ---->
                     <div class="redmeta-wrap">
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-flag"></i></h1>
-                            <h3 class="caps"><strong>TYPE: Condominium</strong></h3>
+                            <h3 class="caps"><strong>TYPE: {{ $dataInfo->typeInfo?->type }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-dollar"></i></h1>
-                            <h3 class="caps"><strong>PRICE: $2,299,990.00</strong></h3>
+                            <h3 class="caps"><strong>PRICE: {{ $dataInfo->price }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-bed"></i></h1>
-                            <h3 class="caps"><strong>BEDS: 3+Den</strong></h3>
+                            <h3 class="caps"><strong>BEDS: {{ $dataInfo->details?->numOfBedroom }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-tint"></i></h1>
-                            <h3 class="caps"><strong>BATHS: 2.5</strong></h3>
+                            <h3 class="caps"><strong>BATHS: {{ $dataInfo->details?->numOfBedroom }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-calculator"></i></h1>
-                            <h3 class="caps"><strong>TAXES: $Unassessed</strong></h3>
+                            <h3 class="caps"><strong>ACRES: {{ $dataInfo->details?->lotAcre}}</strong></h3>
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">PARKING:</h4>
-                                    <h4 class="red-text"><strong>1 Parking Space Included</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->gargaeInfo?->type}}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
@@ -401,15 +401,10 @@
                         </div>
                         <div class="list-amenities">
                             <ul>
-                                <li><b>Party Room &amp; Kitchen</b></li>
-                                <li><b>Gym &amp; Yoga Studio</b></li>
-                                <li><b>Outdoor Sports Court</b></li>
-                                <li><b>Study &amp; Meeting Area</b></li>
-                                <li><b>Theatre Room</b></li>
-                                <li><b>Lounge</b></li>
-                                <li><b>Prep Kitchen</b></li>
-                                <li><b>Outdoor BBQ</b></li>
-                                <li><b>Outdoor Lounge</b></li>
+                                @foreach ($dataInfo->amenities as $item)
+                                    <li><b>{{ $item->amenity }}</b></li>
+                                @endforeach
+                                
                             </ul>
                         </div>
                     </div>

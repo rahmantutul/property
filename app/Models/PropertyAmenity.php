@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyAmenity extends Model
 {
     use HasFactory;
+    public function property(){
+        return $this->belongsToMany(PropertyAmenity::class);
+    }
+    
 }

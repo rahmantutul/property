@@ -101,7 +101,10 @@
                         </div>
                         <div class="col-12 form-group">
                             <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
+                            {{-- <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea> --}}
+                            <div id="editor" contenteditable="true">
+                            </div>
+                            <input type="hidden" name="about" id="about">
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
@@ -116,4 +119,11 @@
     </div>
 </div>
 @endsection
-       
+<script>
+    var quill = new Quill('#editorThree', {
+        theme: 'snow'
+    });
+    quill.on('text-change', function(delta, oldDelta, source, image) {
+        document.getElementById("about").value = quill.root.innerHTML;
+    });
+</script>
