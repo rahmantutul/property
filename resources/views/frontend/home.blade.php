@@ -268,7 +268,7 @@
                 <button class="next-btn">&gt;</button>
             </div>
             <div class="see_all_featured_list">
-                <a href="featured_property_list.html" class="learn_more_btn">
+                <a href="{{ route('front.property') }}" class="learn_more_btn">
                     <div class="button_lm">
                         <div class="f-left left_btn">See All Listings</div>
                         <div class="f-left right_btn seealll"><i class="fa fa fa-arrow-right btn_icon"></i></div>

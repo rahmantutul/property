@@ -280,7 +280,7 @@
                                 <h4 class="form-devider">Images/Video</h4>
                             </div>
                             <div class="col-6 form-group">
-                                <strong>Images/Docs/Videos:</strong>
+                                <strong>Banner Image:</strong>
                                 <input type="file" name="thumbnail" placeholder="Select documnet"
                                     class="form-control" required>
                                 <span style="color:red"></span>
@@ -288,6 +288,11 @@
                             <div class="col-6 form-group">
                                 <strong>Embedded Video:</strong>
                                 <input type="text" name="videoUrl" placeholder="Past URL" class="form-control">
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-12 form-group">
+                                <strong>Select Multiple Image:</strong>
+                                <input type="file" name="images[]" multiple class="form-control">
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-12 d-flex flex-row-reverse">

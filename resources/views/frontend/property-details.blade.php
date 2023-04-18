@@ -402,7 +402,7 @@
                         <div class="list-amenities">
                             <ul>
                                 @foreach ($dataInfo->amenities as $item)
-                                    <li><b>{{ $item->amenity }}</b></li>
+                                    <li><b>{{ $item->amenityId }}</b></li>
                                 @endforeach
                                 
                             </ul>

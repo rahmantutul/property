@@ -21,6 +21,7 @@ use App\Models\PropertyDetails;
 use App\Models\PropertyCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PropertyImages;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -141,6 +142,7 @@ class PropertyController extends Controller
             $dataInfo->videoUrl=$request->videoUrl;
             
             if($request->hasFile('thumbnail'))
+            
                 $dataInfo->thumbnail=$this->uploadPhoto($request->file('thumbnail'),'properties');
             else
                 $dataInfo->thumbnail=config('app.url').'/images/no_found.png';
@@ -150,7 +152,7 @@ class PropertyController extends Controller
             $dataInfo->created_at=Carbon::now();
 
             if($dataInfo->save()){
-
+                
                 if($request->filled('category'))
                     $propertyCategoryFlag=$this->storePropertyCategory($request->category,$dataInfo->id);
                 else
@@ -161,11 +163,17 @@ class PropertyController extends Controller
                 else
                     $propertyAminetiesFlag=true;
 
+                if($request->filled('images'))
+                    // dd($request->images);
+                    $propertyImagesFlag=$this->storePropertyImages($request->images, $dataInfo->id);
+                else
+                    $propertyImagesFlag=true;
+
                 $propertyAddressFlag =$this->storePropertyAddress($request,$dataInfo->id);
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property created by ".Auth::guard('admin')->user()->name;
 
@@ -427,7 +435,7 @@ class PropertyController extends Controller
 
     public function storePropertyCategory($categories,$propertyId)
     {
-        $count=0;
+       $count=0;
        foreach($categories as $category){
 
             $dataInfo=new PropertyCategory();
@@ -532,6 +540,31 @@ class PropertyController extends Controller
             $dataInfo->created_at=Carbon::now();
 
             $dataInfo->status=1;
+
+            if($dataInfo->save()){
+                $count++;
+            }
+            else{
+                $count=0;
+                 break;
+            }
+       }
+       return ($count>0);
+    }
+    public function storePropertyImages($images,$propertyId)
+    {
+        $count=0;
+       foreach($images as $image){
+
+            $dataInfo=new PropertyImages();
+
+            $dataInfo->propertyId=$propertyId;
+
+            $dataInfo->type='Image';
+
+            $dataInfo->imageUrl=$this->uploadPhoto($image,'properties');
+
+            $dataInfo->created_at=Carbon::now();
 
             if($dataInfo->save()){
                 $count++;
