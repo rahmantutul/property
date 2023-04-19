@@ -45,7 +45,6 @@
                                 <th class="text-center">Sl/No</th>
                                 <th class="text-center">Photo</th>
                                 <th class="text-center">Title</th>
-                                <th class="text-center">MLS ID</th>
                                 <th class="text-center">Available<br>Date</th>
                                 <th class="text-center">Price</th>
                                 <th class="text-center">Agent/<br>Seller</th>
@@ -61,8 +60,7 @@
                                     <img src="{{getImage($dataInfo->thumbail)}}" alt="{{$dataInfo->title}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->title}}</td>
-                                <td>{{$dataInfo->mlsId}}</td>
-                                <td>{{(!is_null($dataInfo->expireDate)) ?formatDate($dataInfo->expireDate):''}}</td>
+                                <td>{{(!is_null($dataInfo->availableDate)) ?formatDate($dataInfo->availableDate):''}}</td>
                                 <td>
                                 	Price: <strong>{{$dataInfo->price}}</strong><br>
                                 	Orginal Price: <strong>{{$dataInfo->orginalPrice}}</strong>

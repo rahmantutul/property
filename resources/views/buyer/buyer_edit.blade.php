@@ -91,7 +91,7 @@
                         </div>
                         <div class="col-12 form-group">
                             <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
+                            <textarea name="about" id="" cols="30" rows="10" class="ckeditor form-control">{{$dataInfo->about}}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 form-group">
@@ -111,4 +111,12 @@
     </div>
 </div>
 @endsection
-       
+@push('js')
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
+@endpush

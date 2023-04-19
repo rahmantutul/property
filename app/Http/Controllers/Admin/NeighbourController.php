@@ -60,7 +60,7 @@ class NeighbourController extends Controller
        try{
             $request->validate([
                 'name' => 'required',
-                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:7000',
             ],
             [
                 'name.required' => "Please Enter First Name.",

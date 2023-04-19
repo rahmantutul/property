@@ -30,17 +30,18 @@
                             @csrf
                             <input type="hidden" name="dataId" value="{{ $dataInfo->id }}">
                             <input type="hidden" name="adminId" value="{{ Auth::user()->id }}">
-                            <div class="col-9 form-group m-auto p-3 bg-light-success" style="border-radius:6px;">
+                            <div class="col-9 form-group m-auto p-2 bg-light-primary" style="border-radius:6px; margin-bottom:15px;">
                                 <strong>Asign A Neighbour Place:</strong>
-                                <select name="neighbourhoodId" id="" class="form-control">
-                                    @foreach ($neughbours as $item)
-                                        <option @if ($dataInfo->neighbourhoodId == $item->neighbourhoodId) selected @endif
-                                            value="{{ $item->id }}">{{ $item->firstName." ".$item->lastName }}</option>
+                                <select name="neighbourhoodId" id="" class="form-control select2">
+                                    <option value="">Select A Neighbour Place</option>
+                                    @foreach ($neighbours as $item)
+                                        <option @if ($dataInfo->neighbourhoodId == $item->id) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-4 form-group mt-1">
                                 <strong>Title:</strong>
                                 <input type="text" name="title" placeholder="Property Titile" class="form-control"
                                     required value="{{ $dataInfo->title }}">
@@ -54,13 +55,13 @@
                                     <span style="color:red"></span>
                                 </div>
                             @endif
-                            <div class="col-4 form-group">
+                            <div class="col-4 form-group  mt-1">
                                 <strong>Available Date:</strong>
                                 <input type="date" name="availableDate" placeholder="Available Date" class="form-control"
                                     value="{{ $dataInfo->availableDate }}" required>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-4 form-group  mt-1">
                                 <strong>Expired Date:</strong>
                                 <input type="date" name="expireDate" placeholder="Expired Date" class="form-control"
                                     value="{{ $dataInfo->expireDate }}" required>
@@ -96,15 +97,7 @@
                                 </select>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
-                                <strong>Preview Text:</strong>
-                                {{-- <textarea name="previewText" id="" class="form-control" placeholder="Write Preview Text">{{ $dataInfo->previewText }}</textarea> --}}
-                                <div id="editor" contenteditable="true">
-                                        {{ $dataInfo->previewText }}
-                                </div>
-                                <input type="hidden" name="previewText" id="previewText">
-                                <span style="color:red"></span>
-                            </div>
+                            
                             <div class="col-4 form-group">
                                 <strong>Call For Price:</strong>
                                 <select class="form-control " name="callForPrice" required>
@@ -123,6 +116,12 @@
                                     <option value="0" {{ $dataInfo->isHideAddress == 0 ? 'selected' : '' }}>No
                                     </option>
                                 </select>
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-12 form-group">
+                                <strong>Preview Text:</strong>
+                                <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text">{{ $dataInfo->previewText }}</textarea>
+                               
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-12">
@@ -364,16 +363,11 @@
     </div>
 @endsection
 @push('js')
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-    <!-- Initialize Quill editor -->
-    <script>
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-        quill.on('text-change', function(delta, oldDelta, source) {
-            document.getElementById("previewText").value = quill.root.innerHTML;
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
         });
     </script>
 @endpush

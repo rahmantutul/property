@@ -82,14 +82,6 @@
                                 </select>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
-                                <strong>Preview Text:</strong>
-                                {{-- <textarea name="previewText" id="" class="form-control" placeholder="Write Preview Text"></textarea> --}}
-                                <div id="editor" contenteditable="true">
-                                </div>
-                                <input type="hidden" name="previewText" id="previewText">
-                                <span style="color:red"></span>
-                            </div>
 
                             <div class="col-4 form-group">
                                 <strong>Call For Price:</strong>
@@ -106,6 +98,12 @@
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
+                                <span style="color:red"></span>
+                            </div>
+                            
+                            <div class="col-12 form-group">
+                                <strong>Preview Text:</strong>
+                                <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text"></textarea>
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-12">
@@ -291,7 +289,7 @@
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-12 form-group">
-                                <strong>Select Multiple Image:</strong>
+                                <strong>Select Slder Images:</strong>
                                 <input type="file" name="images[]" multiple class="form-control">
                                 <span style="color:red"></span>
                             </div>
@@ -308,16 +306,12 @@
     </div>
 @endsection
 @push('js')
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-    <!-- Initialize Quill editor -->
-    <script>
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-        quill.on('text-change', function(delta, oldDelta, source) {
-            document.getElementById("previewText").value = quill.root.innerHTML;
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
         });
     </script>
+    
 @endpush

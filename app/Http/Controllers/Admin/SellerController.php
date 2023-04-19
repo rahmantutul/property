@@ -132,7 +132,7 @@ class SellerController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
             $request->validate([
                 'firstName' => 'required',
                 'lastName' => 'required',

@@ -63,12 +63,12 @@ class FrontendController extends Controller
                 $query->where('user_id', auth()->id());
             },
         ])
-            ->whereNull('deleted_at')
-            ->whereNotNull('mlsId')
-            ->where('status', 1)
-            ->where('is_featured', 2)
-            ->orderBy('mlsId', 'DESC')
-            ->paginate(12);
+        ->whereNull('deleted_at')
+        // ->whereNotNull('mlsId')
+        ->where('status', 1)
+        ->where('is_featured', 2)
+        ->orderBy('mlsId', 'DESC')
+        ->paginate(12);
         return view('frontend.property', compact(['featuredProperties']));
     }
 

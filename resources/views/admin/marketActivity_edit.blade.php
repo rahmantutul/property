@@ -53,13 +53,10 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Report Details:</strong>
-                                {{-- <textarea name="reportDetails" id="editor">
+                                <textarea class="ckeditor form-control" name="reportDetails" id="editor">
                                     {{ $dataInfo->reportDetails }}
-                                </textarea> --}}
-                                <div id="editor" contenteditable="true">
-                                    {{ $dataInfo->reportDetails }}
-                                </div>
-                                <input type="hidden" name="reportDetails" id="reportDetails">
+                                </textarea>
+                               
                                 <span style="color:red" ></span>
                              <span style="color:red" ></span>
                         </div>
@@ -76,16 +73,10 @@
 </div>
 @endsection
 @push('js')
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-    <!-- Initialize Quill editor -->
-    <script>
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-        quill.on('text-change', function(delta, oldDelta, source) {
-            document.getElementById("reportDetails").value = quill.root.innerHTML;
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
         });
     </script>
 @endpush

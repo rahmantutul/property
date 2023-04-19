@@ -77,15 +77,6 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-4 form-group">
-                            <strong>Preview Text:</strong>
-                            {{-- <textarea name="previewText" id="" class="form-control" placeholder="Write Preview Text"></textarea> --}}
-                            <div id="editor" contenteditable="true">
-                            </div>
-                            <input type="hidden" name="previewText" id="previewText">
-                            <span style="color:red" ></span>
-                        </div>
-                        
-                        <div class="col-4 form-group">
                       	<strong>Call For Price:</strong>
 	                        <select class="form-control " name="callForPrice"  required>
 	                                <option value="1">Yes</option>
@@ -101,6 +92,11 @@
 	                                <option value="0">No</option>
 	                        </select>
                              <span style="color:red" ></span>
+                        </div>
+                        <div class="col-12 form-group">
+                            <strong>Preview Text:</strong>
+                            <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text"></textarea>
+                            <span style="color:red" ></span>
                         </div>
                         <div class="col-12">
                             <h4 class="form-devider">Location</h4>
@@ -256,7 +252,7 @@
                             <h4 class="form-devider">Images/Video</h4>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Images/Docs/Videos:</strong>
+                            <strong>Banner Image:</strong>
                             <input type="file" name="thumbnail" placeholder="Select documnet" class="form-control"   required>
                              <span style="color:red" ></span>
                         </div>
@@ -264,6 +260,11 @@
                             <strong>Embeded Video:</strong>
                             <input type="text" name="videoUrl" placeholder="Past URL" class="form-control"  >
                              <span style="color:red" ></span>
+                        </div>
+                        <div class="col-12 form-group">
+                            <strong>Select Slder Images:</strong>
+                            <input type="file" name="images[]" multiple class="form-control">
+                            <span style="color:red"></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
                             <button class="btn btn-primary btn-icon" type="submit">
@@ -278,17 +279,13 @@
 </div>
 @endsection
 @push('js')
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-<!-- Initialize Quill editor -->
-<script>
-    var quill = new Quill('#editor', {
-        theme: 'snow'
-    });
-    quill.on('text-change', function(delta, oldDelta, source) {
-        document.getElementById("previewText").value = quill.root.innerHTML;
-    });
-</script>
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
+    
 @endpush
        

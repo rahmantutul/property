@@ -80,11 +80,8 @@
                         </div>
                         <div class="col-4 form-group">
                             <strong>Preview Text:</strong>
-                            {{-- <textarea name="previewText" id="" class="form-control" placeholder="Write Preview Text">{{$dataInfo->previewText}}</textarea> --}}
-                            <div id="editor" contenteditable="true">
-                                {{ $dataInfo->previewText }}
-                            </div>
-                            <input type="hidden" name="previewText" id="previewText">
+                            <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text">{{$dataInfo->previewText}}</textarea>
+                            
                             <span style="color:red" ></span>
                         </div>
                         
@@ -286,18 +283,14 @@
     </div>
 </div>
 @endsection
-@push('js')
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-<!-- Initialize Quill editor -->
-<script>
-    var quill = new Quill('#editor', {
-        theme: 'snow'
-    });
-    quill.on('text-change', function(delta, oldDelta, source) {
-        document.getElementById("previewText").value = quill.root.innerHTML;
-    });
-</script>
+@push('js')
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
 @endpush
        

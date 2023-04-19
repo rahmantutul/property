@@ -239,7 +239,8 @@ class PropertyController extends Controller
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
         
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
-        $neughbours = Neighbor::whereNull('deleted_at')->where('status',1)->get();
+        $neighbours = Neighbor::whereNull('deleted_at')->where('status',1)->get();
+        // dd($neighbours);
         $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
@@ -251,7 +252,7 @@ class PropertyController extends Controller
             return redirect()->back();
         }
 
-        return  view('admin.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo','neughbours'));
+        return  view('admin.property_edit',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList','dataInfo','neighbours'));
     }
 
     /**
