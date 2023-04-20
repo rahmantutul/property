@@ -14,7 +14,7 @@
             <div class="card  p-5">
                 <div class="card-header">
                     <div class="media mb-2">
-                        <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
+                        <img src="{{getUserImage(Auth::user()->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
                             <h6 class="text-danger">Seller</h6>
@@ -32,11 +32,6 @@
                         <div class="col-6 form-group">
                             <strong>Email:</strong>
                             <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->user?->email}}" required>
-                             <span style="color:red" ></span>
-                        </div>
-                        <div class="col-6 form-group">
-                            <strong>User Name:</strong>
-                            <input type="email" name="username" readonly class="form-control" value="{{$dataInfo->username}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -89,6 +84,7 @@
                             <input type="text" name="address" placeholder="Address" class="form-control" autocomplete="off" value="{{$dataInfo->address}}">
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-6 form-group"></div>
                         <div class="col-6 form-group">
                             <strong>Old Password:</strong>
                             <input type="password" name="old_password" placeholder="Old Password" class="form-control" autocomplete="off" >

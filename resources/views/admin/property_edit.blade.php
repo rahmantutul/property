@@ -152,6 +152,18 @@
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-4 form-group">
+                                <strong>Map Latitude:</strong>
+                                <input type="text" name="latitude" placeholder="Map latiude"
+                                    class="form-control" required value="{{ $dataInfo->address?->latitude }}">
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Map Longitude:</strong>
+                                <input type="text" name="longitude" placeholder="Map Longitude"
+                                    class="form-control" required value="{{ $dataInfo->address?->longitude }}">
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-4 form-group">
                                 <strong>Suit/Apertment:</strong>
                                 <input type="text" name="shuitAppertment" placeholder="Suit apertment"
                                     class="form-control"

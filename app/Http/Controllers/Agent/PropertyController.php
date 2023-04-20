@@ -21,6 +21,7 @@ use App\Models\PropertyDetails;
 use App\Models\PropertyCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PropertyImages;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -92,6 +93,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
         
         DB::beginTransaction();
 
@@ -105,6 +109,8 @@ class PropertyController extends Controller
 
             $dataInfo->sellerId=$request->sellerId ;
 
+            $dataInfo->user_id=Auth::user()->id;
+            
             $dataInfo->typeId=$request->typeId;
 
             $dataInfo->garageTypeId=$request->garageTypeId;
@@ -154,11 +160,21 @@ class PropertyController extends Controller
                 else
                     $propertyAminetiesFlag=true;
 
+                if($request->hasFile('images')){
+                    // dd($request->all());
+                    // PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
+
                 $propertyAddressFlag =$this->storePropertyAddress($request,$dataInfo->id);
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property created by ".Auth::guard('agent')->user()->name;
 
@@ -248,6 +264,10 @@ class PropertyController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            // 'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         DB::beginTransaction();
 
        try{
@@ -322,7 +342,15 @@ class PropertyController extends Controller
                     $propertyAminetiesFlag=true;
                 }
 
-                
+                if($request->hasFile('images')){
+                    // dd($request->all());
+                    PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
 
                 $propertyAddressDelete=PropertyAddress::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
 
@@ -332,7 +360,7 @@ class PropertyController extends Controller
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property updated by ".Auth::guard('agent')->user()->name;
 
@@ -456,6 +484,10 @@ class PropertyController extends Controller
         $dataInfo->streetAddressOne=$request->streetAddressOne;
 
         $dataInfo->streetAddressTwo=$request->streetAddressTwo;
+
+        $dataInfo->longitude=$request->longitude;
+
+        $dataInfo->latitude=$request->latitude;
 
         $dataInfo->shuitAppertment=$request->shuitAppertment;
 

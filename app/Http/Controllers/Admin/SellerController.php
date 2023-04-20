@@ -132,12 +132,12 @@ class SellerController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
             $request->validate([
                 'firstName' => 'required',
                 'lastName' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'confirm_password' => 'confirmed|max:8|different:old_password',
+                // 'confirm_password' => 'confirmed|max:8|different:old_password',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",
@@ -184,6 +184,7 @@ class SellerController extends Controller
             if($request->hasFile('photo')){
                 $user->avatar=$this->uploadPhoto($request->file('photo'),'buyers');
             }
+            
             $dataInfo->updated_at=Carbon::now();
             $user->save();
             

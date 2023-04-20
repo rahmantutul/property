@@ -383,7 +383,7 @@
                             views
                             from 30 floors above the city.</p>
                         <p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-6731"
-                                src="assets/images/property_details/details_image01.jpg" alt=""
+                                src="{{ $dataInfo->thumbnail }}" alt=""
                                 sizes="(max-width: 1920px) 100vw, 1920px" width="1920" height="1281"></p>
                         <p>Enjoy the added convenience of your dedicated laundry room, complete with an upgraded
                             front-loading
@@ -428,9 +428,26 @@
                 </div>
                 <div class="col-md-4">
                     <div class="neighbour_form">
-                        <h2>Want To Discuss This Property With Us?</h2>
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+                        @if(session()->has('errMessage'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+                        <h2 class="text-uppercase">Want To Discuss This Property With Us?</h2>
                         <h6>We'd love to show you. Just fill out the form below, and we'll get right back to you.</h6>
-                        <form method="post" action="#">
+                        <form method="post" action="{{ route('property.message.store') }}"> 
+                            @csrf
+                            <input type="hidden" name="property_id" value="{{ $dataInfo->id }}">
+                            @if (!is_null($dataInfo->user_id))
+                             <input type="hidden" name="user_id" value="{{ $dataInfo->user_id }}">
+                            @else
+                              <input type="hidden" name="user_id" value="1">
+                            @endif
                             <div class="form-group">
                                 <input type="text" id="firstName" name="firstName" required placeholder="First Name">
                             </div>
@@ -444,23 +461,23 @@
                                 <input type="tel" id="phone" name="phone" required placeholder="Phone Number">
                             </div>
                             <div class="form-group">
-                                <textarea style="width:100%" type="text" id="message" name="message" required placeholder="Your Message"></textarea>
+                                <textarea style="width: 100%; padding:15px;" name="message" id="" cols="30" rows="7" required placeholder="Your Message"></textarea>
                             </div>
-                            <input style="display:none" value="property name id and link" type="text" id="message"
-                                name="message" required placeholder="Your Message">
+                            {{-- <input style="display:none" value="property name id and link" type="text" id="message"
+                                name="message" required placeholder="Your Message"> --}}
                             <div class="form-group">
                                 <button type="submit">Send Now</button>
                             </div>
                         </form>
                     </div>
 
-                    @if ($dataInfo->address->longitude && $dataInfo->address->latitude)
+                    @if ($dataInfo->address?->longitude && $dataInfo->address?->latitude)
                     <div class="list-location">
                         <h4 class="title centertext">PROPERTY LOCATION</h4>
                     </div>
                     <div style="width: 100%">
                         <iframe scrolling="no" marginheight="0" marginwidth="0"
-                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q={{$dataInfo->address->latitude}},{{$dataInfo->address->longitude}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q={{$dataInfo->address?->latitude}},{{$dataInfo->address?->longitude}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                             width="100%" height="600" frameborder="0"><a
                                 href="https://www.maps.ie/distance-area-calculator.html">measure area map</a>
                         </iframe>

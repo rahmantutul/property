@@ -14,10 +14,10 @@
             <div class="card  p-5">
                 <div class="card-header">
                     <div class="media mb-2">
-                        <img src="{{getUserImage($dataInfo->user?->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
+                        <img src="{{getUserImage(Auth::user()->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
-                            <h6 class="text-danger">Buyer</h6>
+                            <h6 class="text-danger">Agent</h6>
                             <h5>{{$dataInfo->phone}}</h5>
                             <div class="col-12 d-flex mt-1 px-0">
                             </div>
@@ -51,12 +51,12 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Phone:</strong>
-                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->phone}}">
+                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->user?->phone}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
                             <strong>License:</strong>
-                            <input type="text" name="license" placeholder="License" class="form-control" value="{{$dataInfo->license}}">
+                            <input type="text" name="license" placeholder="License" class="form-control" value="{{$dataInfo->license}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -84,6 +84,12 @@
                             <input type="text" name="address" placeholder="Address" class="form-control" autocomplete="off" value="{{$dataInfo->address}}">
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-6 form-group"></div>
+                        <div class="col-6 form-group">
+                            <strong>Old Password:</strong>
+                            <input type="password" name="old_password" placeholder="Old Password" class="form-control" autocomplete="off" >
+                             <span style="color:red" ></span>
+                        </div>
                         <div class="col-6 form-group">
                             <strong>Confirm Password:</strong>
                             <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" autocomplete="off" >
@@ -92,11 +98,6 @@
                         <div class="col-12 form-group">
                             <strong>About:</strong>
                             <textarea name="about" id="" cols="30" rows="10" class="ckeditor form-control">{{$dataInfo->about}}</textarea>
-                             <span style="color:red" ></span>
-                        </div>
-                        <div class="col-12 form-group">
-                            <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
@@ -120,3 +121,4 @@
         });
     </script>
 @endpush
+       

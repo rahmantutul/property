@@ -191,6 +191,12 @@
                         <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
                     </a>
                  </li>
+                 <li class="nav-item {{getActiveMenuClass('admin.property.message')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.property.message')}}">
+                        <i data-feather='bookmark'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Property Message</span>
+                    </a>
+                </li>
                  <li class="nav-item {{getActiveMenuClass('admin.neighbour.index')}}">
                     <a class="d-flex align-items-center" href="{{ route('admin.neighbour.index') }}">
                         <i data-feather='user-check'></i>

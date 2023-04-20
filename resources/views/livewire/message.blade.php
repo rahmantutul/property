@@ -1,8 +1,32 @@
+<style>
+    /* width */
+    ::-webkit-scrollbar {
+      width: 16px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #a49cfd; 
+      border-radius: 10px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8681b9; 
+    }
+</style>
+
 <div>
     <div class="row justify-content-center" wire:poll="mountComponent()">
         @if(auth()->user()->is_admin == true)
             <div class="col-md-3 bg-light-blue" wire:init>
-                <div class="card"  style="background: #C3F5E9;">
+                <div class="card"  style="background: #BB8FCE;">
                     <div class="card-header">
                         All Users
                     </div>
@@ -44,9 +68,9 @@
                     @elseif(auth()->user()->is_admin == true)
                         Select a user to see the chat
                     @elseif($admin->is_online)
-                        <i class="fa fa-circle text-success"></i> We are online
+                        <i class="fa fa-circle text-success"></i> <span style="font-size: 15px; font-weight:bold; color:#000;">We are online</span>
                     @else
-                        Messages
+                       <span style="font-size: 15px; font-weight:bold; color:#000;"> Messages To Admin</span>
                     @endif
                 </div>
                     <div class="card-body message-box">
@@ -92,21 +116,21 @@
                             <div wire:loading wire:target='SendMessage'>
                                 Sending message . . . 
                             </div>
-                            <div wire:loading wire:target="file">
+                            {{-- <div wire:loading wire:target="file">
                                 Uploading file . . .
-                            </div>
-                            @if($file)
+                            </div> --}}
+                            {{-- @if($file)
                                 <div class="mb-2">
                                    You have an uploaded file <button type="button" wire:click="resetFile" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Remove {{ $file->getClientOriginalName() }}</button>
                                 </div>
                             @else
                                 No file is uploaded.
-                            @endif
+                            @endif --}}
                             <div class="row">
                                 <div class="col-md-7">
                                     <input wire:model="message" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" @if(!$file) required @endif>
                                 </div>
-                                @if(empty($file))
+                                {{-- @if(empty($file))
                                 <div class="col-md-1">
                                     <button type="button" class="border" id="file-area">
                                         <label>
@@ -115,7 +139,7 @@
                                         </label>
                                     </button>
                                 </div>
-                                @endif
+                                @endif --}}
                                 <div class="col-md-4">
                                     <button class="btn btn-primary d-inline-block w-100"><i class="far fa-paper-plane"></i> Send</button>
                                 </div>

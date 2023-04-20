@@ -71,12 +71,6 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-4 form-group">
-                            <strong>Preview Text:</strong>
-                            <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text"></textarea>
-                             <span style="color:red" ></span>
-                        </div>
-                        
-                        <div class="col-4 form-group">
                       	<strong>Call For Price:</strong>
 	                        <select class="form-control " name="callForPrice"  required>
 	                                <option value="1">Yes</option>
@@ -93,6 +87,13 @@
 	                        </select>
                              <span style="color:red" ></span>
                         </div>
+                        
+                        <div class="col-12 form-group">
+                            <strong>Preview Text:</strong>
+                            <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text"></textarea>
+                             <span style="color:red" ></span>
+                        </div>
+                        
                         <div class="col-12">
                             <h4 class="form-devider">Location</h4>
                         </div>
@@ -247,7 +248,7 @@
                             <h4 class="form-devider">Images/Video</h4>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Images/Docs/Videos:</strong>
+                            <strong>Cover Image:</strong>
                             <input type="file" name="thumbnail" placeholder="Select documnet" class="form-control"   required>
                              <span style="color:red" ></span>
                         </div>

@@ -70,7 +70,7 @@
                                 </td>
                                 <td>{{$dataInfo->title}}</td>
                                 <td>{{$dataInfo->mlsId}}</td>
-                                <td>{{(!is_null($dataInfo->expireDate)) ?formatDate($dataInfo->expireDate):''}}</td>
+                                <td>{{(!is_null($dataInfo->availableDate)) ?formatDate($dataInfo->availableDate):''}}</td>
                                 <td>
                                 	Price: <strong>{{$dataInfo->price}}</strong><br>
                                 	Orginal Price: <strong>{{$dataInfo->orginalPrice}}</strong>

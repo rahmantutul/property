@@ -15,6 +15,7 @@ use App\Models\PropertyCategory;
 use App\Models\PropertyAddress;
 use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
+use App\Models\PropertyImages;
 use App\Models\SaveProperty;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -90,6 +91,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
         // dd($request->all());
         DB::beginTransaction();
 
@@ -103,6 +107,8 @@ class PropertyController extends Controller
 
             $dataInfo->sellerId=$request->sellerId;
 
+            $dataInfo->user_id=Auth::user()->id;
+            
             $dataInfo->typeId=$request->typeId;
 
             $dataInfo->garageTypeId=$request->garageTypeId;
@@ -151,6 +157,16 @@ class PropertyController extends Controller
                     $propertyAminetiesFlag=$this->storePropertyAmineties($request->amineties,$dataInfo->id);
                 else
                     $propertyAminetiesFlag=true;
+
+                if($request->hasFile('images')){
+                    // dd($request->all());
+                    // PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
 
                 $propertyAddressFlag =$this->storePropertyAddress($request,$dataInfo->id);
 
@@ -246,6 +262,10 @@ class PropertyController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         DB::beginTransaction();
 
        try{
@@ -320,7 +340,15 @@ class PropertyController extends Controller
                     $propertyAminetiesFlag=true;
                 }
 
-                
+                if($request->hasFile('images')){
+                    // dd($request->all());
+                    // PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
 
                 $propertyAddressDelete=PropertyAddress::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
 
@@ -330,7 +358,7 @@ class PropertyController extends Controller
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property updated by ".Auth::guard('seller')->user()->name;
 

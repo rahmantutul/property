@@ -56,6 +56,11 @@
                             {{ session()->get('message') }}
                         </div>
                     @endif
+                    @if(session()->has('errMessage'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('agent.message.store') }}"> @csrf
                         <div class="form-group">
                             <input type="text" id="Name" name="name" required="" placeholder="Name">

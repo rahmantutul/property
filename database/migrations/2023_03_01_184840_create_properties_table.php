@@ -22,6 +22,7 @@ class CreatePropertiesTable extends Migration
             $table->unsignedBigInteger('typeId')->nullable();
             $table->unsignedBigInteger('garageTypeId')->nullable();
             $table->bigInteger('neighbourhoodId')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->string('title',1000)->nullable();
             $table->string('mlsId',1000)->nullable();
             $table->date('availableDate')->nullable();

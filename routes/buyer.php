@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Buyer\HelpDeskController;
 use App\Http\Controllers\Buyer\DashboardController;
+use App\Http\Controllers\Buyer\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +51,7 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 	// for properties
 	Route::group(['prefix'=>'property','as'=>'property.'],function(){
 
-		Route::get('/saved-propery',[PropertyController::class,'saved'])->name('saved');
+		Route::get('/saved-property',[PropertyController::class,'saved'])->name('saved');
 		
 	});
 });	

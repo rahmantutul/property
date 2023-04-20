@@ -14,7 +14,7 @@
             <div class="card  p-5">
                 <div class="card-header">
                     <div class="media mb-2">
-                        <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
+                        <img src="{{getUserImage(Auth::user()->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
                             <h6 class="text-danger">Agent</h6>

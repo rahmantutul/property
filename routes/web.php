@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as LoginController;
@@ -67,5 +68,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Auth::routes();
 Route::group(['prefix'=>'agent/message','as'=>'agent.message.'],function(){
     Route::post('/',[AgentContactController::class,'store'])->name('store');
+});
+
+// Auth::routes();
+Route::group(['prefix'=>'property/message','as'=>'property.'],function(){
+    Route::post('/',[FrontendController::class,'property_message'])->name('message.store');
+    Route::get('{dataId}/view',[PropertyMessageController::class,'message_view'])->name('message.view');
+    Route::get('{id}/delete',[PropertyMessageController::class,'message_delete'])->name('message.delete');
 });
 Route::get('/{dataId}/blog-details',[HomeController::class,'blogDetails'])->name('marketActivity.details');

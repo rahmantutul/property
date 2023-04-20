@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
+use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Admin\ResoPropertyController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Controllers\InboxController;
@@ -269,6 +270,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	Route::group(['prefix'=>'property','as'=>'property.'],function(){
 
 		Route::get('/',[PropertyController::class,'index'])->name('index');
+
+		Route::get('/message',[PropertyMessageController::class,'index'])->name('message');
 
 		Route::get('/saved-property',[PropertyController::class,'saved'])->name('saved');
 

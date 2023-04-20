@@ -22,12 +22,6 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
                 </a>
             </li>
-            <li class="nav-item {{getActiveMenuClass('seller.seller.editProfile')}}">
-                <a class="d-flex align-items-center" href="{{route('seller.seller.editProfile')}}">
-                    <i data-feather="user"></i>
-                    <span class="menu-title text-truncate" data-i18n="Profile">Update Profile</span>
-                </a>
-            </li>
             <li class="nav-item {{getActiveMenuClass('seller.property.index')}}">
                 <a class="d-flex align-items-center" href="{{route('seller.property.index')}}">
                     <i data-feather='home'></i>
@@ -47,6 +41,12 @@
                     <span class="menu-item text-truncate" data-i18n="Neighbors">Saved Property</span>
                 </a>
              </li>
+             <li class="nav-item {{getActiveMenuClass('seller.property.message')}}">
+                <a class="d-flex align-items-center" href="{{route('seller.property.message')}}">
+                    <i data-feather='bookmark'></i>
+                    <span class="menu-title text-truncate" data-i18n="Message">Property Message</span>
+                </a>
+            </li>
             {{-- <li class="nav-item {{getActiveMenuClass('seller.transection.index')}}">
                 <a class="d-flex align-items-center" href="{{route('seller.transection.index')}}">
                     <i data-feather='dollar-sign'></i>
