@@ -13,4 +13,7 @@ class PropertyCategory extends Model
     public function property() {
         return $this->belongsTo(Property::class, 'propertyId');
     }
+    public function category() {
+        return $this->belongsTo(Category::class, 'categoryId');
+    }
 }

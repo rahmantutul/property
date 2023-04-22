@@ -3,7 +3,7 @@
         <div class="top-nav">
             <div class="logo">
                 <a href="{{ route('front.home') }}" target="_self">
-                    <img src="{{asset('')}}assets/frontend/images/logo.png" alt="US Metro Reilty">
+                    <img src="{{ getWebsiteInfo()?->logo }}" alt="US Metro Reilty">
                 </a>
             </div>
 
@@ -11,12 +11,25 @@
                 <ul>
                     <li><a href="{{ route('front.property') }}">Properties</a></li>
                     <li><a href="{{ route('front.neighbourHood') }}" >Neighborhoods</a></li>
-                    <li><a href="">Market Activity</a></li>
+                    @guest
+                    <li><a href="{{ route('front.login') }}">Market Activity</a></li>
+                    @else
+                        @if (Auth::user()->user_type==1)
+                        <li><a href="{{ route('admin.marketActivity.index') }}">Market Activity</a></li>
+                        @elseif(Auth::user()->user_type==2)
+                        <li><a href="{{ route('agent.marketActivity.index') }}">Market Activity</a></li>
+                        @elseif(Auth::user()->user_type==3)
+                        <li><a href="{{ route('seller.marketActivity.index') }}">Market Activity</a></li>
+                        @elseif(Auth::user()->user_type==4)
+                        <li><a href="{{ route('buyer.marketActivity.index') }}">Market Activity</a></li>
+                        @endif
+                    @endguest
+
                     <li><a href="{{ route('front.agents') }}">Our Agents</a></li>
                     <li><a href="">Downloads</a></li>
                     <li><a href="">About Us</a></li>
                     <li><a href="https://corenyc.com">Contact Us</a></li>
-                    <li><a href="https://foresthill.com/">Join Us</a></li>
+                    <li><a href="{{ route('front.signup') }}">Join Us</a></li>
                 </ul>
             </div>
 
@@ -49,13 +62,30 @@
     <img src="">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     <a href="{{ route('front.property') }}">Properties</a>
+
     <a href="{{ route('front.neighbourHood') }}">Neighborhoods</a>
-    <a href="">Market Activity</a>
-    <a href="our_agent_list.html">Our Agents</a>
+    @guest
+        <a href="{{ route('front.login') }}">Market Activity</a>
+    @else
+        @if (Auth::user()->user_type==1)
+            <a href="{{ route('admin.marketActivity.index') }}">Market Activity</a>
+        @elseif(Auth::user()->user_type==2)
+            <a href="{{ route('agent.marketActivity.index') }}">Market Activity</a>
+        @elseif(Auth::user()->user_type==3)
+            <a href="{{ route('seller.marketActivity.index') }}">Market Activity</a>
+        @elseif(Auth::user()->user_type==4)
+            <a href="{{ route('buyer.marketActivity.index') }}">Market Activity</a></li>
+        @endif
+    @endguest
+    <a href="{{ route('front.agents') }}">Our Agents</a>
+
     <a href="">Downloads</a>
+
     <a href="">About Us</a>
+
     <a href="">Contact Us</a>
-    <a href="">Join Us</a>
+
+    <a href="{{ route('front.signup') }}">Join Us</a>
     @guest
     <a href="{{ route('front.signup') }}" class="sl_btn">Sign Up</a>
     <a href="{{ route('front.login') }}" class="sl_btn">Login</a>

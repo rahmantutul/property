@@ -68,7 +68,7 @@
                 <table width="50%">
                     <tr>
                         <th width="20%">MLS#</th>
-                        <td width="30%" style="padding:5px 20px;">{{$transaction->property->mlsId}}</td>
+                        <td width="30%" style="padding:5px 20px;">{{$transaction->property?->mlsId}}</td>
                     </tr>
                 </table>
                 <table width="50%">

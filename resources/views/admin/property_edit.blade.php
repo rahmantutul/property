@@ -86,8 +86,8 @@
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-4 form-group">
-                                <strong>Categories:</strong>
-                                <select class="form-control select2" name="category[]" multiple>
+                                <strong>Category:</strong>
+                                <select class="form-control select2" name="category[]">
                                     <option value="">Choose An Category</option>
                                     @foreach ($categoryList as $category)
                                         <option value="{{ $category->id }}"
@@ -230,22 +230,46 @@
                                     required>
                                 <span style="color:red"></span>
                             </div>
+
                             <div class="col-4 form-group">
                                 <strong>Total Units:</strong>
-                                <select class="form-control" name="totalUnit" required>
-                                    <option value="">Choose Type</option>
-                                    <option value="1"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 1 ? 'selected' : '' }}>
-                                        1</option>
-                                    <option value="2"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 2 ? 'selected' : '' }}>
-                                        2</option>
-                                    <option value="3"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 3 ? 'selected' : '' }}>
-                                        3</option>
-                                    <option value="4"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 4 ? 'selected' : '' }}>
-                                        4</option>
+                                <input type="number" name="totalUnit" class="form-control" required value="{{ $dataInfo->details?->totalUnit }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Locker:</strong>
+                                <input type="text" name="locker" class="form-control"  required value="{{ $dataInfo->details?->locker }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>MAINTENANCE FEES:</strong>
+                                <input type="text" name="fees" class="form-control" placeholder="Maintinance Fee" required value="{{ $dataInfo->details?->fees }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Exposure:</strong>
+                                <input type="text" name="exposure" class="form-control" placeholder="Exposure" required value="{{ $dataInfo->details?->exposure }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Balcony:</strong>
+                                <input type="text" name="balcony" class="form-control" placeholder="Exposure" required value="{{ $dataInfo->details?->balcony }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Kitchen:</strong>
+                                <input type="text" name="kitchen" class="form-control" placeholder="Kitchen" required value="{{ $dataInfo->details?->kitchen }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Parking:</strong>
+                                <input type="text" name="parking" class="form-control" placeholder="Parking" required value="{{ $dataInfo->details?->parking }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Style:</strong>
+                                <input type="text" name="style" class="form-control" placeholder="Style" required value="{{ $dataInfo->details?->style }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Garage Type:</strong>
+                                <select class="form-control select2" name="garageTypeId" required>
+                                    <option value="">Choose State</option>
+                                    @foreach ($garageList as $item)
+                                        <option {{ ($dataInfo->garageTypeId==$item->id)?'selected':'' }} value="{{ $item->id }}">{{ $item->type }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-4 form-group">
@@ -344,7 +368,7 @@
                                 <h4 class="form-devider">Images/Video</h4>
                             </div>
                             <div class="col-6 form-group">
-                                <strong>Property Image:</strong>
+                                <strong>Property Banner Image:</strong>
                                 <input type="file" name="thumbnail" placeholder="Select documnet"
                                     class="form-control">
                                 <span style="color:red"></span>
@@ -361,6 +385,11 @@
                                         style="margin-bottom:9px;">
                                     <input type="hidden" name="thumbailUrl" value="{{ $dataInfo->thumbnail }}">
                                 @endif
+                            </div>
+                            <div class="col-12 form-group">
+                                <strong>Select Slider Images:</strong>
+                                <input type="file" name="images[]" multiple class="form-control">
+                                <span style="color:red"></span>
                             </div>
                             <div class="col-12 d-flex flex-row-reverse">
                                 <button class="btn btn-primary btn-icon" type="submit">

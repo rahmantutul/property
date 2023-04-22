@@ -10,4 +10,6 @@ class AmenityType extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+
 }

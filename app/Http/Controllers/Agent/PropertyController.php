@@ -21,6 +21,7 @@ use App\Models\PropertyDetails;
 use App\Models\PropertyCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\GarageType;
 use App\Models\PropertyImages;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,10 +80,10 @@ class PropertyController extends Controller
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+        $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
         $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
 
-        return  view('agent.property_create',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList'));
+        return  view('agent.property_create',compact('countryList','garageList','cityList','stateList','aminetyList','categoryList','properTypeList'));
     }
 
     /**
@@ -94,7 +95,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
         
         DB::beginTransaction();
@@ -144,7 +145,7 @@ class PropertyController extends Controller
             else
                 $dataInfo->thumbnail=config('app.url').'/images/no_found.png';
             
-            $dataInfo->status=2;
+            $dataInfo->status=1;
 
             $dataInfo->created_at=Carbon::now();
 
@@ -238,10 +239,12 @@ class PropertyController extends Controller
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+
+        $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
+
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
 
-        $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
+        $dataInfo=Property::with('agentInfo','garageList','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
 
@@ -264,9 +267,7 @@ class PropertyController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            // 'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        
 
         DB::beginTransaction();
 
@@ -343,8 +344,8 @@ class PropertyController extends Controller
                 }
 
                 if($request->hasFile('images')){
-                    // dd($request->all());
-                    PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+                    
+                    PropertyImages::where(['propertyId'=>$dataInfo->id])->delete();
 
                     $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
                 }
@@ -523,6 +524,14 @@ class PropertyController extends Controller
         $dataInfo->heat=$request->heat;
 
         $dataInfo->cooling=$request->cooling;
+
+        $dataInfo->locker=$request->locker;
+        $dataInfo->fees=$request->fees;
+        $dataInfo->exposure=$request->exposure;
+        $dataInfo->balcony=$request->balcony;
+        $dataInfo->kitchen=$request->kitchen;
+        $dataInfo->parking=$request->parking;
+        $dataInfo->style=$request->style;
 
         $dataInfo->fuel=$request->fuel;
 

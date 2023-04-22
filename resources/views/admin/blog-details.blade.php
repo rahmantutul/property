@@ -40,7 +40,7 @@
                             <h4 class="card-title">{{ $dataInfo->reportName }}</h4>
                                 <div class="media">
                                     <div class="avatar mr-50">
-                                        <img src="{{ asset('images/defaultUser.png') }}" alt="Avatar" width="24" height="24">
+                                        <img src="{{ Auth::user()->avatar }}" alt="Avatar" width="24" height="24">
                                     </div>
                                     <div class="media-body">
                                         <small class="text-muted mr-25">by</small>
@@ -58,12 +58,8 @@
                             @comments(['model' => $dataInfo])
                         </div>
                     </div>
-                </div>
-                <!--/ Blog -->
-            </div>
         </div>
-        <!--/ Blog Detail -->
-
+                <!--/ Blog -->
     </div>
 </div>
 <div class="sidebar-detached sidebar-right">

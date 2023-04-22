@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-4 form-group">
                                 <strong>Expired Date:</strong>
-                                <input type="date" name="expiredDate" placeholder="Expired Date" class="form-control"
+                                <input type="date" name="expireDate" placeholder="Expired Date" class="form-control"
                                     required>
                                 <span style="color:red"></span>
                             </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-4 form-group">
                                 <strong>Categories:</strong>
-                                <select class="form-control select2" name="category[]" multiple>
+                                <select class="form-control select2" name="category[]">
                                     <option value="">Choose An Category</option>
                                     @foreach ($categoryList as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -196,14 +196,47 @@
                             </div>
                             <div class="col-4 form-group">
                                 <strong>Total Units:</strong>
-                                <select class="form-control" name="totalUnit" required>
-                                    <option value="">Choose Type</option>
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                <input type="number" name="totalUnit" value="" class="form-control" required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Locker:</strong>
+                                <input type="text" name="locker" class="form-control"  required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>MAINTENANCE FEES:</strong>
+                                <input type="text" name="fees" class="form-control" placeholder="Maintinance Fee" required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Exposure:</strong>
+                                <input type="text" name="exposure" class="form-control" placeholder="Exposure" required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Balcony:</strong>
+                                <input type="text" name="balcony" class="form-control" placeholder="Exposure" required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Kitchen:</strong>
+                                <input type="text" name="kitchen" class="form-control" placeholder="Kitchen" required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Parking:</strong>
+                                <input type="text" name="parking" class="form-control" placeholder="Parking" required >
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Style:</strong>
+                                <input type="text" name="style" class="form-control" placeholder="Style" required>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Garage Type:</strong>
+                                <select class="form-control select2" name="garageTypeId" required>
+                                    <option value="">Choose State</option>
+                                    @foreach ($garageList as $item)
+                                        <option value="{{ $item->id }}">{{ $item->type }}</option>
+                                    @endforeach
                                 </select>
                             </div>
+
+
                             <div class="col-4 form-group">
                                 <strong>SQ Ft.:</strong>
                                 <input type="number" name="squareFeet" placeholder="Square Fit" class="form-control"

@@ -66,7 +66,7 @@
                             <tr>
                                 <th class="text-center">{{++$key}}</th>
                                 <td>
-                                    <img src="{{getImage($dataInfo->thumbail	)}}" alt="{{$dataInfo->title}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
+                                    <img src="{{getImage($dataInfo->thumbnail	)}}" alt="{{$dataInfo->title}}" height="50" width="50" style="border-radius: 50%;border: 1px solid green;">
                                 </td>
                                 <td>{{$dataInfo->title}}</td>
                                 <td>{{$dataInfo->mlsId}}</td>

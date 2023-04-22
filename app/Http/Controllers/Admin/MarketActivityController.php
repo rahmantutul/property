@@ -95,7 +95,7 @@ class MarketActivityController extends Controller
             }
 
             $dataInfo->shareStatus=1;
-            $dataInfo->created_by=Auth::guard('admin')->user()->name;
+            $dataInfo->created_by=Auth::guard('admin')->user()->firstName;
             $dataInfo->created_at= Carbon::now();
 
             if($dataInfo->save()){

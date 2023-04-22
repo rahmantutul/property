@@ -116,6 +116,11 @@ class FrontendController extends Controller
             'details',
             'address',
             'propertyImages',
+            'neighbour',
+            'gargaeInfo',
+            'propertyCategory'=>function($q){
+                return $q->with('category')->get();
+            },
             'amenities' => function($q){
                 return $q->with('amenityType')->get();
             },

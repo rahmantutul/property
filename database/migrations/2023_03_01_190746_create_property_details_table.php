@@ -24,7 +24,17 @@ class CreatePropertyDetailsTable extends Migration
             $table->string('lotAcre')->nullable();
             $table->string('lotType')->nullable();
             $table->string('heat')->nullable();
+
+            $table->string('locker')->nullable();
+            $table->string('fees')->nullable();
+            $table->string('exposure')->nullable();
+            $table->string('balcony')->nullable();
+            $table->string('kitchen')->nullable();
+            $table->string('parking')->nullable();
+            $table->string('style')->nullable();
+            
             $table->string('cooling')->nullable();
+
             $table->string('fuel')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->timestamps();

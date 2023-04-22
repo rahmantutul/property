@@ -2,193 +2,7 @@
 @push('css')
     <style>
         /* Slideshow container */
-        .slideshow-container {
-            max-width: 1000px;
-            position: relative;
-            margin: auto;
-        }
 
-        /* Hide the images by default */
-        .PropertySlides {
-            display: none;
-        }
-
-        .PropertySlides img {
-            height: 500px;
-        }
-
-        /* Next & previous buttons */
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            margin-top: -22px;
-            padding: 16px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-        }
-
-        /* Position the "next button" to the right */
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        /* On hover, add a black background color with a little bit see-through */
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-
-        /* Number text (1/3 etc) */
-        .numbertext {
-            color: #f2f2f2;
-            font-size: 12px;
-            padding: 8px 12px;
-            position: absolute;
-            top: 0;
-        }
-
-        /* The dots/bullets/indicators */
-        .dot {
-            cursor: pointer;
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active,
-        .dot:hover {
-            background-color: #717171;
-        }
-
-        /********** listing Details Css ***************/
-
-        .list-details {
-            background-color: #e2e0e0;
-            border: 1px solid #383838;
-        }
-
-        .l-detail {
-            padding: 15px;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-align-items: center;
-            align-items: center;
-            -webkit-justify-content: space-around;
-            justify-content: space-around;
-        }
-
-        .caps {
-            text-transform: uppercase;
-        }
-
-
-        .l-inner h4 {
-            font-size: 16px;
-        }
-
-        .l-detail h4 {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        .red-text {
-            color: #ee404a;
-        }
-
-        .list-details .row:not(:last-child) .l-detail {
-            border-bottom: 1px solid #383838;
-        }
-
-        .list-details .row .l-detail:not(:last-child),
-        .list- details .row .l-detail:first-child:last-child,
-        .list-details .row .l-detail:nth-child(2):last-child {
-            border-right: 1px solid #383838;
-        }
-
-        .list-details .row {
-            margin: 0;
-            display: -webkit-flex;
-            display: flex;
-        }
-
-        .redmeta-wrap {
-            display: -webkit-flex;
-            display: flex;
-            -webkit-justify-content: space-between;
-            justify-content: space-between;
-            background-color: #ee404a;
-            color: #fff;
-            margin-bottom: 5px;
-            padding: 15px;
-        }
-
-        .redmeta {
-            -webkit-flex-grow: 1;
-            flex-grow: 1;
-            padding: 25px 10px;
-            max-width: 230px;
-        }
-
-        .centertext {
-            text-align: center;
-        }
-
-        .redmeta .h1 {
-            font-size: 32px;
-        }
-
-        .redmeta h3 {
-            font-size: 18px;
-        }
-
-        /******* Map Section *******/
-        .list-location {
-            margin-top: 25px;
-        }
-
-        .list-location h4 {
-            color: #fff;
-            background-color: #ee404a;
-            padding: 25px 15px;
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .title {
-            font-family: oswald;
-        }
-
-        .property_status {
-            font-size: 25px;
-            font-weight: 600;
-            color: red;
-        }
-
-        .list-amenities ul {
-            padding-left: 0;
-            list-style-position: inside;
-            -webkit-column-count: 2;
-            -moz-column-count: 2;
-            -ms-column-count: 2;
-            column-count: 2;
-        }
-
-        .list-amenities ul li {
-            font-weight: 500;
-        }
     </style>
 @endpush
 
@@ -209,7 +23,7 @@
                     <div class="redmeta-wrap">
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-flag"></i></h1>
-                            <h3 class="caps"><strong>TYPE: {{ $dataInfo->typeInfo?->type }}</strong></h3>
+                            <h3 class="caps"><strong>CATEGORY: {{ $dataInfo->propertyCategory?->category->name }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-dollar"></i></h1>
@@ -232,7 +46,7 @@
                 <div class="col-md-8">
 
                     <!-- Slideshow container -->
-                    <div class="slideshow-container" style="margin-top: 10px">
+                    <div class="slideshow-container" style="margin-top: 10px; max-width: 1200px">
 
                         <!-- Full-width images with number and caption text -->
                         @foreach ($dataInfo->propertyImages as $item)
@@ -262,19 +76,19 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">PARKING:</h4>
-                                    <h4 class="red-text"><strong>{{ $dataInfo->gargaeInfo?->type}}</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->parking }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">LOCKER:</h4>
-                                    <h4 class="red-text"><strong>1 Locker Included</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->locker }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">NEIGHBOURHOOD:</h4>
-                                    <h4 class="red-text"><strong>Yonge &amp; Dundas Square</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->neighbour?->name }}</strong></h4>
                                 </div>
                             </div>
                         </div>
@@ -282,20 +96,20 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">SQUARE FOOTAGE:</h4>
-                                    <h4 class="red-text"><strong>1,658 square feet</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->squareFeet }} square feet</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">MAINTENANCE FEES:</h4>
-                                    <h4 class="red-text"><strong>Approximately $0.57/sqft + utilities metered
+                                    <h4 class="red-text"><strong>Approximately {{ $dataInfo->details?->fees }}
                                             separately</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">EXPOSURE:</h4>
-                                    <h4 class="red-text"><strong>North-East</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->exposure }}</strong></h4>
                                 </div>
                             </div>
                         </div>
@@ -303,19 +117,19 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">BALCONY:</h4>
-                                    <h4 class="red-text"><strong>122-square-foot terrace</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->balcony }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">KITCHEN:</h4>
-                                    <h4 class="red-text"><strong>Open Concept Kitchen</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->kitchen }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">GARAGE:</h4>
-                                    <h4 class="red-text"><strong>Underground Parking</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->gargaeInfo?->type }}</strong></h4>
                                 </div>
                             </div>
                         </div>
@@ -323,13 +137,13 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">HEAT SOURCE:</h4>
-                                    <h4 class="red-text"><strong>Forced Air / Gas</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->heat }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">AIR CONDITIONING:</h4>
-                                    <h4 class="red-text"><strong>Central Air</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->cooling }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
@@ -351,43 +165,10 @@
                                 <h3 class="title caps">Description</h3>
                             </div>
                         </div>
-                        <h2><strong>Just Listed: Penthouse 1 At Panda Condos</strong></h2>
-                        <p>Penthouse 1 at Panda Condos – Introducing Penthouse 1, your final opportunity to own a brand new
-                            suite at Panda Condos. If you’ve always dreamed about living sky-high above the entire city,
-                            with
-                            everything you need at your doorstep, this Penthouse suite is just for you.</p>
-                        <p>This brand-new, never-lived-in suite is now available from Lifetime Developments and the benefits
-                            of
-                            purchasing are incredible.</p>
-                        <ul>
-                            <li>Purchase directly from the developer with no wait times typical of pre-construction projects
-                            </li>
-                            <li>Development charges and levies are capped at $0</li>
-                            <li>Purchaser receives a brand new Tarion Warranty</li>
-                            <li>Full PDI prior to closing</li>
-                            <li>Premium underground parking spot included</li>
-                            <li>Premium located locker</li>
-                            <li>Upgraded appliance package</li>
-                            <li>Upgraded flooring package</li>
-                            <li>Custom lighting included</li>
-                        </ul>
-                        <h2><strong>20 Edward Street, Penthouse 1 – Panda Condos</strong></h2>
-                        <p>Welcome to your dream home in the sky located in the heart of downtown Toronto! Boasting 1,658
-                            square
-                            feet of luxurious interior living space, this stunning suite offers everything you could want in
-                            a
-                            home.</p>
-                        <p>Step out onto your 122-square-foot terrace, creating the ideal spot for entertaining guests,
-                            enjoying
-                            summer BBQs with the gas hook-up, or simply relaxing with a cup of coffee while admiring the
-                            views
-                            from 30 floors above the city.</p>
-                        <p><img decoding="async" loading="lazy" class="aligncenter size-full wp-image-6731"
-                                src="{{ $dataInfo->thumbnail }}" alt=""
-                                sizes="(max-width: 1920px) 100vw, 1920px" width="1920" height="1281"></p>
-                        <p>Enjoy the added convenience of your dedicated laundry room, complete with an upgraded
-                            front-loading
-                            washer and dryer and plenty of extra storage to keep your life organized and clutter-free.</p>
+                         {!! $dataInfo->previewText !!}
+                        <img decoding="async" style="height:500px;" loading="lazy" class="aligncenter size-full wp-image-6731"
+                            src="{{ $dataInfo->thumbnail }}" alt=""
+                            sizes="(max-width: 1920px) 100vw, 1920px" width="1920" height="1281">
                     </div>
 
                     <div class="hood-section">
@@ -402,9 +183,8 @@
                         <div class="list-amenities">
                             <ul>
                                 @foreach ($dataInfo->amenities as $item)
-                                    <li><b>{{ $item->amenityId }}</b></li>
+                                    <li><b>{{ $item->amenityType?->amenity }}</b></li>
                                 @endforeach
-                                
                             </ul>
                         </div>
                     </div>
@@ -420,8 +200,9 @@
                                 </div>
                             </div>
                             <div>
-                                <iframe width="100%" height="400px" src="{{$dataInfo->videoUrl}}">
-                                </iframe>
+                                {!! $dataInfo->videoUrl !!}
+                                {{-- <iframe width="100%" height="400px" src="{{}}"> --}}
+                                {{-- </iframe> --}}
                             </div>
                         </div>
                     @endif

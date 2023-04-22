@@ -48,15 +48,15 @@ class DatabaseSeeder extends Seeder
         // MarketActivity::factory(50)->create();
         PropertyType::factory(50)->create();
         State::factory(50)->create();
-        Property::factory(50)->create();
+        Property::factory(5)->create();
         PropertyAddress::factory(100)->create();
 
-        PropertyAmenity::factory(200)->create();
-        PropertyImages::factory(200)->create();
-        PropertyDetails::factory(200)->create();
-        PropertyCategory::factory(500)->create();
-        HelpDesk::factory(1000)->create();
-        HelpDeskDetails::factory(5000)->create();
+        PropertyAmenity::factory(50)->create();
+        PropertyImages::factory(50)->create();
+        PropertyDetails::factory(5)->create();
+        PropertyCategory::factory(5)->create();
+        HelpDesk::factory(50)->create();
+        HelpDeskDetails::factory(50)->create();
         // Neighbor::factory(50)->create();
         WebsiteInfo::factory(1)->create();
         Banner::factory(1)->create();
