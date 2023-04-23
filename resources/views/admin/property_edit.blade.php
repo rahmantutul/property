@@ -30,17 +30,18 @@
                             @csrf
                             <input type="hidden" name="dataId" value="{{ $dataInfo->id }}">
                             <input type="hidden" name="adminId" value="{{ Auth::user()->id }}">
-                            <div class="col-9 form-group m-auto p-3 bg-light-success" style="border-radius:6px;">
+                            <div class="col-9 form-group m-auto p-2 bg-light-primary" style="border-radius:6px; margin-bottom:15px;">
                                 <strong>Asign A Neighbour Place:</strong>
-                                <select name="neighbourhoodId" id="" class="form-control">
-                                    @foreach ($neughbours as $item)
-                                        <option @if ($dataInfo->neighbourhoodId == $item->neighbourhoodId) selected @endif
-                                            value="{{ $item->id }}">{{ $item->firstName." ".$item->lastName }}</option>
+                                <select name="neighbourhoodId" id="" class="form-control select2">
+                                    <option value="">Select A Neighbour Place</option>
+                                    @foreach ($neighbours as $item)
+                                        <option @if ($dataInfo->neighbourhoodId == $item->id) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-4 form-group mt-1">
                                 <strong>Title:</strong>
                                 <input type="text" name="title" placeholder="Property Titile" class="form-control"
                                     required value="{{ $dataInfo->title }}">
@@ -54,13 +55,13 @@
                                     <span style="color:red"></span>
                                 </div>
                             @endif
-                            <div class="col-4 form-group">
+                            <div class="col-4 form-group  mt-1">
                                 <strong>Available Date:</strong>
                                 <input type="date" name="availableDate" placeholder="Available Date" class="form-control"
                                     value="{{ $dataInfo->availableDate }}" required>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-4 form-group  mt-1">
                                 <strong>Expired Date:</strong>
                                 <input type="date" name="expireDate" placeholder="Expired Date" class="form-control"
                                     value="{{ $dataInfo->expireDate }}" required>
@@ -85,8 +86,8 @@
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-4 form-group">
-                                <strong>Categories:</strong>
-                                <select class="form-control select2" name="category[]" multiple>
+                                <strong>Category:</strong>
+                                <select class="form-control select2" name="category[]">
                                     <option value="">Choose An Category</option>
                                     @foreach ($categoryList as $category)
                                         <option value="{{ $category->id }}"
@@ -96,15 +97,7 @@
                                 </select>
                                 <span style="color:red"></span>
                             </div>
-                            <div class="col-4 form-group">
-                                <strong>Preview Text:</strong>
-                                {{-- <textarea name="previewText" id="" class="form-control" placeholder="Write Preview Text">{{ $dataInfo->previewText }}</textarea> --}}
-                                <div id="editor" contenteditable="true">
-                                        {{ $dataInfo->previewText }}
-                                </div>
-                                <input type="hidden" name="previewText" id="previewText">
-                                <span style="color:red"></span>
-                            </div>
+                            
                             <div class="col-4 form-group">
                                 <strong>Call For Price:</strong>
                                 <select class="form-control " name="callForPrice" required>
@@ -123,6 +116,12 @@
                                     <option value="0" {{ $dataInfo->isHideAddress == 0 ? 'selected' : '' }}>No
                                     </option>
                                 </select>
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-12 form-group">
+                                <strong>Preview Text:</strong>
+                                <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text">{{ $dataInfo->previewText }}</textarea>
+                               
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-12">
@@ -150,6 +149,18 @@
                                     class="form-control"
                                     value="{{ !is_null($dataInfo->address) ? $dataInfo->address->streetAddressTwo : '' }}"
                                     required>
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Map Latitude:</strong>
+                                <input type="text" name="latitude" placeholder="Map latiude"
+                                    class="form-control" required value="{{ $dataInfo->address?->latitude }}">
+                                <span style="color:red"></span>
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Map Longitude:</strong>
+                                <input type="text" name="longitude" placeholder="Map Longitude"
+                                    class="form-control" required value="{{ $dataInfo->address?->longitude }}">
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-4 form-group">
@@ -219,22 +230,46 @@
                                     required>
                                 <span style="color:red"></span>
                             </div>
+
                             <div class="col-4 form-group">
                                 <strong>Total Units:</strong>
-                                <select class="form-control" name="totalUnit" required>
-                                    <option value="">Choose Type</option>
-                                    <option value="1"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 1 ? 'selected' : '' }}>
-                                        1</option>
-                                    <option value="2"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 2 ? 'selected' : '' }}>
-                                        2</option>
-                                    <option value="3"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 3 ? 'selected' : '' }}>
-                                        3</option>
-                                    <option value="4"
-                                        {{ !is_null($dataInfo->details) && $dataInfo->details->totalUnit == 4 ? 'selected' : '' }}>
-                                        4</option>
+                                <input type="number" name="totalUnit" class="form-control" required value="{{ $dataInfo->details?->totalUnit }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Locker:</strong>
+                                <input type="text" name="locker" class="form-control"  required value="{{ $dataInfo->details?->locker }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>MAINTENANCE FEES:</strong>
+                                <input type="text" name="fees" class="form-control" placeholder="Maintinance Fee" required value="{{ $dataInfo->details?->fees }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Exposure:</strong>
+                                <input type="text" name="exposure" class="form-control" placeholder="Exposure" required value="{{ $dataInfo->details?->exposure }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Balcony:</strong>
+                                <input type="text" name="balcony" class="form-control" placeholder="Exposure" required value="{{ $dataInfo->details?->balcony }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Kitchen:</strong>
+                                <input type="text" name="kitchen" class="form-control" placeholder="Kitchen" required value="{{ $dataInfo->details?->kitchen }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Parking:</strong>
+                                <input type="text" name="parking" class="form-control" placeholder="Parking" required value="{{ $dataInfo->details?->parking }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Style:</strong>
+                                <input type="text" name="style" class="form-control" placeholder="Style" required value="{{ $dataInfo->details?->style }}">
+                            </div>
+                            <div class="col-4 form-group">
+                                <strong>Garage Type:</strong>
+                                <select class="form-control select2" name="garageTypeId" required>
+                                    <option value="">Choose State</option>
+                                    @foreach ($garageList as $item)
+                                        <option {{ ($dataInfo->garageTypeId==$item->id)?'selected':'' }} value="{{ $item->id }}">{{ $item->type }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-4 form-group">
@@ -333,7 +368,7 @@
                                 <h4 class="form-devider">Images/Video</h4>
                             </div>
                             <div class="col-6 form-group">
-                                <strong>Property Image:</strong>
+                                <strong>Property Banner Image:</strong>
                                 <input type="file" name="thumbnail" placeholder="Select documnet"
                                     class="form-control">
                                 <span style="color:red"></span>
@@ -351,6 +386,11 @@
                                     <input type="hidden" name="thumbailUrl" value="{{ $dataInfo->thumbnail }}">
                                 @endif
                             </div>
+                            <div class="col-12 form-group">
+                                <strong>Select Slider Images:</strong>
+                                <input type="file" name="images[]" multiple class="form-control">
+                                <span style="color:red"></span>
+                            </div>
                             <div class="col-12 d-flex flex-row-reverse">
                                 <button class="btn btn-primary btn-icon" type="submit">
                                     <i data-feather='save'></i> Save
@@ -364,16 +404,11 @@
     </div>
 @endsection
 @push('js')
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-    <!-- Initialize Quill editor -->
-    <script>
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-        quill.on('text-change', function(delta, oldDelta, source) {
-            document.getElementById("previewText").value = quill.root.innerHTML;
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
         });
     </script>
 @endpush

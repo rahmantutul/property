@@ -61,6 +61,11 @@ class Property extends Model
         return $this->hasOne('App\Models\SaveProperty', 'property_id', 'id');
     }
 
+    public function neighbour()
+    {
+        return $this->hasOne('App\Models\Neighbor', 'id', 'neighbourhoodId');
+    }
+
     public function transections()
     {
         return $this->hasMany('App\Models\Transection', 'property_id', 'id');

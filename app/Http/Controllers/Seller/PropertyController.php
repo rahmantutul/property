@@ -10,11 +10,13 @@ use App\Models\Country;
 use App\Models\City;
 use App\Models\AmenityType;
 use App\Models\Category;
+use App\Models\GarageType;
 use App\Models\PropertyType;
 use App\Models\PropertyCategory;
 use App\Models\PropertyAddress;
 use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
+use App\Models\PropertyImages;
 use App\Models\SaveProperty;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -76,10 +78,12 @@ class PropertyController extends Controller
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+
+        $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
+
         $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
 
-        return  view('seller.property_create',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList'));
+        return  view('seller.property_create',compact('countryList','garageList','cityList','stateList','aminetyList','categoryList','properTypeList'));
     }
 
     /**
@@ -90,6 +94,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
         // dd($request->all());
         DB::beginTransaction();
 
@@ -103,6 +110,8 @@ class PropertyController extends Controller
 
             $dataInfo->sellerId=$request->sellerId;
 
+            $dataInfo->user_id=Auth::user()->id;
+            
             $dataInfo->typeId=$request->typeId;
 
             $dataInfo->garageTypeId=$request->garageTypeId;
@@ -151,6 +160,16 @@ class PropertyController extends Controller
                     $propertyAminetiesFlag=$this->storePropertyAmineties($request->amineties,$dataInfo->id);
                 else
                     $propertyAminetiesFlag=true;
+
+                if($request->hasFile('images')){
+                    // dd($request->all());
+                    // PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
 
                 $propertyAddressFlag =$this->storePropertyAddress($request,$dataInfo->id);
 
@@ -220,10 +239,12 @@ class PropertyController extends Controller
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
+
+        $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
         
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
 
-        $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
+        $dataInfo=Property::with('agentInfo','garageList','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
 
@@ -246,6 +267,8 @@ class PropertyController extends Controller
      */
     public function update(Request $request)
     {
+        
+
         DB::beginTransaction();
 
        try{
@@ -320,7 +343,15 @@ class PropertyController extends Controller
                     $propertyAminetiesFlag=true;
                 }
 
-                
+                if($request->hasFile('images')){
+                    
+                    PropertyImages::where(['propertyId'=>$dataInfo->id])->delete();
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
 
                 $propertyAddressDelete=PropertyAddress::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
 
@@ -330,7 +361,7 @@ class PropertyController extends Controller
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property updated by ".Auth::guard('seller')->user()->name;
 
@@ -495,7 +526,15 @@ class PropertyController extends Controller
         $dataInfo->heat=$request->heat;
 
         $dataInfo->cooling=$request->cooling;
-
+        
+        $dataInfo->locker=$request->locker;
+        $dataInfo->fees=$request->fees;
+        $dataInfo->exposure=$request->exposure;
+        $dataInfo->balcony=$request->balcony;
+        $dataInfo->kitchen=$request->kitchen;
+        $dataInfo->parking=$request->parking;
+        $dataInfo->style=$request->style;
+        
         $dataInfo->fuel=$request->fuel;
 
         $dataInfo->status=1;

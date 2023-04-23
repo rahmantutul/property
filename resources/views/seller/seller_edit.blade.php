@@ -14,7 +14,7 @@
             <div class="card  p-5">
                 <div class="card-header">
                     <div class="media mb-2">
-                        <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
+                        <img src="{{getUserImage(Auth::user()->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
                             <h6 class="text-danger">Seller</h6>
@@ -31,7 +31,7 @@
                         
                         <div class="col-6 form-group">
                             <strong>Email:</strong>
-                            <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->user->email}}" required>
+                            <input type="email" name="email" readonly class="form-control" value="{{$dataInfo->user?->email}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Phone:</strong>
-                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->user->phone}}" required>
+                            <input type="text" name="phone" placeholder="Phone" class="form-control" value="{{$dataInfo->user?->phone}}" required>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
@@ -84,6 +84,12 @@
                             <input type="text" name="address" placeholder="Address" class="form-control" autocomplete="off" value="{{$dataInfo->address}}">
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-6 form-group"></div>
+                        <div class="col-6 form-group">
+                            <strong>Old Password:</strong>
+                            <input type="password" name="old_password" placeholder="Old Password" class="form-control" autocomplete="off" >
+                             <span style="color:red" ></span>
+                        </div>
                         <div class="col-6 form-group">
                             <strong>Confirm Password:</strong>
                             <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" autocomplete="off" >
@@ -91,12 +97,7 @@
                         </div>
                         <div class="col-12 form-group">
                             <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
-                             <span style="color:red" ></span>
-                        </div>
-                        <div class="col-12 form-group">
-                            <strong>About:</strong>
-                            <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea>
+                            <textarea name="about" id="" cols="30" rows="10" class="ckeditor form-control">{{$dataInfo->about}}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
@@ -111,4 +112,13 @@
     </div>
 </div>
 @endsection
+@push('js')
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
+@endpush
        

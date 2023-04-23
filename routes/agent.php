@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\MarketActivityController;
+use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Agent\HelpDeskController;
 use App\Http\Controllers\Agent\PropertyController;
 use App\Http\Controllers\Agent\DashboardController;
@@ -44,6 +45,8 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 	Route::group(['prefix'=>'property','as'=>'property.'],function(){
 
 		Route::get('/',[PropertyController::class,'index'])->name('index');
+
+		Route::get('/message',[PropertyMessageController::class,'index'])->name('message');
 
 		Route::get('/saved-property',[PropertyController::class,'saved'])->name('saved');
 		

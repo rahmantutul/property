@@ -82,17 +82,21 @@
             <div class="image-box">
                 <img src="{{getImage($dataInfo->thumbnail)}}" alt="{{$dataInfo->title}}">
                 <div class="hover-content">
-                    <h5>FOR SALE | ${{$dataInfo->price}}</h5>
-                    <h2>FOR SALE: {{(!is_null($dataInfo->details)) ? $dataInfo->details->totalUnit.','.$dataInfo->details->squareFeet:''}}</h2>
-                    <h5><span><i class="fa fa-bed"></i>{{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBedroom:''}} BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBathroom:''}} Baths</span></h5>
-
-                    <a href="" class="learn_more_btn">
-                        <div class="button_lm">
-                            <div class="f-left left_btn">Learn More</div>
-                            <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
-                        </div>
-                    </a>
-                    <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
+                    <h5>FOR SALE | ${{ $dataInfo->price }}</h5>
+                    {{-- | {{Str::limit($dataInfo?->address?->streetAddressOne, 10)}} --}}
+                        <h2>FOR SALE: {{$dataInfo?->title}}</h2>
+                        <h5><span><i class="fa fa-bed"></i> {{$dataInfo->details->numOfBedroom}}+ BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{$dataInfo->details->numOfBathroom}}+ Baths</span></h5>
+                        <a href="{{ route('front.propertyDetails', $id=$dataInfo->id) }}" class="learn_more_btn">
+                            <div class="button_lm">
+                                <div class="f-left left_btn">Learn More</div>
+                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
+                            </div>
+                        </a>
+                        @if ($dataInfo->saveProperty)
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star"> Save</i></a>
+                        @else
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star-o"> Save</i></a>
+                        @endif
                 </div>
             </div>
         </div>
@@ -103,5 +107,33 @@
 @endsection
 
 @push('js')
-    
+<script>
+    $(document).ready(function(){
+        $('.save_properties').click(function(obj) {
+            var obj = $(this);
+            var url = obj.data('savelist-url');
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    if (data.delete == false) {
+                        //empty heart
+                        obj[0].innerHTML = '';
+                        obj[0].innerHTML = '<i class="fa fa-star"> Save</i>';
+                    }
+                    if (data.delete == true) {
+                        //empty heart
+                        obj[0].innerHTML = '';
+                        obj[0].innerHTML = '<i class="fa fa-star-o"> Save</i>';
+                    }
+                    //toastr message from response
+                    toastr[data.type](data.message);
+                }
+            });
+            //page reload
+            // location.reload();
+        });
+    });
+</script>
 @endpush

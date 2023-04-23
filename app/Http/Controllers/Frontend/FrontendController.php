@@ -11,6 +11,9 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Neighbor;
+use App\Models\PropertyMessage;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -63,12 +66,12 @@ class FrontendController extends Controller
                 $query->where('user_id', auth()->id());
             },
         ])
-            ->whereNull('deleted_at')
-            ->whereNotNull('mlsId')
-            ->where('status', 1)
-            ->where('is_featured', 2)
-            ->orderBy('mlsId', 'DESC')
-            ->paginate(12);
+        ->whereNull('deleted_at')
+        // ->whereNotNull('mlsId')
+        ->where('status', 1)
+        ->where('is_featured', 2)
+        ->orderBy('mlsId', 'DESC')
+        ->paginate(12);
         return view('frontend.property', compact(['featuredProperties']));
     }
 
@@ -113,6 +116,11 @@ class FrontendController extends Controller
             'details',
             'address',
             'propertyImages',
+            'neighbour',
+            'gargaeInfo',
+            'propertyCategory'=>function($q){
+                return $q->with('category')->get();
+            },
             'amenities' => function($q){
                 return $q->with('amenityType')->get();
             },
@@ -173,5 +181,32 @@ class FrontendController extends Controller
             ->get();
 
         return view('frontend.propery_search_result', compact(['dataList', 'categories']));
+    }
+
+    public function property_message(Request $request){
+        // dd($request->all());
+        DB::beginTransaction();
+        try{
+            $request->validate([
+                'firstName'=>'required',
+                'lastName'=>'required',
+                'email'=>'required',
+                'phone'=>'required',
+                'message'=>'required',
+            ]);
+            $dataInfo= New PropertyMessage();
+            $dataInfo->firstName= $request->firstName;
+            $dataInfo->lastName= $request->lastName;
+            $dataInfo->email= $request->email;
+            $dataInfo->phone= $request->phone;
+            $dataInfo->message= $request->message;
+            $dataInfo->user_id= $request->user_id;
+            $dataInfo->property_id= $request->property_id;
+            $dataInfo->save();
+            DB::commit();
+            return redirect()->back()->with('message','Message send successfully!');
+        }catch(Exception $err){
+            return redirect()->back()->with('errMessage','Something Whent wrong!');
+        }
     }
 }

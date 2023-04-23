@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use App\Jobs\TransactionAgentMailJob;
 use App\Mail\TransactionAgent;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class TransectionController extends Controller
 {
@@ -167,7 +168,15 @@ class TransectionController extends Controller
         // dd($transaction);
 
         Mail::to($transaction->send_mail)->send(new TransactionAgent($transaction));
-        return response()->json(['status'=>true ,'msg'=>' Mail Send Successfully.!','url'=>url()->previous()]);
+        Session::flash('msg','Mail Send Successfully.!');
+        return redirect()->back();
+        // return response()->json(['status'=>true ,'msg'=>' Mail Send Successfully.!','url'=>url()->previous()]);
+    }
+
+    public function mailview($id)
+    {
+        $transaction = Transection::with('property')->find($id);
+        return view('admin.email',compact('transaction'));
     }
 
     public function changeApprove(Request $request)

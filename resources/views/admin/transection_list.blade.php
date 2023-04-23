@@ -6,11 +6,6 @@
         <div class="col-8">
             <h2 class="content-header-title float-left mb-0">Transaction List</h2>
         </div>
-        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-            <div class="form-group breadcrumb-right">
-                <a class="btn-icon btn btn-primary btn-round btn-sm" href="{{route('agent.transection.create')}}">Add New</a>
-            </div>
-        </div>
     </div>
     <div class="content-body">
         <!-- Basic Tables start -->
@@ -49,6 +44,7 @@
                                     <th>Property Title</th>
                                     <th>Status</th>    
                                     <th>Email</th>
+                                    <th>View</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -74,6 +70,11 @@
                                             @endif
                                         @else
                                             <span class="badge badge-pill badge-warning">Pending</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->send_mail)
+                                            <a href="{{route('admin.transection.mail.view', $id=$item->id)}}" class="badge badge-pill badge-info">See Details</a>
                                         @endif
                                     </td>
                                     <td>

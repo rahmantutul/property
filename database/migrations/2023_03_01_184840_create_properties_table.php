@@ -22,6 +22,7 @@ class CreatePropertiesTable extends Migration
             $table->unsignedBigInteger('typeId')->nullable();
             $table->unsignedBigInteger('garageTypeId')->nullable();
             $table->bigInteger('neighbourhoodId')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->string('title',1000)->nullable();
             $table->string('mlsId',1000)->nullable();
             $table->date('availableDate')->nullable();
@@ -37,7 +38,7 @@ class CreatePropertiesTable extends Migration
             $table->tinyInteger('callForPrice')->default(1)->comment('1=Yes,0=No')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->boolean('is_sold')->default(0)->comment('0=Not sold,1=Sold');
-            $table->tinyInteger('is_featured')->default(0)->comment('1=None,2=requested,2=featured')->nullable();
+            $table->tinyInteger('is_featured')->default(0)->comment('0=None,1=requested,2=featured')->nullable();
             $table->timestamps();
             $table->softDeletes(); 
             $table->foreign('agentId')->references('id')->on('agents')->onDelete('cascade'); 

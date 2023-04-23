@@ -31,6 +31,6 @@ class TransactionAgent extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Test Mail')->view('emails.transaction')->with(['transaction' => $this->transaction]);
+        return $this->subject('Property Transection ')->view('emails.transaction')->with(['transaction' => $this->transaction]);
     }
 }

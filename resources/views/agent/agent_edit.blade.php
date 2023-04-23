@@ -14,7 +14,7 @@
             <div class="card  p-5">
                 <div class="card-header">
                     <div class="media mb-2">
-                        <img src="{{getUserImage($dataInfo->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
+                        <img src="{{getUserImage(Auth::user()->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">
                         <div class="media-body mt-50">
                             <h4>{{ getFullName($dataInfo) }}</h4>
                             <h6 class="text-danger">Agent</h6>
@@ -101,10 +101,7 @@
                         </div>
                         <div class="col-12 form-group">
                             <strong>About:</strong>
-                            {{-- <textarea name="about" id="" cols="30" rows="10" class="form-control">{{$dataInfo->about}}</textarea> --}}
-                            <div id="editor" contenteditable="true">
-                            </div>
-                            <input type="hidden" name="about" id="about">
+                            <textarea name="about" id="" cols="30" rows="10" class="ckeditor form-control">{{$dataInfo->about}}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
@@ -119,11 +116,13 @@
     </div>
 </div>
 @endsection
-<script>
-    var quill = new Quill('#editorThree', {
-        theme: 'snow'
-    });
-    quill.on('text-change', function(delta, oldDelta, source, image) {
-        document.getElementById("about").value = quill.root.innerHTML;
-    });
-</script>
+@push('js')
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
+@endpush
+       

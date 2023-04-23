@@ -56,17 +56,17 @@
                         </div>
                         <div class="col-6 form-group">
                             <strong>Title One Details:</strong>
-                            <textarea name="titleOneDetails" id="editor" cols="30" rows="10" class="form-control">{{ $dataInfo->titleOneDetails }}</textarea>
+                            <textarea name="titleOneDetails" id="editor" cols="30" rows="10" class="ckeditor form-control">{{ $dataInfo->titleOneDetails }}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
                             <strong>Title Two Details:</strong>
-                            <textarea name="titleTwoDetails" id="editor1" cols="30" rows="10" class="form-control">{{ $dataInfo->titleTwoDetails }}</textarea>
+                            <textarea name="titleTwoDetails" id="editor1" cols="30" rows="10" class="ckeditor form-control">{{ $dataInfo->titleTwoDetails }}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-6 form-group">
                             <strong>Title Three Details:</strong>
-                            <textarea name="titleThreeDetails" id="editor2" cols="30" rows="10" class="form-control">{{ $dataInfo->titleThreeDetails }}</textarea>
+                            <textarea name="titleThreeDetails" id="editor2" cols="30" rows="10" class="ckeditor form-control">{{ $dataInfo->titleThreeDetails }}</textarea>
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-12 d-flex flex-row-reverse">
@@ -82,20 +82,14 @@
 </div>
 @endsection
 @push('js')
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-<!-- Initialize Quill editor -->
-<script>
-  var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
-  var quill = new Quill('#editor1', {
-    theme: 'snow'
-  });
-  var quill = new Quill('#editor2', {
-    theme: 'snow'
-  });
-</script>
+@push('js')
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
+@endpush
 @endpush
        

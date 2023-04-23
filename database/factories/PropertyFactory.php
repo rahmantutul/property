@@ -29,6 +29,7 @@ class PropertyFactory extends Factory
             'typeId' =>$this->faker->randomElement(PropertyType::pluck('id')->toArray()),
             'garageTypeId' =>$this->faker->randomElement(GarageType::pluck('id')->toArray()),
             'mlsId' => $this->faker->numberBetween(1,100),
+            'user_id' => $this->faker->numberBetween(1,10),
             'availableDate' => $this->faker->date(),
             'expireDate' => $this->faker->date(),
             'price' => $this->faker->numberBetween(11000,100000),

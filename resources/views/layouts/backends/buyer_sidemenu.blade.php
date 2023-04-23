@@ -10,7 +10,12 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-
+                <li class="nav-item {{getActiveMenuClass('buyer.dashboard')}}">
+                    <a class="d-flex align-items-center" href="{{route('buyer.dashboard')}}">
+                        <i data-feather="grid"></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Dashboard</span>
+                    </a>
+                </li>
             <li class="nav-item {{getActiveMenuClass('buyer.profile.edit')}}">
                 <a class="d-flex align-items-center" href="{{route('buyer.profile.edit')}}">
                     <i data-feather="user"></i>

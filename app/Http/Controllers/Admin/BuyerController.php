@@ -406,7 +406,7 @@ class BuyerController extends Controller
                 'firstName' => 'required',
                 'lastName' => 'required',
                 'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'confirm_password' => 'confirmed|max:8|different:old_password',
+                // 'confirm_password' => 'confirmed|max:8|different:old_password',
             ],
             [
                 'firstName.required' => "Please Enter First Name.",

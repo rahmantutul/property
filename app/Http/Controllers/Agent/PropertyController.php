@@ -21,6 +21,8 @@ use App\Models\PropertyDetails;
 use App\Models\PropertyCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\GarageType;
+use App\Models\PropertyImages;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -78,10 +80,10 @@ class PropertyController extends Controller
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+        $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
         $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
 
-        return  view('agent.property_create',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList'));
+        return  view('agent.property_create',compact('countryList','garageList','cityList','stateList','aminetyList','categoryList','properTypeList'));
     }
 
     /**
@@ -92,6 +94,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        ]);
         
         DB::beginTransaction();
 
@@ -105,6 +110,8 @@ class PropertyController extends Controller
 
             $dataInfo->sellerId=$request->sellerId ;
 
+            $dataInfo->user_id=Auth::user()->id;
+            
             $dataInfo->typeId=$request->typeId;
 
             $dataInfo->garageTypeId=$request->garageTypeId;
@@ -138,7 +145,7 @@ class PropertyController extends Controller
             else
                 $dataInfo->thumbnail=config('app.url').'/images/no_found.png';
             
-            $dataInfo->status=2;
+            $dataInfo->status=1;
 
             $dataInfo->created_at=Carbon::now();
 
@@ -154,11 +161,21 @@ class PropertyController extends Controller
                 else
                     $propertyAminetiesFlag=true;
 
+                if($request->hasFile('images')){
+                    // dd($request->all());
+                    // PropertyImages::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
+
                 $propertyAddressFlag =$this->storePropertyAddress($request,$dataInfo->id);
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property created by ".Auth::guard('agent')->user()->name;
 
@@ -222,10 +239,12 @@ class PropertyController extends Controller
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+
+        $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
+
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
 
-        $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
+        $dataInfo=Property::with('agentInfo','garageList','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
 
@@ -248,6 +267,8 @@ class PropertyController extends Controller
      */
     public function update(Request $request)
     {
+        
+
         DB::beginTransaction();
 
        try{
@@ -322,7 +343,15 @@ class PropertyController extends Controller
                     $propertyAminetiesFlag=true;
                 }
 
-                
+                if($request->hasFile('images')){
+                    
+                    PropertyImages::where(['propertyId'=>$dataInfo->id])->delete();
+
+                    $propertyImagesFlag=$this->storePropertyImages($request->images,$dataInfo->id);
+                }
+                else{
+                    $propertyImagesFlag=true;
+                }
 
                 $propertyAddressDelete=PropertyAddress::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
 
@@ -332,7 +361,7 @@ class PropertyController extends Controller
 
                 $propertyDetailsFlag=$this->storePropertyDetails($request,$dataInfo->id);
 
-                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag){
+                if($propertyAddressFlag && $propertyDetailsFlag && $propertyCategoryFlag && $propertyAminetiesFlag && $propertyImagesFlag){
 
                     $note=$dataInfo->id."=>  Property updated by ".Auth::guard('agent')->user()->name;
 
@@ -457,6 +486,10 @@ class PropertyController extends Controller
 
         $dataInfo->streetAddressTwo=$request->streetAddressTwo;
 
+        $dataInfo->longitude=$request->longitude;
+
+        $dataInfo->latitude=$request->latitude;
+
         $dataInfo->shuitAppertment=$request->shuitAppertment;
 
         $dataInfo->subDivision=$request->subDivision;
@@ -491,6 +524,14 @@ class PropertyController extends Controller
         $dataInfo->heat=$request->heat;
 
         $dataInfo->cooling=$request->cooling;
+
+        $dataInfo->locker=$request->locker;
+        $dataInfo->fees=$request->fees;
+        $dataInfo->exposure=$request->exposure;
+        $dataInfo->balcony=$request->balcony;
+        $dataInfo->kitchen=$request->kitchen;
+        $dataInfo->parking=$request->parking;
+        $dataInfo->style=$request->style;
 
         $dataInfo->fuel=$request->fuel;
 

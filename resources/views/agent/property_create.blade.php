@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-4 form-group">
                             <strong>Expired Date:</strong>
-                            <input type="date" name="expiredDate" placeholder="Expired Date" class="form-control"  required>
+                            <input type="date" name="expireDate" placeholder="Expired Date" class="form-control"  required>
                              <span style="color:red" ></span>
                         </div>
                         
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-4 form-group">
                             <strong>Categories:</strong>
-	                        <select class="form-control select2" name="category[]" multiple>
+	                        <select class="form-control select2" name="category[]">
 	                                <option value="">Choose An Category</option>
 	                            @foreach($categoryList as $category)
                              	<option value="{{$category->id}}">{{$category->name}}</option>
@@ -70,15 +70,6 @@
 	                        </select>
                              <span style="color:red" ></span>
                         </div>
-                        <div class="col-4 form-group">
-                            <strong>Preview Text:</strong>
-                            {{-- <textarea name="previewText" id="" class="form-control" placeholder="Write Preview Text"></textarea> --}}
-                            <div id="editor" contenteditable="true">
-                            </div>
-                            <input type="hidden" name="previewText" id="previewText">
-                             <span style="color:red" ></span>
-                        </div>
-                        
                         <div class="col-4 form-group">
                       	<strong>Call For Price:</strong>
 	                        <select class="form-control " name="callForPrice"  required>
@@ -96,6 +87,13 @@
 	                        </select>
                              <span style="color:red" ></span>
                         </div>
+                        
+                        <div class="col-12 form-group">
+                            <strong>Preview Text:</strong>
+                            <textarea name="previewText" id="" class="ckeditor form-control" placeholder="Write Preview Text"></textarea>
+                             <span style="color:red" ></span>
+                        </div>
+                        
                         <div class="col-12">
                             <h4 class="form-devider">Location</h4>
                         </div>
@@ -113,6 +111,18 @@
                             <strong>Street Address 2:</strong>
                             <input type="text" name="streetAddressTwo" placeholder="Stress Address Two" class="form-control"  required>
                              <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Map Latitude:</strong>
+                            <input type="text" name="latitude" placeholder="Map latiude"
+                                class="form-control" required>
+                            <span style="color:red"></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Map Longitude:</strong>
+                            <input type="text" name="longitude" placeholder="Map Longitude"
+                                class="form-control" required>
+                            <span style="color:red"></span>
                         </div>
                         <div class="col-4 form-group">
                             <strong>Suit/Apertment:</strong>
@@ -167,12 +177,43 @@
                         </div>
                         <div class="col-4 form-group">
                             <strong>Total Units:</strong>
-                            <select class="form-control" name="totalUnit" required>
-                                <option value="">Choose Type</option>
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                            <input type="number" name="totalUnit" value="" class="form-control" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Locker:</strong>
+                            <input type="text" name="locker" class="form-control"  required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>MAINTENANCE FEES:</strong>
+                            <input type="text" name="fees" class="form-control" placeholder="Maintinance Fee" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Exposure:</strong>
+                            <input type="text" name="exposure" class="form-control" placeholder="Exposure" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Balcony:</strong>
+                            <input type="text" name="balcony" class="form-control" placeholder="Exposure" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Kitchen:</strong>
+                            <input type="text" name="kitchen" class="form-control" placeholder="Kitchen" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Parking:</strong>
+                            <input type="text" name="parking" class="form-control" placeholder="Parking" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Style:</strong>
+                            <input type="text" name="style" class="form-control" placeholder="Style" required>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Garage Type:</strong>
+                            <select class="form-control select2" name="garageTypeId" required>
+                                <option value="">Choose State</option>
+                                @foreach ($garageList as $item)
+                                    <option value="{{ $item->id }}">{{ $item->type }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-4 form-group">
@@ -250,7 +291,7 @@
                             <h4 class="form-devider">Images/Video</h4>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Images/Docs/Videos:</strong>
+                            <strong>Cover Image:</strong>
                             <input type="file" name="thumbnail" placeholder="Select documnet" class="form-control"   required>
                              <span style="color:red" ></span>
                         </div>
@@ -271,18 +312,14 @@
     </div>
 </div>
 @endsection
-@push('js')
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-<!-- Initialize Quill editor -->
-<script>
-    var quill = new Quill('#editor', {
-        theme: 'snow'
-    });
-    quill.on('text-change', function(delta, oldDelta, source) {
-        document.getElementById("previewText").value = quill.root.innerHTML;
-    });
-</script>
+@push('js')
+    <!-- Include the CkEditor library -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           $('.ckeditor').ckeditor();
+        });
+    </script>
 @endpush
        

@@ -66,11 +66,11 @@
                                     <tr>
                                         <th class="text-center">{{ ++$key }}</th>
                                         <td>
-                                            <img src="{{ getUserImage($dataInfo->avatar) }}" alt="{{ $dataInfo->name }}"
+                                            <img src="{{ getUserImage($dataInfo->photo) }}" alt="{{ $dataInfo->name }}"
                                                 height="50" width="50"
                                                 style="border-radius: 50%;border: 1px solid green;">
                                         </td>
-                                        <td>{{ $dataInfo->firstName." ".$dataInfo->lastName }}</td>
+                                        <td>{{ $dataInfo->name}}</td>
                                         <td>{{ $dataInfo->titleOne }}</td>
                                         <td>{{ $dataInfo->titleTwo }}</td>
                                         <td>{{ $dataInfo->titleThree }}</td>

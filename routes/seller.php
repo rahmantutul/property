@@ -8,6 +8,7 @@ use App\Http\Controllers\Seller\PropertyController;
 use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Seller\TransectionController;
 use App\Http\Controllers\Admin\MarketActivityController;
+use App\Http\Controllers\Admin\PropertyMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,7 @@ Route::group(['prefix'=>'seller','middleware'=>'SellerAuth','as'=>'seller.'],fun
 	Route::group(['prefix'=>'property','as'=>'property.'],function(){
 
 		Route::get('/',[PropertyController::class,'index'])->name('index');
-
+		Route::get('/message',[PropertyMessageController::class,'index'])->name('message');
 		Route::get('/saved-property',[PropertyController::class,'saved'])->name('saved');
 		
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');

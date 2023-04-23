@@ -4,10 +4,7 @@
 
 <div class="row mb-1">
     <div class="col-8">
-    <h2 class="content-header-title float-left mb-0">Agent List</h2>
-    </div>
-    <div class="col-4 d-flex flex-row-reverse">
-    <a class="btn btn-primary btn-round btn-sm " href="{{route('admin.agent.create')}}">Add New</a>
+    <h2 class="content-header-title float-left mb-0">Message List</h2>
     </div>
 </div>
 <div class="content-body">
