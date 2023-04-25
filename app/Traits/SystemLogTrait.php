@@ -84,7 +84,11 @@ trait SystemLogTrait {
             
             Storage::disk('public')->makeDirectory($folder);
         }
-        Storage::disk('public')->put($folder.'/'.$fileName, $file);
+
+        $destinationPath = '/storage/app/public/'.$folder.'/';
+
+        $file->move($destinationPath,$fileName);
+        // Storage::disk('public')->put($folder.'/'.$fileName, $file);
 
         $path = '/storage/app/public/'.$folder.'/'.$fileName;
 

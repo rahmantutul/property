@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Agent\HelpDeskController;
@@ -96,9 +97,10 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 	});
 
 	Route::group(['prefix'=>'marketActivity','as'=>'marketActivity.'],function(){
-
 		Route::get('/',[MarketActivityController::class,'index'])->name('index');
-
-    
+	});
+	
+	Route::group(['prefix'=>'downloads','as'=>'downloads.'],function(){
+		Route::get('/',[DownloadController::class,'index'])->name('index');
 	});
 });	

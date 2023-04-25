@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DownloadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
 use App\Http\Controllers\Admin\SellerController;
@@ -87,7 +88,10 @@ Route::group(['prefix'=>'seller','middleware'=>'SellerAuth','as'=>'seller.'],fun
 
     
 	});
-
+	
+	Route::group(['prefix'=>'downloads','as'=>'downloads.'],function(){
+		Route::get('/',[DownloadController::class,'index'])->name('index');
+	});
 
 	Route::group(['prefix'=>'transection','as'=>'transection.'],function(){
 

@@ -40,6 +40,12 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
                 </a>
             </li>
+            <li class="nav-item {{getActiveMenuClass('seller.downloads.index')}}?user=1">
+                <a class="d-flex align-items-center" href="{{route('buyer.downloads.index')}}?user=1">
+                    <i data-feather='download'></i>
+                    <span class="menu-title text-truncate" data-i18n="Dashboard">Downloads</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

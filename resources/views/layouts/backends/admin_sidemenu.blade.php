@@ -233,6 +233,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Clear Cache</span>
                     </a>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('admin.downloads.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.downloads.index')}}">
+                        <i data-feather='download'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Downloads</span>
+                    </a>
+                </li>
 
             </ul>
     </div>

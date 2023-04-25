@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -57,8 +58,10 @@ class PropertyController extends Controller
                         'agentId' => 0,
                         'buyerId' => 0,
                         'sellerId' => 0,
-                        'typeId' => 1,
+                        'adminId' => 0,
+                        'neighbourhoodId' => 1,
                         'garageTypeId' => 1,
+                        'user_id' => 1,
                         'mlsId' => Str::random(10),
                         'title' => $data['OriginatingSystemName'],
                         'slug' => Str::slug($data['OriginatingSystemName']),
@@ -75,7 +78,7 @@ class PropertyController extends Controller
                     DB::commit();
                 }
 
-            } catch (ClientErrorResponseException $e) {
+            } catch (Exception $e) {
                 DB::rollback();
                 \log($e->getMessage());
             }

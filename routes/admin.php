@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AmenityTypeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\GarageTypeController;
 use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Admin\PropertyController;
@@ -406,6 +407,24 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/create',[MarketActivityController::class,'create'])->name('create');
 
 		Route::delete('{dataId}/delete',[MarketActivityController::class,'destroy'])->name('delete');	
+    
+	});
+
+	Route::group(['prefix'=>'downloads','as'=>'downloads.'],function(){
+
+		Route::get('/',[DownloadController::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[DownloadController::class,'changeStatus'])->name('status.change');
+
+		Route::get('/{dataId}/edit',[DownloadController::class,'edit'])->name('edit');
+
+		Route::post('/update',[DownloadController::class,'update'])->name('update');
+
+		Route::post('/store',[DownloadController::class,'store'])->name('store');
+
+		Route::get('/create',[DownloadController::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[DownloadController::class,'destroy'])->name('delete');	
     
 	});
 

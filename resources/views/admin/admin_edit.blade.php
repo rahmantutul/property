@@ -48,7 +48,6 @@
                         <div class="col-6 form-group">
                             <strong>Role:</strong>
                             <select class="form-control" name="roleId" required>
-                                <option value="">Choose A Role</option>
                             @foreach($roles as $key=>$roleInfo)
                                 <option value="{{$roleInfo->id}}" {{($roleInfo->id==$dataInfo->roleId)?'selected':''}}>{{$roleInfo->name}}</option>
                             @endforeach

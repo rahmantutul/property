@@ -26,9 +26,22 @@
                     @endguest
 
                     <li><a href="{{ route('front.agents') }}">Our Agents</a></li>
-                    <li><a href="">Downloads</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="https://corenyc.com">Contact Us</a></li>
+
+                    @guest
+                    <li><a href="{{ route('front.login') }}">Downloads</a></li>
+                    @else
+                        @if (Auth::user()->user_type==1)
+                        <li><a href="{{ route('admin.downloads.index') }}">Downloads</a></li>
+                        @elseif(Auth::user()->user_type==2)
+                        <li><a href="{{ route('agent.downloads.index') }}">Downloads</a></li>
+                        @elseif(Auth::user()->user_type==3)
+                        <li><a href="{{ route('seller.downloads.index') }}">Downloads</a></li>
+                        @elseif(Auth::user()->user_type==4)
+                        <li><a href="{{ route('buyer.downloads.index') }}">Downloads</a></li>
+                        @endif
+                    @endguest
+                    <li><a href="{{ route('front.contact') }}">About Us</a></li>
+                    <li><a href="{{ route('front.contact') }}">Contact Us</a></li>
                     <li><a href="{{ route('front.signup') }}">Join Us</a></li>
                 </ul>
             </div>
@@ -79,11 +92,24 @@
     @endguest
     <a href="{{ route('front.agents') }}">Our Agents</a>
 
-    <a href="">Downloads</a>
 
-    <a href="">About Us</a>
+    @guest
+        <a href="{{ route('front.login') }}">Downloads</a>
+    @else
+        @if (Auth::user()->user_type==1)
+            <a href="{{ route('admin.downloads.index') }}">Downloads</a>
+        @elseif(Auth::user()->user_type==2)
+            <a href="{{ route('agent.downloads.index') }}">Downloads</a>
+        @elseif(Auth::user()->user_type==3)
+            <a href="{{ route('seller.downloads.index') }}">Downloads</a>
+        @elseif(Auth::user()->user_type==4)
+            <a href="{{ route('buyer.downloads.index') }}">Downloads</a></li>
+        @endif
+    @endguest
 
-    <a href="">Contact Us</a>
+    <a href="{{ route('front.contact') }}">About Us</a>
+
+    <a href="{{ route('front.contact') }}">Contact Us</a>
 
     <a href="{{ route('front.signup') }}">Join Us</a>
     @guest

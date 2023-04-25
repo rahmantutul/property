@@ -209,4 +209,7 @@ class FrontendController extends Controller
             return redirect()->back()->with('errMessage','Something Whent wrong!');
         }
     }
+    public function contact(){
+        return view('frontend.contact');
+    }
 }
