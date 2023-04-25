@@ -239,6 +239,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Downloads</span>
                     </a>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('admin.message.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.message.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">User Message</span>
+                    </a>
+                </li>
 
             </ul>
     </div>

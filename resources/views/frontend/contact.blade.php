@@ -10,27 +10,41 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 mt-5 mb-4">
+            <form method="POST" action="{{ route('admin.message.store') }}"> @csrf
                 <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3 class="p-5" style="color: #4a4a4a; font-weight: 300; font-size: 25px; margin: 0 0 5px;">Send Us what you want to know!</h3>
+                        @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                        @endif
+                        @if(session()->has('errMessage'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name" name="first-name" required="">
+                            <input type="text" class="form-control" placeholder="Name" name="name" required="">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input placeholder="Email" type="email" class="form-control" name="confirm-email" required="">
+                            <input placeholder="Email" type="email" class="form-control" name="email" required="">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <select class="form-control" id="user-type" name="user-type">
+                            <select class="form-control" id="user-type" name="subject">
                                 <option value="" selected="" disabled="">How can we help?</option>
-                                <option value="buyer">Buying and Selling Inquiries</option>
-                                <option value="agent">Become a CORE Agent</option>
-                                <option value="agent">Join the CORE Team</option>
-                                <option value="agent">New Development Inquiries</option>
-                                <option value="agent">Commercial Inquiries</option>
-                                <option value="agent">Others</option>
+                                <option value="Buying and Selling Inquiries">Buying and Selling Inquiries</option>
+                                <option value="Become a CORE Agent">Become a CORE Agent</option>
+                                <option value="Join the CORE Team">Join the CORE Team</option>
+                                <option value="New Development Inquiries">New Development Inquiries</option>
+                                <option value="Commercial Inquiries">Commercial Inquiries</option>
+                                <option value="Others">Others</option>
                             </select>
                         </div>
                     </div>
@@ -45,6 +59,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
     </div>

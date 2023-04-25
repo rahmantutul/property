@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgentContactsTable extends Migration
+class CreateAdminContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateAgentContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('agent_contacts', function (Blueprint $table) {
+        Schema::create('admin_contacts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('agentId');
             $table->string('name');
+            $table->string('subject');
             $table->string('email');
-            $table->string('phone');
             $table->text('message');
-            $table->foreign('agentId')->references('id')->on('agents')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateAgentContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agent_contacts');
+        Schema::dropIfExists('admin_contacts');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
@@ -437,6 +438,12 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 
 		Route::post('/send/message',[HelpDeskController::class,'sendMessage'])->name('sendMessage');
+	});
+
+	Route::group(['prefix'=>'message','as'=>'message.'],function(){
+		Route::get('index',[AdminContactController::class,'index'])->name('index');
+		Route::get('/{dataId}/view',[AdminContactController::class,'view'])->name('view');
+		Route::delete('{dataId}/delete',[AdminContactController::class,'destroy'])->name('destroy');	
 	});
 
 });	

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Auth::routes();
 Route::group(['prefix'=>'agent/message','as'=>'agent.message.'],function(){
     Route::post('/',[AgentContactController::class,'store'])->name('store');
+});
+// Auth::routes();
+Route::group(['prefix'=>'admin/message','as'=>'admin.message.'],function(){
+    Route::post('/',[AdminContactController::class,'store'])->name('store');
 });
 
 // Auth::routes();
