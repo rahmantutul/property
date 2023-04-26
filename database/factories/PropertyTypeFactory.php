@@ -14,7 +14,7 @@ class PropertyTypeFactory extends Factory
     public function definition()
     {
         return [
-            'type'=>$this->faker->realText(50),
+            'type'=>$this->faker->realText(20),
             'status'=>1 
         ];
     }

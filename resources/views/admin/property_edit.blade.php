@@ -47,6 +47,16 @@
                                     required value="{{ $dataInfo->title }}">
                                 <span style="color:red"></span>
                             </div>
+                            <div class="col-4 form-group">
+                                <strong>Property Type:</strong>
+                                <select class="form-control select2" name="typeId">
+                                    <option value="">Choose A Property Type</option>
+                                    @foreach ($properTypeList as $type)
+                                        <option @if($type->id==$dataInfo->typeId) selected @endif value="{{ $type->id }}">{{ $type->type }}</option>
+                                    @endforeach
+                                </select>
+                                <span style="color:red"></span>
+                            </div>
                             @if ($dataInfo->is_featured == 2)
                                 <div class="col-4 form-group">
                                     <strong>MLS ID:</strong>

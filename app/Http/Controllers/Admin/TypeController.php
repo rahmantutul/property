@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\GarageType;
+use App\Models\Type;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
-class GarageTypeController extends Controller
+class TypeController extends Controller
 {
-     use SystemLogTrait;
+    use SystemLogTrait;
     /**
      * Display a listing of the resource.
      *
@@ -21,14 +22,14 @@ class GarageTypeController extends Controller
      */
     public function index()
     {
-        $query=GarageType::whereNull('deleted_at');
+        $query=PropertyType::whereNull('deleted_at');
     
         if(request()->filled('type'))
             $query->where('type','like',request()->type.'%');
 
         $dataList=$query->paginate(100)->withQueryString();
 
-        return view('admin.garage_type_list',compact('dataList'));
+        return view('admin.type_list',compact('dataList'));
     }
 
     /**
@@ -38,7 +39,7 @@ class GarageTypeController extends Controller
      */
     public function create()
     {
-        return view('admin.garage_type_create');
+        return view('admin.type_create');
     }
 
     /**
@@ -55,10 +56,10 @@ class GarageTypeController extends Controller
                 'type' => 'required',
             ],
             [
-                'type.required' => "Please Write Garage Type",
+                'type.required' => "Please Write Property Type",
             ]);
 
-            $dataInfo=new GarageType();
+            $dataInfo=new PropertyType();
 
             $dataInfo->type=$request->type;
 
@@ -68,26 +69,26 @@ class GarageTypeController extends Controller
 
             if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> Garage Type created by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> Property Type created by ".Auth::guard('admin')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'garage_types',$note);
+                $this->storeSystemLog($dataInfo->id, 'types',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>'A New Garage Type Added Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>'A New Property Type Added Successfully.!','url'=>url()->previous()]);
             }
             else{
 
                  DB::rollBack();
 
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Garage Type.!']);
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Property Type.!']);
             }
        }
         catch(Exception $err){
 
             DB::rollBack();
 
-            $this->storeSystemError('GarageTypeController','store',$err);
+            $this->storeSystemError('TypeController','store',$err);
 
             DB::commit();
 
@@ -115,9 +116,9 @@ class GarageTypeController extends Controller
 
     public function edit($dataId)
     {
-        $dataInfo=GarageType::find($dataId);
+        $dataInfo=PropertyType::find($dataId);
 
-        return view('admin.garage_type_edit',compact('dataInfo'));
+        return view('admin.type_edit',compact('dataInfo'));
     }
 
     /**
@@ -136,14 +137,14 @@ class GarageTypeController extends Controller
                 'type' => 'required',
             ],
             [
-                'dataId.required' => "Request Has No Valid Garage Type Id",
-                'type.required' => "Please Write Garage Type Name",
+                'dataId.required' => "Request Has No Valid Property Type Id",
+                'type.required' => "Please Write Property Type Name",
             ]);
 
-            $dataInfo=GarageType::find($request->dataId);
+            $dataInfo=PropertyType::find($request->dataId);
 
             if(empty($dataInfo))
-                return response()->json(['status'=>false ,'msg'=>'Requested Garage Type Info Not Found!']);
+                return response()->json(['status'=>false ,'msg'=>'Requested Property Type Info Not Found!']);
 
             $dataInfo->type=$request->type;
 
@@ -151,26 +152,26 @@ class GarageTypeController extends Controller
 
             if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> Garage Type Info Updated by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> Property Type Info Updated by ".Auth::guard('admin')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'garage_types',$note);
+                $this->storeSystemLog($dataInfo->id, 'types',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>'Garage Type Information Updated Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>'Property Type Information Updated Successfully.!','url'=>url()->previous()]);
             }
             else{
 
                  DB::rollBack();
 
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Garage Type Information!']);
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Property Type Information!']);
             }
        }
         catch(Exception $err){
 
             DB::rollBack();
 
-            $this->storeSystemError('GarageTypeController','update',$err);
+            $this->storeSystemError('TypeController','update',$err);
 
             DB::commit();
 
@@ -188,7 +189,7 @@ class GarageTypeController extends Controller
     {
        DB::beginTransaction();
         
-        $dataInfo=GarageType::find($id);
+        $dataInfo=PropertyType::find($id);
 
         if(!empty($dataInfo)) {
 
@@ -198,19 +199,19 @@ class GarageTypeController extends Controller
 
           if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> Garage Type  info deleted  by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> Property Type  info deleted  by ".Auth::guard('admin')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'garage_types',$note);
+                $this->storeSystemLog($dataInfo->id, 'types',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>'Garage Type Info deleted Successfully.!']);
+                return response()->json(['status'=>true ,'msg'=>'Property Type Info deleted Successfully.!']);
             }
             else{
 
                  DB::rollBack();
 
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Delete Garage Type Info!']);
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Delete Property Type Info!']);
             }
         }
         else{
@@ -220,7 +221,7 @@ class GarageTypeController extends Controller
     public function changeStatus(Request $request)
     {
         DB::beginTransaction();
-        $dataInfo=GarageType::find($request->dataId);
+        $dataInfo=PropertyType::find($request->dataId);
 
         if(!empty($dataInfo)) {
 
@@ -230,13 +231,13 @@ class GarageTypeController extends Controller
 
           if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> ".$dataInfo->name." Garage Type status changed by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> ".$dataInfo->name." Property Type status changed by ".Auth::guard('admin')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'garage_types',$note);
+                $this->storeSystemLog($dataInfo->id, 'types',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>' Garage Type Status Changed Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>' Property Type Status Changed Successfully.!','url'=>url()->previous()]);
             }
             else{
 

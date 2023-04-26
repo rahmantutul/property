@@ -183,6 +183,12 @@
                                 <span class="menu-item text-truncate" data-i18n="Sellers">Garage Type List</span>
                             </a>
                         </li>
+                        <li class="{{getActiveMenuClass('admin.type.index')}}">
+                            <a class="d-flex align-items-center" href="{{route('admin.type.index')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Sellers">Property Type</span>
+                            </a>
+                        </li>
                     </ul>
                  </li>
                  <li class="nav-item {{getActiveMenuClass('admin.property.saved')}}">

@@ -35,6 +35,16 @@
                             <input type="text" name="title" placeholder="Property Titile" class="form-control" required >
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-4 form-group">
+                            <strong>Property Type:</strong>
+                            <select class="form-control select2" name="typeId">
+                                <option value="">Choose A Property Type</option>
+                                @foreach ($properTypeList as $type)
+                                    <option value="{{ $type->id }}">{{ $type->type }}</option>
+                                @endforeach
+                            </select>
+                            <span style="color:red"></span>
+                        </div>
                         {{-- <div class="col-4 form-group">
                             <strong>MLS ID:</strong>
                             <input type="text" name="mlsId" placeholder="MLS Id" class="form-control"  required>

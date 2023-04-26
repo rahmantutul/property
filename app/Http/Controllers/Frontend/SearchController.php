@@ -9,6 +9,7 @@ use App\Models\PropertyAddress;
 use App\Models\PropertyDetails;
 use App\Models\PropertyCategory;
 use App\Http\Controllers\Controller;
+use App\Models\PropertyType;
 
 class SearchController extends Controller
 {
@@ -26,18 +27,24 @@ class SearchController extends Controller
             'keyword' => 'nullable|string',
         ]);
 
-        $dataList = Property::with('propertyCategory', 'details', 'address')
+        $dataList = Property::with('propertyCategory', 'details', 'address','neighbour','typeInfo')
             ->whereHas('propertyCategory', function ($q) {
                 if (request()->filled('category')) {
                     $q->where('categoryId', request()->category);
                 }
             })
             ->whereHas('details', function ($q) {
-                if (request()->filled('beds')) {
-                    $q->where('numOfBedroom', request()->beds);
+                if (request()->filled('bed')) {
+                    $q->where('numOfBedroom', request()->bed);
                 }
                 if (request()->filled('baths')) {
                     $q->where('numOfBathroom', request()->baths);
+                }
+            })
+            ->whereHas('neighbour', function ($q) {
+                if (request()->filled('keyword')) {
+                    $q->where('name', 'like', '%' . request()->keyword . '%');
+                        // ->orWhere('streetAddressTwo', 'like', '%' . request()->keyword . '%');
                 }
             })
             ->whereHas('address', function ($q) {
@@ -54,6 +61,11 @@ class SearchController extends Controller
                     $q->where('price', '<=', request()->max_price);
                 }
             })
+            ->where(function ($q) {
+                if (request()->filled('featured_property')) {
+                    $q->where('is_featured', 2);
+                }
+            })
             ->whereNull('deleted_at')
             ->where('status', 1)
             ->paginate(10);
@@ -61,7 +73,9 @@ class SearchController extends Controller
         //categories data
         $categories=Category::whereNull('deleted_at')->where('status',1)->get();
 
-        return view('frontend.propery_search_result', compact(['dataList', 'categories']));
+        $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+
+        return view('frontend.propery_search_result', compact(['dataList', 'categories','types']));
 
     }
 

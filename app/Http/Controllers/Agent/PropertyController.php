@@ -242,8 +242,8 @@ class PropertyController extends Controller
 
         $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
 
-        $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
-
+        $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+        
         $dataInfo=Property::with('agentInfo','garageList','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);

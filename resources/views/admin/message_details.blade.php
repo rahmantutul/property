@@ -15,7 +15,7 @@
                 <div class="card-body invoice-padding pb-0">
                     <div class="text-center">
                         <img src="{{asset('')}}assets/frontend/images/logo.png" alt="US Metro Reilty" style="height:120px;">
-                        <h4 class=" bg-light-info text-uppercase text-dark mt-1" style="padding:12px">Message Details</h4>
+                        <h4 class="bg-light-info text-uppercase text-dark mt-1" style="padding:12px">Message Details</h4>
                     </div>
                     <!-- Header starts -->
                     <div class="d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0">

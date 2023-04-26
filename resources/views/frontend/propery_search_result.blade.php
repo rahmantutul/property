@@ -12,10 +12,10 @@
                 <option value="address">Address</option>
             </select> --}}
             <input type="text" name="neighbourhood" placeholder="Enter Neighbourhood">
-            <select name="category">
-                @foreach ($categories as $item)
-                    <option value="">Select Category</option>
-                    <option value="{{$item->id}}">{{$item->name}}</option>
+            <select name="type">
+                <option value="">Select Peoperty Type</option>
+                @foreach ($types as $item)
+                    <option value="{{$item->id}}">{{$item->type}}</option>
                 @endforeach
             </select>
             <select name="min_price">

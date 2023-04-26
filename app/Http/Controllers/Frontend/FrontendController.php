@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Neighbor;
 use App\Models\PropertyMessage;
+use App\Models\PropertyType;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +29,8 @@ class FrontendController extends Controller
             ->latest('mlsId')
             ->limit(10)
             ->get();
-        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties'));
+        $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types'));
     }
 
     public function login()
@@ -117,6 +119,7 @@ class FrontendController extends Controller
             'address',
             'propertyImages',
             'neighbour',
+            'typeInfo',
             'gargaeInfo',
             'propertyCategory'=>function($q){
                 return $q->with('category')->get();
@@ -147,9 +150,8 @@ class FrontendController extends Controller
                     }
                 },
             ]);
-
         if (request()->filled('searchKey')) {
-            $query->where('title', 'like', request()->searchKey . '%');
+            $query->where('title', 'like', request()->searchKey.'%');
         }
 
         if (request()->filled('typeId')) {
@@ -159,9 +161,7 @@ class FrontendController extends Controller
         if (request()->filled('price')) {
             $query->where('price', '<=', request()->price);
         }
-
-        $query
-            ->whereHas('details', function ($q) {
+        $query->whereHas('details', function ($q) {
                 if (request()->filled('bed')) {
                     $q->where('numOfBedroom', request()->bed);
                 }
@@ -180,7 +180,11 @@ class FrontendController extends Controller
             ->where('status', 1)
             ->get();
 
-        return view('frontend.propery_search_result', compact(['dataList', 'categories']));
+        $types= PropertyType::whereNull('deleted_at')
+            ->where('status', 1)
+            ->get();
+
+        return view('frontend.propery_search_result', compact(['dataList', 'categories','types']));
     }
 
     public function property_message(Request $request){

@@ -44,12 +44,18 @@
                             <option value="2">2+ Beds</option>
                             <option value="3">3+ Beds</option>
                             <option value="4">4+ Beds</option>
+                            <option value="5">5+ Beds</option>
+                            <option value="6">6+ Beds</option>
+                            <option value="7">7+ Beds</option>
+                            <option value="8">8+ Beds</option>
                         </select>
                         <select class="custom-select" name="bathroom">
                             <option value="">Bathrooms</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                         <div class="expand-btn">
                             <i class="fa fa-cog"></i>
@@ -60,11 +66,9 @@
                         <div class="for_sale  mt-3 f-left">
                             <select name="for_sale" class="custom-select" id="spe_sel1" name="typeId">
                                 <option value="">Any</option>
-                                <option value="For Sale">For sale</option>
-                                <option value="For Lease">For Lease</option>
-                                <option value="Sold Listing">Sold Listing</option>
-                                <option value="New Listing">New Listing</option>
-                                <option value="Broker Listing">Broker Listing</option>
+                                @foreach ($types as $item)
+                                <option value="{{ $item->id }}">{{ $item->type }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="property_types mt-3 f-left">

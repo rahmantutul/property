@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Admin\ResoPropertyController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Controllers\InboxController;
 
@@ -265,6 +266,25 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/create',[GarageTypeController::class,'create'])->name('create');
 
 		Route::delete('{dataId}/delete',[GarageTypeController::class,'destroy'])->name('delete');
+
+	});
+
+	// for property types
+	Route::group(['prefix'=>'types','as'=>'type.'],function(){
+
+		Route::get('/',[TypeController::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[TypeController::class,'changeStatus'])->name('status.change');
+
+		Route::get('/{dataId}/edit',[TypeController::class,'edit'])->name('edit');
+
+		Route::post('/update',[TypeController::class,'update'])->name('update');
+
+		Route::post('/',[TypeController::class,'store'])->name('store');
+
+		Route::get('/create',[TypeController::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[TypeController::class,'destroy'])->name('delete');
 
 	});
 

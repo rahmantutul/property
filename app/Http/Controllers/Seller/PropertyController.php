@@ -244,6 +244,8 @@ class PropertyController extends Controller
         
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
 
+        $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+        
         $dataInfo=Property::with('agentInfo','garageList','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
@@ -528,11 +530,17 @@ class PropertyController extends Controller
         $dataInfo->cooling=$request->cooling;
         
         $dataInfo->locker=$request->locker;
+
         $dataInfo->fees=$request->fees;
+
         $dataInfo->exposure=$request->exposure;
+
         $dataInfo->balcony=$request->balcony;
+
         $dataInfo->kitchen=$request->kitchen;
+
         $dataInfo->parking=$request->parking;
+
         $dataInfo->style=$request->style;
         
         $dataInfo->fuel=$request->fuel;
