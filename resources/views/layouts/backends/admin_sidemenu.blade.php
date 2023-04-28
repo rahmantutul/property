@@ -1,4 +1,4 @@
-<div class="main-menu menu-dark menu-accordion menu-shadow">
+<div class="main-menu menu-dark menu-accordion menu-shadow" data-scroll-to-active="true" style="overflow-y:auto; position:fixed;">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="{{route('admin.dashboard')}}">
@@ -23,7 +23,7 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
                     </a>
                 </li>
-                <li class=" nav-item">
+                {{-- <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather="settings"></i>
                         <span class="menu-title text-truncate" data-i18n="System Info">System Info</span>
@@ -42,7 +42,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">

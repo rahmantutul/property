@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Traits\SystemLogTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class TransectionController extends Controller
@@ -21,11 +22,16 @@ class TransectionController extends Controller
     public function index()
     {
 
-        $transactions = Transection::all();
+        $transactions = Transection::where('agent_id',Auth::guard('agent')->user()->id)->get();
         
         return view('agent.transection_list', compact('transactions'));
     }
 
+    public function mailview($id)
+    {
+        $transaction = Transection::with('property')->findOrFail($id);
+        return view('admin.email',compact('transaction'));
+    }
     /**
      * Show the form for creating a new resource.
      *

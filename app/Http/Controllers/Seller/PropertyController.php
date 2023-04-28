@@ -18,6 +18,7 @@ use App\Models\PropertyDetails;
 use App\Models\PropertyAmenity;
 use App\Models\PropertyImages;
 use App\Models\SaveProperty;
+use App\Models\State;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -73,7 +74,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -94,9 +95,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        // $request->validate([
+        //     'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
         // dd($request->all());
         DB::beginTransaction();
 
@@ -234,7 +235,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -503,6 +504,31 @@ class PropertyController extends Controller
         $dataInfo->status=1;
 
         return ($dataInfo->save()) ?true:false;
+    }
+    public function storePropertyImages($images,$propertyId)
+    {
+        $count=0;
+       foreach($images as $image){
+
+            $dataInfo=new PropertyImages();
+
+            $dataInfo->propertyId=$propertyId;
+
+            $dataInfo->type='Image';
+
+            $dataInfo->imageUrl=$this->uploadPhoto($image,'properties');
+
+            $dataInfo->created_at=Carbon::now();
+
+            if($dataInfo->save()){
+                $count++;
+            }
+            else{
+                $count=0;
+                 break;
+            }
+       }
+       return ($count>0);
     }
 
     public function storePropertyDetails($request,$propertyId)

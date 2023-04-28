@@ -30,7 +30,11 @@ class FrontendController extends Controller
             ->limit(10)
             ->get();
         $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
-        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types'));
+        $neighbours= Neighbor::whereNull('deleted_at')
+        ->where('status', 1)
+        ->get();
+
+        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types','neighbours'));
     }
 
     public function login()
@@ -137,44 +141,53 @@ class FrontendController extends Controller
 
     public function searchProperty()
     {
-        $query = Property::whereNull('deleted_at')
-            ->where('status', 1)
-            ->with([
-                'details' => function ($q) {
-                    if (request()->filled('bed')) {
-                        $q->where('numOfBedroom', request()->bed);
-                    }
-
-                    if (request()->filled('numOfBathroom')) {
-                        $q->where('numOfBathroom', request()->bathroom);
-                    }
-                },
-            ]);
-        if (request()->filled('searchKey')) {
-            $query->where('title', 'like', request()->searchKey.'%');
-        }
-
-        if (request()->filled('typeId')) {
-            $query->where('typeId', request()->typeId);
-        }
-
-        if (request()->filled('price')) {
-            $query->where('price', '<=', request()->price);
-        }
-        $query->whereHas('details', function ($q) {
-                if (request()->filled('bed')) {
-                    $q->where('numOfBedroom', request()->bed);
-                }
-
-                if (request()->filled('numOfBathroom')) {
-                    $q->where('numOfBathroom', request()->bathroom);
-                }
-            })
-            ->orderBy('price', 'asc')
-            ->get();
-
-        $dataList = $query;
-
+        // dd(request()->all());
+        $dataList = Property::with('propertyCategory', 'details', 'address','neighbour','typeInfo')
+        ->whereHas('propertyCategory', function ($q) {
+            if (request()->filled('category')) {
+                $q->where('categoryId', request()->category);
+            }
+        })
+        ->whereHas('details', function ($q) {
+            if (request()->filled('bed')) {
+                $q->where('numOfBedroom', request()->bed);
+            }
+            if (request()->filled('bathroom')) {
+                $q->where('numOfBathroom', request()->bathroom);
+            }
+        })
+        ->whereHas('address', function ($q) {
+            if (request()->filled('searchKey')) {
+                $q->where('streetAddressOne', 'like', '%' . request()->searchKey . '%')
+                    ->orWhere('streetAddressTwo', 'like', '%' . request()->searchKey . '%');
+            }
+        })
+        ->orWhere(function ($q) {
+            if (request()->filled('searchKey')) {
+                $q->where('title', 'like', '%' . request()->searchKey . '%');
+            }
+        })
+        ->where(function ($q) {
+            if (request()->filled('typeId')) {
+                $q->where('typeId', request()->typeId);
+            }
+        })
+        ->whereHas('neighbour', function ($q) {
+            if (request()->filled('neighbourhoodId')) {
+                $q->where('neighbourhoodId',request()->neighbourhoodId);
+                    // ->orWhere('streetAddressTwo', 'like', '%' . request()->keyword . '%');
+            }
+        })
+        ->where(function ($q) {
+            if (request()->filled('price')) {
+                $q->where('price', '<=', request()->price);
+            }
+        })
+        ->whereNull('deleted_at')
+        ->orderBy('price', 'asc')
+        ->paginate(10);
+        
+        // dd($dataList);
         //categories data
         $categories = Category::whereNull('deleted_at')
             ->where('status', 1)
@@ -183,8 +196,11 @@ class FrontendController extends Controller
         $types= PropertyType::whereNull('deleted_at')
             ->where('status', 1)
             ->get();
+        $neighbours= Neighbor::whereNull('deleted_at')
+            ->where('status', 1)
+            ->get();
 
-        return view('frontend.propery_search_result', compact(['dataList', 'categories','types']));
+        return view('frontend.propery_search_result', compact(['dataList', 'categories','types','neighbours']));
     }
 
     public function property_message(Request $request){

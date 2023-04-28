@@ -1,34 +1,10 @@
-<style>
-    /* width */
-    ::-webkit-scrollbar {
-      width: 16px;
-    }
-    
-    /* Track */
-    ::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 5px grey; 
-      border-radius: 10px;
-    }
-     
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #6e62f6; 
-      border-radius: 10px;
-    }
-    
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #8681b9; 
-    }
-</style>
-
 <div>
     <div class="row justify-content-center">
         @if(auth()->user()->is_admin == true)
             <div class="col-md-3 ">
-                <div class="card" style="background: #BB8FCE;">
+                <div class="card" style="background: #C3F5E9;">
                     <div class="card-header">
-                       <b style="color:#000;">Get Start Message</b>
+                       Get Start Message
                     </div>
                     <div class="card-body chatbox p-0">
                         <ul class="list-group list-group-flush">
@@ -36,8 +12,9 @@
                                 @php
                                     $not_seen = \App\Models\Message::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
                                 @endphp
+                                <a href="{{ route('admin.helpDesk.show', $user->id) }}" class="text-dark link">
                                     <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
-                                        <img class="img-fluid avatar" style="height:40px; width:40px;" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png"> 
+                                        <img class="img-fluid avatar" style="height:40px; width:40px;" src="{{getUserImage($user->avatar)}}"> 
                                         @if($user->is_online) <i class="fa fa-circle text-success online-icon"></i> @endif 
                                         &nbsp; <small>{{ $user->email }}</small>
                                         @if($user->user_type==2)
@@ -69,7 +46,7 @@
                             <div class="single-message @if($message->user_id !== auth()->id()) received @else sent @endif">
                                 <p class="font-weight-bolder my-0">{{ $message->user->name }}</p>
                                 <p class="my-0">{{ $message->message }}</p>
-                                @if (isPhoto($message->file))
+                                {{-- @if (isPhoto($message->file))
                                     <div class="w-100 my-2">
                                         <img class="img-fluid rounded" loading="lazy" style="height: 250px" src="{{ $message->file }}">
                                     </div>
@@ -85,7 +62,7 @@
                                             {{ $message->file_name }}
                                         </a>
                                     </div>
-                                @endif
+                                @endif --}}
                                 <small class="text-muted w-100">Sent <em>{{ $message->created_at }}</em></small>
                             </div>
                         @endforeach
@@ -101,7 +78,7 @@
                         <div wire:loading wire:target="file">
                             Uploading file . . .
                         </div>
-                          @if($file)
+                        @if($file)
                                 <div class="mb-2">
                                    You have an uploaded file <button type="button" wire:click="resetFile" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Remove {{ $file->getClientOriginalName() }}</button>
                                 </div>
@@ -112,7 +89,7 @@
                             <div class="col-md-7">
                                 <input wire:model="message" class="form-control input shadow-none w-100 d-inline-block" placeholder="Type a message" @if(!$file) required @endif>
                             </div>
-                            @if(empty($file))
+                            {{-- @if(empty($file))
                                 <div class="col-md-1">
                                     <button type="button" class="border" id="file-area">
                                         <label>
@@ -121,7 +98,7 @@
                                         </label>
                                     </button>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div class="col-md-4">
                                 <button class="btn btn-primary d-inline-block w-100"><i class="far fa-paper-plane"></i> Send</button>
                             </div>

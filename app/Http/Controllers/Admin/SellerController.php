@@ -361,4 +361,35 @@ class SellerController extends Controller
             return response()->json(['status'=>false ,'msg'=>'Something Went Wrong.Please Try Again.!']);
         }
     }
+
+    public function changeStatus(Request $request)
+    {
+        DB::beginTransaction();
+        $dataInfo=Seller::find($request->dataId);
+
+        if(!empty($dataInfo)) {
+
+        User::find($dataInfo->user_id)->update(['status'=>$request->status,'updated_at'=>Carbon::now()]);
+
+          if($dataInfo->save()){
+
+                $note=$dataInfo->id."=> ".$dataInfo->name." Seller status changed by ".Auth::guard('admin')->user()->name;
+
+                $this->storeSystemLog($dataInfo->id, 'sellers',$note);
+
+                DB::commit();
+
+                return response()->json(['status'=>true ,'msg'=>' Seller Status Changed Successfully.!','url'=>url()->previous()]);
+            }
+            else{
+
+                 DB::rollBack();
+
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Change Status!']);
+            }
+        }
+        else{
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+        }
+    }
 }

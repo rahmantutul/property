@@ -47,7 +47,7 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/property/details/{id}',[FrontendController::class,'propertyDetails'])->name('propertyDetails');
     Route::get('/signup',[FrontendController::class,'signup'])->name('signup');
     Route::get('/property/search',[FrontendController::class,'searchProperty'])->name('propertySearch');
-    Route::post('/property/page/search',[SearchController::class,'searchProperty'])->name('propertyPageSearch');
+    Route::any('/property/page/search',[SearchController::class,'searchProperty'])->name('propertyPageSearch');
     Route::get('/agents',[FrontendController::class,'agents'])->name('agents');
     Route::get('/agents-details/{username}',[FrontendController::class,'agentDetails'])->name('agentDetails');
     Route::get('/save-property/{id}', [SavePropertyController::class, 'saveProperty'])->name('saveProperty');
@@ -80,6 +80,6 @@ Route::group(['prefix'=>'admin/message','as'=>'admin.message.'],function(){
 Route::group(['prefix'=>'property/message','as'=>'property.'],function(){
     Route::post('/',[FrontendController::class,'property_message'])->name('message.store');
     Route::get('{dataId}/view',[PropertyMessageController::class,'message_view'])->name('message.view');
-    Route::get('{id}/delete',[PropertyMessageController::class,'message_delete'])->name('message.delete');
+    Route::any('{dataId}/delete',[PropertyMessageController::class,'message_delete'])->name('message.delete');
 });
 Route::get('/{dataId}/blog-details',[HomeController::class,'blogDetails'])->name('marketActivity.details');

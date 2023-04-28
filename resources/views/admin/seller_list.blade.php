@@ -77,8 +77,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{route('admin.seller.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} btn_status_change" title="Change Status">
-                                        {!!getStatusChangeIcon($dataInfo->status)!!}
+                                    <a href="{{route('admin.seller.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo?->user?->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo?->user?->status)}} btn_status_change" title="Change Status">
+                                        {!!getStatusChangeIcon($dataInfo?->user?->status)!!}
                                     </a>
                                     <a href="{{route('admin.seller.edit',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
                                         <i data-feather='edit'></i>

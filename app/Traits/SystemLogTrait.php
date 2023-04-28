@@ -20,7 +20,6 @@ trait SystemLogTrait {
 
         $logInfo=new SystemLog();
 
-        // $logInfo->staffId=Auth::guard('staff')->user()->id;
 
         $logInfo->staffId=1;
 
@@ -53,7 +52,6 @@ trait SystemLogTrait {
 
     public function uploadPhoto($image,$folder)
     {
-        // $image=$request->file('photo');
 
         $imageName = uniqid(). "." . $image->getClientOriginalExtension();
 
@@ -70,12 +68,6 @@ trait SystemLogTrait {
         return config('app.url').$path;
     }
 
-    public function seedBookingRequestValidation($request)
-    {
-        foreach($request->farmers as $key=>$farmer){
-
-        }
-    }
     public function fileUpload($file,$folder)
     {
         $fileName = uniqid(). "." . $file->getClientOriginalExtension();
@@ -84,10 +76,12 @@ trait SystemLogTrait {
             
             Storage::disk('public')->makeDirectory($folder);
         }
+		
+        Storage::disk('public')->put($folder.'/'.$fileName, file_get_contents($file));
 
         $destinationPath = '/storage/app/public/'.$folder.'/';
 
-        $file->move($destinationPath,$fileName);
+       // $file->move($destinationPath,$fileName);
         // Storage::disk('public')->put($folder.'/'.$fileName, $file);
 
         $path = '/storage/app/public/'.$folder.'/'.$fileName;

@@ -27,7 +27,7 @@
             <div class="image-box">
                 <img src="{{ $dataInfo->photo }}" alt="Your Image">
                 <div class="hover-content">
-                    <h2>{{ $dataInfo->name }}"</h2>
+                    <h2>{{ $dataInfo->name }}</h2>
                     <a href="{{ route('front.neighbourDetails',['dataId'=>$dataInfo->id]) }}" class="learn_more_btn">
                         <div class="button_lm">
                             <div class="f-left left_btn">Learn More</div>

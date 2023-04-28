@@ -13,11 +13,17 @@ class PropertyMessageController extends Controller
     public function index(){
         $query= PropertyMessage::with('property');
         // dd($query);
-        $dataList= $query->where('user_id',Auth::user()->id)->latest()->paginate('40');
+        if(Auth::user()->user_type==1){
+            $dataList= $query->latest()->paginate('40');
+            
+        }else{
+            $dataList= $query->where('user_id',Auth::user()->id)->latest()->paginate('40');
+        }
+        
         return view('admin.property_message',compact('dataList'));
     }
     public function message_view($dataId){
-        $dataInfo= PropertyMessage::find($dataId)->with('property')->first();
+        $dataInfo= PropertyMessage::with('property')->findOrFail($dataId);
         // dd($dataInfo);
         return view('admin.message_details',compact('dataInfo'));
     }

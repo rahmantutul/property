@@ -255,20 +255,19 @@ class BuyerController extends Controller
 
     public function changeStatus(Request $request)
     {
+ 
         DB::beginTransaction();
+
         $dataInfo=Buyer::find($request->dataId);
 
         if(!empty($dataInfo)) {
-
-          $dataInfo->status=$request->status;
-          
-          $dataInfo->updated_at=Carbon::now();
+            $user=User::find($dataInfo->user_id)->update(['status'=>$request->status,'updated_at'=>Carbon::now()]);
 
           if($dataInfo->save()){
 
                 $note=$dataInfo->id."=> ".$dataInfo->name." Buyer status changed by ".Auth::guard('admin')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'Buyers',$note);
+                $this->storeSystemLog($dataInfo->id, 'buyers',$note);
 
                 DB::commit();
 
@@ -285,6 +284,7 @@ class BuyerController extends Controller
            return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
         }
     }
+
 
 
     public function changeApprove(Request $request)

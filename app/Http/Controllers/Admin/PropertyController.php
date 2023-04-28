@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\GarageType;
 use App\Models\PropertyImages;
+use App\Models\State;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -78,7 +79,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -245,7 +246,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         

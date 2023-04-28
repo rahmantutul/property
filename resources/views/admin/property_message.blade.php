@@ -68,7 +68,7 @@
                                     <a href="{{route('property.message.view',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="View Details">
                                         <i data-feather='eye'></i>
                                     </a>
-                                    <a href="{{route('property.message.delete',$dataInfo->id)}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
+                                    <a href="{{route('property.message.delete',['dataId'=>$dataInfo->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($dataInfo->status)}} delete" title="Delete">
                                         <i data-feather='trash-2'></i>
                                     </a>
                                 </td>

@@ -5,57 +5,47 @@
 
 @section('content')
 <section class="search_box_filter">
-    <form id="listing-search-form" action="{{route('front.propertyPageSearch')}}" method="POST">@csrf
+    <form id="listing-search-form" action="{{route('front.propertyPageSearch')}}" method="POST"> @csrf
         <div class="adv_search-form">
-            {{-- <select name="neighbourhood-type">
-                <option value="neighbourhood">Neighbourhood</option>
-                <option value="address">Address</option>
-            </select> --}}
-            <input type="text" name="neighbourhood" placeholder="Enter Neighbourhood">
-            <select name="type">
+            <input type="text" name="searchKey" placeholder="Enter Any Text">
+            <select name="typeId">
                 <option value="">Select Peoperty Type</option>
                 @foreach ($types as $item)
                     <option value="{{$item->id}}">{{$item->type}}</option>
                 @endforeach
             </select>
-            <select name="min_price">
-                <option value="any">Min. Price</option>
-                <option value="50000">$50,000</option>
-                <option value="100000">$100,000</option>
-                <option value="150000">$150,000</option>
-                <option value="200000">$200,000</option>
-            </select>
-            <select name="max_price">
-                <option value="any">Max. Price</option>
-                <option value="500000">$500,000</option>
-                <option value="1000000">$1,000,000</option>
-                <option value="1500000">$1,500,000</option>
-                <option value="2000000">$2,000,000</option>
-            </select>
+            <input type="number" name="min_price" placeholder="Min. Price">
+            <input type="number" name="max_price" placeholder="Max. Price">
             <select name="beds">
                 <option value="any">Beds</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                <option value="">Any Beds</option>
+                <option value="1">1+ Beds</option>
+                <option value="2">2+ Beds</option>
+                <option value="3">3+ Beds</option>
+                <option value="4">4+ Beds</option>
+                <option value="5">5+ Beds</option>
+                <option value="6">6+ Beds</option>
+                <option value="7">7+ Beds</option>
+                <option value="8">8+ Beds</option>
             </select>
             <select name="baths">
-                <option value="any">Baths</option>
+                <option value="">Bathrooms</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
+                <option value="5">5</option>
             </select>
         </div>
         <div class="filter_adv_search">
             <div class="button-group">
                 <div class="toggle-button">
-                    <span>HK LISTING ONLY</span>
+                    <span>ALL MLS LISTING</span>
                     <label class="switch">
                         <input type="checkbox" name="featured_property">
                         <span class="slider round"></span>
                     </label>
-                    <span>ALL MLS LISTING</span>
+                    <span>HK LISTING ONLY</span>
                 </div>
                 <div class="toggle-button">
                     <span>FOR SALE</span>
@@ -168,6 +158,7 @@
         </div>
     @endforeach
 </div>
+{{ $dataList->links('vendor.pagination.custom') }}
 </section>
        
 @endsection

@@ -83,6 +83,8 @@ Route::group(['prefix'=>'agent','middleware'=>'AgentAuth','as'=>'agent.'],functi
 		Route::get('/create',[TransectionController::class,'create'])->name('create');
 
 		Route::delete('{dataId}/delete',[TransectionController::class,'destroy'])->name('delete');	
+		
+		Route::get('mail/view/{id}',[TransectionController::class,'mailview'])->name('mail.view');
 
 	});
 

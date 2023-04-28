@@ -5,12 +5,12 @@
 
 @section('content')
 <section class="featured_list br_common overlay" style="background-image: url('{{asset('')}}assets/frontend/images/neighbourhood-single_bg.jpg');">
-    <h1>King West</h1>
+    <h1>{{ $dataInfo->name }}</h1>
     <ul>
         <li><a href="">Share This</a></li>
-        <li><a href=""><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-        <li><a href=""><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-        <li><a href=""><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.facebook.com/" target="__blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href="https://twitter.com/"  target="__blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li><a href="https://www.google.com/intl/en-GB/gmail/about/" target="__blank"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
     </ul>
     <p>
         <i>
@@ -95,7 +95,7 @@
                                 <h2>FOR SALE: {{(!is_null($dataInfo->details)) ? $dataInfo->details->totalUnit.','.$dataInfo->details->squareFeet:''}}</h2>
                                 <h5><span><i class="fa fa-bed"></i>{{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBedroom:''}} BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBathroom:''}} Baths</span></h5>
         
-                                <a href="" class="learn_more_btn">
+                                <a href="{{ route('front.propertyDetails', $id=$dataInfo->id) }}" class="learn_more_btn">
                                     <div class="button_lm">
                                         <div class="f-left left_btn">Learn More</div>
                                         <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
