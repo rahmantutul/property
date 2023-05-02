@@ -16,26 +16,26 @@
                             <span class="property_status">For Sale</span>
                         </div>
                         <div class="fancy-title">
-                            <h3 class="title caps">{{ $dataInfo->title }}</h3>
+                            <h3 class="title caps">{{ $dataInfo->PropertySubType }}</h3>
                         </div>
                     </div>
                     <!--- Features ---->
                     <div class="redmeta-wrap">
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-flag"></i></h1>
-                            <h3 class="caps"><strong>Type: {{ $dataInfo->typeInfo?->type }}</strong></h3>
+                            <h3 class="caps"><strong>Type: {{ $dataInfo->PropertyType}}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-dollar"></i></h1>
-                            <h3 class="caps"><strong>PRICE: {{ $dataInfo->price }}</strong></h3>
+                            <h3 class="caps"><strong>PRICE: {{ $dataInfo->ListPrice }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-bed"></i></h1>
-                            <h3 class="caps"><strong>BEDS: {{ $dataInfo->details?->numOfBedroom }}</strong></h3>
+                            <h3 class="caps"><strong>BEDS: {{ $dataInfo->BedroomsTotal }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-tint"></i></h1>
-                            <h3 class="caps"><strong>BATHS: {{ $dataInfo->details?->numOfBathroom }}</strong></h3>
+                            <h3 class="caps"><strong>BATHS: {{ $dataInfo->BathroomsTotalInteger }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-calculator"></i></h1>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-md-8">
 
-                    <!-- Slideshow container -->
+                    {{-- <!-- Slideshow container -->
                     <div class="slideshow-container" style="margin-top: 10px; max-width: 1200px">
 
                         <!-- Full-width images with number and caption text -->
@@ -67,7 +67,7 @@
                         @foreach ($dataInfo->propertyImages as $item)
                             <span class="dot" onclick="currentSlide({{$loop->iteration}})"></span>
                         @endforeach
-                    </div>
+                    </div> --}}
 
 
                     <!----- Property Summery ------------>
@@ -76,7 +76,7 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">PARKING:</h4>
-                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->parking }}</strong></h4>
+                                    <h4 class="red-text"><strong>{{ ($dataInfo->ParkingTotal==NUll)?'Not Available' : $dataInfo->ParkingTotal }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
@@ -96,14 +96,14 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">SQUARE FOOTAGE:</h4>
-                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->squareFeet }} square feet</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->LotSizeSquareFeet }} square feet</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
-                                    <h4 class="caps light">MAINTENANCE FEES:</h4>
-                                    <h4 class="red-text"><strong>Approximately {{ $dataInfo->details?->fees }}
-                                            separately</strong></h4>
+                                    <h4 class="caps light">BUILDING AREA:</h4>
+                                    <h4 class="red-text"><strong>Approximately {{ $dataInfo->BuildingAreaTotal }}
+                                        square feet</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
@@ -129,21 +129,21 @@
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">GARAGE:</h4>
-                                    <h4 class="red-text"><strong>{{ $dataInfo->gargaeInfo?->type }}</strong></h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->GarageType }}</strong></h4>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
-                                    <h4 class="caps light">HEAT SOURCE:</h4>
-                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->heat }}</strong></h4>
+                                    <h4 class="caps light">YEAR BUILD:</h4>
+                                    <h4 class="red-text"><strong>{{ $dataInfo->YearBuilt }}</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
                                 <div class="l-inner">
                                     <h4 class="caps light">AIR CONDITIONING:</h4>
-                                    <h4 class="red-text"><strong>{{ $dataInfo->details?->cooling }}</strong></h4>
+                                    <h4 class="red-text"><strong>YES</strong></h4>
                                 </div>
                             </div>
                             <div class="l-detail col-sm-4 centertext">
@@ -165,14 +165,16 @@
                                 <h3 class="title caps">Description</h3>
                             </div>
                         </div>
-                         {!! $dataInfo->previewText !!}
+                         {!! $dataInfo->PublicRemarks !!} {{ $dataInfo->Directions }} <br>
+                         <b>{{ $dataInfo->BuyerOfficeName }}</b> <br>
+                         <b>{{ $dataInfo->BuyerOfficePhone }}</b>
                         <img decoding="async" style="height:500px;" loading="lazy" class="aligncenter size-full wp-image-6731"
-                            src="{{ $dataInfo->thumbnail }}" alt=""
+                            src="{{getPropertyImage($dataInfo->Photo1URL)}}" alt=""
                             sizes="(max-width: 1920px) 100vw, 1920px" width="1920" height="1281">
                     </div>
 
-                    <div class="hood-section">
-                        <div class="fancy-wrap ">
+                    {{-- <div class="hood-section"> --}}
+                        {{-- <div class="fancy-wrap ">
                             <div class="fancy-icon">
                                 <img src="{{asset('')}}assets/frontend/images/property_details/amenities.svg" width="40">
                             </div>
@@ -201,11 +203,9 @@
                             </div>
                             <div>
                                 {!! $dataInfo->videoUrl !!}
-                                {{-- <iframe width="100%" height="400px" src="{{}}"> --}}
-                                {{-- </iframe> --}}
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
                 <div class="col-md-4">
                     <div class="neighbour_form">
@@ -252,13 +252,13 @@
                         </form>
                     </div>
 
-                    @if ($dataInfo->address?->longitude && $dataInfo->address?->latitude)
+                    @if ($dataInfo->Latitude && $dataInfo->Longitude)
                     <div class="list-location">
                         <h4 class="title centertext">PROPERTY LOCATION</h4>
                     </div>
                     <div style="width: 100%">
                         <iframe scrolling="no" marginheight="0" marginwidth="0"
-                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q={{$dataInfo->address?->latitude}},{{$dataInfo->address?->longitude}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q={{$dataInfo->Latitude}},{{$dataInfo->Longitude}}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                             width="100%" height="600" frameborder="0"><a
                                 href="https://www.maps.ie/distance-area-calculator.html">measure area map</a>
                         </iframe>

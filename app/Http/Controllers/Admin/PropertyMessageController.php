@@ -25,7 +25,7 @@ class PropertyMessageController extends Controller
     public function message_view($dataId){
         $dataInfo= PropertyMessage::with('property')->findOrFail($dataId);
         // dd($dataInfo);
-        return view('admin.message_details',compact('dataInfo'));
+        return view('admin.property_message_details',compact('dataInfo'));
     }
     public function message_delete($id){
         PropertyMessage::find($id)->delete();

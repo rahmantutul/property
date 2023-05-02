@@ -58,7 +58,7 @@
                                     <div class="single-message @if($message->user_id !== auth()->id()) received @else sent @endif">
                                         <p class="font-weight-bolder my-0">{{ $message->user->name }}</p>
                                         <p class="my-0">{{ $message->message }}</p>
-                                        @if (isPhoto($message->file))
+                                        {{-- @if (isPhoto($message->file))
                                             <div class="w-100 my-2">
                                                 <img class="img-fluid rounded" loading="lazy" style="height: 250px" src="{{ $message->file }}">
                                             </div>
@@ -74,7 +74,7 @@
                                                     {{ $message->file_name }}
                                                 </a>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                         <small class="text-muted w-100">Sent <em>{{ $message->created_at }}</em></small>
                                     </div>
                                 @endforeach

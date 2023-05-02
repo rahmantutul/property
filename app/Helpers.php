@@ -34,6 +34,10 @@ function getImage($url)
 {
     return (!is_null($url)) ? $url : asset('images/no_found.png');
 }
+function getPropertyImage($url)
+{
+    return asset('images/property_image.jpg');
+}
 function getActiveMenuClass($routeName)
 {
     return (url()->full() == route($routeName)) ? 'active' : '';

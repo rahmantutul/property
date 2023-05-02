@@ -21,7 +21,7 @@ class ResoApiPropertyController extends Controller
                 'Accept' => 'application/json'
             ]
         ]);
-        // return response()->json($dataList['value'][0]);
+        return response()->json($client['value'][0]);
 
         //try catch block for property add from api
         try {

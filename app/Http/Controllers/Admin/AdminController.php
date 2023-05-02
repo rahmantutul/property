@@ -11,6 +11,8 @@ use App\Traits\SystemLogTrait;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Neighbor;
+use App\Models\NeighbourMessage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -433,5 +435,4 @@ class AdminController extends Controller
                 }
                 
         }
-    
 }

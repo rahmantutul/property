@@ -283,11 +283,11 @@ class PropertyController extends Controller
                  return response()->json(['status'=>false ,'msg'=>'Requested Property Information Not Found!']);
             }
 
-            $dataInfo->agentId=$request->agentId;
+            // $dataInfo->agentId=$request->agentId;
 
-            $dataInfo->buyerId=$request->buyerId;
+            // $dataInfo->buyerId=$request->buyerId;
 
-            $dataInfo->sellerId=$request->sellerId ;
+            // $dataInfo->sellerId=$request->sellerId ;
 
             $dataInfo->typeId=$request->typeId;
 

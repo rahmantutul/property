@@ -18,7 +18,7 @@
         </i>
     </p>
 </section>
-<div class="container">
+<div class="container-fluid">
     <section class="featured_list_box col-md-12">
         <div class="row">
             <div class="col-md-8">
@@ -60,20 +60,30 @@
             </div>
             <div class="col-md-4">
                 <div class="neighbour_form">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    @if(session()->has('errMessage'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <h2>Want To See The Area For Yourself?</h2>
                     <h6>We'd love to show you. Just fill out the form below, and we'll get right back to you.</h6>
-                    <form method="post" action="#">
+                    <form method="post" action="{{ route('neighbour.message.store') }}"> @csrf
                         <div class="form-group">
-                            <input type="text" id="firstName" name="firstName" required placeholder="First Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="lastName" name="lastName" required placeholder="Last Name">
+                            <input type="text" id="firstName" name="name" required placeholder="Name">
                         </div>
                         <div class="form-group">
                             <input type="email" id="email" name="email" required placeholder="Your Email">
                         </div>
                         <div class="form-group">
                             <input type="tel" id="phone" name="phone" required placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" name="message" required="" placeholder="Your Queries"></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit">Send Now</button>
@@ -101,7 +111,11 @@
                                         <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
                                     </div>
                                 </a>
-                                <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
+                                @if ($dataInfo->saveProperty)
+                                    <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star"> Save</i></a>
+                                @else
+                                    <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star-o"> Save</i></a>
+                                @endif
                             </div>
                         </div>
                     </div>

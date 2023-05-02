@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\ResoApiPropertyController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get( '/index', [PropertyController::class,'index'])->name('property.index');
+Route::get( 'property/index', [PropertyController::class,'index'])->name('property.index');
 Route::get( '/store', [ResoApiPropertyController::class,'store'])->name('api.property.store');
 // Route::get('/get-data',[PropertyController::class,'index'])->name('property.index');
 

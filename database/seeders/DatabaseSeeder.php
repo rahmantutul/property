@@ -38,8 +38,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-        Role::factory(1)->create();
-        $this->call(AdminSeeder::class);
+        // Role::factory(1)->create();
+        // $this->call(AdminSeeder::class);
         AmenityType::factory(50)->create();
         Category::factory(5)->create();
         City::factory(5)->create();
@@ -59,6 +59,6 @@ class DatabaseSeeder extends Seeder
         HelpDeskDetails::factory(50)->create();
         // Neighbor::factory(50)->create();
         WebsiteInfo::factory(1)->create();
-        Banner::factory(1)->create();
+        // Banner::factory(1)->create();
     }
 }

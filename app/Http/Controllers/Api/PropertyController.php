@@ -24,9 +24,9 @@ class PropertyController extends Controller
           ]
       ]);
       $response = $client->get('Property');
-
+      
       $data = json_decode($response->getBody(), true);
-
+      dd($data);
     }    
 
 

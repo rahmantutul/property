@@ -33,7 +33,7 @@ class CreatePropertiesTable extends Migration
             $table->string('videoUrl',1000)->nullable();
             $table->string('slug',1000)->nullable();
             $table->string('virtualTour',1000)->nullable();
-            $table->string('previewText',1000)->nullable();
+            $table->text('previewText')->nullable();
             $table->tinyInteger('isHideAddress')->default(1)->comment('1=Yes,0=No')->nullable();
             $table->tinyInteger('callForPrice')->default(1)->comment('1=Yes,0=No')->nullable();
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();

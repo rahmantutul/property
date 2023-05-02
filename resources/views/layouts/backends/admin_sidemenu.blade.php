@@ -251,6 +251,12 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">User Message</span>
                     </a>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('agent.message.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.neighbour.message.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Neibour Message</span>
+                    </a>
+                </li>
 
             </ul>
     </div>

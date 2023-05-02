@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\NeighbourMessageController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Agent\AgentContactController;
 use Illuminate\Support\Facades\Route;
@@ -45,14 +47,15 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/{dataId}/neighbour-details',[FrontendController::class,'neighbourDetails'])->name('neighbourDetails');
     Route::get('/property',[FrontendController::class,'property'])->name('property');
     Route::get('/property/details/{id}',[FrontendController::class,'propertyDetails'])->name('propertyDetails');
+    Route::get('/single-property/details/{id}',[FrontendController::class,'resoPropertyDetails'])->name('resoPropertyDetails');
     Route::get('/signup',[FrontendController::class,'signup'])->name('signup');
     Route::get('/property/search',[FrontendController::class,'searchProperty'])->name('propertySearch');
     Route::any('/property/page/search',[SearchController::class,'searchProperty'])->name('propertyPageSearch');
     Route::get('/agents',[FrontendController::class,'agents'])->name('agents');
-    Route::get('/agents-details/{username}',[FrontendController::class,'agentDetails'])->name('agentDetails');
+
     Route::get('/save-property/{id}', [SavePropertyController::class, 'saveProperty'])->name('saveProperty');
 });
-
+Route::get('/{username}',[FrontendController::class,'agentDetails'])->name('agentDetails');
 
 Route::get('/login',[LoginController::class,'loginPage'])->name('login')->middleware('AuthCheck');
 Route::post('/login',[LoginController::class,'login'])->name('login');
@@ -70,6 +73,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Auth::routes();
 Route::group(['prefix'=>'agent/message','as'=>'agent.message.'],function(){
     Route::post('/',[AgentContactController::class,'store'])->name('store');
+});
+// Auth::routes();
+Route::group(['prefix'=>'neighbour/message','as'=>'neighbour.message.'],function(){
+    Route::post('/',[NeighbourMessageController::class,'store'])->name('store');
+    
 });
 // Auth::routes();
 Route::group(['prefix'=>'admin/message','as'=>'admin.message.'],function(){

@@ -261,6 +261,11 @@
                             <input type="text" name="videoUrl" placeholder="Past URL" class="form-control"  >
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-12 form-group">
+                            <strong>Select Slider Images:</strong>
+                            <input type="file" name="images[]" multiple class="form-control">
+                            <span style="color:red"></span>
+                        </div>
                         <div class="col-12 d-flex flex-row-reverse">
                             <button class="btn btn-primary btn-icon" type="submit">
                                <i data-feather='save'></i> Save

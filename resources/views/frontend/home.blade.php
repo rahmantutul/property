@@ -82,12 +82,11 @@
                             <input type="range" min="0" max="3000000" value="" name="price">
                         </div>
                     </div>
-
             </div>
             <!-- --------/End Search-------------------------->
 
             <div class="slatelink pageslate">
-                <a href="" target="_self">
+                <a href="{{route('front.propertySearch')}}" target="_self">
                     <span class="link-cont">Search Properties</span>
                 </a>
             </div>

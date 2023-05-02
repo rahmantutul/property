@@ -40,7 +40,7 @@
                         <li><a href="{{ route('buyer.downloads.index') }}">Downloads</a></li>
                         @endif
                     @endguest
-                    <li><a href="{{ route('front.contact') }}">About Us</a></li>
+                    {{-- <li><a href="{{ route('front.contact') }}">About Us</a></li> --}}
                     <li><a href="{{ route('front.contact') }}">Contact Us</a></li>
                     <li><a href="{{ route('front.signup') }}">Join Us</a></li>
                 </ul>
@@ -107,7 +107,7 @@
         @endif
     @endguest
 
-    <a href="{{ route('front.contact') }}">About Us</a>
+    {{-- <a href="{{ route('front.contact') }}">About Us</a> --}}
 
     <a href="{{ route('front.contact') }}">Contact Us</a>
 

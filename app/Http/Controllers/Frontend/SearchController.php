@@ -10,6 +10,7 @@ use App\Models\PropertyDetails;
 use App\Models\PropertyCategory;
 use App\Http\Controllers\Controller;
 use App\Models\PropertyType;
+use App\Models\ResoapiProperties;
 
 class SearchController extends Controller
 {
@@ -84,55 +85,44 @@ class SearchController extends Controller
             // dd($request->all());
 
 
-        // $dataList = Property::with('propertyCategory', 'details', 'address','neighbour','typeInfo')
-        //     ->whereHas('propertyCategory', function ($q) {
-        //         if (request()->filled('category')) {
-        //             $q->where('categoryId', request()->category);
-        //         }
-        //     })
-        //     ->whereHas('details', function ($q) {
-        //         if (request()->filled('bed')) {
-        //             $q->where('numOfBedroom', request()->bed);
-        //         }
-        //         if (request()->filled('baths')) {
-        //             $q->where('numOfBathroom', request()->baths);
-        //         }
-        //     })
-        //     ->whereHas('neighbour', function ($q) {
-        //         if (request()->filled('keyword')) {
-        //             $q->where('name', 'like', '%' . request()->keyword . '%');
-        //                 // ->orWhere('streetAddressTwo', 'like', '%' . request()->keyword . '%');
-        //         }
-        //     })
-        //     ->whereHas('address', function ($q) {
-        //         if (request()->filled('keyword')) {
-        //             $q->where('streetAddressOne', 'like', '%' . request()->keyword . '%')
-        //                 ->orWhere('streetAddressTwo', 'like', '%' . request()->keyword . '%');
-        //         }
-        //     })
-        //     ->where(function ($q) {
-        //         if (request()->filled('min_price')) {
-        //             $q->where('price', '>=', request()->min_price);
-        //         }
-        //         if (request()->filled('max_price')) {
-        //             $q->where('price', '<=', request()->max_price);
-        //         }
-        //     })
-        //     ->where(function ($q) {
-        //         if (request()->filled('featured_property')) {
-        //             $q->where('is_featured', 2);
-        //         }
-        //     })
-        //     ->whereNull('deleted_at')
-        //     ->where('status', 1)
-        //     ->paginate(10);
+        $resoDataList = ResoapiProperties::query()
+            ->where(function ($q) {
+                if (request()->filled('bed')) {
+                    $q->where('BedroomsTotal', request()->bed);
+                }
+                if (request()->filled('baths')) {
+                    $q->where('BathroomsTotalInteger', request()->baths);
+                }
+                if (request()->filled('keyword')) {
+                    $q->where('BuyerOfficeName', 'like', '%' . request()->keyword . '%')
+                        ->orWhere('Directions', 'like', '%' . request()->keyword . '%')
+                        ->orWhere('PropertyType', 'like', '%' . request()->keyword . '%')
+                        ->orWhere('PropertySubType', 'like', '%' . request()->keyword . '%')
+                        ->orWhere('PublicRemarks', 'like', '%' . request()->keyword . '%')
+                        ->orWhere('StreetName', 'like', '%' . request()->keyword . '%');
+                }
+                if (request()->filled('min_price')) {
+                    $q->where('ListPrice', '>=', request()->min_price);
+                }
+                if (request()->filled('max_price')) {
+                    $q->where('ListPrice', '<=', request()->max_price);
+                }
+            })
+            ->get();
 
         //categories data
+
+
+
+
+
+
+
         $categories=Category::whereNull('deleted_at')->where('status',1)->get();
 
         $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
 
-        return view('frontend.propery_search_result', compact(['dataList', 'categories','types']));
+        return view('frontend.propery_search_result', compact(['dataList', 'categories','types','resoDataList']));
 
     }
 

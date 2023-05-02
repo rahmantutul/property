@@ -116,7 +116,7 @@ class DownloadController extends Controller
     {
         
         $dataInfo=Downloads::find($dataId);
-        return view('admin.Downloads_edit',compact('dataInfo'));
+        return view('admin.downloads_edit',compact('dataInfo'));
     }
 
     /**

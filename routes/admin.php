@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
+use App\Http\Controllers\Admin\NeighbourMessageController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Admin\ResoPropertyController;
 use App\Http\Controllers\Admin\TypeController;
@@ -464,6 +465,12 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('index',[AdminContactController::class,'index'])->name('index');
 		Route::get('/{dataId}/view',[AdminContactController::class,'view'])->name('view');
 		Route::delete('{dataId}/delete',[AdminContactController::class,'destroy'])->name('destroy');	
+	});
+
+	Route::group(['prefix'=>'neighbour/message','as'=>'neighbour.message.'],function(){
+		Route::get('index',[NeighbourMessageController::class,'index'])->name('index');
+		Route::get('/{dataId}/view',[NeighbourMessageController::class,'view'])->name('view');
+		Route::delete('{dataId}/delete',[NeighbourMessageController::class,'destroy'])->name('destroy');	
 	});
 
 });	

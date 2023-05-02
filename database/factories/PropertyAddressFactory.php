@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use App\Models\Property;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,7 +17,7 @@ class PropertyAddressFactory extends Factory
     {
         return [
             'propertyId' => $this->faker->randomElement(Property::pluck('id')->toArray()),
-            'cityId' => $this->faker->numberBetween(1,30),
+            'cityId' => $this->faker->numberBetween(Country::pluck('id')->toArray()),
             'stateId' => $this->faker->numberBetween(1,30),
             'countryId' => $this->faker->numberBetween(1,30),
             'streetNumber' => $this->faker->realText(200),

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Neighbor;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\ResoapiProperties;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -105,7 +106,7 @@ class FrontendController extends Controller
 
     public function agentDetails(Request $request, $username)
     {
-        // dd($request->all());
+        // dd($username);
         $dataInfo = Agent::where('username', $username)->first();
         // dd($dataInfo);
         $dataList = Property::whereNull('deleted_at')
@@ -137,6 +138,12 @@ class FrontendController extends Controller
             ->findOrFail( $id);
         // dd($dataInfo);
         return view('frontend.property-details', compact('dataInfo'));
+    }
+    public function resoPropertyDetails($id)
+    {
+        $dataInfo = ResoapiProperties::findOrFail( $id);
+        // dd($dataInfo);
+        return view('frontend.reso-property-details', compact('dataInfo'));
     }
 
     public function searchProperty()
@@ -187,6 +194,31 @@ class FrontendController extends Controller
         ->orderBy('price', 'asc')
         ->paginate(10);
         
+
+
+        
+        $resoDataList = ResoapiProperties::query()
+            ->where(function ($q) {
+                if (request()->filled('bed')) {
+                    $q->where('BedroomsTotal', request()->bed);
+                }
+                if (request()->filled('bathroom')) {
+                    $q->where('BathroomsTotalInteger', request()->bathroom);
+                }
+                if (request()->filled('searchKey')) {
+                    $q->where('BuyerOfficeName', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('Directions', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('PropertyType', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('PropertySubType', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('PublicRemarks', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('StreetName', 'like', '%' . request()->searchKey . '%');
+                }
+                if (request()->filled('price')) {
+                    $q->where('ListPrice', '>=', request()->price);
+                }
+            })
+            ->orderBy('ListPrice', 'asc')
+            ->get();
         // dd($dataList);
         //categories data
         $categories = Category::whereNull('deleted_at')
@@ -200,7 +232,7 @@ class FrontendController extends Controller
             ->where('status', 1)
             ->get();
 
-        return view('frontend.propery_search_result', compact(['dataList', 'categories','types','neighbours']));
+        return view('frontend.propery_search_result', compact(['dataList', 'categories','types','neighbours','resoDataList']));
     }
 
     public function property_message(Request $request){

@@ -157,10 +157,29 @@
             </div>
         </div>
     @endforeach
+    @foreach($resoDataList as $key=>$item)
+        <div class="carousel-card col-md-4 mb-4">
+            <div class="image-box">
+                <img src="{{getPropertyImage($item->Photo1URL)}}" alt="{{$item->PropertySubType}}">
+                <div class="hover-content">
+                    <h5>FOR SALE | ${{ $item->ListPrice }}</h5>
+                    {{-- | {{Str::limit($dataInfo?->address?->streetAddressOne, 10)}} --}}
+                        <h2>FOR SALE: {{$item->PropertySubType}}</h2>
+                        <h5><span><i class="fa fa-bed"></i> {{$item->BedroomsTotal}}+ BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{$item->BathroomsTotalInteger}}+ Baths</span></h5>
+                        <a href="{{ route('front.resoPropertyDetails', $id=$item->id) }}" class="learn_more_btn">
+                            <div class="button_lm">
+                                <div class="f-left left_btn">Learn More</div>
+                                <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
+                            </div>
+                        </a>
+                </div>
+            </div>
+        </div>
+    @endforeach
 </div>
 {{ $dataList->links('vendor.pagination.custom') }}
 </section>
-       
+@include('layouts.frontend.footer')
 @endsection
 
 @push('js')
