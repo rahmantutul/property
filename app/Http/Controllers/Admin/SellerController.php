@@ -25,7 +25,35 @@ class SellerController extends Controller
      */
     public function index()
     {
-        $dataList=Seller::with('user')->whereNull('deleted_at')->paginate(10);
+        $query=Seller::whereNull('deleted_at');
+        // dd($query);
+        if(request()->filled('name')){
+            $query->where(function($q){
+                $q->where('firstName','like',request()->name.'%')
+                ->orWhere('lastName','like',request()->name.'%');
+            });
+        }
+
+        if(request()->filled('email'))
+            $query->where('email','like',strtolower(trim(request()->email)).'%');
+
+        if(request()->filled('phone'))
+            $query->where('phone','like',strtolower(trim(request()->phone)).'%');
+        
+        if(request()->status)
+            $query->where('status',request()->status);
+
+        if(isset(request()->pending_status) && request()->pending_status==0){
+            $dataList=$query->whereHas('user',function($q){
+                $q->where('is_approved',0);
+            })
+            ->paginate(100)->withQueryString();
+        }else{
+            $dataList=$query->whereHas('user',function($q){
+                $q->where('is_approved',1);
+            })
+            ->paginate(100)->withQueryString();
+        }
         // dd($query->get());
         return view('admin.seller_list',compact('dataList'));
     }
@@ -392,4 +420,40 @@ class SellerController extends Controller
            return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
         }
     }
+
+
+    public function changeApprove(Request $request)
+    {
+        DB::beginTransaction();
+        $dataInfo=Seller::find($request->dataId);
+        if(!empty($dataInfo)) {
+            // dd
+            User::find($dataInfo->user_id)->update(['is_approved'=>$request->approve,'updated_at'=>Carbon::now()]);
+          
+          $dataInfo->updated_at=Carbon::now();
+
+          if($dataInfo->save()){
+
+                $note=$dataInfo->id."=> ".$dataInfo->name." Agent approved changed by ".Auth::guard('admin')->user()->name;
+
+                $this->storeSystemLog($dataInfo->id, 'agents',$note);
+
+                DB::commit();
+
+                return response()->json(['status'=>true ,'msg'=>' Agent approved Successfully.!','url'=>url()->previous()]);
+            }
+            else{
+
+                 DB::rollBack();
+
+                 return response()->json(['status'=>false ,'msg'=>'Failed To approved!']);
+            }
+        }
+        else{
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+        }
+    }
+
+
+    
 }

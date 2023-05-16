@@ -46,7 +46,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-4">
+        {{-- <div class="col-4">
             <div class="card">
                 <form action="{{ route('admin.banner.update') }}"  id="ajax_form"  method="POST" enctype="multipart/form-data"> @csrf
                     <div class="card-body">
@@ -69,7 +69,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </div>

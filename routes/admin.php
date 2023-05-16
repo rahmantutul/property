@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
+use App\Http\Controllers\Admin\NeighbourCategoryConroller;
 use App\Http\Controllers\Admin\NeighbourMessageController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Admin\ResoPropertyController;
@@ -94,6 +95,9 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[BuyerController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[BuyerController::class,'changeStatus'])->name('status.change');
+
+		Route::get('{dataId}/approve/{approve}/change',[BuyerController::class,'changeApprove'])->name('approve.change');
+
 	});
 
 	Route::group(['prefix'=>'seller','as'=>'seller.'],function(){
@@ -111,6 +115,9 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[SellerController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[SellerController::class,'changeStatus'])->name('status.change');
+
+		Route::get('{dataId}/approve/{approve}/change',[SellerController::class,'changeApprove'])->name('approve.change');
+
 	});
 
 	Route::group(['prefix'=>'neighbour', 'as'=>'neighbour.'],function(){
@@ -228,6 +235,26 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/create',[CityController::class,'create'])->name('create');
 
 		Route::delete('{dataId}/delete',[CityController::class,'destroy'])->name('delete');
+
+	});
+
+	// for Nighbour Category
+	Route::group(['prefix'=>'neighbourcategory','as'=>'neighbourcategory.'],function(){
+
+		Route::get('/',[NeighbourCategoryConroller::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[NeighbourCategoryConroller::class,'changeStatus'])->name('status.change');
+
+
+		Route::get('/{dataId}/edit',[NeighbourCategoryConroller::class,'edit'])->name('edit');
+
+		Route::post('/update',[NeighbourCategoryConroller::class,'update'])->name('update');
+
+		Route::post('/',[NeighbourCategoryConroller::class,'store'])->name('store');
+
+		Route::get('/create',[NeighbourCategoryConroller::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[NeighbourCategoryConroller::class,'destroy'])->name('delete');
 
 	});
 
@@ -410,6 +437,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[TransectionController::class,'destroy'])->name('delete');
 
 		Route::get('mail/{id}',[TransectionController::class,'mailSend'])->name('mail');
+		
 		Route::get('mail/view/{id}',[TransectionController::class,'mailview'])->name('mail.view');
     
 	});

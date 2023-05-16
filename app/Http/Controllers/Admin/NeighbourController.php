@@ -9,6 +9,7 @@ use App\Traits\SystemLogTrait;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\NeighbourCategory;
 use Illuminate\Support\Facades\Auth;
 
 class NeighbourController extends Controller
@@ -45,7 +46,8 @@ class NeighbourController extends Controller
      */
     public function create()
     {
-        return view('admin.neighbour_create');
+        $neighbours= NeighbourCategory::whereNull('deleted_at')->get();
+        return view('admin.neighbour_create',compact('neighbours'));
     }
 
     /**
@@ -75,6 +77,8 @@ class NeighbourController extends Controller
 
             $dataInfo->titleOne=$request->titleOne;
 
+            $dataInfo->categoryId=$request->categoryId;
+            
             $dataInfo->titleOneDetails=$request->titleOneDetails;
 
             $dataInfo->titleTwo=$request->titleTwo;
@@ -142,9 +146,10 @@ class NeighbourController extends Controller
      */
     public function edit($dataId)
     {
+        $neighbours= NeighbourCategory::whereNull('deleted_at')->get();
         $dataInfo=Neighbor::find($dataId);
         // dd($dataId);
-        return view('admin.neighbour_edit',compact('dataInfo'));
+        return view('admin.neighbour_edit',compact('dataInfo','neighbours'));
     }
 
     /**
@@ -176,6 +181,8 @@ class NeighbourController extends Controller
             $dataInfo->name=$request->name;
 
             $dataInfo->titleOne=$request->titleOne;
+
+            $dataInfo->categoryId=$request->categoryId;
 
             $dataInfo->titleOneDetails=$request->titleOneDetails;
 

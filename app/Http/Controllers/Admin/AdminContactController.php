@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminContactController extends Controller
 {
@@ -53,7 +55,9 @@ class AdminContactController extends Controller
             $dataInfo->subject= $request->subject;
             $dataInfo->message= $request->message;
             
-            $dataInfo->save();
+            if($dataInfo->save()){
+                Mail::to($request->email)->send(new ContactMail($dataInfo));
+            }
             DB::commit();
             return redirect()->back()->with('message','Message send successfully!');
         }catch(Exception $err){

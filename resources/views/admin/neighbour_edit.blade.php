@@ -25,6 +25,16 @@
                         @csrf
                         <input type="hidden" name="dataId" value="{{ $dataInfo->id }}">
                         <div class="col-6 form-group">
+                            <strong>Category:</strong>
+                            <select name="categoryId"  class="form-control" id="">
+                                <option value="">Select Category</option>
+                                @foreach ($neighbours as $item)
+                                <option {{ ($item->id==$dataInfo->categoryId)?'selected' }} value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-6 form-group">
                             <strong>Photo:</strong>
                             <input type="file" name="photo" class="form-control" >
                              <span style="color:red" ></span>
@@ -48,11 +58,6 @@
                             <strong>Title Three:</strong>
                             <input type="text" name="titleThree" placeholder="Last Name" class="form-control"  required value="{{ $dataInfo->titleThree }}">
                              <span style="color:red" ></span>
-                        </div>
-                        <div class="col-6 form-group">
-                            {{-- <strong>Title Three:</strong>
-                            <input type="text" name="titleThree" placeholder="Last Name" class="form-control"  required>
-                             <span style="color:red" ></span> --}}
                         </div>
                         <div class="col-6 form-group">
                             <strong>Title One Details:</strong>

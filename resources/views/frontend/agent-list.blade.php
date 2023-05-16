@@ -28,9 +28,9 @@
                             <h4>{{ getFullName($dataInfo) }}</h4>
                             <h6>Premium Agent</h6>
                             <ul>
-                                <li><a href="{{route('agentDetails',['username'=>$dataInfo->username])}}"><i class="fa fa-user"></i></a></li>
+                                <li><a href="{{route('front.agentDetails',['username'=>$dataInfo->username])}}"><i class="fa fa-user"></i></a></li>
                                 <li><a href=""><i class="fa fa-globe"></i></a></li>
-                                <li><a href="{{route('agentDetails',['username'=>$dataInfo->username])}}"><i class="fa fa-envelope"></i></a></li>
+                                <li><a href="{{route('front.agentDetails',['username'=>$dataInfo->username])}}"><i class="fa fa-envelope"></i></a></li>
                                 <li><a href=""><i class="fa fa-search"></i></a></li>
                             </ul>
                         </div>

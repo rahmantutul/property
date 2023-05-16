@@ -40,7 +40,7 @@ Route::get('/clear-cache', function() {
 
 Route::get('/',[FrontendController::class,'home'])->name('front.home');
 
-Route::group(['prefix'=>'front','as'=>'front.'],function(){
+Route::group(['prefix'=>'web','as'=>'front.'],function(){
     Route::get('/user-login',[FrontendController::class,'login'])->name('login');
     Route::get('/contact',[FrontendController::class,'contact'])->name('contact');
     Route::get('/neighbour',[FrontendController::class,'neighbourHood'])->name('neighbourHood');
@@ -52,10 +52,10 @@ Route::group(['prefix'=>'front','as'=>'front.'],function(){
     Route::get('/property/search',[FrontendController::class,'searchProperty'])->name('propertySearch');
     Route::any('/property/page/search',[SearchController::class,'searchProperty'])->name('propertyPageSearch');
     Route::get('/agents',[FrontendController::class,'agents'])->name('agents');
-
+    Route::get('/{username}',[FrontendController::class,'agentDetails'])->name('agentDetails');
     Route::get('/save-property/{id}', [SavePropertyController::class, 'saveProperty'])->name('saveProperty');
 });
-Route::get('/{username}',[FrontendController::class,'agentDetails'])->name('agentDetails');
+
 
 Route::get('/login',[LoginController::class,'loginPage'])->name('login')->middleware('AuthCheck');
 Route::post('/login',[LoginController::class,'login'])->name('login');

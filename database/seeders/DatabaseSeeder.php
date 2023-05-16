@@ -38,27 +38,27 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
-        // Role::factory(1)->create();
-        // $this->call(AdminSeeder::class);
-        AmenityType::factory(50)->create();
-        Category::factory(5)->create();
-        City::factory(5)->create();
-        Country::factory(5)->create();
-        GarageType::factory(5)->create();
-        // MarketActivity::factory(50)->create();
-        PropertyType::factory(5)->create();
-        State::factory(5)->create();
-        Property::factory(5)->create();
-        PropertyAddress::factory(5)->create();
+        Role::factory(1)->create();
+        $this->call(AdminSeeder::class);
+        // AmenityType::factory(50)->create();
+        // Category::factory(5)->create();
+        // City::factory(5)->create();
+        // Country::factory(5)->create();
+        // GarageType::factory(5)->create();
+        // // MarketActivity::factory(50)->create();
+        // PropertyType::factory(5)->create();
+        // State::factory(5)->create();
+        // Property::factory(5)->create();
+        // PropertyAddress::factory(5)->create();
 
-        PropertyAmenity::factory(30)->create();
-        PropertyImages::factory(50)->create();
-        PropertyDetails::factory(5)->create();
-        PropertyCategory::factory(5)->create();
-        HelpDesk::factory(30)->create();
-        HelpDeskDetails::factory(50)->create();
-        // Neighbor::factory(50)->create();
-        WebsiteInfo::factory(1)->create();
+        // PropertyAmenity::factory(30)->create();
+        // PropertyImages::factory(50)->create();
+        // PropertyDetails::factory(5)->create();
+        // PropertyCategory::factory(5)->create();
+        // HelpDesk::factory(30)->create();
+        // HelpDeskDetails::factory(50)->create();
+        // // Neighbor::factory(50)->create();
+        // WebsiteInfo::factory(1)->create();
         // Banner::factory(1)->create();
     }
 }

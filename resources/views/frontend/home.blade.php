@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo?->map_banner)}}); height: 592px; z-index: 3;" data-index="4">
+        {{-- <div class="slide-pic" style="background-image: url({{getBannerImage( $bannerInfo?->map_banner)}}); height: 592px; z-index: 3;" data-index="4">
             <div class="slatelink pageslate">
                 <a href="{{ route('front.agents') }}" target="_self">
                     <span class="link-cont">Agents</span>
@@ -153,8 +153,8 @@
                     <span class="link-cont">Neighborhoods</span>
                 </a>
             </div>
-        </div>
-
+        </div> --}}
+        
         @include('layouts.frontend.footer')
 
     </div>
@@ -162,5 +162,7 @@
 @endsection
 
 @push('js')
+<script>
 
+</script>
 @endpush

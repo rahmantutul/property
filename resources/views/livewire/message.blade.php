@@ -1,10 +1,12 @@
+
+
 <div>
     <div class="row justify-content-center" wire:poll="mountComponent()">
         @if(auth()->user()->is_admin == true)
             <div class="col-md-3 bg-light-blue" wire:init>
-                <div class="card"  style="background: #C3F5E9;">
+                <div class="card"  style="background: #77aae5;">
                     <div class="card-header">
-                        All Users
+                        <h5 style="color:#000;">All Users</h5>
                     </div>
                     <div class="card-body chatbox p-0">
                         <ul class="list-group list-group-flush" wire:poll="render">
@@ -12,7 +14,7 @@
                                 @php
                                     $not_seen = \App\Models\Message::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
                                 @endphp
-                                <a href="{{ route('admin.helpDesk.show', $user->id) }}" class="text-dark link">
+                                <a href="{{ route('admin.helpDesk.show', $user->id) }}?userId={{ $user->id }}" class="text-dark link">
                                     <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
                                         <img class="img-fluid avatar" style="height:40px; width:40px;" src="{{getUserImage($user->avatar)}}"> 
                                         @if($user->is_online) <i class="fa fa-circle text-success online-icon"></i> @endif 
@@ -37,7 +39,7 @@
             </div>
         @endif
         <div class="col-md-9">
-            <div class="card"   style="background: #b69db7">
+            <div class="card"   style="background: #aed5fc">
                 <div class="card-header">
                     @if(isset($clicked_user)) {{ $clicked_user->name }}
 
@@ -99,8 +101,6 @@
                                 <div class="mb-2">
                                    You have an uploaded file <button type="button" wire:click="resetFile" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Remove {{ $file->getClientOriginalName() }}</button>
                                 </div>
-                            @else
-                                No file is uploaded.
                             @endif
                             <div class="row">
                                 <div class="col-md-7">

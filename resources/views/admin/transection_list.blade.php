@@ -90,7 +90,7 @@
                                         <a href="{{route('admin.transection.edit',['dataId'=>$item->id])}}" class="btn btn-warning btn-sm btn-icon " title="Edit">
                                             <i data-feather='edit'></i>
                                         </a>
-                                        <a href="{{route('admin.seller.delete',['dataId'=>$item->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($item->status)}} delete" title="Delete">
+                                        <a href="{{route('admin.transection.delete',['dataId'=>$item->id])}}" class="btn btn-danger btn-sm btn-icon {{getStatusChangeBtn($item->status)}} delete" title="Delete">
                                             <i data-feather='trash-2'></i>
                                         </a>
                                     </td>

@@ -108,12 +108,7 @@
                                 <span class="menu-item text-truncate" data-i18n="Agent">Agent</span>
                             </a>
                         </li>
-                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
-                            <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
-                                <i data-feather="user"></i>
-                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
-                            </a>
-                        </li>
+                        
                         <li class="{{getActiveMenuClass('admin.buyer.index')}}">
                             <a class="d-flex align-items-center" href="{{route('admin.buyer.index')}}">
                                 <i data-feather="circle"></i>
@@ -124,6 +119,24 @@
                             <a class="d-flex align-items-center" href="{{route('admin.seller.index')}}">
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Sellers">Sellers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.seller.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Seller</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.buyer.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Buyer</span>
                             </a>
                         </li>
                         {{-- <li class="{{getActiveMenuClass('admin.role.index')}}">
@@ -201,6 +214,12 @@
                     <a class="d-flex align-items-center" href="{{route('admin.property.message')}}">
                         <i data-feather='bookmark'></i>
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Property Message</span>
+                    </a>
+                </li>
+                 <li class="nav-item {{getActiveMenuClass('admin.neighbourcategory.index')}}">
+                    <a class="d-flex align-items-center" href="{{ route('admin.neighbourcategory.index') }}">
+                        <i data-feather='user-check'></i>
+                        <span class="menu-item text-truncate" data-i18n="Neighbors">Neighbour Category</span>
                     </a>
                 </li>
                  <li class="nav-item {{getActiveMenuClass('admin.neighbour.index')}}">

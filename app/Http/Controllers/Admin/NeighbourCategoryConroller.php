@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
-use App\Models\City;
+use App\Models\NeighbourCategory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
-
-class CityController extends Controller
+class NeighbourCategoryConroller extends Controller
 {
     use SystemLogTrait;
     /**
@@ -21,14 +20,14 @@ class CityController extends Controller
      */
     public function index()
     {
-        $query=City::whereNull('deleted_at');
+        $query=NeighbourCategory::whereNull('deleted_at');
     
         if(request()->filled('name'))
             $query->where('name','like',request()->name.'%');
 
         $dataList=$query->paginate(100)->withQueryString();
 
-        return view('admin.city_list',compact('dataList'));
+        return view('admin.meighbourCategory_list',compact('dataList'));
     }
 
     /**
@@ -38,7 +37,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('admin.city_create');
+        return view('admin.meighbourCategory_create');
     }
 
     /**
@@ -55,10 +54,10 @@ class CityController extends Controller
                 'name' => 'required',
             ],
             [
-                'name.required' => "Please Write City Name",
+                'name.required' => "Please Write Category Name",
             ]);
 
-            $dataInfo=new City();
+            $dataInfo=new NeighbourCategory();
 
             $dataInfo->name=$request->name;
 
@@ -68,19 +67,19 @@ class CityController extends Controller
 
             if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> City created by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> Category created by ".Auth::guard('admin')->user()->name;
 
                 $this->storeSystemLog($dataInfo->id, 'cities',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>'A New City Added Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>'A New Category Added Successfully.!','url'=>url()->previous()]);
             }
             else{
 
                  DB::rollBack();
 
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Add City.!']);
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Add Category.!']);
             }
        }
         catch(Exception $err){
@@ -114,9 +113,9 @@ class CityController extends Controller
      */
     public function edit($dataId)
     {
-        $dataInfo=City::find($dataId);
+        $dataInfo=NeighbourCategory::find($dataId);
 
-        return view('admin.city_edit',compact('dataInfo'));
+        return view('admin.meighbourCategory_edit',compact('dataInfo'));
     }
 
     /**
@@ -135,14 +134,14 @@ class CityController extends Controller
                 'name' => 'required',
             ],
             [
-                'dataId.required' => "Request Has No Valid City Id",
-                'name.required' => "Please Write City Name",
+                'dataId.required' => "Request Has No Valid rCategory Id",
+                'name.required' => "Please Write Category Name",
             ]);
 
-            $dataInfo=City::find($request->dataId);
+            $dataInfo=NeighbourCategory::find($request->dataId);
 
             if(empty($dataInfo))
-                return response()->json(['status'=>false ,'msg'=>'Requested City Info Not Found!']);
+                return response()->json(['status'=>false ,'msg'=>'Requested Category Info Not Found!']);
 
             $dataInfo->name=$request->name;
 
@@ -150,19 +149,19 @@ class CityController extends Controller
 
             if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> City Info Updated by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> Category Info Updated by ".Auth::guard('admin')->user()->name;
 
                 $this->storeSystemLog($dataInfo->id, 'cities',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>'City Information Updated Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>'Category Information Updated Successfully.!','url'=>url()->previous()]);
             }
             else{
 
                  DB::rollBack();
 
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Update City Information!']);
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Update Category Information!']);
             }
        }
         catch(Exception $err){
@@ -187,7 +186,7 @@ class CityController extends Controller
     {
        DB::beginTransaction();
         
-        $dataInfo=City::find($id);
+        $dataInfo=NeighbourCategory::find($id);
 
         if(!empty($dataInfo)) {
 
@@ -197,19 +196,19 @@ class CityController extends Controller
 
           if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> City  info deleted  by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> Neighbour Category  info deleted  by ".Auth::guard('admin')->user()->name;
 
                 $this->storeSystemLog($dataInfo->id, 'cities',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>' City Info deleted Successfully.!']);
+                return response()->json(['status'=>true ,'msg'=>' NeighbourCategory Info deleted Successfully.!']);
             }
             else{
 
                  DB::rollBack();
 
-                 return response()->json(['status'=>false ,'msg'=>'Failed To Delete City Info!']);
+                 return response()->json(['status'=>false ,'msg'=>'Failed To Delete NeighbourCategory Info!']);
             }
         }
         else{
@@ -220,7 +219,7 @@ class CityController extends Controller
     {
         DB::beginTransaction();
         
-        $dataInfo=City::find($request->dataId);
+        $dataInfo=NeighbourCategory::find($request->dataId);
 
         if(!empty($dataInfo)) {
 
@@ -230,13 +229,13 @@ class CityController extends Controller
 
           if($dataInfo->save()){
 
-                $note=$dataInfo->id."=> ".$dataInfo->name." City status changed by ".Auth::guard('admin')->user()->name;
+                $note=$dataInfo->id."=> ".$dataInfo->name." NeighbourCategory status changed by ".Auth::guard('admin')->user()->name;
 
                 $this->storeSystemLog($dataInfo->id, 'cities',$note);
 
                 DB::commit();
 
-                return response()->json(['status'=>true ,'msg'=>' City Status Changed Successfully.!','url'=>url()->previous()]);
+                return response()->json(['status'=>true ,'msg'=>' NeighbourCategory Status Changed Successfully.!','url'=>url()->previous()]);
             }
             else{
 

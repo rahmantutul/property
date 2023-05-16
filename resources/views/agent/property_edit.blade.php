@@ -73,8 +73,8 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-4 form-group">
-                            <strong>Virtual Tour:</strong>
-                            <input type="text" name="virtualTour" placeholder="Virtual Tour" class="form-control" value="{{$dataInfo->virtualTour}}"   required>
+                            <strong>Virtual Tour (URL):</strong>
+                            <input type="text" name="virtualTour" placeholder="URL" class="form-control" value="{{$dataInfo->virtualTour}}"   required>
                              <span style="color:red" ></span>
                         </div>
                     

@@ -77,8 +77,8 @@
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-4 form-group">
-                                <strong>Virtual Tour:</strong>
-                                <input type="text" name="virtualTour" placeholder="Virtual Tour" class="form-control"
+                                <strong>Virtual Tour (URL):</strong>
+                                <input type="text" name="virtualTour" placeholder="URL" class="form-control"
                                     required>
                                 <span style="color:red"></span>
                             </div>
@@ -333,7 +333,7 @@
                                 <h4 class="form-devider">Images/Video</h4>
                             </div>
                             <div class="col-6 form-group">
-                                <strong>Banner Image:</strong>
+                                <strong>Banner Image (Single):</strong>
                                 <input type="file" name="thumbnail" placeholder="Select documnet"
                                     class="form-control" required>
                                 <span style="color:red"></span>
@@ -344,7 +344,7 @@
                                 <span style="color:red"></span>
                             </div>
                             <div class="col-12 form-group">
-                                <strong>Select Slider Images:</strong>
+                                <strong>Select Slider Images (Multiple):</strong>
                                 <input type="file" name="images[]" multiple class="form-control">
                                 <span style="color:red"></span>
                             </div>

@@ -127,11 +127,11 @@ class AuthController extends Controller
             if($request->user_type === 'seller'){
                 $dataInfo = new Seller();
                 $user->user_type = 3;
-                $user->is_approved = 1;
+                $user->is_approved = 0;
             }elseif($request->user_type === 'buyer'){
                 $dataInfo = new Buyer();
                 $user->user_type = 4;
-                $user->is_approved = 1;
+                $user->is_approved = 0;
             }elseif($request->user_type === 'agent'){
                 $dataInfo = new Agent();
                 $user->user_type = 2;

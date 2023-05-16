@@ -26,21 +26,21 @@ class PropertyController extends Controller
       $response = $client->get('Property');
       
       $data = json_decode($response->getBody(), true);
-      dd($data);
+      echo "<pre>";
+      print_r($data['value']);
+      //dd($data);
     }    
 
 
     public function store(){
-
-
             $client = new \GuzzleHttp\Client([
-                'base_uri' => 'https://resoapi.rmlsweb.com/reso/odata/',
+                'base_uri' => 'https://resoapi.rmlsweb.com/reso/odata',
                 'headers' => [
                     'Authorization' => 'Bearer ' . env('SPARK_API_ACCESS_TOKEN'),
                     'Accept' => 'application/json'
                 ]
             ]);
-            // return response()->json($dataList['value'][0]);
+            return response()->json($client);
 
             //try catch block for property add from api
             try {

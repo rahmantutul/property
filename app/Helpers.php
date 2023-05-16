@@ -1,10 +1,17 @@
 <?php
 
+use App\Models\NeighbourCategory;
 use App\Models\WebsiteInfo;
 
 function getWebsiteInfo(){
      $websiteInfo= WebsiteInfo::first();
      return $websiteInfo;
+}
+function getWebNavInfo(){
+    $neighbours= NeighbourCategory::with('naighbours')->whereNull('deleted_at')
+    ->where('status', 1)
+    ->get();
+     return $neighbours;
 }
 function formatDate($date)
 {

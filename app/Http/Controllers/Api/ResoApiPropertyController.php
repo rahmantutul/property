@@ -15,13 +15,13 @@ class ResoApiPropertyController extends Controller
     public function store()
     {
         $client = new Client([
-            'base_uri' => 'https://resoapi.rmlsweb.com/reso/odata/',
+            'base_uri' => 'https://resoapi.rmlsweb.com/reso/odata/Property',
             'headers' => [
                 'Authorization' => 'Bearer ' . env('SPARK_API_ACCESS_TOKEN'),
                 'Accept' => 'application/json'
             ]
         ]);
-        return response()->json($client['value'][0]);
+        // return response()->json($client['value'][0]);
 
         //try catch block for property add from api
         try {

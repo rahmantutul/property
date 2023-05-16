@@ -11,6 +11,7 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Neighbor;
+use App\Models\NeighbourCategory;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
 use App\Models\ResoapiProperties;
@@ -31,11 +32,9 @@ class FrontendController extends Controller
             ->limit(10)
             ->get();
         $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
-        $neighbours= Neighbor::whereNull('deleted_at')
-        ->where('status', 1)
-        ->get();
-
-        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types','neighbours'));
+        
+        // dd($neighbours);
+        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types'));
     }
 
     public function login()
@@ -50,7 +49,7 @@ class FrontendController extends Controller
             ->where('status', 1)
             ->inRandomOrder()
             ->get();
-        return view('frontend.neighbourhood', compact('dataList'));
+        return view('frontend.neighbourHood', compact('dataList'));
     }
     public function neighbourDetails($dataId)
     {
@@ -106,9 +105,9 @@ class FrontendController extends Controller
 
     public function agentDetails(Request $request, $username)
     {
-        // dd($username);
+        // dd($request->all());
         $dataInfo = Agent::where('username', $username)->first();
-        // dd($dataInfo);
+         //dd($dataInfo);
         $dataList = Property::whereNull('deleted_at')
             ->where('agentId', $dataInfo->id)
             ->inRandomOrder()
