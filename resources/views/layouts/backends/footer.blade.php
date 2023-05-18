@@ -57,7 +57,7 @@
 
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script> --}}
 
-
+    @yield('script')
    <script>
         $(window).on('load', function() {
             if (feather) {

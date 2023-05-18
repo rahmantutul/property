@@ -61,6 +61,7 @@ class SearchController extends Controller
         //categories data
         $categories=Category::whereNull('deleted_at')->where('status',1)->get();
 
+        // dd($dataList);
         return view('frontend.propery_search_result', compact(['dataList', 'categories']));
 
     }

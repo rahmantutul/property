@@ -24,6 +24,10 @@
                         <span class="menu-title text-truncate" data-i18n="Profile">Update Profile</span>
                     </a>
                 </li>
+
+
+
+
                 <li class="nav-item {{getActiveMenuClass('agent.property.index')}}">
                     <a class="d-flex align-items-center" href="{{route('agent.property.index')}}">
                         <i data-feather='home'></i>

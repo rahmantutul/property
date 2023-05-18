@@ -25,14 +25,23 @@ use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Admin\ResoPropertyController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\OreGonController;
 
 // Auth::routes();
 
+
 Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],function(){
+
+
 
 	Route::get('/',[DashboardController::class,'dashboard'])->name('index');
 
 	Route::get('dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+
+    Route::group(['prefix'=>'metadata','as'=>'metadata.'],function(){
+		Route::get('/',[OreGonController::class,'index'])->name('index');
+		Route::get('/getAllMetaData',[OreGonController::class,'store'])->name('store');
+	});
 
 	Route::group(['prefix'=>'profile','as'=>'profile.'],function(){
 		Route::get('/edit',[AdminController::class,'editProfile'])->name('edit');
@@ -42,32 +51,32 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
 		Route::get('list',[AdminController::class,'index'])->name('index');
-		
+
 		Route::get('create',[AdminController::class,'create'])->name('create');
-		
+
 		Route::get('{dataId}/edit',[AdminController::class,'edit'])->name('edit');
-		
+
 		Route::post('store',[AdminController::class,'store'])->name('store');
-		
+
 		Route::post('update',[AdminController::class,'update'])->name('update');
 
 		Route::delete('{dataId}/delete',[AdminController::class,'destroy'])->name('delete');
-		
+
 		Route::get('{dataId}/status/{status}/change',[AdminController::class,'changeStatus'])->name('status.change');
 	});
 
 	Route::group(['prefix'=>'agent','as'=>'agent.'],function(){
 
 		Route::get('list',[AgentController::class,'index'])->name('index');
-		
+
 		Route::get('create',[AgentController::class,'create'])->name('create');
-		
+
 		Route::get('{dataId}/edit',[AgentController::class,'edit'])->name('edit');
-		
+
 		Route::post('store',[AgentController::class,'store'])->name('store');
-		
+
 		Route::post('update',[AgentController::class,'update'])->name('update');
-		
+
 		Route::delete('{dataId}/delete',[AgentController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[AgentController::class,'changeStatus'])->name('status.change');
@@ -78,15 +87,15 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	Route::group(['prefix'=>'buyer','as'=>'buyer.'],function(){
 
 		Route::get('list',[BuyerController::class,'index'])->name('index');
-		
+
 		Route::get('create',[BuyerController::class,'create'])->name('create');
-		
+
 		Route::get('{dataId}/edit',[BuyerController::class,'edit'])->name('edit');
-		
+
 		Route::post('store',[BuyerController::class,'store'])->name('store');
-		
+
 		Route::post('update',[BuyerController::class,'update'])->name('update');
-		
+
 		Route::delete('{dataId}/delete',[BuyerController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[BuyerController::class,'changeStatus'])->name('status.change');
@@ -95,15 +104,15 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	Route::group(['prefix'=>'seller','as'=>'seller.'],function(){
 
 		Route::get('list',[SellerController::class,'index'])->name('index');
-		
+
 		Route::get('create',[SellerController::class,'create'])->name('create');
-		
+
 		Route::get('{dataId}/edit',[SellerController::class,'edit'])->name('edit');
-		
+
 		Route::post('store',[SellerController::class,'store'])->name('store');
-		
+
 		Route::post('update',[SellerController::class,'update'])->name('update');
-		
+
 		Route::delete('{dataId}/delete',[SellerController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[SellerController::class,'changeStatus'])->name('status.change');
@@ -122,7 +131,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	    Route::get('create',[NeighbourController::class,'create'])->name('create');
 
 	    Route::post('store',[NeighbourController::class,'store'])->name('store');
-	    
+
 	    Route::delete('{dataId}/delete',[NeighbourController::class,'destroy'])->name('delete');
 	});
 
@@ -276,7 +285,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/saved-property',[PropertyController::class,'saved'])->name('saved');
 
 		Route::get('{dataId}/status/{status}/change',[PropertyController::class,'changeStatus'])->name('status.change');
-		
+
 		Route::get('{dataId}/feature/{is_featured}/change',[PropertyController::class,'changeFeature'])->name('feature.change');
 
 		Route::get('/{dataId}/edit',[PropertyController::class,'edit'])->name('edit');
@@ -287,7 +296,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/create',[PropertyController::class,'create'])->name('create');
 
-		Route::delete('{dataId}/delete',[PropertyController::class,'destroy'])->name('delete');	
+		Route::delete('{dataId}/delete',[PropertyController::class,'destroy'])->name('delete');
 
 	});
 	Route::group(['prefix'=>'resoproperty','as'=>'resoproperty.'],function(){
@@ -295,7 +304,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/',[ResoPropertyController::class,'index'])->name('index');
 
 		Route::get('{dataId}/status/{status}/change',[ResoPropertyController::class,'changeStatus'])->name('status.change');
-		
+
 		Route::get('{dataId}/feature/{is_featured}/change',[ResoPropertyController::class,'changeFeature'])->name('feature.change');
 
 		Route::get('/{dataId}/edit',[ResoPropertyController::class,'edit'])->name('edit');
@@ -306,7 +315,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/create',[ResoPropertyController::class,'create'])->name('create');
 
-		Route::delete('{dataId}/delete',[ResoPropertyController::class,'destroy'])->name('delete');	
+		Route::delete('{dataId}/delete',[ResoPropertyController::class,'destroy'])->name('delete');
 
 	});
 
@@ -326,7 +335,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/create',[PropertyTypeController::class,'create'])->name('create');
 
-		Route::delete('{dataId}/delete',[PropertyTypeController::class,'destroy'])->name('delete');	
+		Route::delete('{dataId}/delete',[PropertyTypeController::class,'destroy'])->name('delete');
 
 	});
 
@@ -345,8 +354,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/create',[SliderController::class,'create'])->name('create');
 
-		Route::delete('{dataId}/delete',[SliderController::class,'destroy'])->name('delete');	
-    
+		Route::delete('{dataId}/delete',[SliderController::class,'destroy'])->name('delete');
+
 	});
 
 // for state
@@ -364,8 +373,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/create',[StateController::class,'create'])->name('create');
 
-		Route::delete('{dataId}/delete',[StateController::class,'destroy'])->name('delete');	
-    
+		Route::delete('{dataId}/delete',[StateController::class,'destroy'])->name('delete');
+
 	});
 
 	Route::group(['prefix'=>'transection','as'=>'transection.'],function(){
@@ -388,7 +397,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('mail/{id}',[TransectionController::class,'mailSend'])->name('mail');
 		Route::get('mail/view/{id}',[TransectionController::class,'mailview'])->name('mail.view');
-    
+
 	});
 
 	Route::group(['prefix'=>'marketActivity','as'=>'marketActivity.'],function(){
@@ -405,8 +414,8 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 		Route::get('/create',[MarketActivityController::class,'create'])->name('create');
 
-		Route::delete('{dataId}/delete',[MarketActivityController::class,'destroy'])->name('delete');	
-    
+		Route::delete('{dataId}/delete',[MarketActivityController::class,'destroy'])->name('delete');
+
 	});
 
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
@@ -414,10 +423,10 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
 		Route::get('/',[InboxController::class,'index'])->name('index');
 		Route::get('/{id}',[InboxController::class,'show'])->name('show');
-		
+
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 
 		Route::post('/send/message',[HelpDeskController::class,'sendMessage'])->name('sendMessage');
 	});
 
-});	
+});
