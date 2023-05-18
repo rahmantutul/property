@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 @push('css')
-    
+
 @endpush
 
 @section('content')
@@ -103,7 +103,7 @@
     @endforeach
 </div>
 </section>
-       
+
 @endsection
 
 @push('js')

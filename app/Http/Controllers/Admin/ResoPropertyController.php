@@ -32,9 +32,9 @@ class ResoPropertyController extends Controller
      */
     public function index()
     {
+
         $query=ResoapiProperties::latest();
         $dataList=$query->paginate(100);
-
         return view('admin.resoproperty_list',compact('dataList'));
     }
 
@@ -48,13 +48,13 @@ class ResoPropertyController extends Controller
         $countryList=Country::whereNull('deleted_at')->where('status',1)->get();
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
 
         return  view('admin.property_create',compact('countryList','cityList','stateList','aminetyList','categoryList','properTypeList'));
@@ -68,11 +68,11 @@ class ResoPropertyController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         DB::beginTransaction();
 
        try{
-            
+
             $dataInfo=new Property();
 
             $dataInfo->agentId=$request->agentId;
@@ -108,12 +108,12 @@ class ResoPropertyController extends Controller
             $dataInfo->callForPrice=$request->callForPrice;
 
             $dataInfo->videoUrl=$request->videoUrl;
-            
+
             if($request->hasFile('thumbnail'))
                 $dataInfo->thumbnail=$this->uploadPhoto($request->file('thumbnail'),'properties');
             else
                 $dataInfo->thumbnail=config('app.url').'/images/no_found.png';
-            
+
             $dataInfo->status=1;
 
             $dataInfo->created_at=Carbon::now();
@@ -192,13 +192,13 @@ class ResoPropertyController extends Controller
         $countryList=Country::whereNull('deleted_at')->where('status',1)->get();
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $categoryList=Category::whereNull('deleted_at')->where('status',1)->get();
-        
+
         $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
 
         $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
@@ -206,7 +206,7 @@ class ResoPropertyController extends Controller
         // dd($dataInfo);
 
         if(empty($dataInfo)){
-            
+
             session()->flash('errMsg',"Requested Property Information Not Found.");
 
             return redirect()->back();
@@ -227,7 +227,7 @@ class ResoPropertyController extends Controller
         DB::beginTransaction();
 
        try{
-            
+
             $dataInfo=Property::find($request->dataId);
 
             if(empty($dataInfo)){
@@ -268,10 +268,10 @@ class ResoPropertyController extends Controller
             $dataInfo->callForPrice=$request->callForPrice;
 
             $dataInfo->videoUrl=$request->videoUrl;
-            
+
             if($request->hasFile('thumbnail'))
                 $dataInfo->thumbnail=$this->uploadPhoto($request->file('thumbnail'),'properties');
-                
+
             // $dataInfo->status=1;
 
             $dataInfo->updated_at=Carbon::now();
@@ -287,7 +287,7 @@ class ResoPropertyController extends Controller
                 else{
                     $propertyCategoryFlag=true;
                 }
-                
+
                 if($request->filled('amineties')){
                     // dd($request->all());
                     $deletePropertyAminityFlag=PropertyAmenity::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
@@ -298,7 +298,7 @@ class ResoPropertyController extends Controller
                     $propertyAminetiesFlag=true;
                 }
 
-                
+
 
                 $propertyAddressDelete=PropertyAddress::where('propertyId',$dataInfo->id)->update(['deleted_at'=>Carbon::now(),'status'=>0]);
 
@@ -353,13 +353,13 @@ class ResoPropertyController extends Controller
     public function destroy($id)
     {
         DB::beginTransaction();
-        
+
         $dataInfo=Property::find($id);
 
         if(!empty($dataInfo)) {
 
           $dataInfo->status=0;
-          
+
           $dataInfo->deleted_at=Carbon::now();
 
           if($dataInfo->save()){
@@ -386,7 +386,7 @@ class ResoPropertyController extends Controller
             }
         }
         else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']);
         }
     }
 
@@ -517,7 +517,7 @@ class ResoPropertyController extends Controller
         if(!empty($dataInfo)) {
 
           $dataInfo->status=$request->status;
-          
+
           $dataInfo->updated_at=Carbon::now();
 
           if($dataInfo->save()){
@@ -538,7 +538,7 @@ class ResoPropertyController extends Controller
             }
         }
         else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']);
         }
     }
 
@@ -551,7 +551,7 @@ class ResoPropertyController extends Controller
         if(!empty($dataInfo)) {
 
           $dataInfo->is_featured=$request->is_featured;
-          
+
           $dataInfo->updated_at=Carbon::now();
 
           if($dataInfo->save()){
@@ -572,7 +572,7 @@ class ResoPropertyController extends Controller
             }
         }
         else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']);
         }
     }
 }

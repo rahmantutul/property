@@ -141,6 +141,15 @@
                         </li> --}}
                     </ul>
                 </li>
+
+                <li class="nav-item {{getActiveMenuClass('admin.metadata.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.metadata.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Manage Meta Data</span>
+                    </a>
+                </li>
+
+
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather='home'></i>

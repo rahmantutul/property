@@ -36,3 +36,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('')}}assets/css/custom.css">
     <link rel="stylesheet" type="text/css" href="{{asset('')}}app-assets/vendors/css/forms/select/select2.min.css">
     <!-- END: Custom CSS-->
+
+    @yield('additional-css')
+    @yield('additional-js')
+
+    @yield('style')

@@ -13,8 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // spark api cron
+        //spark api cron
         \App\Console\Commands\SparkApiCron::class,
+        //Oregon api cron
+        \App\Console\Commands\OregonApiCron::class,
     ];
 
     /**
@@ -28,6 +30,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         // $schedule->command('sparkapi:cron')->timezone('America/Chicago')->twiceDaily(1, 13);
         $schedule->command('sparkapi:cron')->everyTwoMinutes();
+        $schedule->command('oregonapi:cron')->everyMinute();
     }
 
     /**

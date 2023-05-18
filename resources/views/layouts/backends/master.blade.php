@@ -11,17 +11,14 @@
 <!-- BEGIN: Body-->
 
 <body class="pace-done vertical-layout vertical-menu-modern navbar-floating footer-static menu-expanded" data-open="click" data-menu="vertical-menu-modern" data-col="">
-
-
-    
-  
+    <div id="app">
     @if(auth()->guard('admin')->check())
         @include('layouts.backends.admin_navbar')
         @include('layouts.backends.admin_sidemenu')
-    @elseif(auth()->guard('agent')->check()) 
+    @elseif(auth()->guard('agent')->check())
         @include('layouts.backends.agent_navbar')
         @include('layouts.backends.agent_sidemenu')
-    @elseif(auth()->guard('buyer')->check()) 
+    @elseif(auth()->guard('buyer')->check())
         @include('layouts.backends.buyer_navbar')
         @include('layouts.backends.buyer_sidemenu')
     @elseif(auth()->guard('seller')->check())
@@ -39,7 +36,9 @@
          </div>
      </div>
     @include('layouts.backends.footer')
+
    <div class="modal fade" id="common_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+    </div>
 </body>
 <!-- END: Body-->
 
