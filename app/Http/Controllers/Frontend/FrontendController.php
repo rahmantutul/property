@@ -11,7 +11,10 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Neighbor;
+use App\Models\NeighbourCategory;
 use App\Models\PropertyMessage;
+use App\Models\PropertyType;
+use App\Models\ResoapiProperties;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +31,10 @@ class FrontendController extends Controller
             ->latest('mlsId')
             ->limit(10)
             ->get();
-        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties'));
+        $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+        $neighbours= Neighbor::whereNUll('deleted_at')->get();
+        // dd($neighbours);
+        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types','neighbours'));
     }
 
     public function login()
@@ -43,7 +49,7 @@ class FrontendController extends Controller
             ->where('status', 1)
             ->inRandomOrder()
             ->get();
-        return view('frontend.neighbourhood', compact('dataList'));
+        return view('frontend.neighbourHood', compact('dataList'));
     }
     public function neighbourDetails($dataId)
     {
@@ -101,7 +107,7 @@ class FrontendController extends Controller
     {
         // dd($request->all());
         $dataInfo = Agent::where('username', $username)->first();
-        // dd($dataInfo);
+         //dd($dataInfo);
         $dataList = Property::whereNull('deleted_at')
             ->where('agentId', $dataInfo->id)
             ->inRandomOrder()
@@ -117,6 +123,7 @@ class FrontendController extends Controller
             'address',
             'propertyImages',
             'neighbour',
+            'typeInfo',
             'gargaeInfo',
             'propertyCategory'=>function($q){
                 return $q->with('category')->get();
@@ -131,56 +138,100 @@ class FrontendController extends Controller
         // dd($dataInfo);
         return view('frontend.property-details', compact('dataInfo'));
     }
+    public function resoPropertyDetails($id)
+    {
+        $dataInfo = ResoapiProperties::findOrFail( $id);
+        // dd($dataInfo);
+        return view('frontend.reso-property-details', compact('dataInfo'));
+    }
 
     public function searchProperty()
     {
-        $query = Property::whereNull('deleted_at')
-            ->where('status', 1)
-            ->with([
-                'details' => function ($q) {
-                    if (request()->filled('bed')) {
-                        $q->where('numOfBedroom', request()->bed);
-                    }
+        // dd(request()->all());
+        $dataList = Property::with('propertyCategory', 'details', 'address','neighbour','typeInfo')
+        ->whereHas('propertyCategory', function ($q) {
+            if (request()->filled('category')) {
+                $q->where('categoryId', request()->category);
+            }
+        })
+        ->whereHas('details', function ($q) {
+            if (request()->filled('bed')) {
+                $q->where('numOfBedroom', request()->bed);
+            }
+            if (request()->filled('bathroom')) {
+                $q->where('numOfBathroom', request()->bathroom);
+            }
+        })
+        ->whereHas('address', function ($q) {
+            if (request()->filled('searchKey')) {
+                $q->where('streetAddressOne', 'like', '%' . request()->searchKey . '%')
+                    ->orWhere('streetAddressTwo', 'like', '%' . request()->searchKey . '%');
+            }
+        })
+        ->orWhere(function ($q) {
+            if (request()->filled('searchKey')) {
+                $q->where('title', 'like', '%' . request()->searchKey . '%');
+            }
+        })
+        ->where(function ($q) {
+            if (request()->filled('typeId')) {
+                $q->where('typeId', request()->typeId);
+            }
+        })
+        ->whereHas('neighbour', function ($q) {
+            if (request()->filled('neighbourhoodId')) {
+                $q->where('neighbourhoodId',request()->neighbourhoodId);
+                    // ->orWhere('streetAddressTwo', 'like', '%' . request()->keyword . '%');
+            }
+        })
+        ->where(function ($q) {
+            if (request()->filled('price')) {
+                $q->where('price', '<=', request()->price);
+            }
+        })
+        ->whereNull('deleted_at')
+        ->orderBy('price', 'asc')
+        ->paginate(10);
+        
 
-                    if (request()->filled('numOfBathroom')) {
-                        $q->where('numOfBathroom', request()->bathroom);
-                    }
-                },
-            ]);
 
-        if (request()->filled('searchKey')) {
-            $query->where('title', 'like', request()->searchKey . '%');
-        }
-
-        if (request()->filled('typeId')) {
-            $query->where('typeId', request()->typeId);
-        }
-
-        if (request()->filled('price')) {
-            $query->where('price', '<=', request()->price);
-        }
-
-        $query
-            ->whereHas('details', function ($q) {
+        
+        $resoDataList = ResoapiProperties::query()
+            ->where(function ($q) {
                 if (request()->filled('bed')) {
-                    $q->where('numOfBedroom', request()->bed);
+                    $q->where('BedroomsTotal', request()->bed);
                 }
-
-                if (request()->filled('numOfBathroom')) {
-                    $q->where('numOfBathroom', request()->bathroom);
+                if (request()->filled('bathroom')) {
+                    $q->where('BathroomsTotalInteger', request()->bathroom);
+                }
+                if (request()->filled('searchKey')) {
+                    $q->where('BuyerOfficeName', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('Directions', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('PropertyType', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('PropertySubType', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('PublicRemarks', 'like', '%' . request()->searchKey . '%')
+                        ->orWhere('StreetName', 'like', '%' . request()->searchKey . '%');
+                }
+                if (request()->filled('price')) {
+                    $q->where('ListPrice', '>=', request()->price);
                 }
             })
-            ->orderBy('price', 'asc')
+            ->orderBy('ListPrice', 'asc')
             ->get();
-
-        $dataList = $query;
-
+        // dd($dataList);
         //categories data
         $categories = Category::whereNull('deleted_at')
             ->where('status', 1)
             ->get();
 
-        return view('frontend.propery_search_result', compact(['dataList', 'categories']));
+        $types= PropertyType::whereNull('deleted_at')
+            ->where('status', 1)
+            ->get();
+        $neighbours= Neighbor::whereNull('deleted_at')
+            ->where('status', 1)
+            ->get();
+
+        return view('frontend.propery_search_result', compact(['dataList', 'categories','types','neighbours','resoDataList']));
     }
 
     public function property_message(Request $request){
@@ -208,5 +259,8 @@ class FrontendController extends Controller
         }catch(Exception $err){
             return redirect()->back()->with('errMessage','Something Whent wrong!');
         }
+    }
+    public function contact(){
+        return view('frontend.contact');
     }
 }

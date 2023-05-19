@@ -25,7 +25,8 @@ class BuyerController extends Controller
     public function index()
     {   
 
-        $query=Buyer::with('user')->whereNull('deleted_at');
+        $query=Buyer::whereNull('deleted_at');
+        // dd($query);
         if(request()->filled('name')){
             $query->where(function($q){
                 $q->where('firstName','like',request()->name.'%')
@@ -39,6 +40,21 @@ class BuyerController extends Controller
         if(request()->filled('phone'))
             $query->where('phone','like',strtolower(trim(request()->phone)).'%');
         
+        if(request()->status)
+            $query->where('status',request()->status);
+
+        if(isset(request()->pending_status) && request()->pending_status==0){
+            $dataList=$query->whereHas('user',function($q){
+                $q->where('is_approved',0);
+            })
+            ->paginate(100)->withQueryString();
+        }else{
+            $dataList=$query->whereHas('user',function($q){
+                $q->where('is_approved',1);
+            })
+            ->paginate(100)->withQueryString();
+        }
+
         
         $dataList=$query->with('user')->paginate(100)->withQueryString();
         return view('admin.buyer_list',compact('dataList'));
@@ -255,20 +271,19 @@ class BuyerController extends Controller
 
     public function changeStatus(Request $request)
     {
+ 
         DB::beginTransaction();
+
         $dataInfo=Buyer::find($request->dataId);
 
         if(!empty($dataInfo)) {
-
-          $dataInfo->status=$request->status;
-          
-          $dataInfo->updated_at=Carbon::now();
+            $user=User::find($dataInfo->user_id)->update(['status'=>$request->status,'updated_at'=>Carbon::now()]);
 
           if($dataInfo->save()){
 
                 $note=$dataInfo->id."=> ".$dataInfo->name." Buyer status changed by ".Auth::guard('admin')->user()->name;
 
-                $this->storeSystemLog($dataInfo->id, 'Buyers',$note);
+                $this->storeSystemLog($dataInfo->id, 'buyers',$note);
 
                 DB::commit();
 
@@ -279,40 +294,6 @@ class BuyerController extends Controller
                  DB::rollBack();
 
                  return response()->json(['status'=>false ,'msg'=>'Failed To Change Status!']);
-            }
-        }
-        else{
-           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
-        }
-    }
-
-
-    public function changeApprove(Request $request)
-    {
-        DB::beginTransaction();
-        $dataInfo=Buyer::find($request->dataId);
-
-        if(!empty($dataInfo)) {
-
-          $dataInfo->is_approved=1;
-          
-          $dataInfo->updated_at=Carbon::now();
-
-          if($dataInfo->save()){
-
-                $note=$dataInfo->id."=> ".$dataInfo->name." Buyer approved changed by ".Auth::guard('admin')->user()->name;
-
-                $this->storeSystemLog($dataInfo->id, 'agents',$note);
-
-                DB::commit();
-
-                return response()->json(['status'=>true ,'msg'=>' Buyer approved Successfully.!','url'=>url()->previous()]);
-            }
-            else{
-
-                 DB::rollBack();
-
-                 return response()->json(['status'=>false ,'msg'=>'Failed To approved!']);
             }
         }
         else{
@@ -462,7 +443,37 @@ class BuyerController extends Controller
             }
             
     }
+    public function changeApprove(Request $request)
+    {
+        DB::beginTransaction();
+        $dataInfo=Buyer::find($request->dataId);
+        if(!empty($dataInfo)) {
+            // dd
+            User::find($dataInfo->user_id)->update(['is_approved'=>$request->approve,'updated_at'=>Carbon::now()]);
+          
+          $dataInfo->updated_at=Carbon::now();
 
+          if($dataInfo->save()){
+
+                $note=$dataInfo->id."=> ".$dataInfo->name." Agent approved changed by ".Auth::guard('admin')->user()->name;
+
+                $this->storeSystemLog($dataInfo->id, 'agents',$note);
+
+                DB::commit();
+
+                return response()->json(['status'=>true ,'msg'=>' Agent approved Successfully.!','url'=>url()->previous()]);
+            }
+            else{
+
+                 DB::rollBack();
+
+                 return response()->json(['status'=>false ,'msg'=>'Failed To approved!']);
+            }
+        }
+        else{
+           return response()->json(['status'=>false ,'msg'=>'Requested Data Not Found.!']); 
+        }
+    }
 
 
 }

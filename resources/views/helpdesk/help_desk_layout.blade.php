@@ -66,6 +66,25 @@
         #file-area>label>input {
             display: none !important;
         }
+        /* width */
+        ::-webkit-scrollbar {
+        width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #77aae5;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+        background: #3275fd;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+        background: #6d97eb;
+        }
     </style>
    @livewireStyles
 

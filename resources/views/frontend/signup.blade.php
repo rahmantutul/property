@@ -74,6 +74,7 @@
     </div>
 
 </section>
+@include('layouts.frontend.footer')
 @endsection
 
 @push('js')

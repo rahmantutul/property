@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Traits\SystemLogTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class TransectionController extends Controller
@@ -21,11 +22,16 @@ class TransectionController extends Controller
     public function index()
     {
 
-        $transactions = Transection::all();
+        $transactions = Transection::where('agent_id',Auth::guard('agent')->user()->id)->get();
         
         return view('agent.transection_list', compact('transactions'));
     }
 
+    public function mailview($id)
+    {
+        $transaction = Transection::with('property')->findOrFail($id);
+        return view('admin.email',compact('transaction'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -56,14 +62,17 @@ class TransectionController extends Controller
             $dataInfo->agent_id= $request->agentId;
             $dataInfo->property_id= 1;
 
+            $lastIdInfo=Transection::whereNull('deleted_at')->max('id');
+            $lastTransectionId=(!is_null($lastIdInfo))?($lastIdInfo+1):1;
+
             if($request->state==1){
-            $dataInfo->transaction_id= 'AR-'.Carbon::now()->toDateString().uniqid();
+            $dataInfo->transaction_id= 'AR-'.Carbon::now()->toDateString().'-'.$lastTransectionId;
             }elseif($request->state==2){
-                $dataInfo->transaction_id= 'OR-'.Carbon::now()->toDateString().uniqid();
+                $dataInfo->transaction_id= 'OR-'.Carbon::now()->toDateString().'-'.$lastTransectionId;
             }elseif($request->state==3){
-                $dataInfo->transaction_id= 'WA-'.Carbon::now()->toDateString().uniqid();
+                $dataInfo->transaction_id= 'WA-'.Carbon::now()->toDateString().'-'.$lastTransectionId;
             }else{
-                $dataInfo->transaction_id= 'OT-'.Carbon::now()->toDateString().uniqid();
+                $dataInfo->transaction_id= 'OT-'.Carbon::now()->toDateString().'-'.$lastTransectionId;
             }
             $dataInfo->transection_type=$request->transection_type;
             $dataInfo->send_mail=$request->send_mail;
@@ -158,6 +167,7 @@ class TransectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Transection::find($id)->delete();
+        return response()->json(['status'=>true ,'msg'=>'Deleted Successfully!']);
     }
 }

@@ -63,7 +63,7 @@
                                 <td>{{$dataInfo->name}}</td>
                                 <td>{{$dataInfo->email}}</td>
                                 <td>{{$dataInfo->phone}}</td>
-                                <td>{{$dataInfo->message}}</td>
+                                <td>{{Str::limit($dataInfo->message,50)}}</td>
                                 <td>
                                     <a href="{{route('agent.message.view',['dataId'=>$dataInfo->id])}}" class="btn btn-warning btn-sm btn-icon " title="View Details">
                                         <i data-feather='eye'></i>

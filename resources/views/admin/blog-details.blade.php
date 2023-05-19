@@ -40,13 +40,13 @@
                             <h4 class="card-title">{{ $dataInfo->reportName }}</h4>
                                 <div class="media">
                                     <div class="avatar mr-50">
-                                        <img src="{{ Auth::user()->avatar }}" alt="Avatar" width="24" height="24">
+                                        <img src="{{getUserImage(Auth::guard('admin')->user()->avatar)}}" alt="Avatar" width="24" height="24">
                                     </div>
-                                    <div class="media-body">
+                                    <div class="media-body mb-2">
                                         <small class="text-muted mr-25">by</small>
                                         <small><a href="javascript:void(0);" class="text-body">{{ $dataInfo->created_by }}</a></small>
                                         <span class="text-muted ml-50 mr-25">|</span>
-                                        <small class="text-muted">{{ date('d-m-Y', strtotime($dataInfo->created_at)) }}</small>
+                                        <small class="text-muted">Posted: {{ date('d-m-Y', strtotime($dataInfo->created_at)) }}</small>
                                     </div>
                                 </div>
                                     {!! $dataInfo->reportDetails !!}
@@ -68,18 +68,19 @@
             <!--/ Search bar -->
 
             <!-- Recent Posts -->
-            <div class="blog-recent-posts mt-3">
+            <div class="blog-recent-posts mt-3" >
                 <h6 class="section-label">Recent Posts</h6>
-                <div class="mt-75">
+                <div class="mt-75" >
                     @foreach ($dataList as $dataInfo)
-                        <div class="media mb-2">
-                            <a href="page-blog-detail.html" class="mr-2">
+                        <div class="media mb-2"  style="background: #ececec; padding: 8px;">
+                            <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}" class="mr-2">
                                 <img class="rounded" src="{{ $dataInfo->image }}" width="100" height="70" alt="Recent Post Pic">
                             </a>
                             <div class="media-body">
                                 <h6 class="blog-recent-post-title">
-                                    <a href="page-blog-detail.html" class="text-body-heading">{{ Str::limit($dataInfo->reportName, 50,) }}</a>
+                                    <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}" class="text-body-heading" style="color:#000; font-weight:600;">{{ Str::limit($dataInfo->reportName, 50,) }}</a>
                                 </h6>
+                                <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}">Read More ...</a>
                                 <div class="text-muted mb-0">{{ date('d-m-Y', strtotime($dataInfo->created_at)) }}</div>
                             </div>
                         </div>

@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Traits\SystemLogTrait;
 use App\Models\GarageType;
 use Carbon\Carbon;
-use Auth;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class GarageTypeController extends Controller
 {

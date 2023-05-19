@@ -1,4 +1,4 @@
-<div class="main-menu menu-dark menu-accordion menu-shadow">
+<div class="main-menu menu-dark menu-accordion menu-shadow" data-scroll-to-active="true" style="overflow-y:auto; position:fixed;">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="{{route('admin.dashboard')}}">
@@ -23,7 +23,7 @@
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Update Profile</span>
                     </a>
                 </li>
-                <li class=" nav-item">
+                {{-- <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather="settings"></i>
                         <span class="menu-title text-truncate" data-i18n="System Info">System Info</span>
@@ -42,7 +42,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
@@ -108,12 +108,7 @@
                                 <span class="menu-item text-truncate" data-i18n="Agent">Agent</span>
                             </a>
                         </li>
-                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
-                            <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
-                                <i data-feather="user"></i>
-                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
-                            </a>
-                        </li>
+                        
                         <li class="{{getActiveMenuClass('admin.buyer.index')}}">
                             <a class="d-flex align-items-center" href="{{route('admin.buyer.index')}}">
                                 <i data-feather="circle"></i>
@@ -124,6 +119,24 @@
                             <a class="d-flex align-items-center" href="{{route('admin.seller.index')}}">
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Sellers">Sellers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.agent.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Agents</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.seller.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Seller</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{getActiveMenuClass('admin.agent.index')}}?pending_status=0">
+                            <a class="d-flex align-items-center" href="{{route('admin.buyer.index')}}?pending_status=0">
+                                <i data-feather="user"></i>
+                                <span class="menu-title text-truncate" data-i18n="Dashboard">Pending Buyer</span>
                             </a>
                         </li>
                         {{-- <li class="{{getActiveMenuClass('admin.role.index')}}">
@@ -141,6 +154,13 @@
                         </li> --}}
                     </ul>
                 </li>
+                <li class="nav-item {{getActiveMenuClass('admin.metadata.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.metadata.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Manage Meta Data</span>
+                    </a>
+                </li>
+
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather='home'></i>
@@ -183,6 +203,12 @@
                                 <span class="menu-item text-truncate" data-i18n="Sellers">Garage Type List</span>
                             </a>
                         </li>
+                        <li class="{{getActiveMenuClass('admin.type.index')}}">
+                            <a class="d-flex align-items-center" href="{{route('admin.type.index')}}">
+                                <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Sellers">Property Type</span>
+                            </a>
+                        </li>
                     </ul>
                  </li>
                  <li class="nav-item {{getActiveMenuClass('admin.property.saved')}}">
@@ -195,6 +221,12 @@
                     <a class="d-flex align-items-center" href="{{route('admin.property.message')}}">
                         <i data-feather='bookmark'></i>
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Property Message</span>
+                    </a>
+                </li>
+                 <li class="nav-item {{getActiveMenuClass('admin.neighbourcategory.index')}}">
+                    <a class="d-flex align-items-center" href="{{ route('admin.neighbourcategory.index') }}">
+                        <i data-feather='user-check'></i>
+                        <span class="menu-item text-truncate" data-i18n="Neighbors">Neighbour Category</span>
                     </a>
                 </li>
                  <li class="nav-item {{getActiveMenuClass('admin.neighbour.index')}}">
@@ -231,6 +263,24 @@
                     <a class="d-flex align-items-center" href="{{route('clear.cache')}}">
                         <i data-feather='scissors'></i>
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Clear Cache</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('admin.downloads.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.downloads.index')}}">
+                        <i data-feather='download'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Downloads</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('admin.message.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.message.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">User Message</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('agent.message.index')}}">
+                    <a class="d-flex align-items-center" href="{{route('admin.neighbour.message.index')}}">
+                        <i data-feather='message-square'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Neibour Message</span>
                     </a>
                 </li>
 

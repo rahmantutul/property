@@ -23,7 +23,7 @@
                     <div class="redmeta-wrap">
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-flag"></i></h1>
-                            <h3 class="caps"><strong>CATEGORY: {{ $dataInfo->propertyCategory?->category->name }}</strong></h3>
+                            <h3 class="caps"><strong>Type: {{ $dataInfo->typeInfo?->type }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-dollar"></i></h1>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-tint"></i></h1>
-                            <h3 class="caps"><strong>BATHS: {{ $dataInfo->details?->numOfBedroom }}</strong></h3>
+                            <h3 class="caps"><strong>BATHS: {{ $dataInfo->details?->numOfBathroom }}</strong></h3>
                         </div>
                         <div class="redmeta centertext">
                             <h1><i class="fa fa-calculator"></i></h1>

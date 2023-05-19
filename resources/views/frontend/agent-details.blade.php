@@ -96,13 +96,17 @@
                         <h2>FOR SALE: {{(!is_null($dataInfo->details)) ? $dataInfo->details->totalUnit.','.$dataInfo->details->squareFeet:''}}</h2>
                         <h5><span><i class="fa fa-bed"></i>{{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBedroom:''}} BEDS</span> <span style="margin-left: 10px;"><i class="fa fa-tint"></i> {{(!is_null($dataInfo->details)) ? $dataInfo->details->numOfBathroom:''}} Baths</span></h5>
 
-                        <a href="" class="learn_more_btn">
+                        <a href="{{ route('front.propertyDetails', $id=$dataInfo->id) }}" class="learn_more_btn">
                             <div class="button_lm">
                                 <div class="f-left left_btn">Learn More</div>
                                 <div class="f-left right_btn"><i class="fa fa fa-arrow-right btn_icon"></i></div>
                             </div>
                         </a>
-                        <a href="" class="save_properties"><i class="fa fa-star"></i> Save</a>
+                        @if ($dataInfo->saveProperty)
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star"> Save</i></a>
+                        @else
+                            <a data-savelist-url="{{route('front.saveProperty', [$id=$dataInfo->id])}}" class="save_properties"><i class="fa fa-star-o"> Save</i></a>
+                        @endif
                     </div>
                 </div>
             </div>

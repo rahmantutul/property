@@ -28,9 +28,9 @@
             <input type="text" id="userName" name="userName" required>
             <label class="label" for="password">Password *</label>
             <input type="password" id="password" name="password" required>
-            <div class="forgot">
+            {{-- <div class="forgot">
                 <a href="#">FORGOT MY PASSWORD</a> / <a href="#">FORGOT MY USERNAME</a>
-            </div>
+            </div> --}}
             <button type="submit" class="button">LOGIN</button>
         </form>
         <div class="mt-2 signup_link">Don't have an account? <a class="signup" href="{{route('front.signup')}}">SIGN UP</a></div>

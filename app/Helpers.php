@@ -1,11 +1,68 @@
 <?php
 
+use App\Models\NeighbourCategory;
 use App\Models\WebsiteInfo;
+
 
 function getWebsiteInfo(){
      $websiteInfo= WebsiteInfo::first();
      return $websiteInfo;
 }
+function getWebNavInfo(){
+    $neighbours= NeighbourCategory::with('naighbours')->whereNull('deleted_at')
+    ->where('status', 1)
+    ->get();
+     return $neighbours;
+}
+
+/**
+ * Predefined Messages
+ */
+define('FETCH_SUCCESS', 'Data retrieve successfully');
+define('FETCH_FAIL', 'Opps! NO data available.');
+define('VALIDATION_ERROR', 'Validation Error');
+define('SUCCESS', 'Successfully created');
+define('FAIL', 'Failed to create');
+define('UPDATE_SUCCESS', 'Successfully updated');
+define('UPDATE_FAIL', 'Failed to update');
+define('SERVER_ERROR', 'Internal server error!');
+define('DELETE_SUCCESS', 'Successfully deleted');
+define('DELETE_FAIL', 'Failed to delete');
+define('UNAUTHORIZED', 'These credentials do not match our records.');
+define('PERMISSION_DENIED', 'Insufficient Permissions!');
+define('PAGINATE_LIMIT', 10);
+
+/**
+ * common json success response
+ */
+if(!function_exists('respondSuccess')){
+    function respondSuccess($message, $data = [], $code = 200, $status = true)
+    {
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+            'code' => $code
+        ], $code);
+    }
+}
+
+/**
+ * common json error response
+ */
+
+if(!function_exists('respondError')){
+    function respondError($message, $messages = [], $code = 500, $status = false)
+    {
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+        !empty($messages) ? $response['errors'] = $messages : null;
+        return response()->json($response, $code);
+    }
+}
+
 function formatDate($date)
 {
     return date('d-m-Y', strtotime($date));
@@ -33,6 +90,10 @@ function getDefaultUserImage()
 function getImage($url)
 {
     return (!is_null($url)) ? $url : asset('images/no_found.png');
+}
+function getPropertyImage($url)
+{
+    return asset('images/property_image.jpg');
 }
 function getActiveMenuClass($routeName)
 {
@@ -127,4 +188,10 @@ function getFullName($dataInfo)
 {
 
     return $dataInfo->firstName . ' ' . $dataInfo->lastName;
+}
+
+
+function resizePhotoUrl($Photo1URL)
+{
+    return str_replace('-a.', '.', $Photo1URL);
 }

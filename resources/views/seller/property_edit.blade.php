@@ -35,6 +35,16 @@
                             >
                              <span style="color:red" ></span>
                         </div>
+                        <div class="col-4 form-group">
+                            <strong>Property Type:</strong>
+                            <select class="form-control select2" name="typeId">
+                                <option value="">Choose A Property Type</option>
+                                @foreach ($properTypeList as $type)
+                                    <option @if($type->id==$dataInfo->typeId) selected @endif value="{{ $type->id }}">{{ $type->type }}</option>
+                                @endforeach
+                            </select>
+                            <span style="color:red"></span>
+                        </div>
                         {{-- <div class="col-4 form-group">
                             <strong>MLS ID:</strong>
                             <input type="text" name="mlsId" placeholder="MLS Id" class="form-control"  value="{{$dataInfo->mlsId}}"  required>
@@ -63,8 +73,8 @@
                              <span style="color:red" ></span>
                         </div>
                         <div class="col-4 form-group">
-                            <strong>Virtual Tour:</strong>
-                            <input type="text" name="virtualTour" placeholder="Virtual Tour" class="form-control" value="{{$dataInfo->virtualTour}}"   required>
+                            <strong>Virtual Tour (URL):</strong>
+                            <input type="text" name="virtualTour" placeholder="URL" class="form-control" value="{{$dataInfo->virtualTour}}"   required>
                              <span style="color:red" ></span>
                         </div>
                     
@@ -299,7 +309,7 @@
                             <h4 class="form-devider">Images/Video</h4>
                         </div>
                         <div class="col-6 form-group">
-                            <strong>Images/Docs/Videos:</strong>
+                            <strong>Banner Image (Single):</strong>
                             @if(!is_null($dataInfo->thumbnail))
                                 {{-- <img src="{{getImage($dataInfo->thumbnail)}}" height="70" width="70"> <br> --}}
                                 <input type="hidden" name="thumbailUrl" value="{{$dataInfo->thumbnail}}">
@@ -314,7 +324,7 @@
                         </div>
                         
                         <div class="col-12 form-group">
-                            <strong>Select Slider Images:</strong>
+                            <strong>Select Slider Images (Multiple): </strong>
                             <input type="file" name="images[]" multiple class="form-control">
                             <span style="color:red"></span>
                         </div>

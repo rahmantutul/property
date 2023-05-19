@@ -38,7 +38,7 @@
                         <strong>Email:</strong>
                         <input class="form-control" name="email" placeholder="email" value="{{request()->email}}">
                     </div>
-                    <div class="col-md-2 col-sm-6 form-group">
+                    {{-- <div class="col-md-2 col-sm-6 form-group">
                         <strong>Role:</strong>
                         <select class="form-control" name="roleId" >
                                 <option value="">Choose A Role</option>
@@ -46,7 +46,7 @@
                                 <option value="{{$roleInfo->id}}" {{(request()->roleId==$roleInfo->id)?'selected':''}}>{{$roleInfo->name}}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                     
                     <div class="col-md-1  form-group">
                         <strong></strong><br>
@@ -87,16 +87,16 @@
 
                                 <td>{{$dataInfo?->user?->email}}</td>
                                 
-                                <td>{{$dataInfo?->user?->phone}}</td>
-                                <td>
+                                <td>{{$dataInfo->user?->phone}}</td>
+                                <td class="text-center">
                                      <span class="badge badge-pill badge-info text-dark">
-                                        {{$dataInfo->roleInfo->name}}
+                                        Admin
                                     </span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <span class="badge badge-pill {{getStatusBadge($dataInfo?->user?->status)}}">{{getActiveInActiveStatus($dataInfo?->user?->status)}}</span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{route('admin.admin.status.change',['dataId'=>$dataInfo->id,'status'=>($dataInfo?->user?->status==1)?2:1])}}" class="btn btn-sm btn-icon {{getStatusChangeBtn($dataInfo?->user?->status)}} btn_status_change" title="Change Status">
                                         {!!getStatusChangeIcon($dataInfo?->user?->status)!!}
                                     </a>

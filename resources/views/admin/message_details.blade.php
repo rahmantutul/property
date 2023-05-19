@@ -15,14 +15,13 @@
                 <div class="card-body invoice-padding pb-0">
                     <div class="text-center">
                         <img src="{{asset('')}}assets/frontend/images/logo.png" alt="US Metro Reilty" style="height:120px;">
-                        <h4 class=" bg-light-info text-uppercase text-dark mt-1" style="padding:12px">Message Details</h4>
+                        <h4 class="bg-light-info text-uppercase text-dark mt-1" style="padding:12px">Message Details</h4>
                     </div>
                     <!-- Header starts -->
                     <div class="d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0">
                         <div>
-                            <p class="card-text mb-25"><strong>Sender Name: {{ $dataInfo->firstName }} {{ $dataInfo->lastName }}</strong></p>
+                            <p class="card-text mb-25"><strong>Sender Name:{{ $dataInfo->name }}</strong></p>
                             <p class="card-text mb-25"><strong>Sender Email: {{ $dataInfo->email }}</strong></p>
-                            <p class="card-text mb-0"><strong>Sender Phone: {{ $dataInfo->phone }}</strong></p>
                         </div>
                         <div class="mt-md-0 mt-2">
                             <h4 class="invoice-title">
@@ -41,32 +40,8 @@
                 <div class="row">
                     <div class="col-md-12 col-12">
                         <div class="card">
-                            <a href="page-blog-detail.html">
-                                <img style="max-height: 350px;" class="card-img-top img-fluid" src="{{ $dataInfo->property?->thumbnail }}" alt="Blog Post pic">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="{{ route('front.propertyDetails', $id=$dataInfo->property?->id) }}" class="blog-title-truncate text-body-heading">{{ $dataInfo->property?->title }}</a>
-                                </h4>
-                                <div class="media">
-                                    <div class="avatar mr-50">
-                                        <img src="{{getUserImage(Auth::user()->avatar)}}" alt="Avatar" width="24" height="24">
-                                    </div>
-                                    <div class="media-body">
-                                        <small class="text-muted mr-25">by</small>
-                                        <small><a href="javascript:void(0);" class="text-body">{{ Auth::user()->email }}</a></small>
-                                        <span class="text-muted ml-50 mr-25">|</span>
-                                        <small class="text-muted">{{ date('d/m/Y',strtotime($dataInfo->property?->created_at)) }}</small>
-                                    </div>
-                                </div>
-                                <div class="my-1 py-25">
-                                    <a href="javascript:void(0);">
-                                        <div class="badge badge-pill badge-light-info mr-50">Quote</div>
-                                    </a>
-                                    <a href="javascript:void(0);">
-                                        <div class="badge badge-pill badge-light-primary">Fashion</div>
-                                    </a>
-                                </div>
+                            <div class="card-body p-0">
+                                <h4 class="text-dark text-center">SUBJECT: {{ $dataInfo->subject }}</h4>
                                 <p class="card-text blog-content-truncate">
                                    {!! $dataInfo->property?->previewText !!}
                                 </p>

@@ -54,7 +54,7 @@
                                 <th>Sl/No</th>
                                 <th>Report Name</th>
                                 <th>Report Subject</th>
-                                <th>reportDetails</th>
+                                {{-- <th>reportDetails</th> --}}
                                 @if(!isset(request()->user))
                                 <th>Attachment One</th>
                                 <th>Attachment Two</th>
@@ -72,7 +72,7 @@
                                 <th class="text-center">{{ $key+1 }}</th>
                                 <td>{{ $dataInfo->reportName }}</td>
                                 <td>{{ $dataInfo->reportSubject }}</td>
-                                <td>{!! Str::limit($dataInfo->reportDetails,150) !!}</td>
+                                {{-- <td>{!! Str::limit($dataInfo->reportDetails,150) !!}</td> --}}
                                 @if(!isset(request()->user))
                                 <td class="text-center">
                                     @if (!is_null($dataInfo->bannerImage))
@@ -119,7 +119,7 @@
                                     <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}" class="btn btn-success btn-sm btn-icon" title="Show Details">
                                         <i data-feather='eye'></i>
                                     </a> <br>
-                                    <span class="badge" style="background: #140c38;">See Details</span>
+                                    {{-- <span class="badge" style="background: #140c38;">See Details</span> --}}
                                     @else
                                     <a href="{{route('marketActivity.details',['dataId'=>$dataInfo->id])}}" class="btn btn-success btn-sm btn-icon" title="Show Details">
                                         <i data-feather='eye'></i>

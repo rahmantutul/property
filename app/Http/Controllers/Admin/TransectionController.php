@@ -156,7 +156,8 @@ class TransectionController extends Controller
      */
     public function destroy($id)
     {
-        
+        Transection::find($id)->delete();
+        return response()->json(['status'=>true ,'msg'=>'Deleted Successfully!']);
     }
 
     
@@ -167,7 +168,7 @@ class TransectionController extends Controller
 
         // dd($transaction);
 
-        Mail::to($transaction->send_mail)->send(new TransactionAgent($transaction));
+        Mail::to($transaction->title_email)->send(new TransactionAgent($transaction));
         Session::flash('msg','Mail Send Successfully.!');
         return redirect()->back();
         // return response()->json(['status'=>true ,'msg'=>' Mail Send Successfully.!','url'=>url()->previous()]);

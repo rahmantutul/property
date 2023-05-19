@@ -26,7 +26,7 @@
 
                 <!-- Back to Top -->
                 <div class="btt">
-                    <a href="https://corenyc.com/#" target="_self">
+                    <a href="{{ route('front.home') }}" target="_self">
                         <svg width="19px" height="10px" viewBox="0 0 19 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <defs></defs>
                             <g id="APPROVED-PAGES" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -40,7 +40,7 @@
 
                 <!-- Disclaimer -->
                 <div class="disclaimer">
-                    <p class="text-center w-75 m-auto"><a href="https://corenyc.com/1228857-2/" target="_self">STANDARDIZED OPERATING PROCEDURE FOR PURCHASERS OF REAL ESTATE </a><br>
+                    <p class="text-center w-75 m-auto"><a href="{{ route('front.home') }}" target="_self">STANDARDIZED OPERATING PROCEDURE FOR PURCHASERS OF REAL ESTATE </a><br>
                         Disclaimer: {{  getWebsiteInfo()?->disclaimer  }}
                     </p>
                 </div>
@@ -56,10 +56,10 @@
 
                 <!-- Footer Icon Links -->
                 <div class="footicons">
-                    <a  href="http://www.leveragere.com/" target="_blank">
+                    <a  href="{{ route('front.home') }}" target="_blank">
                         <img style="height:34px; width:34px;" src="{{ getWebsiteInfo()?->logo }}">
                     </a>
-                    <a href="http://pledge1percent.org/" target="_blank">
+                    <a href="{{ route('front.home') }}" target="_blank">
                         <img style="height:34px; width:34px;" src="{{ getWebsiteInfo()?->logo }}">
                     </a>
                 </div>
@@ -69,9 +69,10 @@
                     <span class="houseicon">
                         <i class="fa fa-house"></i>
                     </span>
-                    <ul id="menu-footer-links" class="footer-links"><li id="menu-item-29317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29317"><a href="" target="_self">Disclaimer</a></li>
-                        <li id="menu-item-27192" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27192"><a href="https://corenyc.com/sitemap.xml" target="_self">Sitemap</a></li>
-                    </ul>                <span class="copy">© {{ getWebsiteInfo()?->copyright }}</span>
+                    <ul id="menu-footer-links" class="footer-links"><li id="menu-item-29317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29317"><a href="#" target="_self">Disclaimer</a></li>
+                        <li id="menu-item-27192" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27192"><a href="{{ route('front.home') }}" target="_self">Sitemap</a></li>
+                    </ul>                
+                    <span class="copy">© {{ getWebsiteInfo()?->copyright }}</span>
                 </nav>
 
                 <!-- Social Links -->

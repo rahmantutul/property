@@ -1,22 +1,11 @@
 @extends('layouts.backends.master')
-@section('title','Amenity List')
+@section('title','Transection View')
 @push('css')
 <style>
-
-    .heading-border{
-        height: 22px;
-        width: 1100px;
-        background: #f76206 !important;
-    }
-    .message{
-        margin: auto;
-    }
-    h3{
-        width:100%; background:#4d4c4c; color: #fff; margin-top:9px; line-height: 1.5;
-    }
-    table th{
-        text-align: right;
-        background: #dedddd;
+    .form-devider{
+        padding: 12px ;
+        background: #E8DAEF;
+        border-radius: 4px;
     }
 </style>
 @endpush
@@ -24,242 +13,291 @@
 
 <div class="row mb-1">
     <div class="col-8">
-    <h2 class="content-header-title float-left mb-0">Mail View</h2>
+    <h2 class="content-header-title float-left mb-0">Transection View</h2>
+    </div>
+    <div class="col-4 d-flex flex-row-reverse">
+    {{-- <a class="btn btn-primary btn-round btn-sm" href="{{route('admin.transection.index')}}">Transection List</a> --}}
     </div>
 </div>
 <div class="content-body">
-    <h2>UsMetroReality A &#174; -Arizona Origon and Washington Properties</h2>
-    <div class="heading-border"></div>
-    <div class="message">
-        <h3>Message To Title</h3>
-        <table width="100%">
-            <tr>
-                <th width="20%"></th>
-                <td width="70%" style="padding:5px 20px;"> 
-                    <b>Dear Tammy LeMaire,</b> <br> <br>
-                    Here are broker instructions for this transaction. US Metro Realty agent (listed below) is working on this
-                    transaction. A voided check is attached to this email to wire-transfer the commission amount into US Metro Realty
-                    company account. <br> <br>
-                    Please let us know if you have any questions. Following is the detail:
-                </td>
-            </tr>
-        </table>
-        <h3>Property Information</h3>
-        <div style="display: flex; flex-direction: row;">
-            <table width="50%">
-                <tr>
-                    <th width="20%">Transaction</th>
-                    <td width="30%" style="padding:5px 20px;">USMR-OR-LZ-2222007</td>
-                </tr>
-            </table>
-            <table width="50%">
-                <tr>
-                    <td width="20%"> </td>
-                    <td width="30%" style="padding:5px 20px;"></td>
-                </tr>
-            </table>
+    <!-- Basic Tables start -->
+    <div class="row" id="basic-table">
+        <div class="col-12">
+            <div class="card">           
+                <div class="card-body">
+                    <form class="row" id="ajax_form" action="{{route('admin.transection.update')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="dataId" value="{{ $transaction->id }}">
+                        <div class="col-6 form-group m-auto">
+                            <strong>Transaction Id:</strong>
+                            <input type="text" name="transection_id" class="form-control" readonly disabled required value="{{ $transaction->transaction_id }}">
+                             <span style="color:red" ></span><br><br>
+                        </div> 
+                        <div class="col-6 form-group m-auto">
+                            <strong>Title Mail:</strong>
+                            <input type="email" name="send_mail" class="form-control" readonly disabled required value="{{ $transaction->title_email }}">
+                            <span style="color:red" ></span><br><br>
+                        </div> 
+                        <div class="col-4 form-group">
+                            <strong>Transection Types:</strong>
+	                        <select class="form-control select2" readonly name="transection_type" >
+	                            <option value="">Choose Type</option>
+	                            <option {{ ($transaction->transection_type==1)?'selected':'' }} value="1" disabled>Sale Transection</option>
+	                            <option {{ ($transaction->transection_type==2)?'selected':'' }} value="2" disabled>Listing Transection</option>
+	                            <option {{ ($transaction->transection_type==3)?'selected':'' }} value="3" disabled>Others</option>
+	                        </select>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Listing Price:</strong>
+                            <input type="number" name="listing_price" placeholder="Listing Price" class="form-control" readonly disabled required value="{{ $transaction->listing_price }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Sold Price:</strong>
+                            <input type="number" name="sold_price" placeholder="Sold Price" class="form-control" readonly disabled required value="{{ $transaction->sold_price }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Listing Date:</strong>
+                            <input type="date" name="listing_date" placeholder="Listing Date" class="form-control" readonly disabled  required value="{{ $transaction->listing_date }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Sold Date:</strong>
+                            <input type="date" name="sold_date" placeholder="Sold Date" class="form-control" readonly disabled  required value="{{ $transaction->sold_date }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-12">
+                            <h4 class="form-devider">Prpperty Details</h4>
+                        </div>
+
+                        <div class="col-4 form-group">
+                            <strong>Property Address:</strong>
+                            <input type="text" name="property_address" placeholder="Property Address" class="form-control" readonly disabled  required value="{{ $transaction->property_address }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>City:</strong>
+                            <input type="text" name="city" placeholder="City" class="form-control" readonly disabled  required value="{{ $transaction->city }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>State:</strong>
+	                        <select class="form-control select2" readonly name="state" >
+	                            <option value="">Choose Type</option>
+	                            <option  {{ ($transaction->state==1)?'selected':'' }} value="1" disabled>Arizona</option>
+	                            <option  {{ ($transaction->state==1)?'selected':'' }} value="2" disabled>Oregon</option>
+	                            <option  {{ ($transaction->state==3)?'selected':'' }} value="3" disabled>Washington</option>
+	                            <option  {{ ($transaction->state==4)?'selected':'' }} value="4" disabled>Other</option>
+	                        </select>
+                             <span style="color:red" ></span>
+                        </div>
+
+                        <div class="col-4 form-group">
+                            <strong>Zip:</strong>
+                            <input type="text" name="zip" placeholder="Zip" class="form-control" readonly disabled  required value="{{ $transaction->zip }}">
+                             <span style="color:red" ></span>
+                        </div>
+
+                        <div class="col-12">
+                            <h4 class="form-devider">Buyer Details</h4>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer 1 Name:</strong>
+                            <input type="text" name="buyer_one_name" placeholder="Buyer 1 Name" class="form-control" readonly disabled  required value="{{ $transaction->buyer_one_name }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer 2 Name:</strong>
+                            <input type="text" name="buyer_two_name" placeholder="Buyer 2 Name" class="form-control" readonly disabled  required value="{{ $transaction->buyer_two_name }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer Address:</strong>
+                            <input type="text" name="buyer_address" placeholder="Buyer Address" class="form-control" readonly disabled  required value="{{ $transaction->buyer_address }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer Phone:</strong>
+                            <input type="text" name="buyer_phone" placeholder="Buyer Phone" class="form-control" readonly disabled  required value="{{ $transaction->buyer_phone }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer's Agent:</strong>
+                            <input type="text" name="buyer_agent" placeholder="Buyer Agent:" class="form-control" readonly disabled  required value="{{ $transaction->buyer_agent }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer's Agent email:</strong>
+                            <input type="email" name="buyer_agent_email" placeholder="Buyer Agent Email:" class="form-control" readonly disabled  required value="{{ $transaction->buyer_agent_email }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Buyer's Agent phone:</strong>
+                            <input type="text" name="buyer_agent_phone" placeholder="Buyer Agent Phone:" class="form-control" readonly disabled  required value="{{ $transaction->buyer_agent_phone }}">
+                             <span style="color:red" ></span>
+                        </div>
+
+
+                        <div class="col-12">
+                            <h4 class="form-devider">Seller Details</h4>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller 1 Name:</strong>
+                            <input type="text" name="seller_one_name" placeholder="Seller 1 Name" class="form-control" readonly disabled  required value="{{ $transaction->seller_one_name }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller 2 Name:</strong>
+                            <input type="text" name="seller_two_name" placeholder="Seller 2 Name" class="form-control" readonly disabled  required value="{{ $transaction->seller_two_name }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller Address:</strong>
+                            <input type="text" name="seller_address" placeholder="Seller Address" class="form-control" readonly disabled  required value="{{ $transaction->seller_address }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller Phone:</strong>
+                            <input type="text" name="seller_phone" placeholder="Buyer Phone" class="form-control" readonly disabled  required value="{{ $transaction->seller_phone }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller's Agent:</strong>
+                            <input type="text" name="seller_agent" placeholder="Buyer Agent:" class="form-control" readonly disabled  required value="{{ $transaction->seller_agent }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller's Agent email:</strong>
+                            <input type="email" name="seller_agent_email" placeholder="Seller Agent Email:" class="form-control" readonly disabled  required value="{{ $transaction->seller_agent_email }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Seller's Agent phone:</strong>
+                            <input type="text" name="seller_agent_phone" placeholder="Seller Agent Phone:" class="form-control" readonly disabled  required value="{{ $transaction->seller_agent_phone }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-12">
+                            <h4 class="form-devider">Title Information</h4>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Closing Title:</strong>
+                            <input type="text" name="closing_title" placeholder="Closing Title" class="form-control" readonly disabled  required value="{{ $transaction->closing_title }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Escrow Tran#:</strong>
+                            <input type="text" name="escrow_transection" placeholder="Escrow Transection" class="form-control" readonly disabled  required value="{{ $transaction->escrow_transection }}"> 
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Title Address:</strong>
+                            <input type="text" name="title_address" placeholder="Title Address" class="form-control" readonly disabled  required value="{{ $transaction->title_address }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Title Phone:</strong>
+                            <input type="text" name="title_phone" placeholder="Title Phone" class="form-control" readonly disabled  required value="{{ $transaction->title_phone }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Title's Agent:</strong>
+                            <input type="text" name="title_agent" placeholder="Title Agent:" class="form-control" readonly disabled  required value="{{ $transaction->title_agent }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Title email:</strong>
+                            <input type="email" name="title_email" placeholder="Title Email:" class="form-control" readonly disabled  required value="{{ $transaction->title_email }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-12">
+                            <h4 class="form-devider">Misc Information</h4>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Commission Amount:</strong>
+                            <input type="number" name="commission_amount" placeholder="Commission Amount" class="form-control" readonly disabled  required value="{{ $transaction->commission_amount }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Commission Type:</strong>
+	                        <select class="form-control select2" name="commission_type" >
+	                            <option value="">Choose Type</option>
+	                            <option {{ ($transaction->commission_type=='Percentage')?'selected':'' }} value="Percentage">Percentage</option>
+	                            <option {{ ($transaction->commission_type=='Fixed')?'selected':'' }} value="Fixed">Fixed</option>
+	                            <option {{ ($transaction->commission_type=='Referral Fee')?'selected':'' }} value="Referral Fee">Referral Fee</option>
+	                            <option {{ ($transaction->commission_type=='Other')?'selected':'' }} value="Other">Other</option>
+	                        </select>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Earnest Money Amount:</strong>
+                            <input type="number" name="earnest_money" placeholder="Earnest Money Amount" class="form-control" readonly disabled  required value="{{ $transaction->earnest_money }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Earnest Money Held By:</strong>
+	                        <select class="form-control select2" name="earnest_money_holder" >
+	                            <option value="">Choose Type</option>
+	                            <option {{ ($transaction->earnest_money_holder=='Title')?'selected':'' }} value="Title">Title</option>
+	                            <option {{ ($transaction->earnest_money_holder=='Listing Co.')?'selected':'' }} value="Listing Co.">Listing Co.</option>
+	                            <option {{ ($transaction->earnest_money_holder=='Selling Co.')?'selected':'' }} value="Selling Co.">Selling Co.</option>
+	                        </select>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Home Warrnety Provided By:</strong>
+	                        <select class="form-control select2" name="home_warrenty" >
+	                            <option value="">Choose One</option>
+	                            <option {{ ($transaction->home_warrenty=='Buyer Agent')?'selected':'' }}  value="Buyer Agent">Buyer Agent</option>
+	                            <option {{ ($transaction->home_warrenty=='Seller Agent')?'selected':'' }}  value="Seller Agent">Seller Agent</option>
+	                            <option {{ ($transaction->home_warrenty=='Buyer')?'selected':'' }}  value="Buyer">Buyer</option>
+	                            <option {{ ($transaction->home_warrenty=='Seller')?'selected':'' }}  value="Seller">Seller</option>
+	                            <option {{ ($transaction->home_warrenty=='Other')?'selected':'' }}  value="Other">Other</option>
+	                            <option {{ ($transaction->home_warrenty=='None')?'selected':'' }}  value="None">None</option>
+	                        </select>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Notes For Broker Instruction:</strong>
+                            <input type="text" name="broker_note" placeholder="Broker Note" class="form-control" readonly disabled required value="{{ $transaction->broker_note }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Agent Notes For this Instruction and Admin:</strong>
+                            <input type="text" name="agent_note" placeholder="Agent Note" class="form-control" readonly disabled required value="{{ $transaction->agent_note }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <strong>Office Notes:</strong>
+                            <input type="text" name="office_note" placeholder="Office Note" class="form-control" readonly disabled required value="{{ $transaction->office_note }}">
+                             <span style="color:red" ></span>
+                        </div>
+                        {{-- <div class="col-12">
+                            <h4 class="form-devider">Upload</h4>
+                        </div>
+                        <div class="col-6 form-group">
+                            <strong>Image:</strong>
+                            <input type="file" name="image" class="form-control" readonly disabled>
+                             <span style="color:red" ></span>
+                        </div>
+                        <div class="col-6 form-group">
+                            <strong>Video Url:</strong>
+                            <input type="text" name="video_url" placeholder="Past URL" class="form-control" readonly disabled value="{{ $transaction->video_url }}" >
+                             <span style="color:red" ></span>
+                        </div> --}}
+                        {{-- <div class="col-12 d-flex flex-row-reverse">
+                            <button class="btn btn-primary btn-icon" type="submit">
+                               <i data-feather='save'></i> Save
+                            </button>
+                        </div> --}}
+                    </form>
+                </div>
+            </div>
         </div>
-        <div style="display: flex; flex-direction: row;">
-            <table width="50%">
-                <tr>
-                    <th width="20%">MLS#</th>
-                    <td width="30%" style="padding:5px 20px;"> 21682127</td>
-                </tr>
-            </table>
-            <table width="50%">
-                <tr>
-                    <th width="20%">Transaction Type </th>
-                    <td width="30%" style="padding:5px 20px;"> Sale Transaction</td>
-                </tr>
-            </table>
-        </div>
-        <div style="display: flex; flex-direction: row;">
-            <table width="50%">
-                <tr>
-                    <th width="20%">Listing Price</th>
-                    <td width="30%" style="padding:5px 20px;">  $300,000.00</td>
-                </tr>
-            </table>
-            <table width="50%">
-                <tr>
-                    <th width="20%">Sold Price</th>
-                    <td width="30%" style="padding:5px 20px;"> $399,900.00</td>
-                </tr>
-            </table>
-        </div>
-        <div style="display: flex; flex-direction: row;">
-            <table width="50%">
-                <tr>
-                    <th width="20%">Listing Date</th>
-                    <td width="30%" style="padding:5px 20px;"> 8/27/2021</td>
-                </tr>
-            </table>
-            <table width="50%">
-                <tr>
-                    <th width="20%">Sold Date</th>
-                    <td width="30%" style="padding:5px 20px;"> 4/22/2022</td>
-                </tr>
-            </table>
-        </div>
     </div>
-    <h3>Property Address</h3>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Address</th>
-                <td width="30%" style="padding:5px 20px;">16012 NW HOSMER LN</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <td width="20%"></td>
-                <td width="30%" style="padding:5px 20px;"></td>
-            </tr>
-        </table>
-    </div>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">City, State Zip</th>
-                <td width="30%" style="padding:5px 20px;"> Portland OR 97229</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <td width="20%"></td>
-                <td width="30%" style="padding:5px 20px;"></td>
-            </tr>
-        </table>
-    </div>
-    <h3>Buyers information</h3>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Buyer Name</th>
-                <td width="30%" style="padding:5px 20px;">Salman Vazirali Siddique</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="20%">Buyer Name</th>
-                <td width="30%" style="padding:5px 20px;">2585-55852-875</td>
-            </tr>
-        </table>
-    </div>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Buyer Email</th>
-                <td width="30%" style="padding:5px 20px;">Salman Vazirali Siddique</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="20%">Buyer Address</th>
-                <td width="30%" style="padding:5px 20px;">address irejjw</td>
-            </tr>
-        </table>
-    </div>
-    <h3>Seller information</h3>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Seller Name</th>
-                <td width="30%" style="padding:5px 20px;">Taylor Morrison Northwest, LLC</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="20%">Seller Full Address</th>
-                <td width="30%" style="padding:5px 20px;">Lubna Zaidi</td>
-            </tr>
-        </table>
-    </div>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="25%">Seller Email address</th>
-                <td width="30%" style="padding:5px 10px;"> tepping@taylormorrison.com</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="20%">Seller Phone</th>
-                <td width="30%" style="padding:5px 20px;">2585-55852-875</td>
-            </tr>
-        </table>
-    </div>
-    <!-- <h3>Title Information</h3>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Closing Title</th>
-                <td width="30%" style="padding:5px 20px;">Escrow Fidelity National Title</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="25%">Escrow Tran #</th>
-                <td width="30%" style="padding:5px 10px;"> #45142204144</td>
-            </tr>
-        </table>
-    </div>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Title Full Address</th>
-                <td width="30%" style="padding:5px 20px;">8564 SW Apple Way Portland OR 97225</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="25%">Escrow Tran #</th>
-                <td width="30%" style="padding:5px 10px;"> #45142204144</td>
-            </tr>
-        </table>
-    </div> -->
-    <h3>Msc information</h3>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Commission Amount</th>
-                <td width="30%" style="padding:5px 20px;"> $4000</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="20%">Commission Type</th>
-                <td width="30%" style="padding:5px 20px;">Fixed</td>
-            </tr>
-        </table>
-    </div>
-    <div style="display: flex; flex-direction: row;">
-        <table width="50%">
-            <tr>
-                <th width="20%">Earnest Money Amount</th>
-                <td width="30%" style="padding:5px 10px;">$7500</td>
-            </tr>
-        </table>
-        <table width="50%">
-            <tr>
-                <th width="20%">Seller Phone</th>
-                <td width="30%" style="padding:5px 20px;">2585-55852-875</td>
-            </tr>
-        </table>
-    </div>
-    <table width="100%" style="margin-top:12px;">
-        <tr>
-            <th width="20%" style="text-align: center;">Principal Broker</th>
-            <td width="70%" style="padding:5px 20px;"> 
-                Kalim Qamar, principal broker <br><br>
-                Us Metro Realty, Inc.<br><br>
-                Phone: 888-313-0001 Fax: 888-313-0001 <br><br>
-                Principal Broker<br><br>
-                Cell: 503-880-9889 Email: kalim@usMetroRealty.com<br><br>
-                Website: www.usMetroRealty.com <br><br>
-            </td>
-        </tr>
-    </table>
-    <div class="heading-border" style="color:#000;"><b>Copyright © 2021, usMetroRealty®-Arizona, Oregon and Washington Properties. All rights reserved.</b></div>
 </div>
 @endsection
+@push('js')
+@endpush
+       

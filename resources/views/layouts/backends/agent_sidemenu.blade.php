@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true" style="overflow-y:auto; position:fixed;">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="{{route('agent.dashboard')}}">
@@ -70,6 +70,12 @@
                     <a class="d-flex align-items-center" href="{{route('agent.helpDesk.index')}}">
                         <i data-feather='message-square'></i>
                         <span class="menu-title text-truncate" data-i18n="Dashboard">Help Desk</span>
+                    </a>
+                </li>
+                <li class="nav-item {{getActiveMenuClass('agent.downloads.index')}}?user=1">
+                    <a class="d-flex align-items-center" href="{{route('agent.downloads.index')}}?user=1">
+                        <i data-feather='download'></i>
+                        <span class="menu-title text-truncate" data-i18n="Dashboard">Downloads</span>
                     </a>
                 </li>
             </ul>

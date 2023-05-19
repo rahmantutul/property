@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\AmenityTypeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\GarageTypeController;
 use App\Http\Controllers\Admin\MarketActivityController;
 use App\Http\Controllers\Admin\PropertyController;
@@ -21,11 +23,14 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\TransectionController;
 use App\Http\Controllers\Admin\HelpDeskController;
+use App\Http\Controllers\Admin\NeighbourCategoryConroller;
+use App\Http\Controllers\Admin\NeighbourMessageController;
 use App\Http\Controllers\Admin\PropertyMessageController;
 use App\Http\Controllers\Admin\ResoPropertyController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Controllers\InboxController;
-
+use App\Http\Controllers\OreGonController;
 // Auth::routes();
 
 Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],function(){
@@ -37,6 +42,11 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	Route::group(['prefix'=>'profile','as'=>'profile.'],function(){
 		Route::get('/edit',[AdminController::class,'editProfile'])->name('edit');
 		Route::post('/update',[AdminController::class,'updateProfile'])->name('update');
+	});
+
+	Route::group(['prefix'=>'metadata','as'=>'metadata.'],function(){
+		Route::get('/',[OreGonController::class,'index'])->name('index');
+		Route::get('/getAllMetaData',[OreGonController::class,'store'])->name('store');
 	});
 
 	Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
@@ -90,6 +100,9 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[BuyerController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[BuyerController::class,'changeStatus'])->name('status.change');
+
+		Route::get('{dataId}/approve/{approve}/change',[BuyerController::class,'changeApprove'])->name('approve.change');
+
 	});
 
 	Route::group(['prefix'=>'seller','as'=>'seller.'],function(){
@@ -107,6 +120,9 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[SellerController::class,'destroy'])->name('delete');
 
 		Route::get('{dataId}/status/{status}/change',[SellerController::class,'changeStatus'])->name('status.change');
+
+		Route::get('{dataId}/approve/{approve}/change',[SellerController::class,'changeApprove'])->name('approve.change');
+
 	});
 
 	Route::group(['prefix'=>'neighbour', 'as'=>'neighbour.'],function(){
@@ -227,6 +243,26 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 
 	});
 
+	// for Nighbour Category
+	Route::group(['prefix'=>'neighbourcategory','as'=>'neighbourcategory.'],function(){
+
+		Route::get('/',[NeighbourCategoryConroller::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[NeighbourCategoryConroller::class,'changeStatus'])->name('status.change');
+
+
+		Route::get('/{dataId}/edit',[NeighbourCategoryConroller::class,'edit'])->name('edit');
+
+		Route::post('/update',[NeighbourCategoryConroller::class,'update'])->name('update');
+
+		Route::post('/',[NeighbourCategoryConroller::class,'store'])->name('store');
+
+		Route::get('/create',[NeighbourCategoryConroller::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[NeighbourCategoryConroller::class,'destroy'])->name('delete');
+
+	});
+
 	// for country
 	Route::group(['prefix'=>'country','as'=>'country.'],function(){
 
@@ -263,6 +299,25 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/create',[GarageTypeController::class,'create'])->name('create');
 
 		Route::delete('{dataId}/delete',[GarageTypeController::class,'destroy'])->name('delete');
+
+	});
+
+	// for property types
+	Route::group(['prefix'=>'types','as'=>'type.'],function(){
+
+		Route::get('/',[TypeController::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[TypeController::class,'changeStatus'])->name('status.change');
+
+		Route::get('/{dataId}/edit',[TypeController::class,'edit'])->name('edit');
+
+		Route::post('/update',[TypeController::class,'update'])->name('update');
+
+		Route::post('/',[TypeController::class,'store'])->name('store');
+
+		Route::get('/create',[TypeController::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[TypeController::class,'destroy'])->name('delete');
 
 	});
 
@@ -387,6 +442,7 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::delete('{dataId}/delete',[TransectionController::class,'destroy'])->name('delete');
 
 		Route::get('mail/{id}',[TransectionController::class,'mailSend'])->name('mail');
+		
 		Route::get('mail/view/{id}',[TransectionController::class,'mailview'])->name('mail.view');
     
 	});
@@ -409,6 +465,24 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
     
 	});
 
+	Route::group(['prefix'=>'downloads','as'=>'downloads.'],function(){
+
+		Route::get('/',[DownloadController::class,'index'])->name('index');
+
+		Route::get('{dataId}/status/{status}/change',[DownloadController::class,'changeStatus'])->name('status.change');
+
+		Route::get('/{dataId}/edit',[DownloadController::class,'edit'])->name('edit');
+
+		Route::post('/update',[DownloadController::class,'update'])->name('update');
+
+		Route::post('/store',[DownloadController::class,'store'])->name('store');
+
+		Route::get('/create',[DownloadController::class,'create'])->name('create');
+
+		Route::delete('{dataId}/delete',[DownloadController::class,'destroy'])->name('delete');	
+    
+	});
+
 	Route::group(['prefix'=>'help/desk','as'=>'helpDesk.'],function(){
 
 		// Route::get('/',[HelpDeskController::class,'index'])->name('index');
@@ -418,6 +492,18 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 		Route::get('/messages',[HelpDeskController::class,'messages'])->name('messages');
 
 		Route::post('/send/message',[HelpDeskController::class,'sendMessage'])->name('sendMessage');
+	});
+
+	Route::group(['prefix'=>'message','as'=>'message.'],function(){
+		Route::get('index',[AdminContactController::class,'index'])->name('index');
+		Route::get('/{dataId}/view',[AdminContactController::class,'view'])->name('view');
+		Route::delete('{dataId}/delete',[AdminContactController::class,'destroy'])->name('destroy');	
+	});
+
+	Route::group(['prefix'=>'neighbour/message','as'=>'neighbour.message.'],function(){
+		Route::get('index',[NeighbourMessageController::class,'index'])->name('index');
+		Route::get('/{dataId}/view',[NeighbourMessageController::class,'view'])->name('view');
+		Route::delete('{dataId}/delete',[NeighbourMessageController::class,'destroy'])->name('destroy');	
 	});
 
 });	

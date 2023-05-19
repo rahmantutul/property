@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\GarageType;
 use App\Models\PropertyImages;
+use App\Models\State;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -78,7 +79,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -245,7 +246,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -253,9 +254,11 @@ class PropertyController extends Controller
 
         $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
 
-        $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
 
         $neighbours = Neighbor::whereNull('deleted_at')->where('status',1)->get();
+
+        $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+
         // dd($neighbours);
         $dataInfo=Property::with('agentInfo','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
@@ -293,13 +296,13 @@ class PropertyController extends Controller
                  return response()->json(['status'=>false ,'msg'=>'Requested Property Information Not Found!']);
             }
 
-            $dataInfo->agentId=$request->agentId;
+            // $dataInfo->agentId=$request->agentId;
 
-            $dataInfo->buyerId=$request->buyerId;
+            // $dataInfo->buyerId=$request->buyerId;
 
-            $dataInfo->sellerId=$request->sellerId;
+            // $dataInfo->sellerId=$request->sellerId;
 
-            $dataInfo->adminId=$request->adminId;
+            // $dataInfo->adminId=$request->adminId;
             
             $dataInfo->typeId=$request->typeId;
 

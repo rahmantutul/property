@@ -10,8 +10,8 @@
 <div class="content-body">
     <!-- Basic Tables start -->
     <div class="row" id="basic-table">
-        <div class="col-9 m-auto" >
-            <div class="card  p-5">
+        <div class="col-md-9 col-sm-12 m-auto" >
+            <div class="card">
                 <div class="card-header">
                     <div class="media mb-2">
                         <img src="{{getUserImage($dataInfo->user?->avatar)}}" alt="{{$dataInfo->name}}" alt="users avatar" class="user-avatar users-avatar-shadow rounded mr-2 my-25 cursor-pointer" height="90" width="90">

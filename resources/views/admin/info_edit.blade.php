@@ -10,11 +10,11 @@
 <div class="content-body">
     <!-- Basic Tables start -->
     <div class="row" id="basic-table">
-        <div class="col-12">
+        <div class="col-md-9 col-sm-12">
             <div class="card">           
                 <div class="card-body">
                     <div class="col-12 m-auto">
-                        <img style="height:200px; width:auto; display:block; margin: auto; padding: 20px;" src="{{getUserImage($dataInfo->logo)}}" alt="{{$dataInfo->websitename}}" style="width: 100%; margin:30px auto;">
+                        <img style="height:120px; width:auto; display:block; margin: auto; padding: 20px;" src="{{getUserImage($dataInfo->logo)}}" alt="{{$dataInfo->websitename}}" style="width: 100%; margin:30px auto;">
                     </div>
                     <form class="row" id="ajax_form" action="{{route('admin.info.update')}}" method="POST" enctype="multipart/form-data">
                         @csrf

@@ -47,6 +47,7 @@
                                     <th>Transaction ID</th>
                                     <th>Date</th>
                                     <th>Property Title</th>
+                                    <th>View</th>
                                     <th>Approve</th>    
                                 </tr>
                             </thead>
@@ -58,6 +59,11 @@
                                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('Y-m-d') }}
                                     </td>
                                     <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $item->sold_date)->format('Y-m-d') }}</td>
+                                    <td>
+                                        @if ($item->send_mail)
+                                            <a href="{{route('agent.transection.mail.view', $id=$item->id)}}" class="badge badge-pill badge-info">See Details</a>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($item->is_approved)
                                             <span class="badge badge-pill badge-success">Approve</span>

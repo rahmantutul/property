@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\GarageType;
 use App\Models\PropertyImages;
+use App\Models\State;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -75,7 +76,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -94,9 +95,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
-        ]);
+        // $request->validate([
+        //     'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+        // ]);
         
         DB::beginTransaction();
 
@@ -234,7 +235,7 @@ class PropertyController extends Controller
 
         $cityList=City::whereNull('deleted_at')->where('status',1)->get();
         
-        $stateList=Country::whereNull('deleted_at')->where('status',1)->get();
+        $stateList=State::whereNull('deleted_at')->where('status',1)->get();
         
         $aminetyList=AmenityType::whereNull('deleted_at')->where('status',1)->get();
         
@@ -242,8 +243,8 @@ class PropertyController extends Controller
 
         $garageList=GarageType::whereNull('deleted_at')->where('status',1)->get();
 
-        $properTypeList=Category::whereNull('deleted_at')->where('status',1)->get();
-
+        $properTypeList=PropertyType::whereNull('deleted_at')->where('status',1)->get();
+        
         $dataInfo=Property::with('agentInfo','garageList','sellerInfo','buyerInfo','typeInfo','gargaeInfo','categories','amenities','propertyImages','address')->whereNull('deleted_at')->where('id',$request->dataId)->first();
 
         // dd($dataInfo);
@@ -280,11 +281,11 @@ class PropertyController extends Controller
                  return response()->json(['status'=>false ,'msg'=>'Requested Property Information Not Found!']);
             }
 
-            $dataInfo->agentId=$request->agentId;
+            // $dataInfo->agentId=$request->agentId;
 
-            $dataInfo->buyerId=$request->buyerId;
+            // $dataInfo->buyerId=$request->buyerId;
 
-            $dataInfo->sellerId=$request->sellerId ;
+            // $dataInfo->sellerId=$request->sellerId;
 
             $dataInfo->typeId=$request->typeId;
 
@@ -499,6 +500,31 @@ class PropertyController extends Controller
         $dataInfo->status=1;
 
         return ($dataInfo->save()) ?true:false;
+    }
+    public function storePropertyImages($images,$propertyId)
+    {
+        $count=0;
+       foreach($images as $image){
+
+            $dataInfo=new PropertyImages();
+
+            $dataInfo->propertyId=$propertyId;
+
+            $dataInfo->type='Image';
+
+            $dataInfo->imageUrl=$this->uploadPhoto($image,'properties');
+
+            $dataInfo->created_at=Carbon::now();
+
+            if($dataInfo->save()){
+                $count++;
+            }
+            else{
+                $count=0;
+                 break;
+            }
+       }
+       return ($count>0);
     }
 
     public function storePropertyDetails($request,$propertyId)

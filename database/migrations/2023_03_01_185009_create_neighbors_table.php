@@ -16,6 +16,7 @@ class CreateNeighborsTable extends Migration
         Schema::create('neighbors', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->unsignedBigInteger('categoryId');
             $table->string('titleOne')->nullable();
             $table->text('titleOneDetails',228);
             $table->string('titleTwo')->nullable();
@@ -23,6 +24,7 @@ class CreateNeighborsTable extends Migration
             $table->string('titleThree')->nullable();
             $table->text('titleThreeDetails')->nullable();
             $table->string('photo')->nullable();
+            $table->foreign('categoryId')->references('id')->on('neighbour_categories')->onDelete('cascade');
             $table->tinyInteger('status')->default(1)->comment('1=Active,2=Inactive,0=Deleted')->nullable();
             $table->timestamps();
             $table->softDeletes(); 

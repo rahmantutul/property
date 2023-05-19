@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BuyerController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\MarketActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InboxController;
@@ -46,6 +47,10 @@ Route::group(['prefix'=>'buyer','middleware'=>'BuyerAuth','as'=>'buyer.'],functi
 		Route::get('/',[MarketActivityController::class,'index'])->name('index');
 
     
+	});
+	
+	Route::group(['prefix'=>'downloads','as'=>'downloads.'],function(){
+		Route::get('/',[DownloadController::class,'index'])->name('index');
 	});
 
 	// for properties
