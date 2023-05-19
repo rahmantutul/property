@@ -32,9 +32,9 @@ class FrontendController extends Controller
             ->limit(10)
             ->get();
         $types=PropertyType::whereNull('deleted_at')->where('status',1)->get();
-        
+        $neighbours= Neighbor::whereNUll('deleted_at')->get();
         // dd($neighbours);
-        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types'));
+        return view('frontend.home', compact('bannerInfo', 'websiteInfo', 'sliderProperties','types','neighbours'));
     }
 
     public function login()

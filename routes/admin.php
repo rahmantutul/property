@@ -30,7 +30,7 @@ use App\Http\Controllers\Admin\ResoPropertyController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\WebsiteSettingController;
 use App\Http\Controllers\InboxController;
-
+use App\Http\Controllers\OreGonController;
 // Auth::routes();
 
 Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],function(){
@@ -42,6 +42,11 @@ Route::group(['prefix'=>'admin','middleware'=>'AdminAuth','as'=>'admin.'],functi
 	Route::group(['prefix'=>'profile','as'=>'profile.'],function(){
 		Route::get('/edit',[AdminController::class,'editProfile'])->name('edit');
 		Route::post('/update',[AdminController::class,'updateProfile'])->name('update');
+	});
+
+	Route::group(['prefix'=>'metadata','as'=>'metadata.'],function(){
+		Route::get('/',[OreGonController::class,'index'])->name('index');
+		Route::get('/getAllMetaData',[OreGonController::class,'store'])->name('store');
 	});
 
 	Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
